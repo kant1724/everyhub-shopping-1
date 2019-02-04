@@ -11,6 +11,6 @@ router.get('/whatMain', function(req, res) {
         function callback(ret) {
             res.status(200).send({res: JSON.stringify(ret)});
         });
-    });
+});
 
 module.exports = router;

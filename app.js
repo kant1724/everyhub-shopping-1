@@ -16,7 +16,6 @@ app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
 app.use('/', require('./server/main/router'));
-
-
+app.use('/cart', require('./server/cart/router'));
 
 module.exports = app;
