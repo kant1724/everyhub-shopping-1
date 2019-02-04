@@ -1,0 +1,38 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.light-black {
+    background: #333333;
+
+}
+
+.carousel-item:after {
+    content:"";
+    display:block;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background:rgba(0,0,0,0.2);
+}
+
+.mask {
+    content:"";
+    display:block;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background:rgba(0,0,0,0.2);
+}
+
+.top-title {
+    font-family: 'Sunflower', sans-serif;
+}
+
+.top-title-desc {
+    font-family: 'Sunflower', sans-serif;
+}

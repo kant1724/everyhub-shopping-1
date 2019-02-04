@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>E-Commerce - MDBootstrap</title>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
+    <link href="/static/css/main.css" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+
+<body>
+
+<!--Navigation-->
+<header>
+    <!-- Sidebar navigation -->
+    <ul id="slide-out" class="side-nav custom-scrollbar">
+        <!-- Logo -->
+        <li>
+            <div class="logo-wrapper waves-light">
+                <a href="#">
+                    <img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" class="img-fluid flex-center">
+                </a>
+            </div>
+        </li>
+        <!--/. Logo -->
+        <!--Social-->
+        <li>
+            <ul class="social">
+                <li>
+                    <a class="fb-ic">
+                        <i class="fa fa-facebook"> </i>
+                    </a>
+                </li>
+                <li>
+                    <a class="pin-ic">
+                        <i class="fa fa-pinterest"> </i>
+                    </a>
+                </li>
+                <li>
+                    <a class="gplus-ic">
+                        <i class="fa fa-google-plus"> </i>
+                    </a>
+                </li>
+                <li>
+                    <a class="tw-ic">
+                        <i class="fa fa-twitter"> </i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--/Social-->
+        <!--Search Form-->
+        <li>
+            <form class="search-form" role="search">
+                <div class="form-group md-form mt-0 pt-1 waves-light">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+            </form>
+        </li>
+        <!--/.Search Form-->
+        <!-- Side navigation links -->
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header waves-effect arrow-r">
+                        <i class="fa fa-shopping-cart"></i> Cart page
+                        <i class="fa fa-angle-down rotate-icon"></i>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li>
+                                <a href="../cart/cart-v1.html" class="waves-effect">Cart V.1</a>
+                            </li>
+                            <li>
+                                <a href="../cart/cart-v2.html" class="waves-effect">Cart V.2</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a class="collapsible-header waves-effect arrow-r">
+                        <i class="fa fa-hand-pointer-o"></i> Category page
+                        <i class="fa fa-angle-down rotate-icon"></i>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li>
+                                <a href="../category/category-v1.html" class="waves-effect">Category V.1</a>
+                            </li>
+                            <li>
+                                <a href="../category/category-v2.html" class="waves-effect">Category V.2</a>
+                            </li>
+                            <li>
+                                <a href="../category/category-v3.html" class="waves-effect">Category V.3</a>
+                            </li>
+                            <li>
+                                <a href="../category/category-v4.html" class="waves-effect">Category V.4</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li>
+                    <a class="collapsible-header waves-effect arrow-r">
+                        <i class="fa fa-bookmark-o"></i> Homepage
+                        <i class="fa fa-angle-down rotate-icon"></i>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li>
+                                <a href="../homepage/homepage-v1.html" class="waves-effect">Homepage V.1</a>
+                            </li>
+                            <li>
+                                <a href="../homepage/homepage-v2.html" class="waves-effect">Homepage V.2</a>
+                            </li>
+                            <li>
+                                <a href="../homepage/homepage-v3.html" class="waves-effect">Homepage V.3</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a class="collapsible-header waves-effect arrow-r">
+                        <i class="fa fa-camera-retro"></i> Product page
+                        <i class="fa fa-angle-down rotate-icon"></i>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li>
+                                <a href="../product/product-v1.html" class="waves-effect">Product V.1</a>
+                            </li>
+                            <li>
+                                <a href="../product/product-v2.html" class="waves-effect">Product V.2</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="../contact/contact.html" class="collapsible-header waves-effect">
+                        <i class="fa fa-envelope"></i> Contact</a>
+                </li>
+
+            </ul>
+        </li>
+        <!--/. Side navigation links -->
+        <div class="sidenav-bg mask-strong"></div>
+    </ul>
+    <!--/. Sidebar navigation -->
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg  navbar-light scrolling-navbar white">
+        <div class="container">
+            <!-- SideNav slide-out button -->
+            <div class="float-left mr-2">
+                <a href="#" data-activates="slide-out" class="button-collapse">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+            <a class="navbar-brand font-weight-bold" href="#">
+                <strong>SHOP</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
+                            <i class="fa fa-envelope blue-text"></i> Contact
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown ml-3">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light dark-grey-text font-weight-bold" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user blue-text"></i> Profile </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
+                            <a class="dropdown-item waves-effect waves-light" href="#">My account</a>
+                            <a class="dropdown-item waves-effect waves-light" href="#">Log out</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- /.Navbar -->
+
+</header>
+<!-- /.Navigation -->
+
+<!--Intro-->
+<section>
+
+    <!--Carousel Wrapper-->
+    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+        <!--Indicators-->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-1z" data-slide-to="0" class="active"></li>
+        </ol>
+        <!--/.Indicators-->
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <!--First slide-->
+            <div class="carousel-item active">
+                <div class="view carousel-top">
+                    <img style="object-fit: cover; height: 600px;" class="img-fluid w-100" src="http://14.63.168.58:5005/static/data/shopping/top.jpg" alt="First slide">
+                </div>
+            </div>
+            <div class="mask">
+                <!-- Caption -->
+                <div class="full-bg-img flex-center white-text top-caption">
+                    <ul class="animated fadeIn col-10 list-unstyled">
+                        <li>
+                            <p class="h1 white-text mb-4 mt-5 top-title">
+                                <strong>제주스토어</strong>
+                            </p>
+                        </li>
+                        <li>
+                            <h5 class="h5-responsive yellow-text font-weight-bold mb-5 top-title-desc">제주 유기농 신선한 과일을 맛보세요!</h5>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://mdbootstrap.com/getting-started/" class="btn btn-danger btn-rounded" rel="nofollow">농장소개</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.Caption -->
+            </div>
+            <!--/First slide-->
+        </div>
+        <!--/.Slides-->
+        <!--Controls-->
+        <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+        <!--/.Controls-->
+    </div>
+    <!--/.Carousel Wrapper-->
+</section>
+<!--/Intro-->
+
+<!-- Main Container -->
+<div class="container">
+    <!-- Grid row -->
+    <div class="row pt-4">
+
+        <!-- Content -->
+        <div class="col-lg-12">
+
+            <!--Section: Bestsellers & offers-->
+            <section>
+                <h4 class="font-weight-bold mt-4 dark-grey-text">
+                    <strong>특가 상품</strong>
+                </h4>
+                <hr>
+                <!--Grid row-->
+                <div class="row">
+
+                    <!--Grid column-->
+                    <div class="col-12">
+
+                        <!-- Tab panels -->
+                        <div class="tab-content px-0">
+                            <!--Panel 1-->
+                            <div class="tab-pane fade in show active " id="panel5" role="tabpanel">
+                                <!-- Grid row -->
+                                <div class="row">
+
+                                    <!--Grid column-->
+                                    <div class="col-lg-4 col-md-12 mb-1">
+
+                                        <!--Card-->
+                                        <div class="card card-ecommerce">
+
+                                            <!--Card image-->
+                                            <div class="view overlay">
+                                                <img src="http://14.63.168.58:5005/static/data/shopping/천혜향.jpg" style="height: 300px; width: 100%;" class="img-fluid" alt="sample image">
+                                                <a>
+                                                    <div class="mask rgba-white-slight"></div>
+                                                </a>
+                                            </div>
+                                            <!--Card image-->
+
+                                            <!--Card content-->
+                                            <div class="card-body">
+                                                <!--Category & Title-->
+
+                                                <h5 class="card-title mb-1">
+                                                    <strong>
+                                                        <a href="" class="dark-grey-text">천혜향 2박스</a>
+                                                    </strong>
+                                                </h5>
+                                                <span class="badge badge-danger mb-2">명품과일</span>
+                                                <span class="badge badge-success mb-2 ml-2">SALE</span>
+                                                <!-- Rating -->
+
+                                                <ul class="rating">
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                </ul>
+
+                                                <!--Card footer-->
+                                                <div class="card-footer pb-0">
+                                                    <div class="row mb-0">
+                                                        <h5 class="mb-0 pb-0 mt-1 font-weight-bold">
+                                                                <span class="red-text">
+                                                                    <strong>54,000원</strong>
+                                                                </span>
+                                                            <span class="grey-text">
+                                                                    <small>
+                                                                        <s>64,000원</s>
+                                                                    </small>
+                                                            </span>
+                                                        </h5>
+                                                        <span class="float-right">
+                                                                <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                                                    <i class="fa fa-shopping-cart ml-3"></i>
+                                                                </a>
+                                                            </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!--Card content-->
+
+                                        </div>
+                                        <!--Card-->
+
+                                    </div>
+                                    <!--Grid column-->
+
+                                    <!--Grid column-->
+                                    <div class="col-lg-4 col-md-6 mb-4">
+                                        <!--Card-->
+                                        <div class="card card-ecommerce">
+
+                                            <!--Card image-->
+                                            <div class="view overlay">
+                                                <img src="http://14.63.168.58:5005/static/data/shopping/황금향.jpg" style="height: 300px; width: 100%;" class="img-fluid" alt="sample image">
+                                                <a>
+                                                    <div class="mask rgba-white-slight"></div>
+                                                </a>
+                                            </div>
+                                            <!--Card image-->
+
+                                            <!--Card content-->
+                                            <div class="card-body">
+                                                <!--Category & Title-->
+
+                                                <h5 class="card-title mb-1">
+                                                    <strong>
+                                                        <a href="" class="dark-grey-text">황금향 2박스</a>
+                                                    </strong>
+                                                </h5>
+                                                <span class="badge badge-danger mb-2">명품과일</span>
+                                                <span class="badge badge-success mb-2 ml-2">SALE</span>
+                                                <!-- Rating -->
+                                                <ul class="rating">
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                </ul>
+
+                                                <!--Card footer-->
+                                                <div class="card-footer pb-0">
+                                                    <div class="row mb-0">
+                                                        <h5 class="mb-0 pb-0 mt-1 font-weight-bold">
+                                                                <span class="red-text">
+                                                                    <strong>25,000원</strong>
+                                                                </span>
+                                                            <span class="grey-text">
+                                                                    <small>
+                                                                        <s>40,000원</s>
+                                                                    </small>
+                                                            </span>
+                                                        </h5>
+
+                                                        <span class="float-right">
+                                                                <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                                                    <i class="fa fa-shopping-cart ml-3"></i>
+                                                                </a>
+                                                            </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!--Card content-->
+
+                                        </div>
+                                        <!--Card-->
+
+                                    </div>
+                                    <!--Grid column-->
+
+                                    <!--Grid column-->
+                                    <div class="col-lg-4 col-md-6 mb-4">
+
+                                        <!--Card-->
+                                        <div class="card card-ecommerce">
+
+                                            <!--Card image-->
+                                            <div class="view overlay">
+                                                <img src="http://14.63.168.58:5005/static/data/shopping/레드향.jpg" style="height: 300px; width: 100%;" class="img-fluid" alt="sample image">
+                                                <a>
+                                                    <div class="mask rgba-white-slight"></div>
+                                                </a>
+                                            </div>
+                                            <!--Card image-->
+
+                                            <!--Card content-->
+                                            <div class="card-body">
+                                                <!--Category & Title-->
+
+                                                <h5 class="card-title mb-1">
+                                                    <strong>
+                                                        <a href="" class="dark-grey-text">레드향 2박스</a>
+                                                    </strong>
+                                                </h5>
+                                                <span class="badge badge-danger mb-2">명품과일</span>
+                                                <span class="badge badge-success mb-2 ml-2">SALE</span>
+                                                <!-- Rating -->
+                                                <ul class="rating">
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                    <li>
+                                                        <i class="fa fa-star blue-text"></i>
+                                                    </li>
+                                                </ul>
+
+                                                <!--Card footer-->
+                                                <div class="card-footer pb-0">
+                                                    <div class="row mb-0">
+                                                        <h5 class="mb-0 pb-0 mt-1 font-weight-bold">
+                                                                <span class="red-text">
+                                                                    <strong>20,000원</strong>
+                                                                </span>
+                                                            <span class="grey-text">
+                                                                    <small>
+                                                                        <s>30,000원</s>
+                                                                    </small>
+                                                            </span>
+                                                        </h5>
+                                                        <span class="float-right">
+                                                                <a class="" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+                                                                    <i class="fa fa-shopping-cart ml-3"></i>
+                                                                </a>
+                                                            </span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!--Card content-->
+
+                                        </div>
+                                        <!--Card-->
+
+                                    </div>
+                                    <!--Grid column-->
+
+                                </div>
+                                <!--Grid row-->
+                            </div>
+                            <!--/.Panel 1-->
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--Grid row-->
+
+            </section>
+            <!--Section: Bestsellers & offers-->
+
+            <!--Section: Advertising-->
+            <section>
+
+                <!--Grid row-->
+                <div class="row">
+
+                    <!--Grid column-->
+                    <div class="col-12">
+                        <!--Image -->
+                        <div class="view  z-depth-1">
+
+                            <img src="http://14.63.168.58:5005/static/data/shopping/천혜향.jpg" class="img-fluid" alt="sample image">
+                            <div class="mask rgba-stylish-slight">
+                                <div class="dark-grey-text text-right pt-lg-5 pt-md-1 mr-5 pr-md-4 pr-0">
+                                    <div>
+                                        <a>
+                                            <span class="badge badge-primary">SALE</span>
+                                        </a>
+                                        <h2 class="card-title font-weight-bold pt-md-3 pt-1">
+                                            <strong>신선한 제주농장의 천혜향을 맛보세요
+                                            </strong>
+                                        </h2>
+                                        <p class="pb-lg-3 pb-md-1 clearfix d-none d-md-block">유기농으로 재배한 신선한 과일입니다.</p>
+                                        <a class="btn mr-0 btn-primary btn-rounded clearfix d-none d-md-inline-block">자세히 보기</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--Image -->
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+
+            </section>
+            <!--/Section: Advertising-->
+
+            <!--Section: product list-->
+            <section class="my-5">
+                <h4 class="font-weight-bold mt-4 dark-grey-text">
+                    <strong>전체 상품</strong>
+                </h4>
+                <hr class="mb-3">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-12 pt-2">
+                        <div class="row py-2 mb-4 hoverable align-items-center">
+                            <div class="col-6">
+                                <a>
+                                    <img src="http://14.63.168.58:5005/static/data/shopping/천혜향.jpg" style="height: 150px;" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col-6">
+
+                                <!-- Title -->
+                                <a class="pt-5">
+                                    <strong>천혜향 1박스</strong>
+                                </a>
+                                <!-- Price -->
+                                <h6 class="h6-responsive font-weight-bold dark-grey-text">
+                                    <strong>32,000원</strong>
+                                </h6>
+
+                            </div>
+
+                        </div>
+                        <!-- /.First row -->
+
+                    </div>
+                    <!-- /.New Products-->
+
+                    <!-- Top Sellers-->
+                    <div class="col-lg-4  col-md-12 pt-2">
+                        <!-- First row -->
+                        <div class="row py-2 mb-4 hoverable align-items-center">
+                            <div class="col-6">
+                                <a>
+                                    <img src="http://14.63.168.58:5005/static/data/shopping/황금향.jpg" style="height: 150px;" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <!-- Title -->
+                                <a>
+                                    <strong>황금향 1박스</strong>
+                                </a>
+                                <!-- Price -->
+                                <h6 class="h6-responsive font-weight-bold dark-grey-text">
+                                    <strong>15,000원</strong>
+                                    <span class="grey-text">
+                                            <small>
+                                                <s>20,000원</s>
+                                            </small>
+                                        </span>
+                                </h6>
+
+                            </div>
+
+                        </div>
+                        <!-- /.First row -->
+                    </div>
+                    <!-- /.Top Sellers -->
+                    <!-- Random Products-->
+                    <div class="col-lg-4 col-md-12 pt-2">
+                        <!-- First row -->
+                        <div class="row py-2 mb-4 hoverable align-items-center">
+
+                            <div class="col-6">
+                                <a>
+                                    <img src="http://14.63.168.58:5005/static/data/shopping/레드향.jpg" style="height: 150px;" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col-6">
+
+                                <!-- Title -->
+                                <a>
+                                    <strong>레드향 1박스</strong>
+                                </a>
+
+                                <!-- Price -->
+                                <h6 class="h6-responsive font-weight-bold dark-grey-text">
+                                    <strong>12,000원</strong>
+                                    <span class="grey-text">
+                                            <small>
+                                                <s>15,000원</s>
+                                            </small>
+                                        </span>
+                                </h6>
+
+                            </div>
+
+                        </div>
+                        <!-- /.First row -->
+
+                    </div>
+                    <!-- /.Random Products -->
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-12 pt-2">
+                        <div class="row py-2 mb-4 hoverable align-items-center">
+                            <div class="col-6">
+                                <a>
+                                    <img src="http://14.63.168.58:5005/static/data/shopping/한라봉.jpg" style="height: 150px;" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col-6">
+
+                                <!-- Title -->
+                                <a class="pt-5">
+                                    <strong>한라봉 1박스</strong>
+                                </a>
+                                <!-- Price -->
+                                <h6 class="h6-responsive font-weight-bold dark-grey-text">
+                                    <strong>18,000원</strong>
+                                </h6>
+
+                            </div>
+
+                        </div>
+                        <!-- /.First row -->
+
+                    </div>
+                    <!-- /.New Products-->
+
+                    <!-- Top Sellers-->
+                    <div class="col-lg-4  col-md-12 pt-2">
+                        <!-- First row -->
+                        <div class="row py-2 mb-4 hoverable align-items-center">
+                            <div class="col-6">
+                                <a>
+                                    <img src="http://14.63.168.58:5005/static/data/shopping/키위.jpg" style="height: 150px;" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col-6">
+                                <!-- Title -->
+                                <a>
+                                    <strong>키위 5kg</strong>
+                                </a>
+                                <!-- Price -->
+                                <h6 class="h6-responsive font-weight-bold dark-grey-text">
+                                    <strong>13,900원</strong>
+                                    <span class="grey-text">
+                                            <small>
+                                                <s>20,000원</s>
+                                            </small>
+                                        </span>
+                                </h6>
+
+                            </div>
+
+                        </div>
+                        <!-- /.First row -->
+                    </div>
+                    <!-- /.Top Sellers -->
+                    <!-- Random Products-->
+                    <div class="col-lg-4 col-md-12 pt-2">
+                        <!-- First row -->
+                        <div class="row py-2 mb-4 hoverable align-items-center">
+
+                            <div class="col-6">
+                                <a>
+                                    <img src="http://14.63.168.58:5005/static/data/shopping/망고.jpg" style="height: 150px;" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col-6">
+
+                                <!-- Title -->
+                                <a>
+                                    <strong>망고 5kg</strong>
+                                </a>
+
+                                <!-- Price -->
+                                <h6 class="h6-responsive font-weight-bold dark-grey-text">
+                                    <strong>45,000원</strong>
+                                    <span class="grey-text">
+                                            <small>
+                                                <s>50,000원</s>
+                                            </small>
+                                        </span>
+                                </h6>
+
+                            </div>
+
+                        </div>
+                        <!-- /.First row -->
+
+                    </div>
+                    <!-- /.Random Products -->
+                </div>
+            </section>
+            <!--/Section: product list-->
+
+            <section class="my-5">
+                <h4 class="font-weight-bold mt-4 dark-grey-text">
+                    <strong>제주농장이란..</strong>
+                </h4>
+                <hr>
+                <div class="mb-2">
+                    <img src="http://14.63.168.58:5005/static/data/shopping/소개.jpg" style="height: 500px;" class="img-fluid">
+                </div>
+                <a><h5>신선한 제주과일을 제공합니다.</h5></a>
+            </section>
+
+            <section class="my-5">
+                <h4 class="font-weight-bold mt-4 dark-grey-text">
+                    <strong>소개영상</strong>
+                </h4>
+                <hr>
+                <div class="embed-responsive embed-responsive-21by9">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/xUk958HO1QQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </section>
+        </div>
+        <!-- /.Content -->
+    </div>
+    <!-- /Grid row -->
+</div>
+<!-- /.Main Container -->
+
+<!--Footer-->
+<footer class="page-footer text-center text-md-left stylish-color-dark pt-0">
+
+    <div style="background-color: #4285f4;">
+        <div class="container">
+            <!--Grid row-->
+            <div class="row py-4 d-flex align-items-center">
+
+                <!--Grid column-->
+                <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+                    <h6 class="mb-0 white-text">제주농장 SNS 및 블로그</h6>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 col-lg-7 text-center text-md-right">
+                    <!--Facebook-->
+                    <a class="fb-ic ml-0 px-2">
+                        <i class="fa fa-facebook white-text"> </i>
+                    </a>
+                    <!--Twitter-->
+                    <a class="tw-ic px-2">
+                        <i class="fa fa-twitter white-text"> </i>
+                    </a>
+                    <!--Google +-->
+                    <a class="gplus-ic px-2">
+                        <i class="fa fa-google-plus white-text"> </i>
+                    </a>
+                    <!--Linkedin-->
+                    <a class="li-ic px-2">
+                        <i class="fa fa-linkedin white-text"> </i>
+                    </a>
+                    <!--Instagram-->
+                    <a class="ins-ic px-2">
+                        <i class="fa fa-instagram white-text"> </i>
+                    </a>
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+        </div>
+    </div>
+
+    <!--Footer Links-->
+    <div class="container mt-5 mb-4 text-center text-md-left">
+        <div class="row mt-3">
+
+            <!--First column-->
+            <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+                <h6 class="text-uppercase font-weight-bold">
+                    <strong>Company name</strong>
+                </h6>
+                <hr class="blue mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur
+                    adipisicing elit.</p>
+            </div>
+            <!--/.First column-->
+
+            <!--Second column-->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                <h6 class="text-uppercase font-weight-bold">
+                    <strong>Products</strong>
+                </h6>
+                <hr class="blue mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>
+                    <a href="#!">MDBootstrap</a>
+                </p>
+                <p>
+                    <a href="#!">MDWordPress</a>
+                </p>
+                <p>
+                    <a href="#!">BrandFlow</a>
+                </p>
+                <p>
+                    <a href="#!">Bootstrap Angular</a>
+                </p>
+            </div>
+            <!--/.Second column-->
+
+            <!--Third column-->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                <h6 class="text-uppercase font-weight-bold">
+                    <strong>Useful links</strong>
+                </h6>
+                <hr class="blue mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>
+                    <a href="#!">Your Account</a>
+                </p>
+                <p>
+                    <a href="#!">Become an Affiliate</a>
+                </p>
+                <p>
+                    <a href="#!">Shipping Rates</a>
+                </p>
+                <p>
+                    <a href="#!">Help</a>
+                </p>
+            </div>
+            <!--/.Third column-->
+
+            <!--Fourth column-->
+            <div class="col-md-4 col-lg-3 col-xl-3">
+                <h6 class="text-uppercase font-weight-bold">
+                    <strong>Contact</strong>
+                </h6>
+                <hr class="blue mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>
+                    <i class="fa fa-home mr-3"></i> New York, NY 10012, US</p>
+                <p>
+                    <i class="fa fa-envelope mr-3"></i> info@example.com</p>
+                <p>
+                    <i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
+                <p>
+                    <i class="fa fa-print mr-3"></i> + 01 234 567 89</p>
+            </div>
+            <!--/.Fourth column-->
+
+        </div>
+    </div>
+    <!--/.Footer Links-->
+
+    <!-- Copyright-->
+    <div class="footer-copyright py-3 text-center">
+        <div class="container-fluid">
+            © 2018 Copyright: <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+        </div>
+    </div>
+    <!--/.Copyright -->
+
+</footer>
+<!--/.Footer-->
+
+
+<!-- SCRIPTS -->
+
+<!-- JQuery -->
+<script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
+
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
+
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
+
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+
+<script type="text/javascript">
+    /* WOW.js init */
+    new WOW().init();
+
+    // Tooltips Initialization
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+<script>
+    // Material Select Initialization
+    $(document).ready(function () {
+        $('.mdb-select').material_select();
+    });
+</script>
+<script>
+    // SideNav Initialization
+    $(".button-collapse").sideNav();
+</script>
+</body>
+
+</html>
