@@ -8,11 +8,10 @@ body {
 }
 
 .menu {
-    border-top: 2px solid #ccc;
-    border-left: 2px solid #ccc;
-    border-right: 2px solid #ccc;
-    padding-top: 1.5%;
-    padding-bottom: 1.5%;
+    background: #333;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: white;
 }
 
 .menu-1 {
