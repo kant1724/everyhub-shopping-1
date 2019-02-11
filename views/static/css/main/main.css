@@ -4,13 +4,12 @@ body {
 
 .light-black {
     background: #333333;
-
 }
 
 .menu {
     background: #333;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     color: white;
 }
 
