@@ -10,12 +10,12 @@ body {
 .menu {
     border-left: 2px solid #333;
     border-right: 2px solid #333;
-    padding-bottom: 20px;
+    padding-bottom: 1.5%;
 }
 
 .menu-1 {
     display: inline-block;
-    margin-right: 120px;
+    margin-right: 10%;
 }
 
 .menu-1:hover {
@@ -24,7 +24,7 @@ body {
 
 .menu-2 {
     display: inline-block;
-    margin-right: 120px;
+    margin-right: 10%;
 }
 
 .menu-2:hover {
