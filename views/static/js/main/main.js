@@ -18,4 +18,7 @@ $(document).ready(function() {
         $('html, body').animate({scrollTop: $(this.hash).offset().top - 60}, 1000);
         return false;
     });
+    $('.card-outer').click(function() {
+        location.href = '/product';
+    });
 });

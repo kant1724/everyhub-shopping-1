@@ -61,6 +61,20 @@ body {
     background:rgba(0,0,0,0.2);
 }
 
+.card-outer {
+    border: 1px solid #ccc;
+}
+
+.card-outer:hover {
+    border: 2px solid gray;
+    cursor: pointer;
+}
+
+.section-title {
+    border-left: 5px solid #333;
+    padding-left: 10px;
+}
+
 .top-title {
     font-family: 'Sunflower', sans-serif;
 }
