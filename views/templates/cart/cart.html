@@ -11,13 +11,10 @@
   <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
   <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
   <link href="/static/css/cart/cart.css" rel="stylesheet">
-
 </head>
 
 <body class="cart-v1 hidden-sn white-skin animated">
-
   <header>
-
     <nav class="navbar fixed-top navbar-expand-lg  navbar-light scrolling-navbar white">
       <div class="container">
         <!-- SideNav slide-out button -->
@@ -134,51 +131,30 @@
                   </h4>
                 </td>
                 <td colspan="2" class="text-right">
-                  <button type="button" class="btn btn-primary btn-rounded">구매하기
+                  <button type="button" class="btn btn-primary btn-rounded purchase-btn">구매하기
                     <i class="fa fa-angle-right right"></i>
                   </button>
                 </td>
               </tr>
             </tbody>
-            <!-- /.Table body -->
-
           </table>
-
         </div>
-        <!-- Shopping Cart table -->
-
       </section>
-
     </div>
-    <!-- /Main Container -->
-
   </main>
-  <!--Main Layout-->
-
-
-  <!--Footer-->
   <footer class="page-footer text-center text-md-left stylish-color-dark pt-0">
-
   </footer>
-  <!--/.Footer-->
-
-  <!-- Cart Modal -->
   <div class="modal fade cart-modal" id="cart-modal-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <!--Content-->
       <div class="modal-content">
-        <!--Header-->
         <div class="modal-header">
-
           <h4 class="modal-title font-weight-bold dark-grey-text" id="myModalLabel">Your cart</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <!--Body-->
         <div class="modal-body">
-
           <table class="table table-hover">
             <thead>
               <tr>
@@ -236,46 +212,17 @@
           <button class="btn btn-primary btn-rounded btn-sm">Checkout</button>
 
         </div>
-        <!--Footer-->
         <div class="modal-footer">
           <button type="button" class="btn btn-grey btn-rounded btn-sm" data-dismiss="modal">Close</button>
         </div>
       </div>
-      <!--/.Content-->
     </div>
   </div>
-
-  <!-- /.Cart Modal -->
-
-
   <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
   <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-  <script type="text/javascript">
-    /* WOW.js init */
-    new WOW().init();
-
-    // MDB Lightbox Init
-    $(function () {
-      $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
-    });
-
-    // Tooltips Initialization
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
-
-    // SideNav Initialization
-    $(".button-collapse").sideNav();
-
-    // Material Select Initialization
-    $(document).ready(function () {
-      $('.mdb-select').material_select();
-    });
-
-  </script>
-
+  <script type="text/javascript" src="/static/js/cart/cart.js"></script>
 </body>
 
 </html>

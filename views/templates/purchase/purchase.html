@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>상품정보</title>
+    <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
+    <link href="/static/css/purchase/purchase.css" rel="stylesheet">
+</head>
+
+<body class="product-v2 hidden-sn white-skin animated">
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg  navbar-light scrolling-navbar white">
+            <div class="container">
+                <!-- SideNav slide-out button -->
+                <a class="navbar-brand font-weight-bold" href="/">
+                    <strong>스토어닷컴</strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="/cart?productId=1">
+                                <i class="fas fa-shopping-cart blue-text"></i>&nbsp;&nbsp;&nbsp;장바구니
+                            </a>
+                        </li>
+                        <li class="nav-item ml-1">
+                            <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
+                                <i class="fas fa-clipboard-list blue-text"></i>&nbsp;&nbsp;&nbsp;주문내역
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
+                                <i class="fa fa-user blue-text"></i>&nbsp;&nbsp;&nbsp;내정보
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container mt-5 pt-3">
+        <div class="container text-center">
+            <div style="padding: 10px; border: 1px solid #ccc;">
+                <div style="background: #EAEAEA; margin-bottom: 10px;">상품</div>
+                <img src="http://14.63.168.58:5005/static/data/shopping/한라봉.jpg" alt="" class="img-fluid z-depth-0 mb-2">
+                <div style="font-weight: 700;">한라봉 10kg</div>
+                <hr>
+                <div style="background: #EAEAEA; margin-bottom: 10px;">단가</div>
+                <div>18,000원</div>
+                <hr>
+                <div style="background: #EAEAEA; margin-bottom: 10px; ">수량</div>
+                <div>1</div>
+                <hr>
+                <div style="background: #EAEAEA; margin-bottom: 10px;">가격</div>
+                <div>18,000원</div>
+                <hr>
+                <div style="background: #EAEAEA; margin-bottom: 10px;">결제방법</div>
+                <div style="width: 150px; margin: auto;">
+                    <select class="mdb-select">
+                        <option value="1">신용카드</option>
+                        <option value="2">무통장</option>
+                    </select>
+                </div>
+                <hr>
+                <div>
+                    <button type="button" class="btn btn-primary btn-rounded">결제하기
+                        <i class="fa fa-angle-right right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/static/js/purchase/purchase.js"></script>
+</body>
+
+</html>

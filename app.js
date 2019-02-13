@@ -18,5 +18,6 @@ app.set('view engine', 'html');
 app.use('/', require('./server/main/mainRouter'));
 app.use('/cart', require('./server/cart/cartRouter'));
 app.use('/product', require('./server/product/productRouter'));
+app.use('/purchase', require('./server/purchase/purchaseRouter'));
 
 module.exports = app;
