@@ -14,4 +14,8 @@ $(document).ready(function() {
     $('.each-item').click(function() {
        location.href = '/product';
     });
+    $('.smooth-goto').on('click', function() {
+        $('html, body').animate({scrollTop: $(this.hash).offset().top - 60}, 1000);
+        return false;
+    });
 });
