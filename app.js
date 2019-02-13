@@ -15,7 +15,8 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
-app.use('/', require('./server/main/router'));
-app.use('/cart', require('./server/cart/router'));
+app.use('/', require('./server/main/mainRouter'));
+app.use('/cart', require('./server/cart/cartRouter'));
+app.use('/product', require('./server/product/productRouter'));
 
 module.exports = app;

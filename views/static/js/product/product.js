@@ -11,7 +11,8 @@ function ajax(url, input_data, gubun, method) {
 }
 
 $(document).ready(function() {
-    $('.each-item').click(function() {
-       location.href = '/product';
+    $('.add-cart').click(function() {
+       location.href = '/cart'
     });
+
 });
