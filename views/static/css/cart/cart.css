@@ -1,3 +1,19 @@
 body {
     font-family: 'Noto Sans KR', sans-serif;
 }
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    font-size: 20px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    position:relative;
+    top: 4px;
+    color: #333;
+}
+
+.qty-btn:hover {
+    cursor: pointer;
+}
