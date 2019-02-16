@@ -18,9 +18,8 @@
 <header>
     <nav class="navbar fixed-top navbar-expand-lg  navbar-light scrolling-navbar white">
         <div class="container">
-            <!-- SideNav slide-out button -->
             <a class="navbar-brand font-weight-bold" href="/">
-                <strong>스토어닷컴</strong>
+                <strong>간드락닷컴</strong>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -63,18 +62,21 @@
             <div class="menu-2"><a href="#all_product" class="smooth-goto" style="color: white;">전체상품</a></div>
             <div class="menu-3"><a href="#introduction" class="smooth-goto" style="color: white;">제품소개</a></div>
         </div>
-        <div style="background: #EAEAEA; border-bottom: 2px dashed gray; padding-top: 100px; padding-bottom: 100px;">
-            <div class="text-center" style="border-radius: 5px; background: #333; width: 250px; height: 70px; margin: auto; margin-bottom: 20px;">
-                <p class="h2 top-title" style="left: 3px; position: relative; top: 20px; color: #FFFFFF;">
-                    <strong><i class="far fa-store"></i>&nbsp;&nbsp;제주스토어</strong>
+        <div class="top-main" style="padding-top: 100px; padding-bottom: 100px;">
+            <div class="text-center" style="border-radius: 5px; width: 250px; padding: 15px; margin: auto; margin-bottom: 20px;">
+                <p class="h2 top-title" style="left: 3px; top: 5px; position: relative; color: #FFFFFF;">
+                    <strong><i class="far fa-store"></i>&nbsp;&nbsp;간드락농원</strong>
                 </p>
             </div>
             <div>
-                <p class="font-weight-bold mb-5 top-title-desc" style="color: #333;">제주 유기농 신선한 과일을 맛보세요!</p>
+                <p class="font-weight-bold mb-5 top-title-desc" style="color: yellow;">제주 간드락의 신선한 과일을 맛보세요!</p>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <input class="search-input" placeholder="상품검색">
+                <div class="search-icon-div"><i class="far fa-search search-icon"></i></div>
             </div>
             <div>
-                <a target="_blank" href="https://m.blog.naver.com/jnopen/221007082812" class="btn btn-danger btn-rounded" rel="nofollow">
-                    <i class="fas fa-blog"></i>&nbsp;&nbsp;블로그</a>
+                <a target="_blank" href="https://m.blog.naver.com/jnopen/221007082812" class="btn btn-danger btn-rounded" rel="nofollow"><i class="fas fa-blog"></i>&nbsp;&nbsp;블로그</a>
             </div>
         </div>
     </div>
@@ -285,9 +287,11 @@
 
             <!--Section: product list-->
             <section class="my-5" id="all_product">
-                <h4 class="font-weight-bold mt-4 dark-grey-text">
-                    <strong class="section-title">전체 상품</strong>
-                </h4>
+                <div class="all-product-menu">
+                    <div class="product-item-active">전체</div>
+                    <div class="product-item">한라봉</div>
+                    <div class="product-item">천혜향</div>
+                </div>
                 <hr class="mb-3">
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-12 pt-2">
