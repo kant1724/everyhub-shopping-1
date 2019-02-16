@@ -4,10 +4,11 @@ body {
 
 .product-top-title {
     height: 40px;
-    border-bottom: 1px solid #ccc;
     text-align: center;
     font-size: 20px;
-    font-weight: 700;
+    border-bottom: 1px solid gray;
+    background: #333;
+    color: #FFFFFF;
 }
 
 .qty-btn {
