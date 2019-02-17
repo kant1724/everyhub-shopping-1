@@ -8,9 +8,16 @@ module.exports = {
             price: param.price,
             item_kcd: param.itemKcd,
             origin_cd: param.originCd,
-            image_path: param.imagePath,
             item_desc: param.itemDesc
         });
+        return ret;
+    },
+
+    updateImagePath: function(itemNo, imagePath) {
+        let ret = knex('items').where('item_no', itemNo)
+            .update({
+                image_path: imagePath,
+            });
         return ret;
     },
 

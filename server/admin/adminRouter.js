@@ -15,22 +15,21 @@ router.get('/productNew', function(req, res, next) {
 });
 
 router.post('/productNew/registerNewProduct', function(req, res) {
-    let form = new formidable.IncomingForm();
-    let time = Date.now();
-    let imagePath = 'views/static/images/' + time + ".jpg";
-    form.parse(req, (err, fields, files) => {
-        console.log(fields);
-        fields.imagePath = imagePath;
-        adminBiz.registerNewProduct(fields, ret => {
-            res.status(200).send({ret: ret});
-        });
+    let param = req.body
+    adminBiz.registerNewProduct(param, ret => {
+        res.status(200).send({ret: ret});
     });
+});
+
+router.post('/productNew/uploadImage', function(req, res) {
+    let form = new formidable.IncomingForm();
+    form.parse(req);
     form.on('fileBegin', (name, file) => {
+        let imagePath = 'views/static/images/' + name + ".jpg";
         file.path = imagePath;
     });
-    form.on('file', (name, file) => {
-    });
-
+    form.on('file', (name, file) => {});
+    res.status(200).send({ret: ''});
 });
 
 module.exports = router;
