@@ -8,7 +8,7 @@ module.exports = {
             price: param.price,
             item_kcd: param.itemKcd,
             origin_cd: param.originCd,
-            image_path: '',
+            image_path: param.imagePath,
             item_desc: param.itemDesc
         });
         return ret;

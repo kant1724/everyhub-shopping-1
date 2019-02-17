@@ -11,6 +11,8 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
+    "formidable": "^1.2.1",
+    "fs": "0.0.1-security",
     "knex": "^0.16.3",
     "mobile-detect": "^1.4.3",
     "morgan": "~1.9.0",

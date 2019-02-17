@@ -2,9 +2,10 @@ function ajax(url, input_data, gubun, method) {
     $.ajax(url, {
         type: method,
         data: input_data,
+        enctype: 'multipart/form-data',
+        processData: false,
+        contentType: false,
         async: true,
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: 'json',
         success: function (data, status, xhr) {
             if (gubun == 'registerNewProduct') {
                 registerNewProductCallback();
@@ -30,15 +31,17 @@ function registerNewProduct() {
     let itemKcd = $('#itemKcd').val();
     let originCd = $('#originCd').val();
     let itemDesc = $('#itemDesc').val();
-    let input = {
-        "itemNm1" : itemNm1,
-        "itemNm2" : itemNm2,
-        "price" : price,
-        "itemKcd" : itemKcd,
-        "originCd" : originCd,
-        "itemDesc" : itemDesc
-    };
-    ajax('/admin/productNew/registerNewProduct', input, 'registerNewProduct', 'POST');
+
+    let formData = new FormData();
+    formData.append("itemImage", $("#item_image")[0].files[0]);
+    formData.append("itemNm1", itemNm1);
+    formData.append("itemNm2", itemNm2);
+    formData.append("price", price);
+    formData.append("itemKcd", itemKcd);
+    formData.append("originCd", originCd);
+    formData.append("itemDesc", itemDesc);
+
+    ajax('/admin/productNew/registerNewProduct', formData, 'registerNewProduct', 'POST');
 }
 
 function registerNewProductCallback() {
