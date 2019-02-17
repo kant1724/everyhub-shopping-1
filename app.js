@@ -19,5 +19,6 @@ app.use('/', require('./server/main/mainRouter'));
 app.use('/cart', require('./server/cart/cartRouter'));
 app.use('/product', require('./server/product/productRouter'));
 app.use('/purchase', require('./server/purchase/purchaseRouter'));
+app.use('/admin', require('./server/admin/adminRouter'));
 
 module.exports = app;

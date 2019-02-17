@@ -1,6 +1,6 @@
 /*
  * MDBootstrap Accordion Extended
- * Learn more: https://mdbootstrap.com/javascript/bootstrap-accordion/
+ * Learn more: https://mdbootstrap.com/docs/jquery/javascript/accordion/
  * About MDBootstrap: https://mdbootstrap.com/
  */
 .accordion-gradient-bcg {
@@ -29,7 +29,7 @@
 .accordion.md-accordion.accordion-3 {
   -webkit-border-radius: 3px;
   border-radius: 3px; }
-  .accordion.md-accordion.accordion-3 .fa.fa-angle-down {
+  .accordion.md-accordion.accordion-3 .fas.fa-angle-down, .accordion.md-accordion.accordion-3 .fab.fa-angle-down, .accordion.md-accordion.accordion-3 .far.fa-angle-down {
     margin-top: -10px; }
 
 .accordion.md-accordion.accordion-4 .card:last-of-type .card-body {
@@ -50,7 +50,7 @@
       -o-transition: .3s;
       transition: .3s;
       background-color: #455a64; }
-    .accordion.md-accordion.accordion-5 .card .card-header .fa {
+    .accordion.md-accordion.accordion-5 .card .card-header .fas, .accordion.md-accordion.accordion-5 .card .card-header .fab, .accordion.md-accordion.accordion-5 .card .card-header .far {
       background-color: #fff;
       -webkit-border-top-left-radius: 3px;
       border-top-left-radius: 3px; }

@@ -14,9 +14,7 @@
 </head>
 
 <body class="cart-v1 hidden-sn white-skin animated">
-
   <header>
-
     <nav class="navbar fixed-top navbar-expand-lg  navbar-light scrolling-navbar white">
       <div class="container">
         <a class="navbar-brand font-weight-bold" href="/">
@@ -76,90 +74,12 @@
         <div style="margin-bottom: 15px;">18,000원</div>
         <hr>
         <div style="margin-bottom: 15px;">
-          <button type="button" class="btn btn-sm deep-orange btn-rounded purchase-btn">구매하기<i class="fa fa-angle-right right"></i></button>
-          <button type="button" class="btn btn-sm btn-danger btn-rounded purchase-btn">삭제</button>
+          <button type="button" id="purchase_btn" class="btn btn-sm deep-orange btn-rounded purchase-btn">구매하기<i class="fa fa-angle-right right"></i></button>
+          <button type="button" id="delete_btn" class="btn btn-sm btn-danger btn-rounded delete-btn">삭제</button>
         </div>
       </div>
     </div>
   </div>
-
-  <footer class="page-footer text-center text-md-left stylish-color-dark pt-0">
-  </footer>
-
-  <div class="modal fade cart-modal" id="cart-modal-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-
-          <h4 class="modal-title font-weight-bold dark-grey-text" id="myModalLabel">Your cart</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Product name</th>
-                <th>Price</th>
-                <th>Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Product 1</td>
-                <td>100$</td>
-                <td>
-                  <a>
-                    <i class="fa fa-remove"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Product 2</td>
-                <td>100$</td>
-                <td>
-                  <a>
-                    <i class="fa fa-remove"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Product 3</td>
-                <td>100$</td>
-                <td>
-                  <a>
-                    <i class="fa fa-remove"></i>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>Product 4</td>
-                <td>100$</td>
-                <td>
-                  <a>
-                    <i class="fa fa-remove"></i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button class="btn btn-primary btn-rounded btn-sm">Checkout</button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-grey btn-rounded btn-sm" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
   <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>

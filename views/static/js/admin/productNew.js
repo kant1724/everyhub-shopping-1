@@ -1,0 +1,46 @@
+function ajax(url, input_data, gubun, method) {
+    $.ajax(url, {
+        type: method,
+        data: input_data,
+        async: true,
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        success: function (data, status, xhr) {
+            if (gubun == 'registerNewProduct') {
+                registerNewProductCallback();
+            }
+        },
+        error: function (jqXhr, textStatus, errorMessage) {}
+    });
+}
+
+$(document).ready(function() {
+    $('.file_upload').file_upload();
+    $('select').materialSelect();
+
+    $('#product_register_btn').click(function() {
+        registerNewProduct();
+    });
+});
+
+function registerNewProduct() {
+    let itemNm1 = $('#itemNm1').val();
+    let itemNm2 = $('#itemNm2').val();
+    let price = $('#price').val();
+    let itemKcd = $('#itemKcd').val();
+    let originCd = $('#originCd').val();
+    let itemDesc = $('#itemDesc').val();
+    let input = {
+        "itemNm1" : itemNm1,
+        "itemNm2" : itemNm2,
+        "price" : price,
+        "itemKcd" : itemKcd,
+        "originCd" : originCd,
+        "itemDesc" : itemDesc
+    };
+    ajax('/admin/productNew/registerNewProduct', input, 'registerNewProduct', 'POST');
+}
+
+function registerNewProductCallback() {
+    alert("상품이 등록되었습니다.");
+}

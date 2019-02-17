@@ -222,8 +222,7 @@
       float: right; } }
   .timeline-main .stepper.stepper-vertical.timeline.timeline-simple li .step-content:before {
     position: absolute;
-    top: 26px;
-    right: -15px;
+    top: 15px;
     display: inline-block;
     border-top: 15px solid transparent;
     border-left: 15px solid #e0e0e0;
@@ -244,8 +243,7 @@
         right: auto; } }
   .timeline-main .stepper.stepper-vertical.timeline.timeline-simple li .step-content:after {
     position: absolute;
-    top: 27px;
-    right: -14px;
+    top: 15px;
     display: inline-block;
     border-top: 14px solid transparent;
     border-left: 14px solid #fff;

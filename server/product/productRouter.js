@@ -6,9 +6,9 @@ let MobileDetect = require('mobile-detect');
 router.get('/', function(req, res, next) {
     let md = new MobileDetect(req.headers['user-agent']);
     if (md.mobile()) {
-        res.render('templates/product/product-mobile', { title: 'Express' });
+        res.render('templates/product/product-mobile', {});
     } else {
-        res.render('templates/product/product', { title: 'Express' });
+        res.render('templates/product/product', {});
     }
 });
 

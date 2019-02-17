@@ -1,6 +1,6 @@
 /*
  * MDBootstrap integration with Datatables
- * Learn more: https://mdbootstrap.com/content/bootstrap-datatables/
+ * Learn more: https://mdbootstrap.com/docs/jquery/tables/datatables/
  * About MDBootstrap: https://mdbootstrap.com/
  *
  * This combined file was created by the DataTables downloader builder:
@@ -1367,7 +1367,7 @@
 	// - \u20B9 - Indian Rupee
 	// - R - Brazil (R$) and South Africa
 	// - fr - Swiss Franc
-	// - com - Swedish krona, Norwegian krone and Danish krone
+	// - kr - Swedish krona, Norwegian krone and Danish krone
 	// - \u2009 is thin space and \u202F is narrow no-break space, both used in many
 	// - Ƀ - Bitcoin
 	// - Ξ - Ethereum
@@ -1402,7 +1402,7 @@
 		var strType = typeof d === 'string';
 
 		// If empty return immediately so there must be a number if it is a
-		// formatted string (this stops the string "k", or "com", etc being detected
+		// formatted string (this stops the string "k", or "kr", etc being detected
 		// as a formatted number for currency
 		if ( _empty( d ) ) {
 			return true;
