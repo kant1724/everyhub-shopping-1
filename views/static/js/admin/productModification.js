@@ -49,7 +49,7 @@ $(document).ready(function() {
     xhr.send();
 });
 
-let remoteUrl = '14.63.168.58:5005';
+let remoteUrl = '14.63.168.58:5006';
 
 function modifyProduct() {
     let itemNo = $('#item_no').val();

@@ -40,7 +40,7 @@ $(document).ready(function() {
     });
 });
 
-let remoteUrl = '14.63.168.58:5005';
+let remoteUrl = '14.63.168.58:5006';
 function registerNewProduct() {
     let itemNm1 = $('#item_nm_1').val();
     let itemNm2 = $('#item_nm_2').val();
