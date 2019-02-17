@@ -11,5 +11,11 @@ module.exports = {
         .then(ret => {
             cb(itemNo);
         });
+    },
+
+    selectProductList: function(param, cb) {
+        adminDao.selectProductList(param).then(ret => {
+            cb(ret);
+        })
     }
 };

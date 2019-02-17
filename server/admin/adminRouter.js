@@ -21,4 +21,11 @@ router.post('/productNew/registerNewProduct', function(req, res) {
     });
 });
 
+router.post('/selectProductList', function(req, res) {
+    let param = req.body
+    adminBiz.selectProductList(param, ret => {
+        res.status(200).send({ret: ret});
+    });
+});
+
 module.exports = router;
