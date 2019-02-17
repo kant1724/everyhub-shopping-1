@@ -39,14 +39,18 @@ $(document).ready(function() {
         modifyProduct();
     });
 
-    let itemNo = $('#item_no').val();
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", 'http://14.63.168.58:5005/static/data/shopping/product/23.jpg');
-    xhr.responseType = "blob";
-    xhr.onload = function() {
-        $('#item_image').val(xhr.response);
-    }
-    xhr.send();
+    $('#item_image').change(function() {
+        let file = this.files[0];
+        let reader = new FileReader();
+        reader.onloadend = function () {
+            $('#image_div').css('background-image', 'url("' + reader.result + '")');
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {}
+    });
+
+    //$('#image_div').css('background-image', 'url("http://14.63.168.58:5006/static/data/shopping/product/26.jpg")');
 });
 
 let remoteUrl = '14.63.168.58:5006';

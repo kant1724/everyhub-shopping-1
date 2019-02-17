@@ -38,6 +38,18 @@ $(document).ready(function() {
     $('#product_register_btn').click(function() {
         registerNewProduct();
     });
+
+    $('#item_image').change(function() {
+        let file = this.files[0];
+        let reader = new FileReader();
+        reader.onloadend = function () {
+            $('#image_div').css('background-image', 'url("' + reader.result + '")');
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {}
+    });
+
 });
 
 let remoteUrl = '14.63.168.58:5006';

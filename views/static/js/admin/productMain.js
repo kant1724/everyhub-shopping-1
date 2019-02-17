@@ -31,11 +31,11 @@ function selectProductListCallback(ret) {
     let html = '';
     for (let i = 0; i < ret.length; ++i) {
         html += '<tr><td class="text-center item-no">' + ret[i].item_no +'</td>';
-        html += '<td class = "text-center"><img src = "' + ret[i].image_path + '" alt = "" width = "70px" class = "img-fluid z-depth-0"></td>';
-        html += '<td class = "text-center">' + ret[i].item_nm_1 + '</td>';
-        html += '<td class = "text-center">' + ret[i].item_nm_2 + '</td>';
-        html += '<td class = "text-center">' + ret[i].price + '</td>';
-        html += '<td class = "text-center"><button type="button" class="btn btn-sm btn-primary btn-rounded modify-product">변경</td></tr>';
+        html += '<td class="text-center"><img src = "' + ret[i].image_path + '" alt="" width="80px" class="img-fluid z-depth-0"></td>';
+        html += '<td class="text-center">' + ret[i].item_nm_1 + '</td>';
+        html += '<td class="text-center">' + ret[i].item_nm_2 + '</td>';
+        html += '<td class="text-center">' + ret[i].price + '</td>';
+        html += '<td class="text-center"><button type="button" class="btn btn-sm btn-primary btn-rounded modify-product">변경</td></tr>';
     }
     $('.product-table tbody').append(html);
 
@@ -43,4 +43,5 @@ function selectProductListCallback(ret) {
         let itemNo = $($($(this).parent().parent()).find('.item-no')).text();
         location.href = '/admin/productModification?itemNo=' + itemNo
     });
+
 }
