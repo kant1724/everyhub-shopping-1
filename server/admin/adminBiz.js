@@ -5,7 +5,7 @@ module.exports = {
         let itemNo;
         adminDao.registerNewProduct(param).then(ret => {
             itemNo = ret;
-            let imagePath = 'views/static/images/' + itemNo + ".jpg";
+            let imagePath = 'http://' + param.remoteUrl + '/static/data/shopping/product/' + itemNo + ".jpg";
             return adminDao.updateImagePath(ret, imagePath);
         })
         .then(ret => {

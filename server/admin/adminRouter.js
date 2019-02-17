@@ -21,15 +21,4 @@ router.post('/productNew/registerNewProduct', function(req, res) {
     });
 });
 
-router.post('/productNew/uploadImage', function(req, res) {
-    let form = new formidable.IncomingForm();
-    form.parse(req);
-    form.on('fileBegin', (name, file) => {
-        let imagePath = 'views/static/images/' + name + ".jpg";
-        file.path = imagePath;
-    });
-    form.on('file', (name, file) => {});
-    res.status(200).send({ret: ''});
-});
-
 module.exports = router;

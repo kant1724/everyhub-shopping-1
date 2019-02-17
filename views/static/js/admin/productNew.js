@@ -40,6 +40,7 @@ $(document).ready(function() {
     });
 });
 
+let remoteUrl = '14.63.168.58:5005';
 function registerNewProduct() {
     let itemNm1 = $('#itemNm1').val();
     let itemNm2 = $('#itemNm2').val();
@@ -54,7 +55,8 @@ function registerNewProduct() {
         'price' : price,
         'itemKcd' : itemKcd,
         'originCd' : originCd,
-        'itemDesc' : itemDesc
+        'itemDesc' : itemDesc,
+        'remoteUrl' : remoteUrl
     }
 
     ajax('/admin/productNew/registerNewProduct', input, 'registerNewProduct', 'POST');
@@ -63,7 +65,7 @@ function registerNewProduct() {
 function registerNewProductCallback(ret) {
     let formData = new FormData();
     formData.append(ret, $("#item_image")[0].files[0]);
-    fileUpload('/admin/productNew/uploadImage', formData, 'uploadImage', 'POST');
+    fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
 }
 
 function uploadImageCallback() {
