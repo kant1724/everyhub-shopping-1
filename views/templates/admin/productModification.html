@@ -5,13 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>상품등록</title>
+  <title>상품변경</title>
   <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
   <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
   <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
   <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
   <link href="/static/lib/mdb/css/addons/mdb-file-upload.css" rel="stylesheet">
-  <link href="/static/css/admin/productNew.css" rel="stylesheet">
+  <link href="/static/css/admin/productModification.css" rel="stylesheet">
 </head>
 
 <body class="cart-v1 hidden-sn white-skin animated">
@@ -73,7 +73,8 @@
         <textarea class="form-control" id="item_desc"></textarea>
       </div>
     </div>
-    <button id="product_register_btn" type="button" class="btn btn-sm deep-orange btn-rounded product-register-btn">상품등록
+    <input type="hidden" id="item_no" value="{{ itemNo }}">
+    <button id="product_modify_btn" type="button" class="btn btn-sm deep-orange btn-rounded product-register-btn">상품변경
       <i class="fa fa-angle-right right"></i>
     </button>
   </div>
@@ -82,7 +83,7 @@
   <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
   <script type="text/javascript" src="/static/lib/mdb/js/addons/mdb-file-upload.js"></script>
-  <script type="text/javascript" src="/static/js/admin/productNew.js"></script>
+  <script type="text/javascript" src="/static/js/admin/productModification.js"></script>
 </body>
 
 </html>

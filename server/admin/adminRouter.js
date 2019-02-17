@@ -14,6 +14,11 @@ router.get('/productNew', function(req, res, next) {
     res.render('templates/admin/productNew', {});
 });
 
+router.get('/productModification', function(req, res, next) {
+    let itemNo = req.query.itemNo;
+    res.render('templates/admin/productModification', {itemNo : itemNo});
+});
+
 router.post('/productNew/registerNewProduct', function(req, res) {
     let param = req.body
     adminBiz.registerNewProduct(param, ret => {
