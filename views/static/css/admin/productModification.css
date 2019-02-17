@@ -2,6 +2,12 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+.top {
+    background: #333;
+    padding: 10px;
+    color: #FFFFFF;
+}
+
 .file-upload-wrapper {
     position: relative;
     width: 300px;
