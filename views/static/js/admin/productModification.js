@@ -34,6 +34,10 @@ function fileUpload(url, input_data, gubun, method) {
 }
 
 $(document).ready(function() {
+    $('#go_back').on('click', function() {
+        window.history.back();
+    })
+
     $('.file_upload').file_upload();
     $('select').materialSelect();
 

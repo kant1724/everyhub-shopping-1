@@ -3,9 +3,20 @@ body {
 }
 
 .top {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
     background: #333;
-    padding: 10px;
-    color: #FFFFFF;
+}
+
+.top i {
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+.top i:hover {
+    cursor: pointer;
 }
 
 .file-upload-wrapper {
