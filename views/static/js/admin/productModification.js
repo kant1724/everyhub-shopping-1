@@ -63,7 +63,52 @@ function selectOneProduct() {
     ajax('/admin/productModification/selectOneProduct', input, 'selectOneProduct', 'POST');
 }
 
+function checkValidation() {
+    let isOk = true;
+    if ($('#item_nm_1').val() == undefined || $('#item_nm_1').val() == '') {
+        $('#item_nm_1_label').text('상품명1을 입력하세요.');
+        $('#item_nm_1_label').css('color', 'red');
+        isOk = false;
+    } else {
+        $('#item_nm_1_label').text('상품명1');
+        $('#item_nm_1_label').css('color', 'gray');
+    }
+
+    if ($('#item_nm_2').val() == undefined || $('#item_nm_2').val() == '') {
+        $('#item_nm_2_label').text('상품명2를 입력하세요.');
+        $('#item_nm_2_label').css('color', 'red');
+        isOk = false;
+    } else {
+        $('#item_nm_2_label').text('상품명2');
+        $('#item_nm_2_label').css('color', 'gray');
+    }
+
+    if ($('#price').val() == undefined || $('#price').val() == '') {
+        $('#price_label').text('가격을 입력하세요.');
+        $('#price_label').css('color', 'red');
+        isOk = false;
+    } else {
+        $('#price_label').text('가격');
+        $('#price_label').css('color', 'gray');
+    }
+
+    if ($('#item_desc').val() == undefined || $('#item_desc').val() == '') {
+        $('#item_desc_label').text('상품설명을 입력하세요.');
+        $('#item_desc_label').css('color', 'red');
+        isOk = false;
+    } else {
+        $('#item_desc_label').text('상품설명');
+        $('#item_desc_label').css('color', 'gray');
+    }
+
+    return isOk;
+}
+
 function modifyProduct() {
+    if (!checkValidation()) {
+        return;
+    }
+
     let itemNo = $('#item_no').val();
     let itemNm1 = $('#item_nm_1').val();
     let itemNm2 = $('#item_nm_2').val();

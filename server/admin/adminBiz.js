@@ -36,10 +36,11 @@ module.exports = {
                 cb(ret);
             }
         });
-        if (param.imageChanged) {
-            res.then(ret => {
-                cb(itemNo);
-            })
+        if (!param.imageChanged) {
+            return;
         }
+        res.then(ret => {
+            cb(itemNo);
+        });
     },
 };

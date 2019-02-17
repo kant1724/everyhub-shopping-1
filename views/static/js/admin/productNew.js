@@ -31,6 +31,7 @@ function fileUpload(url, input_data, gubun, method) {
     });
 }
 
+let imageChanged = false;
 $(document).ready(function() {
     $('.file_upload').file_upload();
     $('select').materialSelect();
@@ -48,12 +49,59 @@ $(document).ready(function() {
         if (file) {
             reader.readAsDataURL(file);
         } else {}
+
+        imageChanged = true;
     });
 
 });
 
 let remoteUrl = '14.63.168.58:5006';
+
+function checkValidation() {
+    let isOk = true;
+    if ($('#item_nm_1').val() == undefined || $('#item_nm_1').val() == '') {
+        $('#item_nm_1_label').text('상품명1을 입력하세요.');
+        $('#item_nm_1_label').css('color', 'red');
+        isOk = false;
+    } else {
+        $('#item_nm_1_label').text('상품명1');
+        $('#item_nm_1_label').css('color', 'gray');
+    }
+
+    if ($('#item_nm_2').val() == undefined || $('#item_nm_2').val() == '') {
+        $('#item_nm_2_label').text('상품명2를 입력하세요.');
+        $('#item_nm_2_label').css('color', 'red');
+        isOk = false;
+    } else {
+        $('#item_nm_2_label').text('상품명2');
+        $('#item_nm_2_label').css('color', 'gray');
+    }
+
+    if ($('#price').val() == undefined || $('#price').val() == '') {
+        $('#price_label').text('가격을 입력하세요.');
+        $('#price_label').css('color', 'red');
+        isOk = false;
+    } else {
+        $('#price_label').text('가격');
+        $('#price_label').css('color', 'gray');
+    }
+
+    if ($('#item_desc').val() == undefined || $('#item_desc').val() == '') {
+        $('#item_desc_label').text('상품설명을 입력하세요.');
+        $('#item_desc_label').css('color', 'red');
+        isOk = false;
+    } else {
+        $('#item_desc_label').text('상품설명');
+        $('#item_desc_label').css('color', 'gray');
+    }
+
+    return isOk;
+}
+
 function registerNewProduct() {
+    if (!checkValidation()) {
+        return;
+    }
     let itemNm1 = $('#item_nm_1').val();
     let itemNm2 = $('#item_nm_2').val();
     let price = $('#price').val();
@@ -75,9 +123,13 @@ function registerNewProduct() {
 }
 
 function registerNewProductCallback(ret) {
-    let formData = new FormData();
-    formData.append(ret, $("#item_image")[0].files[0]);
-    fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
+    if (imageChanged) {
+        let formData = new FormData();
+        formData.append(ret, $("#item_image")[0].files[0]);
+        fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
+    } else {
+        alert("상품이 등록되었습니다.");
+    }
 }
 
 function uploadImageCallback() {
