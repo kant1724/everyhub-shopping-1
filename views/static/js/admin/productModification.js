@@ -8,6 +8,8 @@ function ajax(url, input_data, gubun, method) {
         success: function (data, status, xhr) {
             if (gubun == 'modifyProduct') {
                 modifyProductCallback(data.ret);
+            } else if (gubun == 'selectOneProduct') {
+                selectOneProductCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -48,12 +50,18 @@ $(document).ready(function() {
         if (file) {
             reader.readAsDataURL(file);
         } else {}
+        imageChanged = true;
     });
 
-    //$('#image_div').css('background-image', 'url("http://14.63.168.58:5006/static/data/shopping/product/26.jpg")');
+    selectOneProduct();
 });
 
 let remoteUrl = '14.63.168.58:5006';
+let imageChanged = false;
+function selectOneProduct() {
+    let input = {'itemNo' : $('#item_no').val()};
+    ajax('/admin/productModification/selectOneProduct', input, 'selectOneProduct', 'POST');
+}
 
 function modifyProduct() {
     let itemNo = $('#item_no').val();
@@ -72,18 +80,37 @@ function modifyProduct() {
         'itemKcd' : itemKcd,
         'originCd' : originCd,
         'itemDesc' : itemDesc,
-        'remoteUrl' : remoteUrl
+        'remoteUrl' : remoteUrl,
+        'imageChanged' : imageChanged
     }
 
-    ajax('/admin/productNew/modifyProduct', input, 'modifyProduct', 'POST');
+    ajax('/admin/productModification/modifyProduct', input, 'modifyProduct', 'POST');
+}
+
+function selectOneProductCallback(ret) {
+    let imagePath = ret[0].image_path;
+    $('#image_div').css('background-image', 'url("' + imagePath + '")');
+    $('#item_nm_1').focus();
+    $('#item_nm_1').val(ret[0].item_nm_1);
+    $('#item_nm_2').focus();
+    $('#item_nm_2').val(ret[0].item_nm_2);
+    $('#item_kcd').val(ret[0].item_kcd);
+    $('#origin_cd').val(ret[0].origin_cd);
+    $('#price').focus();
+    $('#price').val(ret[0].price);
+    $('#item_desc').val(ret[0].item_desc);
 }
 
 function modifyProductCallback(ret) {
-    let formData = new FormData();
-    formData.append(ret, $("#item_image")[0].files[0]);
-    fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
+    if (imageChanged) {
+        let formData = new FormData();
+        formData.append(ret, $("#item_image")[0].files[0]);
+        fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
+    } else {
+        alert("상품이 변경되었습니다.");
+    }
 }
 
 function uploadImageCallback() {
-    alert("상품이 등록되었습니다.");
+    alert("상품이 변경되었습니다.");
 }

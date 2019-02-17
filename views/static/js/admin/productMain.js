@@ -35,7 +35,7 @@ function selectProductListCallback(ret) {
         html += '<td class="text-center">' + ret[i].item_nm_1 + '</td>';
         html += '<td class="text-center">' + ret[i].item_nm_2 + '</td>';
         html += '<td class="text-center">' + ret[i].price + '</td>';
-        html += '<td class="text-center"><button type="button" class="btn btn-sm btn-primary btn-rounded modify-product">변경</td></tr>';
+        html += '<td class="text-center"><button type="button" id="modify_product" class="btn btn-sm btn-primary btn-rounded modify-product">변경</td></tr>';
     }
     $('.product-table tbody').append(html);
 

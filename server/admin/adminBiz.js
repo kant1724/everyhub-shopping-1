@@ -17,5 +17,29 @@ module.exports = {
         adminDao.selectProductList(param).then(ret => {
             cb(ret);
         })
-    }
+    },
+
+    selectOneProduct: function(param, cb) {
+        adminDao.selectOneProduct(param).then(ret => {
+            cb(ret);
+        })
+    },
+
+    modifyProduct: function(param, cb) {
+        let itemNo;
+        let res = adminDao.modifyProduct(param).then(ret => {
+            if (param.imageChanged) {
+                itemNo = param.itemNo;
+                let imagePath = 'http://' + param.remoteUrl + '/static/data/shopping/product/' + itemNo + ".jpg";
+                return adminDao.updateImagePath(itemNo, imagePath);
+            } else {
+                cb(ret);
+            }
+        });
+        if (param.imageChanged) {
+            res.then(ret => {
+                cb(itemNo);
+            })
+        }
+    },
 };
