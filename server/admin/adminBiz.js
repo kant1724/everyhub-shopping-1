@@ -13,9 +13,8 @@ module.exports = {
         });
     },
 
-    selectProductList: function(param, cb) {
-        let ret = adminDao.selectProductList(param);
-        cb(ret);
+    selectProductList: function(param) {
+        return adminDao.selectProductList(param);
     },
 
     selectOneProduct: function(param, cb) {

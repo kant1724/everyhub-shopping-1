@@ -14,9 +14,8 @@ mybatisMapper.createMapper(['server/admin/adminSQL.xml']);
 module.exports = {
     selectProductList: function(param) {
         let query = mybatisMapper.getStatement('adminSQL', 'selectProductList', param, format);
-        let ret = connection.query(query);
-        console.log(ret);
-        return ret;
+
+        return connection.query(query);
     },
 
     selectOneProduct: function(param) {
