@@ -37,6 +37,10 @@ $(document).ready(function() {
         window.history.back();
     })
 
+    $('#go_list').on('click', function() {
+        window.history.back();
+    })
+
     $('.file_upload').file_upload();
     $('select').materialSelect();
 
