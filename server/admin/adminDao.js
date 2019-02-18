@@ -1,67 +1,41 @@
-const mysql = require('sync-mysql');
 let mybatisMapper = require('mybatis-mapper');
-
-const connection = new mysql({
-    host: '14.63.168.58',
-    user: 'chatbot',
-    password: 'chatbot',
-    database: 'gandeurak'
-});
-
 let format = {language: 'sql', indent: '  '};
 mybatisMapper.createMapper(['server/admin/adminSQL.xml']);
+conn = require('../common/mysql.js').getDBConnection();
 
 module.exports = {
     selectProductList: function(param) {
         let query = mybatisMapper.getStatement('adminSQL', 'selectProductList', param, format);
 
-        return connection.query(query);
+        return conn.query(query);
     },
 
     selectOneProduct: function(param) {
-        let ret = knex('items').select(
-            'item_no',
-            'item_nm_1',
-            'item_nm_2',
-            'price',
-            'item_kcd',
-            'origin_cd',
-            'image_path',
-            'item_desc',
-        ).where({'item_no' : param.itemNo});
-        return ret;
+        let query = mybatisMapper.getStatement('adminSQL', 'selectOneProduct', param, format);
+
+        return conn.query(query);
     },
 
     modifyProduct: function(param) {
-    let ret = knex('items').where('item_no', param.itemNo)
-        .update({
-            item_nm_1 : param.itemNm1,
-            item_nm_2 : param.itemNm2,
-            price : param.price,
-            item_kcd : param.itemKcd,
-            origin_cd : param.originCd,
-            item_desc: param.itemDesc
-        });
-        return ret;
+        let query = mybatisMapper.getStatement('adminSQL', 'modifyProduct', param, format);
+
+        return conn.query(query);
     },
 
     registerNewProduct: function(param) {
-        let ret = knex('items').insert({
-            item_nm_1: param.itemNm1,
-            item_nm_2: param.itemNm2,
-            price: param.price,
-            item_kcd: param.itemKcd,
-            origin_cd: param.originCd,
-            item_desc: param.itemDesc
-        });
-        return ret;
+        let query = mybatisMapper.getStatement('adminSQL', 'registerNewProduct', param, format);
+        let ret = conn.query(query);
+
+        return ret.insertId;
     },
 
     updateImagePath: function(itemNo, imagePath) {
-        let ret = knex('items').where('item_no', itemNo)
-            .update({
-                image_path: imagePath,
-            });
-        return ret;
+        let param = {
+            itemNo : itemNo,
+            imagePath : imagePath
+        }
+        let query = mybatisMapper.getStatement('adminSQL', 'updateImagePath', param, format);
+
+        return conn.query(query);
     }
 };

@@ -1,44 +1,30 @@
 let adminDao = require('./adminDao');
 
 module.exports = {
-    registerNewProduct: function(param, cb) {
-        let itemNo;
-        adminDao.registerNewProduct(param).then(ret => {
-            itemNo = ret;
-            let imagePath = 'http://' + param.remoteUrl + '/static/data/shopping/product/' + itemNo + ".jpg";
-            return adminDao.updateImagePath(ret, imagePath);
-        })
-        .then(ret => {
-            cb(itemNo);
-        });
+    registerNewProduct: function(param) {
+        let itemNo = adminDao.registerNewProduct(param);
+        let imagePath = 'http://' + param.remoteUrl + '/static/data/shopping/product/' + itemNo + ".jpg";
+        adminDao.updateImagePath(itemNo, imagePath);
+
+        return itemNo;
     },
 
     selectProductList: function(param) {
         return adminDao.selectProductList(param);
     },
 
-    selectOneProduct: function(param, cb) {
-        adminDao.selectOneProduct(param).then(ret => {
-            cb(ret);
-        })
+    selectOneProduct: function(param) {
+        return adminDao.selectOneProduct(param);
     },
 
-    modifyProduct: function(param, cb) {
-        let itemNo;
-        let res = adminDao.modifyProduct(param).then(ret => {
-            if (param.imageChanged) {
-                itemNo = param.itemNo;
-                let imagePath = 'http://' + param.remoteUrl + '/static/data/shopping/product/' + itemNo + ".jpg";
-                return adminDao.updateImagePath(itemNo, imagePath);
-            } else {
-                cb(ret);
-            }
-        });
-        if (!param.imageChanged) {
-            return;
+    modifyProduct: function(param) {
+        adminDao.modifyProduct(param);
+        if (param.imageChanged) {
+            let itemNo = param.itemNo;
+            let imagePath = 'http://' + param.remoteUrl + '/static/data/shopping/product/' + itemNo + ".jpg";
+            adminDao.updateImagePath(itemNo, imagePath);
         }
-        res.then(ret => {
-            cb(itemNo);
-        });
+
+        return param.itemNo;
     },
 };

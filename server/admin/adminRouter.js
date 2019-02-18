@@ -21,24 +21,21 @@ router.get('/productModification', function(req, res, next) {
 
 router.post('/productNew/registerNewProduct', function(req, res) {
     let param = req.body
-    adminBiz.registerNewProduct(param, ret => {
-        res.status(200).send({ret: ret});
-    });
+    let ret = adminBiz.registerNewProduct(param);
+    res.status(200).send({ret: ret});
 });
 
 router.post('/productModification/selectOneProduct', function(req, res) {
     let param = req.body
-    adminBiz.selectOneProduct(param, ret => {
-        res.status(200).send({ret: ret});
-    });
+    let ret = adminBiz.selectOneProduct(param);
+    res.status(200).send({ret: ret});
 });
 
 router.post('/productModification/modifyProduct', function(req, res) {
     let param = req.body
-    adminBiz.modifyProduct(param, ret => {
-        res.status(200).send({ret: ret});
-    });
-})
+    let ret = adminBiz.modifyProduct(param);
+    res.status(200).send({ret: ret});
+});
 
 router.post('/selectProductList', function(req, res) {
     let param = req.body;
