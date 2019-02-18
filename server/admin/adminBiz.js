@@ -14,9 +14,8 @@ module.exports = {
     },
 
     selectProductList: function(param, cb) {
-        adminDao.selectProductList(param).then(ret => {
-            cb(ret);
-        })
+        let ret = adminDao.selectProductList(param);
+        cb(ret);
     },
 
     selectOneProduct: function(param, cb) {
