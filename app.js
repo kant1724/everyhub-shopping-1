@@ -15,10 +15,10 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
-app.use('/', require('./getter/main/mainRouter'));
-app.use('/cart', require('./getter/cart/cartRouter'));
-app.use('/product', require('./getter/product/productRouter'));
-app.use('/purchase', require('./getter/purchase/purchaseRouter'));
-app.use('/admin', require('./getter/admin/adminRouter'));
+app.use('/', require('./getter/main/mainGetter'));
+app.use('/cart', require('./getter/cart/cartGetter'));
+app.use('/product', require('./getter/product/productGetter'));
+app.use('/purchase', require('./getter/purchase/purchaseGetter'));
+app.use('/admin', require('./getter/admin/adminGetter'));
 
 module.exports = app;
