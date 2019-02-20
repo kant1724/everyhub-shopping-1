@@ -141,17 +141,17 @@ function modifyProduct() {
 }
 
 function selectOneProductCallback(ret) {
-    let imagePath = ret[0].IMAGE_PATH;
+    let imagePath = ret[0].imagePath;
     $('#image_div').css('background-image', 'url("' + imagePath + '")');
     $('#item_nm_1').focus();
-    $('#item_nm_1').val(ret[0].ITEM_NM_1);
+    $('#item_nm_1').val(ret[0].itemNm1);
     $('#item_nm_2').focus();
-    $('#item_nm_2').val(ret[0].ITEM_NM_2);
-    $('#item_kcd').val(ret[0].ITEM_KCD);
-    $('#origin_cd').val(ret[0].ORIGIN_CD);
+    $('#item_nm_2').val(ret[0].itemNm2);
+    $('#item_kcd').val(ret[0].itemKcd);
+    $('#origin_cd').val(ret[0].originCd);
     $('#price').focus();
-    $('#price').val(ret[0].PRICE);
-    $('#item_desc').val(ret[0].ITEM_DESC);
+    $('#price').val(ret[0].price);
+    $('#item_desc').val(ret[0].itemDesc);
 }
 
 function modifyProductCallback(ret) {

@@ -2,26 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adminSQL">
     <select id="selectProductList">
-        SELECT ITEM_NO
-              , ITEM_NM_1
-              , ITEM_NM_2
-              , PRICE
-              , ITEM_KCD
-              , ORIGIN_CD
-              , IMAGE_PATH
-              , ITEM_DESC
+        SELECT ITEM_NO AS itemNo
+              , ITEM_NM_1 AS itemNm1
+              , ITEM_NM_2 AS itemNm2
+              , PRICE AS price
+              , ITEM_KCD AS itemKcd
+              , ORIGIN_CD AS originCd
+              , IMAGE_PATH AS imagePath
+              , ITEM_DESC AS itemDesc
           FROM ITEMS
     </select>
 
     <select id="selectOneProduct">
-        SELECT ITEM_NO
-              , ITEM_NM_1
-              , ITEM_NM_2
-              , PRICE
-              , ITEM_KCD
-              , ORIGIN_CD
-              , IMAGE_PATH
-              , ITEM_DESC
+        SELECT ITEM_NO AS itemNo
+              , ITEM_NM_1 AS itemNm1
+              , ITEM_NM_2 AS itemNm2
+              , PRICE AS price
+              , ITEM_KCD AS itemKcd
+              , ORIGIN_CD AS originCd
+              , IMAGE_PATH AS imagePath
+              , ITEM_DESC AS itemDesc
           FROM ITEMS
          WHERE ITEM_NO = ${itemNo}
     </select>
