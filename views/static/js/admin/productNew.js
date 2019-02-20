@@ -127,7 +127,7 @@ function registerNewProduct() {
         'remoteUrl' : remoteUrl
     }
 
-    ajax('http://14.63.167.135:5500/admin/productNew/registerNewProduct', input, 'registerNewProduct', 'POST');
+    ajax(serverUrl + '/admin/productNew/registerNewProduct', input, 'registerNewProduct', 'POST');
 }
 
 function registerNewProductCallback(ret) {

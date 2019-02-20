@@ -1,11 +1,11 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
 
-var engines = require('consolidate');
+let engines = require('consolidate');
 
-var app = express();
+let app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -15,10 +15,10 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
-app.use('/', require('./server/main/mainRouter'));
-app.use('/cart', require('./server/cart/cartRouter'));
-app.use('/product', require('./server/product/productRouter'));
-app.use('/purchase', require('./server/purchase/purchaseRouter'));
-app.use('/admin', require('./server/admin/adminRouter'));
+app.use('/', require('./getter/main/mainRouter'));
+app.use('/cart', require('./getter/cart/cartRouter'));
+app.use('/product', require('./getter/product/productRouter'));
+app.use('/purchase', require('./getter/purchase/purchaseRouter'));
+app.use('/admin', require('./getter/admin/adminRouter'));
 
 module.exports = app;
