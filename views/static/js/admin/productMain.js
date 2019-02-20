@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 function selectProductList() {
     let input = {};
-    ajax('/admin/selectProductList', input, 'selectProductList', 'POST');
+    ajax('http://14.63.167.135:5500/admin/selectProductList', input, 'selectProductList', 'POST');
 }
 
 function selectProductListCallback(ret) {
