@@ -13,5 +13,8 @@ let datepickerOption = {
     labelMonthNext: '다음달',
     labelMonthPrev: '이전달',
     labelMonthSelect: '월을 선택하세요.',
-    labelYearSelect: '년을 선택하세요.'
+    labelYearSelect: '년을 선택하세요.',
+
+    format: 'yyyy-mm-dd',
+    formatSubmit: 'yyyy-mm-dd'
 };
