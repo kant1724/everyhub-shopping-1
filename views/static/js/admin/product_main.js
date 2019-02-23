@@ -16,7 +16,7 @@ function ajax(url, input_data, gubun, method) {
 
 $(document).ready(function() {
     $('.new-product-btn').click(function() {
-       location.href = '/admin/productNew';
+       location.href = '/admin/product_new';
     });
 
     selectProductList();
@@ -41,7 +41,7 @@ function selectProductListCallback(ret) {
 
     $('.modify-product').click(function() {
         let itemNo = $($($(this).parent().parent()).find('.item-no')).text();
-        location.href = '/admin/productModification?itemNo=' + itemNo
+        location.href = '/admin/product_modify?itemNo=' + itemNo
     });
 
 }
