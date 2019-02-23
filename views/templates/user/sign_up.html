@@ -39,17 +39,20 @@
                 </div>
             </div>
             <div class="mt-3 ml-3">
-                <div class="md-form">
-                    <i class="fas fa-user prefix" style="font-size: 25px;"></i>
-                    <input type="text" class="form-control" id="gender"  style="width: 200px;">
-                    <label for="gender">성별</label>
+                <i class="fas fa-user mr-3" style="font-size: 25px;"></i>
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
+                    <label class="form-check-label" for="materialInline1">남</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
+                    <label class="form-check-label" for="materialInline2">여</label>
                 </div>
             </div>
             <div class="mt-3 ml-3">
-                <div class="md-form">
+                <div class="md-form" style="width: 240px;">
                     <i class="far fa-birthday-cake prefix" style="font-size: 25px;"></i>
-                    <input type="number" class="form-control" id="date_of_birth" style="width: 200px;">
-                    <label for="date_of_birth">생년월일</label>
+                    <input placeholder="생년월일" type="text" id="date_of_birth" class="form-control datepicker">
                 </div>
             </div>
             <div class="text-center mt-4 mb-3" style="font-size: 15px; background: #EAEAEA;">주소</div>
@@ -87,6 +90,7 @@
     <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/static/js/common/datepicker.js"></script>
     <script type="text/javascript" src="/static/js/user/sign_up.js"></script>
 </body>
 

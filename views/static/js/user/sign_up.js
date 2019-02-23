@@ -15,5 +15,6 @@ function ajax(url, input_data, gubun, method) {
 }
 
 $(document).ready(function() {
+    $('.datepicker').pickadate(datepickerOption);
 
 });
