@@ -15,6 +15,9 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
+const config = require('./config')
+app.set('jwt-secret', config.secret)
+
 app.use('/', require('./getter/main/mainGetter'));
 app.use('/cart', require('./getter/cart/cartGetter'));
 app.use('/product', require('./getter/product/productGetter'));

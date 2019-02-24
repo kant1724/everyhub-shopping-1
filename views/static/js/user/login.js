@@ -39,7 +39,9 @@ function login() {
 }
 
 function loginCallback(ret) {
-    if (ret == 'ok') {
-        location.href = '/';
+    if (ret != 'not ok') {
+        location.href = '/?token=' + ret;
+    } else {
+        alert(ret);
     }
 }
