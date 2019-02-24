@@ -66,8 +66,8 @@ $(document).ready(function() {
 let remoteUrl = '14.63.168.58:5006';
 let imageChanged = false;
 function selectOneProduct() {
-    let input = {'itemNo' : $('#item_no').val()};
-    ajax(serverUrl + '/admin/productModification/selectOneProduct', input, 'selectOneProduct', 'POST');
+    let inputData = {'itemNo' : $('#item_no').val()};
+    ajax(serverUrl + '/admin/selectOneProduct', inputData, 'selectOneProduct', 'POST');
 }
 
 function checkValidation() {
@@ -136,7 +136,7 @@ function modifyProduct() {
         imageChanged: imageChanged
     }
 
-    ajax(serverUrl + '/admin/productModification/modifyProduct', inputData, 'modifyProduct', 'POST');
+    ajax(serverUrl + '/admin/modifyProduct', inputData, 'modifyProduct', 'POST');
 }
 
 function selectOneProductCallback(ret) {

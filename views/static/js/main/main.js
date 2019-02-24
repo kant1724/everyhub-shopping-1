@@ -15,9 +15,6 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
-    $('.each-item').click(function() {
-       location.href = '/product';
-    });
     $('.smooth-goto').on('click', function() {
         $('html, body').animate({scrollTop: $(this.hash).offset().top - 60}, 1000);
         return false;
@@ -36,7 +33,8 @@ function selectProductList() {
 function selectProductListCallback(ret) {
     let html = '';
     for (let i = 0; i < ret.length; ++i) {
-        html += '<div class="col-lg-4 col-md-12 col-12 pt-2">';
+        html += '<div class="each-item col-lg-4 col-md-12 col-12 pt-2">';
+        html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="row py-2 mb-4 hoverable align-items-center">';
         html += '<div class="col-6"><a><img src="' + ret[i].imagePath + '" style="height: 150px;" class="img-fluid"></a></div>';
         html += '<div class="col-6">';
@@ -46,8 +44,10 @@ function selectProductListCallback(ret) {
         html += '</div></div></div>';
     }
     $('#all_item_list').append(html);
+
+    $('.each-item').click(function() {
+        let itemNo = $($(this).find('#item_no')).val();
+        location.href = '/product?itemNo=' + itemNo;
+    });
 }
 
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}

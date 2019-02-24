@@ -126,7 +126,7 @@ function registerNewProduct() {
         remoteUrl: remoteUrl
     }
 
-    ajax(serverUrl + '/admin/productNew/registerNewProduct', inputData, 'registerNewProduct', 'POST');
+    ajax(serverUrl + '/admin/registerNewProduct', inputData, 'registerNewProduct', 'POST');
 }
 
 function registerNewProductCallback(ret) {

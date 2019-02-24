@@ -48,7 +48,7 @@
         </nav>
     </header>
     <div class="container mt-5 pt-3">
-        <div id="productDetails" class="pb-5">
+        <div id="product_detail" class="pb-5">
             <div class="mt-5 pb-3" style="border: 1px solid #ccc;">
                 <div class="product-top-title"><p style="position: relative; top: 5px;">제품상세</p></div>
                 <div class="row mt-5">
@@ -56,26 +56,26 @@
                         <div class="row mx-5">
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active pb-5 product-image">
-                                    <img src="http://14.63.168.58:5005/static/data/shopping/한라봉.jpg" width="400px;" class="img-fluid">
+                                    <img id="info_image_path" src="" width="400px;" class="img-fluid">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-5 mr-3 text-md-left">
                         <h2 class="h2-responsive text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
-                            <strong>한라봉 </strong>
+                            <strong id="info_item_nm_1"></strong>
                         </h2>
                         <span class="badge badge-danger product mb-4 ml-xl-0 ml-4">인기</span>
                         <span class="badge badge-success product mb-4 ml-2">할인</span>
                         <h3 class="h3-responsive text-md-left mb-4 ml-xl-0 ml-4">
                             <span class="red-text font-weight-bold">
-                                <strong>18,000원</strong>
+                                <strong id="info_price"></strong>
                             </span>
                         </h3>
-                        <p class="ml-xl-0 ml-4">신비의 도로 근처의 간드락 제2농원에서 초경재배법으로 하우스에서 정성들여 키운 제주한라봉입니다.
+                        <p class="ml-xl-0 ml-4" id="info_item_desc">
                         </p>
                         <p class="ml-xl-0 ml-4">
-                            <strong>수량: </strong>10KG / 30과</p>
+                            <strong>수량: </strong><strong id="info_item_nm_2"></strong></p>
                         <p class="ml-xl-0 ml-4">
                             <strong>원산지: </strong>국내산</p>
                         <div class="ml-xl-0 ml-4">
@@ -92,14 +92,15 @@
                     </div>
                 </div>
             </div>
-        </section>
-
+        </div>
     </div>
-
+    <input type="hidden" id="item_no" value="{{itemNo}}">
     <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/static/js/common/properties.js"></script>
+    <script type="text/javascript" src="/static/js/common/utils.js"></script>
     <script type="text/javascript" src="/static/js/product/product.js"></script>
 </body>
 
