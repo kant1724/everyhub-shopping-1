@@ -41,6 +41,7 @@ function login() {
 
 function loginCallback(ret) {
     if (ret != 'not ok') {
+        localStorage.clear();
         location.href = '/?token=' + ret;
     } else {
         alert(ret);

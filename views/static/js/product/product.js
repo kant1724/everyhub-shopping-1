@@ -16,7 +16,23 @@ function ajax(url, inputData, gubun, method) {
 
 $(document).ready(function() {
     $('.add-cart').click(function() {
-       location.href = '/cart'
+        let itemNo = $('#item_no').val();
+        let p = {
+            itemNo: itemNo,
+            imagePath: $('#info_image_path').prop('src'),
+            itemNm1: $('#info_item_nm_1').text(),
+            price: $('#info_price').text(),
+            itemNm2: $('#info_item_nm_2').text()
+        }
+        if (localStorage.getItem('product') != null) {
+            let productArray = JSON.parse(localStorage.getItem('product'));
+            productArray.push(p);
+            localStorage.setItem('product', JSON.stringify(productArray));
+        } else {
+            let productArray = [p];
+            localStorage.setItem('product', JSON.stringify(productArray));
+        }
+        location.href = '/cart'
     });
     selectOneProduct();
 });
@@ -30,7 +46,6 @@ function selectOneProduct() {
 }
 
 function selectOneProductCallback(ret) {
-    let itemNo = ret[0].itemNo;
     $('#info_image_path').prop('src', ret[0].imagePath);
     $('#info_item_nm_1').text(ret[0].itemNm1);
     $('#info_price').text(numberWithCommas(ret[0].price) + '원');
