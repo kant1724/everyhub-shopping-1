@@ -41,7 +41,6 @@ $(document).ready(function() {
         window.history.back();
     })
 
-    $('.file_upload').file_upload();
     $('select').materialSelect();
 
     $('#product_register_btn').click(function() {
