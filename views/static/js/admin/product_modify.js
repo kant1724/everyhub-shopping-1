@@ -1,7 +1,7 @@
-function ajax(url, input_data, gubun, method) {
+function ajax(url, inputData, gubun, method) {
     $.ajax(url, {
         type: method,
-        data: input_data,
+        data: inputData,
         async: false,
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
@@ -16,10 +16,10 @@ function ajax(url, input_data, gubun, method) {
     });
 }
 
-function fileUpload(url, input_data, gubun, method) {
+function fileUpload(url, inputData, gubun, method) {
     $.ajax(url, {
         type: method,
-        data: input_data,
+        data: inputData,
         enctype: 'multipart/form-data',
         processData: false,
         contentType: false,
@@ -42,7 +42,6 @@ $(document).ready(function() {
         window.history.back();
     })
 
-    $('.file_upload').file_upload();
     $('select').materialSelect();
 
     $('#product_modify_btn').click(function() {
@@ -125,19 +124,19 @@ function modifyProduct() {
     let originCd = $('#origin_cd').val();
     let itemDesc = $('#item_desc').val();
 
-    let input = {
-        'itemNo' : itemNo,
-        'itemNm1' : itemNm1,
-        'itemNm2' : itemNm2,
-        'price' : price,
-        'itemKcd' : itemKcd,
-        'originCd' : originCd,
-        'itemDesc' : itemDesc,
-        'remoteUrl' : remoteUrl,
-        'imageChanged' : imageChanged
+    let inputData = {
+        itemNo: itemNo,
+        itemNm1: itemNm1,
+        itemNm2: itemNm2,
+        price: price,
+        itemKcd: itemKcd,
+        originCd: originCd,
+        itemDesc: itemDesc,
+        remoteUrl: remoteUrl,
+        imageChanged: imageChanged
     }
 
-    ajax(serverUrl + '/admin/productModification/modifyProduct', input, 'modifyProduct', 'POST');
+    ajax(serverUrl + '/admin/productModification/modifyProduct', inputData, 'modifyProduct', 'POST');
 }
 
 function selectOneProductCallback(ret) {

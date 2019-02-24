@@ -1,13 +1,13 @@
-function ajax(url, input_data, gubun, method) {
+function ajax(url, inputData, gubun, method) {
     $.ajax(url, {
         type: method,
-        data: input_data,
+        data: inputData,
         async: false,
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         success: function (data, status, xhr) {
-            if (gubun == "checkLogin") {
-                checkLoginCallback(data.res);
+            if (gubun == "login") {
+                loginCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -16,7 +16,7 @@ function ajax(url, input_data, gubun, method) {
 
 $(document).ready(function() {
     $('#login').click(function() {
-        checkLogin();
+        login();
     });
 
     $('#sign_up').click(function() {
@@ -28,14 +28,18 @@ function sign_up() {
     location.href = '/user/sign_up'
 }
 
-function checkLogin() {
-    let userId = $('#userId').val();
+function login() {
+    let telno = $('#telno').val();
     let password = $('#password').val();
-    let companyNo = $('#companyNo').val();
-    let input = {"companyNo" : companyNo, "userId" : userId, "password" : password}
-    ajax('/login/checkLogin', input, 'checkLogin', 'POST');
+    let inputData = {
+        telno: telno,
+        password: password
+    }
+    ajax(serverUrl + '/user/login', inputData, 'login', 'POST');
 }
 
-function checkLoginCallback(data) {
-    location.href = '/frame';
+function loginCallback(ret) {
+    if (ret == 'ok') {
+        location.href = '/';
+    }
 }

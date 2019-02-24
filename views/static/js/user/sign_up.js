@@ -1,7 +1,7 @@
-function ajax(url, input_data, gubun, method) {
+function ajax(url, inputData, gubun, method) {
     $.ajax(url, {
         type: method,
-        data: input_data,
+        data: inputData,
         async: false,
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
@@ -34,15 +34,15 @@ function goSigningUp() {
     }
     let dateOfBirth = $('#date_of_birth').val();
     let address = $('#address1').val() + ' ' + $('#address2').val() + ' ' + $('#address3').val() + ' ' + $('#address4').val();
-    let input = {
-        "telno": telno,
-        "password": password,
-        "userNm": userNm,
-        "gender": gender,
-        "dateOfBirth": dateOfBirth,
-        "address": address
+    let inputData = {
+        telno: telno,
+        password: password,
+        userNm: userNm,
+        gender: gender,
+        dateOfBirth: dateOfBirth,
+        address: address
     }
-    ajax(serverUrl + '/user/goSigningUp', input, 'goSigningUp', 'POST');
+    ajax(serverUrl + '/user/goSigningUp', inputData, 'goSigningUp', 'POST');
 }
 
 function goSigningUpCallback(ret) {

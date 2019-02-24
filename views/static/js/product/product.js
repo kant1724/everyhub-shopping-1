@@ -1,7 +1,7 @@
-function ajax(url, input_data, gubun, method) {
+function ajax(url, inputData, gubun, method) {
     $.ajax(url, {
         type: method,
-        data: input_data,
+        data: inputData,
         async: false,
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',

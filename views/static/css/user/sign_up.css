@@ -3,3 +3,21 @@ body {
     background: #eee !important;
 }
 
+.screen-ratio {
+    margin: auto;
+    width: 500px;
+}
+
+.screen-ratio-inner {
+    margin-left: 20px;
+}
+
+@media only screen and (max-width: 620px) {
+    .screen-ratio {
+        width: 300px;
+        padding-left: 0px;
+    }
+    .screen-ratio-inner {
+        margin-left: 0px;
+    }
+}
