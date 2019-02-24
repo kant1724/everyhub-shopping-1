@@ -7,8 +7,10 @@ function ajax(url, inputData, gubun, method) {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         success: function (data, status, xhr) {
-            if (gubun == "login") {
+            if (gubun == 'login') {
                 loginCallback(data.ret);
+            } else if (gubun == 'setToken') {
+                setTokenCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -42,8 +44,13 @@ function login() {
 function loginCallback(ret) {
     if (ret != 'not ok') {
         localStorage.clear();
-        location.href = '/?token=' + ret;
-    } else {
-        alert(ret);
-    }
+        let inputData = {
+            token: ret
+        };
+        ajax('/user/setToken', inputData, 'setToken', 'POST');
+    } else {}
+}
+
+function setTokenCallback(ret) {
+    location.href = '/';
 }
