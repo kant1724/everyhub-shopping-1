@@ -4,6 +4,7 @@ function ajax(url, inputData, gubun, method) {
         data: inputData,
         async: false,
         xhrFields: { withCredentials: true },
+        crossDomain: true,
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         success: function (data, status, xhr) {
