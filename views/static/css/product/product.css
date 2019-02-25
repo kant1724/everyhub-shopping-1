@@ -11,7 +11,7 @@ body {
     color: #FFFFFF;
 }
 
-.qty-btn {
+.qty-plus-btn, .qty-minus-btn {
     width: 30px;
     height: 30px;
     display: inline-block;
@@ -23,6 +23,6 @@ body {
     color: #333;
 }
 
-.qty-btn:hover {
+.qty-plus-btn:hover, .qty-minus-btn:hover {
     cursor: pointer;
 }

@@ -32,7 +32,7 @@ $(document).ready(function() {
             price: $('#info_price').text(),
             priceNum: $('#info_price_num').text(),
             itemNm2: $('#info_item_nm_2').text(),
-            qty: 1
+            qty: $('#qty').val()
         };
         if (localStorage.getItem('product') != null) {
             productArr.push(p);
@@ -44,6 +44,20 @@ $(document).ready(function() {
         location.href = '/cart';
     });
     selectOneProduct();
+
+    $('.qty-plus-btn').click(function() {
+        let qtyObj = $(this).parent().find('#qty');
+        let qty = Number(qtyObj.val());
+        qtyObj.val(qty + 1);
+    });
+
+    $('.qty-minus-btn').click(function() {
+        let qtyObj = $(this).parent().find('#qty');
+        let qty = Number(qtyObj.val());
+        if (qty > 0) {
+            qtyObj.val(qty - 1);
+        }
+    });
 });
 
 function selectOneProduct() {
