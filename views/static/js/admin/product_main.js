@@ -40,8 +40,7 @@ function selectProductListCallback(ret) {
     $('.product-table tbody').append(html);
 
     $('.modify-product').click(function() {
-        let itemNo = $($($(this).parent().parent()).find('.item-no')).text();
+        let itemNo = $(this).parent().parent().find('.item-no').text();
         location.href = '/admin/product_modify?itemNo=' + itemNo
     });
-
 }

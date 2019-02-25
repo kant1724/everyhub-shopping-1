@@ -18,7 +18,8 @@ $(document).ready(function() {
     let html = '';
     for (let i = 0; i < productArray.length; ++i) {
         html += '<tr>';
-        html += '<td><button type="button" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Remove item">X</button></td>';
+        html += '<input id="itemNo" type="hidden" value="' + productArray[i].itemNo + '">';
+        html += '<td><button type="button" class="btn btn-sm btn-danger remove-item" data-toggle="tooltip" data-placement="top" title="Remove item">X</button></td>';
         html += '<th scope="row"><img src="' + productArray[i].imagePath + '" alt="" class="img-fluid z-depth-0"></th>';
         html += '<td>' + productArray[i].itemNm1 + ' ' + productArray[i].itemNm2 + '</td>';
         html += '<td>' + productArray[i].price + '</td>';
@@ -31,4 +32,16 @@ $(document).ready(function() {
         html += '</div></td><td>' + productArray[i].price + '</td></tr>';
     }
     $('#cart_tbody').append(html);
+
+    $('.remove-item').click(function() {
+        let itemNo = $(this).parent().parent().find('#itemNo').val();
+        let productArray = JSON.parse(localStorage.getItem('product'));
+        for (let i = 0; i < productArray.length; ++i) {
+            if (productArray[i].itemNo == itemNo) {
+                productArray.pop(i);
+            }
+        }
+        localStorage.setItem('product', JSON.stringify(productArray));
+        $(this).parent().parent().remove();
+    });
 });
