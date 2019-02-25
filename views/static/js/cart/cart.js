@@ -13,10 +13,16 @@ function ajax(url, inputData, gubun, method) {
 $(document).ready(function() {
     $('#purchase_btn').click(function() {
         let productArr = JSON.parse(localStorage.getItem('product'));
-        let text = 0;
+        let text = '';
         for (let i = 0; i < productArr.length; ++i) {
-
+            text += productArr[i].itemNm1;
+            text += ' * ';
+            text += productArr[i].qty;
+            text += ' = ';
+            text += Number(productArr[i].priceNum) * Number(productArr[i].qty);
+            text += '\n';
         }
+        alert(text);
         location.href = '/purchase';
     });
     let productArr = JSON.parse(localStorage.getItem('product'));
@@ -38,7 +44,6 @@ $(document).ready(function() {
         html += '</div></td><td>' + productArr[i].price + '</td></tr>';
     }
     $('#cart_tbody').append(html);
-
     $('.remove-item').click(function() {
         let id = $(this).parent().parent().find('#id').val();
         let productArr = JSON.parse(localStorage.getItem('product'));

@@ -30,6 +30,7 @@ $(document).ready(function() {
             imagePath: $('#info_image_path').prop('src'),
             itemNm1: $('#info_item_nm_1').text(),
             price: $('#info_price').text(),
+            priceNum: $('#info_price_num').text(),
             itemNm2: $('#info_item_nm_2').text(),
             qty: 1
         };
@@ -57,6 +58,7 @@ function selectOneProductCallback(ret) {
     $('#info_image_path').prop('src', ret[0].imagePath);
     $('#info_item_nm_1').text(ret[0].itemNm1);
     $('#info_price').text(numberWithCommas(ret[0].price) + '원');
+    $('#info_price_num').text(ret[0].price);
     $('#info_item_desc').text(ret[0].itemDesc);
     $('#info_item_nm_2').text(ret[0].itemNm2);
 }
