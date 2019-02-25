@@ -44,7 +44,7 @@ $(document).ready(function() {
         let productArr = JSON.parse(localStorage.getItem('product'));
         for (let i = 0; i < productArr.length; ++i) {
             if (productArr[i].id == id) {
-                productArr.pop(i);
+                productArr.splice(i);
             }
         }
         localStorage.setItem('product', JSON.stringify(productArr));
@@ -73,7 +73,7 @@ $(document).ready(function() {
 function setQty(id, qty) {
     let productArr = JSON.parse(localStorage.getItem('product'));
     for (let i = 0; i < productArr.length; ++i) {
-        if (productArr[i].id == Number(id)) {
+        if (productArr[i].id == id) {
             productArr[i].qty = qty;
         }
     }
