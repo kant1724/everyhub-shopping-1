@@ -135,12 +135,12 @@ function registerNewProductCallback(ret) {
         formData.append(ret, $("#item_image")[0].files[0]);
         fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
     } else {
-        alert("상품이 등록되었습니다.");
+        alert('상품이 등록되었습니다.');
         location.href = '/admin'
     }
 }
 
 function uploadImageCallback() {
-    alert("상품이 등록되었습니다.");
+    alert('상품이 등록되었습니다.');
     location.href = '/admin'
 }
