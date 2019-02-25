@@ -16,23 +16,31 @@ function ajax(url, inputData, gubun, method) {
 
 $(document).ready(function() {
     $('.add-cart').click(function() {
+        let productArr = JSON.parse(localStorage.getItem('product'));
+        let id = 0;
+        if (productArr != null) {
+            for (let i = 0; i < productArr.length; ++i) {
+                id = Math.max(productArr[i].id, id);
+            }
+        }
         let itemNo = $('#item_no').val();
         let p = {
+            id: id + 1,
             itemNo: itemNo,
             imagePath: $('#info_image_path').prop('src'),
             itemNm1: $('#info_item_nm_1').text(),
             price: $('#info_price').text(),
-            itemNm2: $('#info_item_nm_2').text()
-        }
+            itemNm2: $('#info_item_nm_2').text(),
+            qty: 1
+        };
         if (localStorage.getItem('product') != null) {
-            let productArray = JSON.parse(localStorage.getItem('product'));
-            productArray.push(p);
-            localStorage.setItem('product', JSON.stringify(productArray));
+            productArr.push(p);
+            localStorage.setItem('product', JSON.stringify(productArr));
         } else {
-            let productArray = [p];
-            localStorage.setItem('product', JSON.stringify(productArray));
+            let productArr = [p];
+            localStorage.setItem('product', JSON.stringify(productArr));
         }
-        location.href = '/cart'
+        location.href = '/cart';
     });
     selectOneProduct();
 });
