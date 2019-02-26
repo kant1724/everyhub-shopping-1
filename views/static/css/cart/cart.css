@@ -17,3 +17,20 @@ body {
 .qty-btn:hover {
     cursor: pointer;
 }
+
+.qty-plus-btn, .qty-minus-btn {
+    padding-top: 1px;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    font-size: 13px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    position:relative;
+    top: 2px;
+    color: #333;
+}
+
+.qty-plus-btn:hover, .qty-minus-btn:hover {
+    cursor: pointer;
+}

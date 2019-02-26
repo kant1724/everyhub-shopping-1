@@ -16,6 +16,8 @@ $(document).ready(function() {
     let html = '';
     for (let i = 0; i < productArr.length; ++i) {
         html += '<div class="container text-center">';
+        html += '<input id="id" type="hidden" value="' + productArr[i].id + '">';
+        html += '<input id="item_price_num" type="hidden" value="' + productArr[i].itemPriceNum + '">';
         html += '<div class="mt-3 pb-3" style="border: 1px solid #ccc;">';
         html += '<div style="border-bottom: 1px solid #ccc; margin-bottom: 15px; font-weight: 700; background: #FAFAFA;">상품</div>';
         html += '<div class="text-left ml-3" style="margin-bottom: 15px;">';
@@ -36,19 +38,56 @@ $(document).ready(function() {
         html += '<div style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 15px; font-weight: 700; background: #FAFAFA;">수량</div>';
         html += '<div style="margin-bottom: 15px;" class="btn-group radio-group ml-2" data-toggle="buttons">';
         html += '<div class="d-inline-block text-center pb-2">';
-        html += '<div class="qty-btn"><i class="far fa-minus"></i></div>';
-        html += '<input style="position:relative; top: 2px;" type="number" id="1" value="1" min="1" max="2" />';
-        html += '<div class="qty-btn"><i class="far fa-plus"></i></div>';
+        html += '<div class="qty-minus-btn mr-1"><i class="far fa-minus"></i></div>';
+        html += '<input style="width: 60px; font-size: 12px; text-align: center; position: relative; top: 2px;" type="number" class="qty" id="qty" value="' + productArr[i].qty + '"/>';
+        html += '<div class="qty-plus-btn ml-1"><i class="far fa-plus"></i></div>';
         html += '</div>';
         html += '</div>';
         html += '<div style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 15px; font-weight: 700; background: #FAFAFA;">가격</div>';
-        html += '<div id="sum" style="margin-bottom: 15px;">18,000원</div>';
+        html += '<div id="sum" style="margin-bottom: 15px;">' + numberWithCommas(Number(productArr[i].itemPriceNum) * productArr[i].qty) + '원</div>';
         html += '<hr>';
-        html += '<button type="button" id="delete_btn" class="btn btn-sm btn-danger btn-rounded delete-btn">삭제</button>';
+        html += '<button type="button" class="btn btn-sm btn-danger btn-rounded remove-item">삭제</button>';
         html += '</div>';
         html += '</div>';
     }
     $('#cart_list').append(html);
+
+    $('.remove-item').click(function() {
+        let id = $(this).parent().parent().find('#id').val();
+        let productArr = JSON.parse(localStorage.getItem('product'));
+        for (let i = 0; i < productArr.length; ++i) {
+            if (productArr[i].id == id) {
+                productArr.splice(i, 1);
+                break;
+            }
+        }
+        localStorage.setItem('product', JSON.stringify(productArr));
+        $(this).parent().parent().remove();
+    });
+    $('.qty-plus-btn').click(function() {
+        let qtyObj = $(this).parent().parent().find('.qty');
+        let qty = qtyObj.val();
+        let nQty = Number(qty) + 1;
+        qtyObj.val(nQty);
+        let id = $(this).parent().parent().parent().parent().find('#id').val();
+        setQty(id, nQty);
+        let sumObj = $(this).parent().parent().parent().find('#sum');
+        let itemPriceNum = $(this).parent().parent().parent().parent().find('#item_price_num').val();
+        sumObj.text(numberWithCommas(nQty * Number(itemPriceNum) + '원'));
+    });
+    $('.qty-minus-btn').click(function() {
+        let qtyObj = $(this).parent().parent().find('.qty');
+        let qty = qtyObj.val();
+        if (qty > 0) {
+            let nQty = Number(qty) - 1;
+            qtyObj.val(nQty);
+            let id = $(this).parent().parent().parent().parent().find('#id').val();
+            setQty(id, nQty);
+            let sumObj = $(this).parent().parent().parent().find('#sum');
+            let itemPriceNum = $(this).parent().parent().parent().parent().find('#item_price_num').val();
+            sumObj.text(numberWithCommas(nQty * Number(itemPriceNum) + '원'));
+        }
+    });
 });
 
 function setQty(id, qty) {

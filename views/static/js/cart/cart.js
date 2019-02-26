@@ -52,7 +52,8 @@ $(document).ready(function() {
         let productArr = JSON.parse(localStorage.getItem('product'));
         for (let i = 0; i < productArr.length; ++i) {
             if (productArr[i].id == id) {
-                productArr.splice(i);
+                productArr.splice(i, 1);
+                break;
             }
         }
         localStorage.setItem('product', JSON.stringify(productArr));
