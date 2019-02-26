@@ -12,15 +12,45 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
+    $('#purchase_btn').click(function() {
+        let productArr = JSON.parse(localStorage.getItem('product'));
+        let text = '';
+        let itemObj = $('#cart_list').find('.each-item');
+        for (let i = 0; i < itemObj.length; ++i) {
+            let checked = $(itemObj[i]).find('.cart-checkbox').is(':checked');
+            if (!checked) {
+                continue;
+            }
+            let id = $(itemObj[i]).find('#id').val();
+            for (let j = 0; j < productArr.length; ++j) {
+                if (id == productArr[j].id) {
+                    text += productArr[j].itemNm1;
+                    text += ' * ';
+                    text += productArr[j].qty;
+                    text += ' = ';
+                    text += Number(productArr[j].itemPriceNum) * Number(productArr[j].qty);
+                    text += '\n';
+                    break;
+                }
+            }
+        }
+        location.href = '/purchase';
+    });
+
+
     let productArr = JSON.parse(localStorage.getItem('product'));
     let html = '';
     for (let i = 0; i < productArr.length; ++i) {
-        html += '<div class="container text-center">';
+        html += '<div class="each-item container text-center">';
         html += '<input id="id" type="hidden" value="' + productArr[i].id + '">';
         html += '<input id="item_price_num" type="hidden" value="' + productArr[i].itemPriceNum + '">';
         html += '<div class="mt-3 pb-3" style="border: 1px solid #ccc;">';
         html += '<div style="border-bottom: 1px solid #ccc; margin-bottom: 15px; font-weight: 700; background: #FAFAFA;">상품</div>';
         html += '<div class="text-left ml-3" style="margin-bottom: 15px;">';
+        html += '<div class="text-center custom-control custom-checkbox">';
+        html += '<input type="checkbox" class="cart-checkbox custom-control-input" id="cart_check_box' + i + '" checked>';
+        html += '<label class="custom-control-label" for="cart_check_box' + i + '"></label>';
+        html += '</div>';
         html += '<div style="display: inline-block;">';
         html += '<img width="100px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0">';
         html += '</div>';
