@@ -15,25 +15,38 @@ $(document).ready(function() {
     $('#purchase_btn').click(function() {
         let productArr = JSON.parse(localStorage.getItem('product'));
         let text = '';
-        for (let i = 0; i < productArr.length; ++i) {
-            text += productArr[i].itemNm1;
-            text += ' * ';
-            text += productArr[i].qty;
-            text += ' = ';
-            text += Number(productArr[i].itemPriceNum) * Number(productArr[i].qty);
-            text += '\n';
+        let itemObj = $('#cart_tbody').find('.each-item');
+        for (let i = 0; i < itemObj.length; ++i) {
+            let checked = $(itemObj[i]).find('.cart-checkbox').is(':checked');
+            if (!checked) {
+                continue;
+            }
+            let id = $(itemObj[i]).find('#id').val();
+            for (let j = 0; j < productArr.length; ++j) {
+                if (id == productArr[j].id) {
+                    text += productArr[j].itemNm1;
+                    text += ' * ';
+                    text += productArr[j].qty;
+                    text += ' = ';
+                    text += Number(productArr[j].itemPriceNum) * Number(productArr[j].qty);
+                    text += '\n';
+                    break;
+                }
+            }
         }
-        alert(text);
         location.href = '/purchase';
     });
     let productArr = JSON.parse(localStorage.getItem('product'));
     let html = '';
     for (let i = 0; i < productArr.length; ++i) {
-        html += '<tr>';
+        html += '<tr class="each-item">';
         html += '<input id="id" type="hidden" value="' + productArr[i].id + '">';
         html += '<input id="item_no" type="hidden" value="' + productArr[i].itemNo + '">';
         html += '<input id="item_price_num" type="hidden" value="' + productArr[i].itemPriceNum + '">';
-        html += '<td><button type="button" class="btn btn-sm btn-danger remove-item" data-toggle="tooltip" data-placement="top" title="Remove item">X</button></td>';
+        html += '<td><div class="custom-control custom-checkbox">';
+        html += '<input type="checkbox" class="cart-checkbox custom-control-input" id="cart_check_box' + i + '" checked>';
+        html += '<label class="custom-control-label" for="cart_check_box' + i + '"></label>';
+        html += '</div></td>';
         html += '<th scope="row"><img src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></th>';
         html += '<td>' + productArr[i].itemNm1 + ' ' + productArr[i].itemNm2 + '</td>';
         html += '<td>' + productArr[i].itemQty + '과</td>';
@@ -45,7 +58,8 @@ $(document).ready(function() {
         html += '<input type="radio" name="options" id="option1">&mdash;';
         html += '</label>';
         html += '<label class="plus-qty btn btn-sm btn-danger btn-rounded"><input type="radio" name="options" id="option2">+</label>';
-        html += '</div></td><td id="sum">' + numberWithCommas(Number(productArr[i].itemPriceNum) * productArr[i].qty) + '원</td></tr>';
+        html += '</div></td><td id="sum">' + numberWithCommas(Number(productArr[i].itemPriceNum) * productArr[i].qty) + '원</td>';
+        html += '<td><button type="button" class="btn btn-sm btn-danger remove-item" data-toggle="tooltip" data-placement="top" title="Remove item">X</button></td></tr>';
     }
     $('#cart_tbody').append(html);
     $('.remove-item').click(function() {
