@@ -32,6 +32,7 @@ $(document).ready(function() {
         html += '<tr>';
         html += '<input id="id" type="hidden" value="' + productArr[i].id + '">';
         html += '<input id="item_no" type="hidden" value="' + productArr[i].itemNo + '">';
+        html += '<input id="item_price_num" type="hidden" value="' + productArr[i].itemPriceNum + '">';
         html += '<td><button type="button" class="btn btn-sm btn-danger remove-item" data-toggle="tooltip" data-placement="top" title="Remove item">X</button></td>';
         html += '<th scope="row"><img src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></th>';
         html += '<td>' + productArr[i].itemNm1 + ' ' + productArr[i].itemNm2 + '</td>';
@@ -44,7 +45,7 @@ $(document).ready(function() {
         html += '<input type="radio" name="options" id="option1">&mdash;';
         html += '</label>';
         html += '<label class="plus-qty btn btn-sm btn-danger btn-rounded"><input type="radio" name="options" id="option2">+</label>';
-        html += '</div></td><td>' + productArr[i].itemPrice + '</td></tr>';
+        html += '</div></td><td id="sum">' + numberWithCommas(Number(productArr[i].itemPriceNum) * productArr[i].qty) + '원</td></tr>';
     }
     $('#cart_tbody').append(html);
     $('.remove-item').click(function() {
@@ -66,6 +67,9 @@ $(document).ready(function() {
         qtyObj.text(nQty);
         let id = $(this).parent().parent().parent().find('#id').val();
         setQty(id, nQty);
+        let sumObj = $(this).parent().parent().parent().find('#sum');
+        let itemPriceNum = $(this).parent().parent().parent().find('#item_price_num').val();
+        sumObj.text(numberWithCommas(nQty * Number(itemPriceNum) + '원'));
     });
     $('.minus-qty').click(function() {
         let qtyObj = $(this).parent().parent().find('.qty');
@@ -75,6 +79,9 @@ $(document).ready(function() {
             qtyObj.text(nQty);
             let id = $(this).parent().parent().parent().find('#id').val();
             setQty(id, nQty);
+            let sumObj = $(this).parent().parent().parent().find('#sum');
+            let itemPriceNum = $(this).parent().parent().parent().find('#item_price_num').val();
+            sumObj.text(numberWithCommas(nQty * Number(itemPriceNum) + '원'));
         }
     });
 });
