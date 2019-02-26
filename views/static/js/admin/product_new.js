@@ -108,7 +108,8 @@ function registerNewProduct() {
     let itemQty = $('#item_qty').val();
     let itemKg = $('#item_kg').val();
     let itemPrice = $('#item_price ').val();
-    let itemKcd = $('#item_kcd').val();
+    let itemMainCtgrCd = $('#item_main_ctgr_cd').val();
+    let itemMidCtgrCd = $('#item_mid_ctgr_cd').val();
     let originCd = $('#origin_cd').val();
     let itemDesc = $('#item_desc').val();
 
@@ -119,7 +120,8 @@ function registerNewProduct() {
         itemQty: itemQty,
         itemKg: itemKg,
         itemPrice: itemPrice,
-        itemKcd: itemKcd,
+        itemMainCtgrCd: itemMainCtgrCd,
+        itemMidCtgrCd: itemMidCtgrCd,
         originCd: originCd,
         itemDesc: itemDesc,
         remoteUrl: remoteUrl,

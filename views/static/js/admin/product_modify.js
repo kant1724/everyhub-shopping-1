@@ -43,7 +43,7 @@ $(document).ready(function() {
         window.history.back();
     })
 
-    $('select').materialSelect();
+    $('select').material_select();
 
     $('#product_modify_btn').click(function() {
         modifyProduct();
@@ -114,7 +114,8 @@ function modifyProduct() {
     let itemQty = $('#item_qty').val();
     let itemKg = $('#item_kg').val();
     let itemPrice = $('#item_price ').val();
-    let itemKcd = $('#item_kcd').val();
+    let itemMainCtgrCd = $('#item_main_ctgr_cd').val();
+    let itemMidCtgrCd = $('#item_mid_ctgr_cd').val();
     let originCd = $('#origin_cd').val();
     let itemDesc = $('#item_desc').val();
 
@@ -125,7 +126,8 @@ function modifyProduct() {
         itemQty: itemQty,
         itemKg: itemKg,
         itemPrice: itemPrice,
-        itemKcd: itemKcd,
+        itemMainCtgrCd: itemMainCtgrCd,
+        itemMidCtgrCd: itemMidCtgrCd,
         originCd: originCd,
         itemDesc: itemDesc,
         remoteUrl: remoteUrl,
@@ -142,7 +144,12 @@ function selectOneProductCallback(ret) {
     $('#item_nm_1').val(ret[0].itemNm1);
     $('#item_nm_2').focus();
     $('#item_nm_2').val(ret[0].itemNm2);
-    $('#item_kcd').val(ret[0].itemKcd);
+    $('#item_main_ctgr_cd').val(ret[0].itemMainCtgrCd);
+    $('#item_mid_ctgr_cd').val(ret[0].itemMidCtgrCd);
+
+    //$('#item_main_ctgr_cd').parent().find('.select-dropdown li:contains("' + ret[0].itemMainCtgrNm + '")').trigger('click')
+    //$('#item_mid_ctgr_cd').parent().find('.select-dropdown li:contains("' + ret[0].itemMidCtgrNm + '")').trigger('click')
+
     $('#origin_cd').val(ret[0].originCd);
     $('#item_qty').focus();
     $('#item_qty').val(ret[0].itemQty);
