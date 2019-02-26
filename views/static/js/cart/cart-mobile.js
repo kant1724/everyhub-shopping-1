@@ -37,7 +37,6 @@ $(document).ready(function() {
         location.href = '/purchase';
     });
 
-
     let productArr = JSON.parse(localStorage.getItem('product'));
     let html = '';
     for (let i = 0; i < productArr.length; ++i) {
