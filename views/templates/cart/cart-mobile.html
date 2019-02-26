@@ -46,45 +46,19 @@
             </div>
         </nav>
     </header>
-    <div class="container mt-5 pt-3">
-        <div class="container text-center">
-            <div class="mt-3" style="border: 1px solid #ccc;">
-                <div style="border-bottom: 1px solid #ccc; margin-bottom: 15px; font-weight: 700; background: #FAFAFA;">상품</div>
-                <div class="text-left ml-3" style="margin-bottom: 15px;">
-                    <div style="display: inline-block;">
-                        <img width="100px" src="http://14.63.168.58:5005/static/data/shopping/한라봉.jpg" alt="" class="img-fluid z-depth-0">
-                    </div>
-                    <div style="display: inline-block; top: 10px; margin-left: 5px; position: relative;">
-                        <a style="margin-left: 20px; font-weight: 700;">한라봉 10kg</a>
-                        <br>
-                        <a style="margin-left: 20px; font-size: 12px;">원산지: 국내산</a>
-                    </div>
-                </div>
-                <div style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 15px; font-weight: 700; background: #FAFAFA;">단가</div>
-                <div style="margin-bottom: 15px;">18,000원</div>
-                <div style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 15px; font-weight: 700; background: #FAFAFA;">수량</div>
-                <div style="margin-bottom: 15px;" class="btn-group radio-group ml-2" data-toggle="buttons">
-                    <div class="d-inline-block text-center pb-2">
-                    <div class="qty-btn"><i class="far fa-minus"></i></div>
-                    <input style="position:relative; top: 2px;" type="number" id="1" value="1" min="1" max="2" />
-                    <div class="qty-btn"><i class="far fa-plus"></i></div>
-                </div>
-                </div>
-                <div style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 15px; font-weight: 700; background: #FAFAFA;">가격</div>
-                <div style="margin-bottom: 15px;">18,000원</div>
-                <hr>
-                <div style="margin-bottom: 15px;">
-                    <button type="button" id="purchase_btn" class="btn btn-sm deep-orange btn-rounded purchase-btn">구매하기<i class="fa fa-angle-right right"></i></button>
-                    <button type="button" id="delete_btn" class="btn btn-sm btn-danger btn-rounded delete-btn">삭제</button>
-                </div>
-            </div>
-        </div>
+    <div id="cart_list" class="container mt-5 pt-3">
+
+    </div>
+    <hr>
+    <div class="text-center" style="margin-bottom: 15px;">
+        <button type="button" id="purchase_btn" class="btn btn-sm deep-orange btn-rounded purchase-btn">구매하기<i class="fa fa-angle-right right"></i></button>
     </div>
     <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/js/cart/cart.js"></script>
+    <script type="text/javascript" src="/static/js/common/utils.js"></script>
+    <script type="text/javascript" src="/static/js/cart/cart-mobile.js"></script>
 </body>
 
 </html>

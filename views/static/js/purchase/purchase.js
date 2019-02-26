@@ -16,5 +16,4 @@ $(document).ready(function() {
     $('.payment-btn').click(function() {
        alert('주문이 완료되었습니다.\n0000-000-00000 계좌로 입금해 주세요.');
     });
-
 });

@@ -52,4 +52,3 @@ function selectProductListCallback(ret) {
         location.href = '/product?itemNo=' + itemNo;
     });
 }
-
