@@ -76,22 +76,13 @@ function checkValidation() {
         $('#item_nm_1_label').css('color', 'gray');
     }
 
-    if ($('#item_nm_2').val() == undefined || $('#item_nm_2').val() == '') {
-        $('#item_nm_2_label').text('상품명2를 입력하세요.');
-        $('#item_nm_2_label').css('color', 'red');
+    if ($('#item_price').val() == undefined || $('#price').val() == '') {
+        $('#item_price_label').text('가격을 입력하세요.');
+        $('#item_price_label').css('color', 'red');
         isOk = false;
     } else {
-        $('#item_nm_2_label').text('상품명2');
-        $('#item_nm_2_label').css('color', 'gray');
-    }
-
-    if ($('#price').val() == undefined || $('#price').val() == '') {
-        $('#price_label').text('가격을 입력하세요.');
-        $('#price_label').css('color', 'red');
-        isOk = false;
-    } else {
-        $('#price_label').text('가격');
-        $('#price_label').css('color', 'gray');
+        $('#item_price_label').text('가격');
+        $('#item_price_label').css('color', 'gray');
     }
 
     if ($('#item_desc').val() == undefined || $('#item_desc').val() == '') {
@@ -110,22 +101,30 @@ function registerNewProduct() {
     if (!checkValidation()) {
         return;
     }
+
+    let itemNo = $('#item_no').val();
     let itemNm1 = $('#item_nm_1').val();
     let itemNm2 = $('#item_nm_2').val();
-    let price = $('#price').val();
+    let itemQty = $('#item_qty').val();
+    let itemKg = $('#item_kg').val();
+    let itemPrice = $('#item_price ').val();
     let itemKcd = $('#item_kcd').val();
     let originCd = $('#origin_cd').val();
     let itemDesc = $('#item_desc').val();
 
     let inputData = {
+        itemNo: itemNo,
         itemNm1: itemNm1,
         itemNm2: itemNm2,
-        price: price,
+        itemQty: itemQty,
+        itemKg: itemKg,
+        itemPrice: itemPrice,
         itemKcd: itemKcd,
         originCd: originCd,
         itemDesc: itemDesc,
-        remoteUrl: remoteUrl
-    }
+        remoteUrl: remoteUrl,
+        imageChanged: imageChanged
+    };
 
     ajax(serverUrl + '/admin/registerNewProduct', inputData, 'registerNewProduct', 'POST');
 }
