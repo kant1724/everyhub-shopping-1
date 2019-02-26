@@ -30,8 +30,10 @@ $(document).ready(function() {
             itemNo: itemNo,
             imagePath: $('#info_image_path').prop('src'),
             itemNm1: $('#info_item_nm_1').text(),
-            price: $('#info_price').text(),
-            priceNum: $('#info_price_num').text(),
+            itemQty: $('#info_item_qty').text(),
+            itemKg: $('#info_item_kg').text(),
+            itemPrice: $('#info_item_price').text(),
+            itemPriceNum: $('#info_item_price_num').text(),
             itemNm2: $('#info_item_nm_2').text(),
             qty: $('#qty').val()
         };
@@ -72,8 +74,10 @@ function selectOneProduct() {
 function selectOneProductCallback(ret) {
     $('#info_image_path').prop('src', ret[0].imagePath);
     $('#info_item_nm_1').text(ret[0].itemNm1);
-    $('#info_price').text(numberWithCommas(ret[0].price) + '원');
-    $('#info_price_num').text(ret[0].price);
+    $('#info_item_qty').text(ret[0].itemQty);
+    $('#info_item_kg').text(ret[0].itemKg);
+    $('#info_item_price').text(numberWithCommas(ret[0].itemPrice) + '원');
+    $('#info_item_price_num').text(ret[0].itemPrice);
     $('#info_item_desc').text(ret[0].itemDesc);
     $('#info_item_nm_2').text(ret[0].itemNm2);
 }

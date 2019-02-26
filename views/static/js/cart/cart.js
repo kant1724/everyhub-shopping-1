@@ -20,7 +20,7 @@ $(document).ready(function() {
             text += ' * ';
             text += productArr[i].qty;
             text += ' = ';
-            text += Number(productArr[i].priceNum) * Number(productArr[i].qty);
+            text += Number(productArr[i].itemPriceNum) * Number(productArr[i].qty);
             text += '\n';
         }
         alert(text);
@@ -35,14 +35,14 @@ $(document).ready(function() {
         html += '<td><button type="button" class="btn btn-sm btn-danger remove-item" data-toggle="tooltip" data-placement="top" title="Remove item">X</button></td>';
         html += '<th scope="row"><img src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></th>';
         html += '<td>' + productArr[i].itemNm1 + ' ' + productArr[i].itemNm2 + '</td>';
-        html += '<td>' + productArr[i].price + '</td>';
+        html += '<td>' + productArr[i].itemPrice + '</td>';
         html += '<td class="text-center text-md-left"><span class="qty">' + productArr[i].qty + '</span>';
         html += '<div class="btn-group radio-group ml-2" data-toggle="buttons">';
         html += '<label class="minus-qty btn btn-sm deep-orange btn-rounded">';
         html += '<input type="radio" name="options" id="option1">&mdash;';
         html += '</label>';
         html += '<label class="plus-qty btn btn-sm deep-orange btn-rounded"><input type="radio" name="options" id="option2">+</label>';
-        html += '</div></td><td>' + productArr[i].price + '</td></tr>';
+        html += '</div></td><td>' + productArr[i].itemPrice + '</td></tr>';
     }
     $('#cart_tbody').append(html);
     $('.remove-item').click(function() {
