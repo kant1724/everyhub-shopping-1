@@ -6,12 +6,17 @@ function ajax(url, inputData, gubun, method) {
         xhrFields: { withCredentials: true },
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
-        success: function (data, status, xhr) {},
+        success: function (data, status, xhr) {
+            if (gubun == 'insertOrderList') {
+                insertOrderListCallback();
+            }
+        },
         error: function (jqXhr, textStatus, errorMessage) {}
     });
 }
 
-let orderList = [];
+let orderListDetail = [];
+let orderListMain = {};
 $(document).ready(function() {
     let itemArr = $('#items').val().split(';');
     let productArr = JSON.parse(localStorage.getItem('product'));
@@ -31,16 +36,41 @@ $(document).ready(function() {
                 html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;수량: ' + productArr[j].qty + '</div>';
                 html += '<div><i class="far fa-check-circle"></i>&nbsp;&nbsp;가격: ' + numberWithCommas(productArr[j].itemPriceNum * productArr[j].qty) + '원</div>';
                 html += '<hr>';
-                orderList.push(eachOrder);
+                orderListDetail.push(eachOrder);
                 cnt += 1;
                 sum += productArr[j].itemPriceNum * productArr[j].qty;
             }
         }
     }
     html += '<div style="font-size: 22px; font-weight: 700;"><i class="far fa-won-sign"></i>&nbsp;&nbsp;총금액: ' + numberWithCommas(sum) + '원</div>';
+    orderListMain.totalPrice = sum;
     $('#order_list').append(html);
     $('.mdb-select').materialSelect();
+
     $('.payment-btn').click(function() {
-       alert('주문이 완료되었습니다.\n0000-000-00000 계좌로 입금해 주세요.');
+        insertOrderList();
     });
 });
+
+function insertOrderList() {
+    orderListMain.orderPersonNm = '';
+    orderListMain.orderTelno = 0;
+    orderListMain.receivePersonNm = '';
+    orderListMain.receiveTelno = 0;
+    orderListMain.receiveAddress = '';
+    orderListMain.orderRemarks = '';
+    orderListMain.sellerNo = 1;
+
+    let inputData = {
+        data: JSON.stringify(
+            {
+                orderListMain: orderListMain,
+                orderListDetail: orderListDetail
+            })
+    };
+    ajax(serverUrl + '/purchase/insertOrderList', inputData, 'insertOrderList', 'POST');
+}
+
+function insertOrderListCallback() {
+    alert('주문이 완료되었습니다.\n0000-000-00000 계좌로 입금해 주세요.');
+}
