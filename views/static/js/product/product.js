@@ -44,7 +44,7 @@ $(document).ready(function() {
             let productArr = [p];
             localStorage.setItem('product', JSON.stringify(productArr));
         }
-        location.href = '/cart';
+        alert("장바구니에 추가하였습니다.");
     });
     selectOneProduct();
 

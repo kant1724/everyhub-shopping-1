@@ -61,7 +61,7 @@ function selectProductListCallback(ret) {
     $('#all_item_list').append(html);
 
     $('.each-item').click(function() {
-        let itemNo = $($(this).find('#item_no')).val();
+        let itemNo = $(this).find('#item_no').val();
         location.href = '/product?itemNo=' + itemNo;
     });
 }
