@@ -68,7 +68,7 @@ let remoteUrl = '14.63.168.58:5006';
 let imageChanged = false;
 function selectOneProduct() {
     let inputData = {'itemNo' : $('#item_no').val()};
-    ajax(serverUrl + '/admin/selectOneProduct', inputData, 'selectOneProduct', 'POST');
+    ajax(serverUrl + '/admin/product_manager/selectOneProduct', inputData, 'selectOneProduct', 'POST');
 }
 
 function checkValidation() {
@@ -134,7 +134,7 @@ function modifyProduct() {
         imageChanged: imageChanged
     };
 
-    ajax(serverUrl + '/admin/modifyProduct', inputData, 'modifyProduct', 'POST');
+    ajax(serverUrl + '/admin/product_manager/modifyProduct', inputData, 'modifyProduct', 'POST');
 }
 
 function selectOneProductCallback(ret) {
@@ -167,11 +167,11 @@ function modifyProductCallback(ret) {
         fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
     } else {
         alert('상품이 변경되었습니다.');
-        location.href = '/admin'
+        location.href = '/admin/product_manager/';
     }
 }
 
 function uploadImageCallback() {
     alert('상품이 변경되었습니다.');
-    location.href = '/admin'
+    location.href = '/admin/product_manager/';
 }

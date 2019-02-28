@@ -28,7 +28,7 @@ $(document).ready(function() {
 
 function selectProductList() {
     let inputData = {};
-    ajax(serverUrl + '/admin/selectProductList', inputData, 'selectProductList', 'POST');
+    ajax(serverUrl + '/admin/product_manager/selectProductList', inputData, 'selectProductList', 'POST');
 }
 
 function selectProductListCallback(ret) {

@@ -128,7 +128,7 @@ function registerNewProduct() {
         imageChanged: imageChanged
     };
 
-    ajax(serverUrl + '/admin/registerNewProduct', inputData, 'registerNewProduct', 'POST');
+    ajax(serverUrl + '/admin/product_manager/registerNewProduct', inputData, 'registerNewProduct', 'POST');
 }
 
 function registerNewProductCallback(ret) {
@@ -138,11 +138,11 @@ function registerNewProductCallback(ret) {
         fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
     } else {
         alert('상품이 등록되었습니다.');
-        location.href = '/admin'
+        location.href = '/admin/product_manager/';
     }
 }
 
 function uploadImageCallback() {
     alert('상품이 등록되었습니다.');
-    location.href = '/admin'
+    location.href = '/admin/product_manager/';
 }

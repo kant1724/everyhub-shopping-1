@@ -7,8 +7,8 @@ function ajax(url, inputData, gubun, method) {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         success: function (data, status, xhr) {
-            if (gubun == 'selectProductList') {
-                selectProductListCallback(data.ret);
+            if (gubun == 'selectOrderListMain') {
+                selectOrderListMainCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -16,19 +16,15 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
-    $('.new-product-btn').click(function() {
-       location.href = '/admin/product_new';
-    });
-
-    selectProductList();
+    selectOrderListMain();
 });
 
-function selectProductList() {
+function selectOrderListMain() {
     let inputData = {};
-    ajax(serverUrl + '/admin/selectProductList', inputData, 'selectProductList', 'POST');
+    ajax(serverUrl + '/admin/order_list/selectOrderListMain', inputData, 'selectOrderListMain', 'POST');
 }
 
-function selectProductListCallback(ret) {
+function selectOrderListMainCallback(ret) {
     let html = '';
     for (let i = 0; i < ret.length; ++i) {
         html += '<tr><td class="text-center item-no">' + ret[i].itemNo +'</td>';
@@ -44,6 +40,6 @@ function selectProductListCallback(ret) {
 
     $('.modify-product').click(function() {
         let itemNo = $(this).parent().parent().find('.item-no').text();
-        location.href = '/admin/product_modify?itemNo=' + itemNo
+        location.href = '/admin/product_manager/product_modify?itemNo=' + itemNo;
     });
 }

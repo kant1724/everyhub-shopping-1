@@ -22,7 +22,7 @@ app.use('/', require('./getter/main/mainGetter'));
 app.use('/cart', require('./getter/cart/cartGetter'));
 app.use('/product', require('./getter/product/productGetter'));
 app.use('/purchase', require('./getter/purchase/purchaseGetter'));
-app.use('/admin', require('./getter/admin/adminGetter'));
+app.use('/admin/product_manager/', require('./getter/admin/product_manager/productManagerGetter'));
 app.use('/user', require('./getter/user/userGetter'));
 
 module.exports = app;

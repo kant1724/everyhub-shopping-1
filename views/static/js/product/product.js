@@ -68,7 +68,7 @@ function selectOneProduct() {
     let inputData  = {
         itemNo: itemNo
     };
-    ajax(serverUrl + '/admin/selectOneProduct', inputData , 'selectOneProduct', 'POST');
+    ajax(serverUrl + '/admin/product_manager/selectOneProduct', inputData , 'selectOneProduct', 'POST');
 }
 
 function selectOneProductCallback(ret) {
