@@ -29,7 +29,7 @@ $(document).ready(function() {
                 let eachOrder = {};
                 eachOrder.qty = productArr[j].qty;
                 eachOrder.itemNo = productArr[j].itemNo;
-                html += '<div style="font-size: 20px; font-weight: 700;"><i class="far fa-list"></i>&nbsp;&nbsp;주문' + cnt + '</div>';
+                html += '<div style="font-size: 20px; font-weight: 700; color: gray;"><i class="far fa-list"></i>&nbsp;&nbsp;주문' + cnt + '</div>';
                 html += '<hr>';
                 html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;상품명: ' + productArr[j].itemNm1 + ' ' + productArr[j].itemQty + '과 / ' + productArr[j].itemKg + 'KG</div>';
                 html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;단가: ' + productArr[j].itemPrice + '</div>';
@@ -42,7 +42,7 @@ $(document).ready(function() {
             }
         }
     }
-    html += '<div style="font-size: 22px; font-weight: 700;"><i class="far fa-won-sign"></i>&nbsp;&nbsp;총금액: ' + numberWithCommas(sum) + '원</div>';
+    html += '<div style="font-size: 22px; font-weight: 700; color: red;"><i class="far fa-won-sign"></i>&nbsp;&nbsp;총금액: ' + numberWithCommas(sum) + '원</div>';
     orderListMain.totalPrice = sum;
     $('#order_list').append(html);
     $('.mdb-select').materialSelect();
