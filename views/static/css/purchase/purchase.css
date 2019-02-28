@@ -11,3 +11,13 @@ body {
     border: 1px solid #006fff;
     border-radius: 3px;
 }
+
+.order-list {
+    padding: 15px;
+    border: 1px solid #ccc;
+}
+
+.order-info {
+    padding: 15px;
+    border: 1px solid #ccc;
+}

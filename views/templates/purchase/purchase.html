@@ -47,28 +47,56 @@
         </nav>
     </header>
     <div class="container mt-5 pt-3">
-            <div class="mb-3 mt-5" style="width: 100px; font-size:20px; border-left: 5px solid #333; padding-left: 10px;">주문결제</div>
+        <div class="mb-3 mt-5" style="width: 100px; font-size:20px; border-left: 5px solid #333; padding-left: 10px;">주문결제</div>
+        <hr>
+        <div class="my-5" style="width: 300px; font-size:17px; font-weight: 700;"><i class="fas fa-money-check-alt blue-text"></i>&nbsp;&nbsp;&nbsp;아래의 주문으로 결제하시겠습니까?</div>
+        <div class="order-list pl-4" id="order_list">
+        </div>
+        <hr>
+        <div class="order-info pl-4">
+            <div style="font-size: 20px; font-weight: 700;"><i class="far fa-info-square"></i>&nbsp;&nbsp;주문정보</div>
             <hr>
-            <div class="mt-3" style="width: 300px; font-size:16px; font-weight: 700;"><i class="fas fa-money-check-alt blue-text"></i>&nbsp;&nbsp;&nbsp;아래의 주문으로 결제하시겠습니까?</div>
-            <hr>
-            <div class="mt-3" id="order_list">
+            <div class="mt-3">
+                <div class="md-form">
+                    <i class="far fa-user prefix" style="font-size: 25px;"></i>
+                    <input type="text" class="form-control" id="order_person_nm"  style="width: 200px;" required="true">
+                    <label id="order_person_nm_label" for="order_person_nm">주문자</label>
+                </div>
             </div>
-            <hr>
-
-            <div>주문자</div>
-            <div>주문자 전화번호</div>
-            <div>받는자</div>
-            <div>받는자 전화번호</div>
-            <div>받는자 주소</div>
-            <div>예금주</div>
-            <div>예금주</div>
-
-
-            <div class="mb-3">
-                <button type="button" class="btn deep-orange btn-rounded payment-btn">결제하기
-                    <i class="fa fa-angle-right right"></i>
-                </button>
+            <div class="mt-3">
+                <div class="md-form">
+                    <i class="fal fa-mobile-alt prefix" style="font-size: 25px;"></i>
+                    <input type="number" class="form-control" id="order_telno"  style="width: 200px;" required="true">
+                    <label id="order_telno_label" for="order_telno">주문자 전화번호</label>
+                </div>
             </div>
+            <div class="mt-3">
+                <div class="md-form">
+                    <i class="fas fa-user prefix" style="font-size: 25px;"></i>
+                    <input type="text" class="form-control" id="receive_person_nm"  style="width: 200px;" required="true">
+                    <label id="receive_person_nm_label" for="receive_person_nm">받는자</label>
+                </div>
+            </div>
+            <div class="mt-3">
+                <div class="md-form">
+                    <i class="far fa-mobile-alt prefix" style="font-size: 25px;"></i>
+                    <input type="number" class="form-control" id="receive_telno"  style="width: 200px;" required="true">
+                    <label id="receive_telno_label" for="receive_telno">받는자 전화번호</label>
+                </div>
+            </div>
+            <div class="mt-3">
+                <div class="md-form">
+                    <i class="far fa-address-book prefix" style="font-size: 25px;"></i>
+                    <input type="text" class="form-control" id="receive_address"  style="width: 200px;" required="true">
+                    <label id="receive_address_label" for="receive_address">받는자 주소</label>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 mb-5">
+            <button type="button" class="btn deep-orange btn-rounded payment-btn">결제하기
+                <i class="fa fa-angle-right right"></i>
+            </button>
+        </div>
         <input id="items" type="hidden" value="{{items}}">
     </div>
     <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
