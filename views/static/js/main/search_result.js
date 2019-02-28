@@ -16,28 +16,13 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
-    $('.smooth-goto').click(function() {
-        $('html, body').animate({scrollTop: $(this.hash).offset().top - 60}, 1000);
-    });
-    $('.card-outer').click(function() {
-        location.href = '/product';
-    });
-    $('#search_icon_div').click(function() {
-        let query = $('#search_input').val();
-        location.href = '/search_result?query=' + query;
-    });
-    $("#search_input").keydown(function(key) {
-        if (key.keyCode == 13) {
-            let query = $('#search_input').val();
-            location.href = '/search_result?query=' + query;
-        }
-    });
-
     selectProductList();
 });
 
 function selectProductList() {
-    let inputData = {};
+    let inputData = {
+        itemNm1: $('#query').val()
+    };
     ajax(serverUrl + '/admin/product_manager/selectProductList', inputData, 'selectProductList', 'POST');
 }
 
@@ -48,12 +33,12 @@ function selectProductListCallback(ret) {
         html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="row py-2 mb-4 hoverable align-items-center">';
         html += '<div class="col-6"><a><img src="' + ret[i].imagePath + '" style="height: 150px;" class="img-fluid"></a></div>';
-        html += '<div class="col-6">';
+        html += '<div class="col-6"><div class="ml-3">';
         html += '<a class="pt-5"><strong>' + ret[i].itemNm1 + ' ' + ret[i].itemNm2 + '</strong></a><br>';
         html += '<a class="pt-5" style="font-size: 15px;"><strong>' + ret[i].itemQty + '과 / ' + ret[i].itemKg + 'KG</strong></a>';
         html += '<h6 class="mt-1 h6-responsive font-weight-bold dark-grey-text"><strong>' + numberWithCommas(ret[i].itemPrice) + '원</strong></h6>';
         html += '<a class="all-product-detail-text3">원산지: 국내산</a>';
-        html += '</div></div></div>';
+        html += '</div></div></div></div><hr>';
     }
     $('#all_item_list').append(html);
 
