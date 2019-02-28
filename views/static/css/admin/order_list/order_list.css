@@ -2,18 +2,102 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
 }
 
-.qty-btn {
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    font-size: 20px;
-    border: 1px solid gray;
-    border-radius: 5px;
-    position:relative;
-    top: 4px;
-    color: #333;
+.top {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background: #333;
 }
 
-.qty-btn:hover {
+.top i {
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+.top i:hover {
     cursor: pointer;
+}
+
+.button-div {
+    display: none;
+    width: 90%;
+    margin: auto;
+}
+
+.excel-down {
+    display: inline-block;
+    position:relative;
+    float: right;
+    margin-bottom: 3px;
+}
+
+.excel-down-button {
+    margin-right: 0px;
+}
+
+.order-no-title {
+    font-size: 11px;
+    color: gray;
+}
+
+.order-no {
+    display: inline-block;
+    font-size: 11px;
+    color: gray;
+}
+
+.total-price {
+    width: 90%;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.order-text {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.order-date {
+    display: inline-block;
+    font-size: 12px;
+    color: gray;
+}
+
+.empty-space-1 {
+    width: 100%;
+    height: 1px;
+    background: #E4E7EA;
+    margin-bottom: 15px;
+}
+
+.divide-line {
+    display: none;
+    width: 90%;
+    margin: auto;
+    border-bottom: 2px solid #ddd;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.each-order {
+    padding-bottom: 15px;
+}
+
+.each-order:hover {
+    cursor: pointer;
+}
+
+.order-top {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.each-order-sub {
+    display: none;
+    background: #EAEAEA;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 10px;
 }
