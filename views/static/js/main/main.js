@@ -32,6 +32,9 @@ $(document).ready(function() {
             location.href = '/search_result?query=' + query;
         }
     });
+    $('.admin-page').click(function() {
+        location.href = '/admin/product_manager';
+    });
 
     selectProductList();
 });
