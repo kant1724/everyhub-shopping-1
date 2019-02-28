@@ -31,10 +31,13 @@ $(document).ready(function() {
                 eachOrder.itemNo = productArr[j].itemNo;
                 html += '<div style="font-size: 20px; font-weight: 700; color: gray;"><i class="far fa-list"></i>&nbsp;&nbsp;주문' + cnt + '</div>';
                 html += '<hr>';
+                html += '<div class="my-2 mr-3 d-inline-block" style="overflow: hidden;"><img width="120px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></div>';
+                html += '<div class="my-2 d-inline-block" style="overflow: hidden;">';
                 html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;상품명: ' + productArr[j].itemNm1 + ' ' + productArr[j].itemQty + '과 / ' + productArr[j].itemKg + 'KG</div>';
                 html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;단가: ' + productArr[j].itemPrice + '</div>';
                 html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;수량: ' + productArr[j].qty + '</div>';
                 html += '<div><i class="far fa-check-circle"></i>&nbsp;&nbsp;가격: ' + numberWithCommas(productArr[j].itemPriceNum * productArr[j].qty) + '원</div>';
+                html += '</div>';
                 html += '<hr>';
                 orderListDetail.push(eachOrder);
                 cnt += 1;
