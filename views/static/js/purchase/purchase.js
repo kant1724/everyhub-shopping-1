@@ -53,6 +53,9 @@ $(document).ready(function() {
     $('.payment-btn').click(function() {
         insertOrderList();
     });
+    $('.admin-page').click(function() {
+        location.href = '/admin/product_manager';
+    });
 });
 
 function insertOrderList() {

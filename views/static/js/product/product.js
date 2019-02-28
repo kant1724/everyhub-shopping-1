@@ -61,6 +61,9 @@ $(document).ready(function() {
             qtyObj.val(qty - 1);
         }
     });
+    $('.admin-page').click(function() {
+        location.href = '/admin/product_manager';
+    });
 });
 
 function selectOneProduct() {

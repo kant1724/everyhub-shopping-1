@@ -90,6 +90,9 @@ $(document).ready(function() {
             sumObj.text(numberWithCommas(nQty * Number(itemPriceNum) + '원'));
         }
     });
+    $('.admin-page').click(function() {
+        location.href = '/admin/product_manager';
+    });
 });
 
 function setQty(id, qty) {
