@@ -36,7 +36,7 @@ $(document).ready(function() {
         html += '<input type="checkbox" class="cart-checkbox custom-control-input" id="cart_check_box' + i + '" checked>';
         html += '<label class="custom-control-label" for="cart_check_box' + i + '"></label>';
         html += '</div></td>';
-        html += '<th scope="row"><img src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></th>';
+        html += '<th scope="row"><img style="border-radius: 5px;" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></th>';
         html += '<td>' + productArr[i].itemNm1 + ' ' + productArr[i].itemNm2 + '</td>';
         html += '<td>' + productArr[i].itemQty + '과</td>';
         html += '<td>' + productArr[i].itemKg + 'KG</td>';

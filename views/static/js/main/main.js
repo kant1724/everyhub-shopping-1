@@ -47,7 +47,7 @@ function selectProductListCallback(ret) {
         html += '<div class="each-item col-lg-4 col-md-12 col-12 pt-2">';
         html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="row py-2 mb-4 hoverable align-items-center">';
-        html += '<div class="col-6"><a><img src="' + ret[i].imagePath + '" style="height: 150px;" class="img-fluid"></a></div>';
+        html += '<div class="col-6"><a><img src="' + ret[i].imagePath + '" style="border-radius: 5px; height: 150px;" class="img-fluid"></a></div>';
         html += '<div class="col-6">';
         html += '<a class="pt-5"><strong>' + ret[i].itemNm1 + ' ' + ret[i].itemNm2 + '</strong></a><br>';
         html += '<a class="pt-5" style="font-size: 15px;"><strong>' + ret[i].itemQty + '과 / ' + ret[i].itemKg + 'KG</strong></a>';

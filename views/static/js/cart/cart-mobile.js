@@ -41,7 +41,7 @@ $(document).ready(function() {
         html += '<label class="custom-control-label" for="cart_check_box' + i + '"></label>';
         html += '</div>';
         html += '<div style="display: inline-block;">';
-        html += '<img width="100px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0">';
+        html += '<img style="border-radius: 5px;" width="100px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0">';
         html += '</div>';
         html += '<div style="display: inline-block; top: 20px; margin-left: 5px; position: relative;">';
         html += '<a id="item_nm_1" style="margin-left: 20px; font-weight: 700;">' + productArr[i].itemNm1 + '</a>';
