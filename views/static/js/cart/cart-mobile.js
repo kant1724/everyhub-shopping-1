@@ -12,6 +12,9 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
+    $('#go_main').click(function() {
+        location.href = '/';
+    });
     $('#purchase_btn').click(function() {
         let items = '';
         let itemObj = $('#cart_list').find('.each-item');
