@@ -48,9 +48,13 @@ function addCart() {
 }
 
 $(document).ready(function() {
+    toastr.options = {
+        "timeOut": "1000"
+    };
+
     $('#add_cart').click(function() {
         addCart();
-        alert("장바구니에 추가하였습니다.");
+        toastr["info"]("상품이 장바구니에 추가되었습니다.")
     });
 
     $('#order_now').click(function() {
