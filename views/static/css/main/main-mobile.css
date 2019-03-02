@@ -1,5 +1,6 @@
 body {
     font-family: 'Noto Sans KR', sans-serif;
+    oveflow-x: hidden;
 }
 
 .light-black {

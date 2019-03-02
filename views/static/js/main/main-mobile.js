@@ -60,7 +60,7 @@ function selectProductListCallback(ret) {
         html += '<a class="pt-3" style="font-size: 13px;"><strong>' + ret[i].itemQty + '과 / ' + ret[i].itemKg + 'KG</strong></a><br>';
         html += '<a class="mt-1 font-weight-bold dark-grey-text" style="font-size: 14px;"><strong>' + numberWithCommas(ret[i].itemPrice) + '원</strong></a><br>';
         html += '<a class="all-product-detail-text3">원산지: 국내산</a>';
-        html += '</div></div><hr></div>';
+        html += '</div></div></div><hr>';
     }
     $('#all_item_list').append(html);
 
