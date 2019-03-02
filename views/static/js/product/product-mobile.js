@@ -15,38 +15,48 @@ function ajax(url, inputData, gubun, method) {
     });
 }
 
+function addCart() {
+    let productArr = JSON.parse(localStorage.getItem('product'));
+    let id = 0;
+    if (productArr != null) {
+        for (let i = 0; i < productArr.length; ++i) {
+            id = Math.max(productArr[i].id, id);
+        }
+    }
+    id += 1;
+    let itemNo = $('#item_no').val();
+    let p = {
+        id: id,
+        itemNo: itemNo,
+        imagePath: $('#info_image_path').prop('src'),
+        itemNm1: $('#info_item_nm_1').text(),
+        itemQty: $('#info_item_qty').text(),
+        itemKg: $('#info_item_kg').text(),
+        itemPrice: $('#info_item_price').text(),
+        itemPriceNum: $('#info_item_price_num').text(),
+        itemNm2: $('#info_item_nm_2').text(),
+        qty: $('#qty').val()
+    };
+    if (localStorage.getItem('product') != null) {
+        productArr.push(p);
+        localStorage.setItem('product', JSON.stringify(productArr));
+    } else {
+        let productArr = [p];
+        localStorage.setItem('product', JSON.stringify(productArr));
+    }
+    return id;
+}
+
 $(document).ready(function() {
-    $('.add-cart').click(function() {
-        let productArr = JSON.parse(localStorage.getItem('product'));
-        let id = 0;
-        if (productArr != null) {
-            for (let i = 0; i < productArr.length; ++i) {
-                id = Math.max(productArr[i].id, id);
-            }
-        }
-        let itemNo = $('#item_no').val();
-        let p = {
-            id: id + 1,
-            itemNo: itemNo,
-            imagePath: $('#info_image_path').prop('src'),
-            itemNm1: $('#info_item_nm_1').text(),
-            itemQty: $('#info_item_qty').text(),
-            itemKg: $('#info_item_kg').text(),
-            itemPrice: $('#info_item_price').text(),
-            itemPriceNum: $('#info_item_price_num').text(),
-            itemNm2: $('#info_item_nm_2').text(),
-            qty: $('#qty').val()
-        };
-        if (localStorage.getItem('product') != null) {
-            productArr.push(p);
-            localStorage.setItem('product', JSON.stringify(productArr));
-        } else {
-            let productArr = [p];
-            localStorage.setItem('product', JSON.stringify(productArr));
-        }
+    $('#add_cart').click(function() {
+        addCart();
         alert("장바구니에 추가하였습니다.");
     });
-    selectOneProduct();
+
+    $('#order_now').click(function() {
+        let id = addCart();
+        location.href = '/purchase?items=' + id;
+    });
 
     $('.qty-plus-btn').click(function() {
         let qtyObj = $(this).parent().find('#qty');
@@ -61,12 +71,16 @@ $(document).ready(function() {
             qtyObj.val(qty - 1);
         }
     });
+
     $('.admin-page').click(function() {
         location.href = '/admin/product_manager';
     });
+
     $('#go_shopping_cart').click(function() {
         location.href = '/cart';
     });
+
+    selectOneProduct();
 });
 
 function selectOneProduct() {
