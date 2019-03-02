@@ -10,28 +10,19 @@
     <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
     <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/css/product/product.css" rel="stylesheet">
+    <link href="/static/css/product/product-mobile.css" rel="stylesheet">
 </head>
 
-<body class="product-v2 hidden-sn white-skin animated">
+<body>
     <header>
-        <nav class="navbar fixed-top navbar-expand-lg  navbar-light scrolling-navbar white">
+        <nav class="navbar fixed-top navbar-expand-lg  navbar-light white">
             <div class="container">
-                <!-- SideNav slide-out button -->
-                <a class="navbar-brand font-weight-bold" href="/">
-                    <strong>간드락닷컴</strong>
-                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item" style="margin-left: 0px;">
-                            <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="/cart">
-                                &nbsp;&nbsp;&nbsp;장바구니
-                            </a>
-                        </li>
+                    <ul class="navbar-nav">
                         <li class="nav-item" style="margin-left: 0px;">
                             <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
                                 &nbsp;&nbsp;&nbsp;주문내역
@@ -49,34 +40,37 @@
                         </li>
                     </ul>
                 </div>
+                <a class="navbar-brand font-weight-bold" href="/">
+                    <strong>간드락닷컴</strong>
+                </a>
+                <i id="go_shopping_cart" style="font-size: 22px;" class="mr-4 far fa-shopping-cart"></i>
             </div>
         </nav>
     </header>
-    <div class="container mt-2 pt-3">
+    <div class="">
         <div id="product_detail" class="pb-5">
-            <div class="mt-5 pb-3" style="border: 1px solid #ccc;">
-                <div class="product-top-title"><p style="position: relative; top: 5px;">제품상세</p></div>
+            <div class="mt-5 pb-3">
                 <div class="row">
                     <div class="col-lg-6 text-center">
                         <img id="info_image_path" src="" class="img-fluid">
                     </div>
                     <div class="mt-4 col-lg-5 mr-3 text-md-left">
-                        <h2 class="h2-responsive text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
+                        <p style="font-size: 18px;" class="text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
                             <strong id="info_item_nm_1"></strong>
-                        </h2>
-                        <span class="badge badge-danger product mb-4 ml-xl-0 ml-4">인기</span>
-                        <span class="badge badge-success product mb-4 ml-2">할인</span>
-                        <h3 class="h3-responsive text-md-left mb-4 ml-xl-0 ml-4">
+                        </p>
+                        <span class="badge badge-danger product mb-2 ml-xl-0 ml-4">인기</span>
+                        <span class="badge badge-success product mb-2 ml-2">할인</span>
+                        <p style="font-size:16px;"  class="text-md-left mb-2 ml-xl-0 ml-4">
                             <span class="red-text font-weight-bold">
                                 <strong id="info_item_price"></strong>
                             </span>
-                        </h3>
-                        <p class="ml-xl-0 ml-4" id="info_item_desc"></p>
-                        <p class="ml-xl-0 ml-4">
+                        </p>
+                        <p style="font-size:13px;" class="ml-xl-0 ml-4" id="info_item_desc"></p>
+                        <p style="font-size:13px;" class="ml-xl-0 ml-4">
                             <strong>갯수: </strong><strong id="info_item_qty"></strong>과 /
                             <strong> 무게: </strong><strong id="info_item_kg"></strong>KG
                         </p>
-                        <p class="ml-xl-0 ml-4">
+                        <p style="font-size:13px;" class="ml-xl-0 ml-4">
                             <strong>원산지: </strong>국내산</p>
                         <div class="ml-xl-0 ml-4">
                             <div class="d-inline-block text-center pb-3">
@@ -85,7 +79,7 @@
                                 <div class="qty-plus-btn"><i class="far fa-plus"></i></div>
                             </div>
                             <div class="mb-3">
-                                <button class="btn deep-orange btn-rounded add-cart mt-2" style="margin: 0px;">
+                                <button class="btn btn-sm deep-orange btn-rounded add-cart mt-2" style="margin: 0px;">
                                     <i class="fa fa-cart-plus" aria-hidden="true"></i> 장바구니에 추가</button>
                             </div>
                         </div>
@@ -102,7 +96,7 @@
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
     <script type="text/javascript" src="/static/js/common/properties.js"></script>
     <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/product/product.js"></script>
+    <script type="text/javascript" src="/static/js/product/product-mobile.js"></script>
 </body>
 
 </html>

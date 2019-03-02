@@ -1,6 +1,5 @@
 body {
     font-family: 'Noto Sans KR', sans-serif;
-    overflow-x: hidden;
 }
 
 .light-black {
@@ -162,13 +161,4 @@ body {
 
 .product-item:hover {
     cursor: pointer;
-}
-
-#introduction {
-    padding: 50px;
-    background: #F6F6F6;
-}
-
-#special_price {
-    background: #FFF2E6;
 }

@@ -84,7 +84,9 @@ $(document).ready(function() {
             }
         }
         localStorage.setItem('product', JSON.stringify(productArr));
-        $(this).parent().parent().remove();
+        $(this).parent().parent().fadeOut(500, function() {
+            $(this).remove();
+        });
     });
     $('.qty-plus-btn').click(function() {
         let qtyObj = $(this).parent().parent().find('.qty');

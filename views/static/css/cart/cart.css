@@ -25,7 +25,6 @@ body {
     display: inline-block;
     font-size: 13px;
     border: 1px solid gray;
-    border-radius: 5px;
     position:relative;
     top: 2px;
     color: #333;
