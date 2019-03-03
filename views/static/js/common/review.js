@@ -1,7 +1,7 @@
 function constructReviewList(ret) {
 	let html = '';
 	if (ret.length == 0) {
-		html += '<div class="mb-3">상품 리뷰가 존재하지 않습니다.</div>';
+		html += '<div class="mb-3" style="font-size: 13px;">상품 리뷰가 존재하지 않습니다.</div>';
 		$('#review_list').append(html);
 		return;
 	}
