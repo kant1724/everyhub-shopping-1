@@ -1,19 +1,23 @@
-function constructReviewList() {
+function constructReviewList(ret) {
 	let html = '';
-	let ret = [];
-	ret.push({'reviewNo' : '1', 'reviewDate' : '2019-01-01', 'reviewSubject' : '안녕하세요 참 맛있게 먹었습니다.' })
+	if (ret.length == 0) {
+		html += '<div class="mb-3">상품 리뷰가 존재하지 않습니다.</div>';
+		$('#review_list').append(html);
+		return;
+	}
 	for (let i = 0; i < ret.length; ++i) {
 		let reviewNo = ret[i].reviewNo;
 		let reviewDate = ret[i].reviewDate;
-		let reviewSubject = ret[i].reviewSubject;
+		let subject = ret[i].subject;
+		let content = ret[i].content;
 		html += '<div>';
 		html += '<div class="each-review text-left">';
 		html += '<a class="review-no-title">No. </a><div id="review_no" class="review-no">' + reviewNo + '</div>';
 		html += '&nbsp;&nbsp;<div id="review_date" class="review-date">' + reviewDate + '</div>';
-		html += '<div class="review-subject">' + reviewSubject + '</div>';
+		html += '<div class="review-subject">' + subject + '</div>';
 		html += '</div>';
 		html += '<div class="each-review-sub my-3 text-left">';
-		html += '<div class="review-text">' + reviewDate + '</div>';
+		html += '<div class="review-text">' + content + '</div>';
 		html += '</div>';
 		html += '<div class="empty-space-1"></div>';
 		html += '</div>';

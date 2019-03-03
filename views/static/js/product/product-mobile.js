@@ -9,6 +9,8 @@ function ajax(url, inputData, gubun, method) {
         success: function (data, status, xhr) {
             if (gubun == 'selectOneProduct') {
                 selectOneProductCallback(data.ret);
+            } else if (gubun == 'selectProductReviews') {
+                selectProductReviewsCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -85,7 +87,7 @@ $(document).ready(function() {
     });
 
     selectOneProduct();
-    constructReviewList();
+    selectProductReviews();
 });
 
 function selectOneProduct() {
@@ -94,6 +96,14 @@ function selectOneProduct() {
         itemNo: itemNo
     };
     ajax(serverUrl + '/admin/product_manager/selectOneProduct', inputData , 'selectOneProduct', 'POST');
+}
+
+function selectProductReviews() {
+    let itemNo = $('#item_no').val();
+    let inputData  = {
+        itemNo: itemNo
+    };
+    ajax(serverUrl + '/product/selectProductReviews', inputData , 'selectProductReviews', 'POST');
 }
 
 function selectOneProductCallback(ret) {
@@ -105,4 +115,8 @@ function selectOneProductCallback(ret) {
     $('#info_item_price_num').text(ret[0].itemPrice);
     $('#info_item_desc').text(ret[0].itemDesc);
     $('#info_item_nm_2').text(ret[0].itemNm2);
+}
+
+function selectProductReviewsCallback(ret) {
+    constructReviewList(ret);
 }
