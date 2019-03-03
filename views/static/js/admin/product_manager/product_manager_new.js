@@ -112,6 +112,7 @@ function registerNewProduct() {
     let itemMidCtgrCd = $('#item_mid_ctgr_cd').val();
     let originCd = $('#origin_cd').val();
     let itemDesc = $('#item_desc').val();
+    let recommendYn = $('#recommend_yn').val();
 
     let inputData = {
         itemNo: itemNo,
@@ -124,6 +125,7 @@ function registerNewProduct() {
         itemMidCtgrCd: itemMidCtgrCd,
         originCd: originCd,
         itemDesc: itemDesc,
+        recommendYn: recommendYn,
         remoteUrl: remoteUrl,
         imageChanged: imageChanged
     };

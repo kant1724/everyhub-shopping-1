@@ -118,6 +118,7 @@ function modifyProduct() {
     let itemMidCtgrCd = $('#item_mid_ctgr_cd').val();
     let originCd = $('#origin_cd').val();
     let itemDesc = $('#item_desc').val();
+    let recommendYn = $('#recommend_yn').val();
 
     let inputData = {
         itemNo: itemNo,
@@ -130,6 +131,7 @@ function modifyProduct() {
         itemMidCtgrCd: itemMidCtgrCd,
         originCd: originCd,
         itemDesc: itemDesc,
+        recommendYn: recommendYn,
         remoteUrl: remoteUrl,
         imageChanged: imageChanged
     };
@@ -146,6 +148,8 @@ function selectOneProductCallback(ret) {
     $('#item_nm_2').val(ret[0].itemNm2);
     $('#item_main_ctgr_cd').val(ret[0].itemMainCtgrCd);
     $('#item_mid_ctgr_cd').val(ret[0].itemMidCtgrCd);
+    $('#recommend_yn').val(ret[0].recommendYn);
+    $('#recommend_yn').parent().find('.select-dropdown li:contains("' + ret[0].recommendYn+ '")').trigger('click')
 
     //$('#item_main_ctgr_cd').parent().find('.select-dropdown li:contains("' + ret[0].itemMainCtgrNm + '")').trigger('click')
     //$('#item_mid_ctgr_cd').parent().find('.select-dropdown li:contains("' + ret[0].itemMidCtgrNm + '")').trigger('click')

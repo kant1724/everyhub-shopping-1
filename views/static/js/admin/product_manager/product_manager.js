@@ -38,6 +38,7 @@ function selectProductListCallback(ret) {
         html += '<td class="text-center">' + ret[i].itemQty + '과</td>';
         html += '<td class="text-center">' + ret[i].itemKg + 'KG</td>';
         html += '<td class="text-center">' + ret[i].itemPrice + '</td>';
+        html += '<td class="text-center">' + ret[i].recommendYn + '</td>';
         html += '<td class="text-center"><button type="button" id="modify_product" class="btn btn-sm btn-primary btn-rounded modify-product">변경</td></tr>';
     }
     $('.product-table tbody').append(html);
