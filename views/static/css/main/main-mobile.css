@@ -163,3 +163,7 @@ body {
 .product-item:hover {
     cursor: pointer;
 }
+
+#special_price {
+    background: #F6F6F6;
+}
