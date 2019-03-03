@@ -58,10 +58,10 @@ function setRecommendProduct(ret) {
         if (cnt % 3 == 0) {
             html += '<div class="row">';
         }
-        html += '<div class="col-lg-4 col-md-12 mb-4">';
+        html += '<div class="col-lg-4 col-md-6 mb-4">';
         html += '<div class="card-outer" style="background: #FFFFFF;">';
         html += '<div class="view overlay">';
-        html += '<img src="' + ret[i].imagePath + '"style="height: 300px; width: 100%;" class="img-fluid" alt="sample image">';
+        html += '<img src="' + ret[i].imagePath + '"style="height: 300px; width: 100%; class="img-fluid">';
         html += '<a>';
         html += '<div class="mask rgba-white-slight"></div>';
         html += '</a>';
