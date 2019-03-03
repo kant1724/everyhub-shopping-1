@@ -1,0 +1,42 @@
+#cart_fixed {
+    position: fixed;
+    top: 85%;
+    left: 93%;
+    background: #333;
+    padding: 15px;
+    border-radius: 50%;
+    color: #FFFFFF;
+    z-index: 2;
+    opacity: 0.9;
+}
+
+#sms_fixed {
+    position: fixed;
+    top: 75%;
+    left: 93%;
+    background: #333;
+    padding: 15px;
+    border-radius: 50%;
+    color: #FFFFFF;
+    z-index: 2;
+    opacity: 0.9;
+}
+
+#cart_fixed:hover {
+    cursor: pointer;
+}
+
+#sms_fixed:hover {
+    cursor: pointer;
+}
+
+#cart_fixed_icon {
+    position: relative;
+    left: -2px;
+    top: 1px;
+}
+
+#sms_fixed_icon {
+    position: relative;
+    top: 1px;
+}
