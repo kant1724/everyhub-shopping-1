@@ -2,6 +2,11 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+#top {
+    padding: 10px;
+    background: #333;
+}
+
 .qty-btn {
     width: 30px;
     height: 30px;

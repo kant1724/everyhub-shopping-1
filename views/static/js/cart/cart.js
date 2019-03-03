@@ -12,8 +12,8 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
-    $('#go_main').click(function() {
-        location.href = '/';
+    $('#go_back').click(function() {
+        history.back();
     });
     $('#purchase_btn').click(function() {
         let items = '';

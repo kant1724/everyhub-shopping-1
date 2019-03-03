@@ -12,8 +12,8 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
-    $('#go_main').click(function() {
-        location.href = '/';
+    $('#go_back').click(function() {
+        history.back();
     });
     $('#purchase_btn').click(function() {
         let items = '';
@@ -57,20 +57,19 @@ $(document).ready(function() {
         html += '<a style="margin-left: 20px; font-size: 12px;">원산지: 국내산</a>';
         html += '</div>';
         html += '</div>';
-        html += '<div style="font-size: 14px; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 15px; font-weight: 700; background: #FAFAFA;">수량</div>';
         html += '<div style="margin-bottom: 15px;" class="btn-group radio-group ml-2" data-toggle="buttons">';
-        html += '<div class="d-inline-block text-center pb-2">';
+        html += '<div class="d-inline-block pb-2">';
         html += '<div class="qty-minus-btn mr-1"><i class="far fa-minus"></i></div>';
         html += '<input style="width: 60px; font-size: 12px; text-align: center; position: relative; top: 2px;" type="number" class="qty" id="qty" value="' + productArr[i].qty + '"/>';
         html += '<div class="qty-plus-btn ml-1"><i class="far fa-plus"></i></div>';
         html += '</div>';
         html += '</div>';
-        html += '<div style="font-size: 14px; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; margin-bottom: 15px; font-weight: 700; background: #FAFAFA;">가격</div>';
         html += '<div id="sum" style="margin-bottom: 10px; border-bottom: 1px solid #ccc; font-size: 14px; padding-bottom: 15px;">' + numberWithCommas(Number(productArr[i].itemPriceNum) * productArr[i].qty) + '원</div>';
         html += '<button type="button" class="btn btn-sm btn-danger btn-rounded remove-item">삭제</button>';
         html += '</div>';
         html += '</div>';
     }
+
     $('#cart_list').append(html);
 
     $('.remove-item').click(function() {
