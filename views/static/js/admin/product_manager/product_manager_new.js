@@ -90,8 +90,14 @@ function checkValidation() {
         $('#item_desc_label').css('color', 'red');
         isOk = false;
     } else {
-        $('#item_desc_label').text('상품설명');
-        $('#item_desc_label').css('color', 'gray');
+        if ($('#item_desc').val().length > 60) {
+            $('#item_desc_label').text('상품설명은 60자를 초과할 수 없습니다.');
+            $('#item_desc_label').css('color', 'red');
+            isOk = false;
+        } else {
+            $('#item_desc_label').text('상품설명');
+            $('#item_desc_label').css('color', 'gray');
+        }
     }
 
     return isOk;
