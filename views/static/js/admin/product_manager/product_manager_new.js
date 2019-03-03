@@ -36,11 +36,11 @@ let imageChanged = false;
 $(document).ready(function() {
     $('#go_back').on('click', function() {
         window.history.back();
-    })
+    });
 
     $('#go_list').on('click', function() {
         window.history.back();
-    })
+    });
 
     $('select').materialSelect();
 

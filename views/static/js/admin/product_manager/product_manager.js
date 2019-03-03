@@ -16,6 +16,10 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
+    $('#go_back').on('click', function() {
+        window.history.back();
+    });
+
     $('.new-product-btn').click(function() {
        location.href = '/admin/product_manager/product_new';
     });

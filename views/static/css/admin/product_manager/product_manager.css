@@ -2,6 +2,23 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+.top {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background: #333;
+}
+
+.top i {
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+.top i:hover {
+    cursor: pointer;
+}
+
 .qty-btn {
     width: 30px;
     height: 30px;

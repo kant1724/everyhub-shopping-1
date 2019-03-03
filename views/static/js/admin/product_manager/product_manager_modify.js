@@ -37,11 +37,11 @@ function fileUpload(url, inputData, gubun, method) {
 $(document).ready(function() {
     $('#go_back').on('click', function() {
         window.history.back();
-    })
+    });
 
     $('#go_list').on('click', function() {
         window.history.back();
-    })
+    });
 
     $('select').material_select();
 
@@ -54,7 +54,7 @@ $(document).ready(function() {
         let reader = new FileReader();
         reader.onloadend = function () {
             $('#image_div').css('background-image', 'url("' + reader.result + '")');
-        }
+        };
         if (file) {
             reader.readAsDataURL(file);
         } else {}
