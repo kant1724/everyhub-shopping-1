@@ -85,6 +85,7 @@ $(document).ready(function() {
     });
 
     selectOneProduct();
+    constructReviewList();
 });
 
 function selectOneProduct() {
