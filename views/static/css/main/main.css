@@ -22,17 +22,22 @@ body {
     background-repeat: no-repeat;
 }
 
+.divide-vertical {
+    display: inline-block;
+    margin-left: 5%;
+    margin-right: 5%;
+    color: #ccc;
+}
+
 .menu {
     background-color: #FFFFFF;
     padding-top: 20px;
     padding-bottom: 20px;
-    font-weight: 700;
     font-size: 14px;
 }
 
 .menu-1 {
     display: inline-block;
-    margin-right: 10%;
 }
 
 .menu-1:hover {
@@ -41,7 +46,6 @@ body {
 
 .menu-2 {
     display: inline-block;
-    margin-right: 10%;
 }
 
 .menu-2:hover {
