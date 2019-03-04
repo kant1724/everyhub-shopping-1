@@ -38,10 +38,6 @@ $(document).ready(function() {
         window.history.back();
     });
 
-    $('#go_list').on('click', function() {
-        window.history.back();
-    });
-
     $('select').materialSelect();
 
     $('#product_register_btn').click(function() {
