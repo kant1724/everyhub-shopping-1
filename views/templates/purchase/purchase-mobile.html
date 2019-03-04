@@ -18,37 +18,33 @@
     <header>
         <nav class="top-nav navbar fixed-top navbar-expand-lg navbar-light white">
             <div class="container">
-                <a class="navbar-brand font-weight-bold" href="/">
-                    <strong>간드락닷컴</strong>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4"
+                <button id="side_nav" class="navbar-toggler" type="button" data-toggle="collapse"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-                    <ul class="navbar-nav ml-auto">
+                <div class="collapse navbar-collapse" id="top_menu">
+                    <ul class="navbar-nav">
                         <li class="nav-item" style="margin-left: 0px;">
-                            <a class="nav-link waves-effect waves-light dark-grey-text" href="/cart">
-                                <i class="far fa-shopping-cart"></i>&nbsp;&nbsp;장바구니
+                            <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
+                                &nbsp;&nbsp;&nbsp;주문내역
                             </a>
                         </li>
                         <li class="nav-item" style="margin-left: 0px;">
-                            <a class="nav-link waves-effect waves-light dark-grey-text-bold" href="/user">
-                                <i class="far fa-sign-in-alt"></i>&nbsp;&nbsp;로그인
+                            <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
+                                &nbsp;&nbsp;&nbsp;내정보
                             </a>
                         </li>
                         <li class="nav-item" style="margin-left: 0px;">
-                            <a class="nav-link waves-effect waves-light dark-grey-text-bold" href="#">
-                                <i class="far fa-user"></i>&nbsp;&nbsp;마이페이지
-                            </a>
-                        </li>
-                        <li class="nav-item" style="margin-left: 0px;">
-                            <a class="admin-page nav-link waves-effect waves-light dark-grey-text" href="/admin/product_manager">
-                                <i class="fab fa-product-hunt"></i>&nbsp;&nbsp;상품관리
+                            <a class="admin-page nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
+                                &nbsp;&nbsp;&nbsp;상품관리
                             </a>
                         </li>
                     </ul>
                 </div>
+                <a id="top_center" class="logo-title navbar-brand font-weight-bold" href="/">
+                    <strong>간드락닷컴</strong>
+                </a>
+                <i id="go_shopping_cart" style="font-size: 22px;" class="pr-3 far fa-shopping-cart"></i>
             </div>
         </nav>
     </header>
@@ -108,6 +104,14 @@
             </button>
         </div>
         <input id="items" type="hidden" value="{{items}}">
+        <input id="direct_item_no" type="hidden" value="{{itemNo}}">
+        <input id="direct_image_path" type="hidden" value="{{imagePath}}">
+        <input id="direct_item_nm_1" type="hidden" value="{{itemNm1}}">
+        <input id="direct_item_qty" type="hidden" value="{{itemQty}}">
+        <input id="direct_item_kg" type="hidden" value="{{itemKg}}">
+        <input id="direct_item_price" type="hidden" value="{{itemPrice}}">
+        <input id="direct_qty" type="hidden" value="{{qty}}">
+        <input id="direct_item_price_num" type="hidden" value="{{itemPriceNum}}">
     </div>
     <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
