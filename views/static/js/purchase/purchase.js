@@ -18,10 +18,6 @@ function ajax(url, inputData, gubun, method) {
 let orderListDetail = [];
 let orderListMain = {};
 $(document).ready(function() {
-    $('#go_back').click(function() {
-        history.back();
-    });
-
     $('.mdb-select').materialSelect();
 
     $('.payment-btn').click(function() {
