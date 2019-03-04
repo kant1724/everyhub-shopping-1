@@ -7,6 +7,10 @@ body {
     background: #333333;
 }
 
+#logo_div {
+    padding: 20px;
+}
+
 .top {
     margin-top: 57px;
 }
@@ -19,9 +23,12 @@ body {
 }
 
 .menu {
-    background-color: #111111;
+    background-color: #FFFFFF;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     padding-top: 10px;
     padding-bottom: 10px;
+    font-weight: 700;
 }
 
 .menu-1 {
