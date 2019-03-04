@@ -15,7 +15,34 @@ function ajax(url, inputData, gubun, method) {
     });
 }
 
+let grid_data = [];
 $(document).ready(function() {
+    $("#container2").jsGrid({
+        width: "710px",
+        height: "300px",
+        filtering: false,
+        editing: false,
+        inserting: false,
+        sorting: false,
+        paging: true,
+        autoload: true,
+        pageSize: 150,
+        pageButtonCount: 10,
+        rowClick: function(args) {
+            let $row = this.rowByItem(args.item);
+            $row.children('.jsgrid-cell').css('background-color', '#B2CCFF');
+            $row.children('.jsgrid-cell').css('border-color', '#B2CCFF');
+            let orderNo = args.item['번호'];
+            $("#order_no").val(orderNo);
+        },
+        data: grid_data,
+        fields: [
+            { name: "번호", type: "hidden", width: 60, align: "center" },
+            { name: "주문자", type: "text", width: 630 },
+            { name: "텍스트", type: "text", width: 630 }
+        ]
+    });
+
     selectOrderListMain();
 });
 
@@ -25,38 +52,10 @@ function selectOrderListMain() {
 }
 
 function selectOrderListMainCallback(ret) {
-    let html = '';
     for (let i = 0; i < ret.length; ++i) {
         let orderNo = ret[i].orderNo;
         let orderDate = ret[i].orderDate;
         let totalPrice = ret[i].totalPrice;
-        html += '<div>';
-        html += '<div class="each-order">';
-        html += '<a class="order-no-title">No. </a><div id="order_no" class="order-no">' + orderNo + '</div>';
-        html += '&nbsp;&nbsp;<div id="order_date" class="order-date">' + orderDate + '</div>';
-        html += '<div class="total-price">' + totalPrice + '</div>';
-        html += '</div>';
-        html += '<div class="each-order-sub mb-3">';
-        html += '<div class="order-text">' + orderDate + '</div>';
-        html += '</div>';
-        html += '<div class="empty-space-1"></div>';
-        html += '</div>';
     }
-    $('#order_list').append(html);
 
-    $('.each-order').unbind();
-    $('.each-order').click(function() {
-        let fontWeight = $(this).find('.total-price').css('font-weight');
-        if (fontWeight == '700') {
-            let obj = $(this).parent();
-            obj.find('.each-order-sub').hide();
-            obj.find('.empty-space-1').show();
-            obj.find('.total-price').css('font-weight', '300');
-        } else {
-            let obj = $(this).parent();
-            obj.find('.each-order-sub').show();
-            obj.find('.empty-space-1').hide();
-            obj.find('.total-price').css('font-weight', '700');
-        }
-    });
 }
