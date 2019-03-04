@@ -32,9 +32,6 @@ $(document).ready(function() {
             location.href = '/search_result?query=' + query;
         }
     });
-    $('.admin-page').click(function() {
-        location.href = '/admin/product_manager';
-    });
 
     selectProductList();
 });
@@ -58,7 +55,8 @@ function setRecommendProduct(ret) {
         if (cnt % 3 == 0) {
             html += '<div class="row">';
         }
-        html += '<div class="col-lg-4 col-md-6 mb-4">';
+        html += '<div class="each-recommend col-lg-4 col-md-6 mb-4">';
+        html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="card-outer" style="background: #FFFFFF;">';
         html += '<div class="view overlay">';
         html += '<img src="' + ret[i].imagePath + '"style="height: 300px; width: 100%; class="img-fluid">';
@@ -90,6 +88,11 @@ function setRecommendProduct(ret) {
         cnt += 1;
     }
     $('#recommend_product').append(html);
+
+    $('.each-recommend').click(function() {
+        let itemNo = $(this).find('#item_no').val();
+        location.href = '/product?itemNo=' + itemNo;
+    });
 }
 
 function setAllProduct(ret) {
