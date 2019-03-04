@@ -59,12 +59,12 @@ $(document).ready(function() {
 });
 
 function insertOrderList() {
-    orderListMain.orderPersonNm = '';
-    orderListMain.orderTelno = 0;
-    orderListMain.receivePersonNm = '';
-    orderListMain.receiveTelno = 0;
-    orderListMain.receiveAddress = '';
-    orderListMain.orderRemarks = '';
+    orderListMain.orderPersonNm = $('#order_person_nm').val();
+    orderListMain.orderTelno = $('#order_telno').val();
+    orderListMain.receivePersonNm = $('#receive_person_nm').val();
+    orderListMain.receiveTelno = $('#receive_telno').val();
+    orderListMain.receiveAddress = $('#receive_address').val();
+    orderListMain.orderRemarks = $('#order_remarks').val();
     orderListMain.sellerNo = 1;
 
     let inputData = {
