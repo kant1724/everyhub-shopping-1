@@ -18,6 +18,44 @@ function ajax(url, inputData, gubun, method) {
 let orderListDetail = [];
 let orderListMain = {};
 $(document).ready(function() {
+    $('.mdb-select').materialSelect();
+
+    $('.payment-btn').click(function() {
+        insertOrderList();
+    });
+    $('.admin-page').click(function() {
+        location.href = '/admin/product_manager';
+    });
+
+    if ($('#items').val() != '') {
+        purchaseFromCart();
+    } else {
+        purchaseDirect();
+    }
+});
+
+function purchaseDirect() {
+    let html = '';
+    let eachOrder = {};
+    eachOrder.qty = $('#direct_qty').val();
+    eachOrder.itemNo = $('#direct_item_no').val();
+    html += '<div class="my-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + $('#direct_image_path').val() + '" alt="" class="img-fluid z-depth-0"></div>';
+    html += '<div class="my-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
+    html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;상품명: ' + $('#direct_item_nm_1').val() + ' ' + $('#direct_item_qty').val() + '과 / ' + $('#direct_item_kg').val() + 'KG</div>';
+    html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;단가: ' + $('#direct_item_price').val() + '</div>';
+    html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;수량: ' + $('#direct_qty').val() + '</div>';
+    html += '<div><i class="far fa-check-circle"></i>&nbsp;&nbsp;가격: ' + numberWithCommas(Number($('#direct_item_price_num').val()) * Number($('#direct_qty').val())) + '원</div>';
+    html += '</div>';
+    html += '<hr>';
+    orderListDetail.push(eachOrder);
+    let sum = Number($('#direct_item_price_num').val()) * Number($('#direct_qty').val());
+    html += '<div style="font-size: 22px; font-weight: 700; color: red;"><i class="far fa-won-sign"></i>&nbsp;&nbsp;총금액: ' + numberWithCommas(sum) + '원</div>';
+    $('#order_list').append(html);
+
+    orderListMain.totalPrice = sum;
+}
+
+function purchaseFromCart() {
     let itemArr = $('#items').val().split(';');
     let productArr = JSON.parse(localStorage.getItem('product'));
     let html = '';
@@ -31,8 +69,8 @@ $(document).ready(function() {
                 eachOrder.itemNo = productArr[j].itemNo;
                 html += '<div style="font-size: 20px; font-weight: 700; color: gray;"><i class="far fa-list"></i>&nbsp;&nbsp;주문' + cnt + '</div>';
                 html += '<hr>';
-                html += '<div class="my-2 mr-3 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></div>';
-                html += '<div class="my-2 d-inline-block" style="overflow: hidden;">';
+                html += '<div class="my-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></div>';
+                html += '<div class="my-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
                 html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;상품명: ' + productArr[j].itemNm1 + ' ' + productArr[j].itemQty + '과 / ' + productArr[j].itemKg + 'KG</div>';
                 html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;단가: ' + productArr[j].itemPrice + '</div>';
                 html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;수량: ' + productArr[j].qty + '</div>';
@@ -46,25 +84,18 @@ $(document).ready(function() {
         }
     }
     html += '<div style="font-size: 22px; font-weight: 700; color: red;"><i class="far fa-won-sign"></i>&nbsp;&nbsp;총금액: ' + numberWithCommas(sum) + '원</div>';
-    orderListMain.totalPrice = sum;
     $('#order_list').append(html);
-    $('.mdb-select').materialSelect();
 
-    $('.payment-btn').click(function() {
-        insertOrderList();
-    });
-    $('.admin-page').click(function() {
-        location.href = '/admin/product_manager';
-    });
-});
+    orderListMain.totalPrice = sum;
+}
 
 function insertOrderList() {
-    orderListMain.orderPersonNm = '';
-    orderListMain.orderTelno = 0;
-    orderListMain.receivePersonNm = '';
-    orderListMain.receiveTelno = 0;
-    orderListMain.receiveAddress = '';
-    orderListMain.orderRemarks = '';
+    orderListMain.orderPersonNm = $('#order_person_nm').val();
+    orderListMain.orderTelno = $('#order_telno').val();
+    orderListMain.receivePersonNm = $('#receive_person_nm').val();
+    orderListMain.receiveTelno = $('#receive_telno').val();
+    orderListMain.receiveAddress = $('#receive_address').val();
+    orderListMain.orderRemarks = $('#order_remarks').val();
     orderListMain.sellerNo = 1;
 
     let inputData = {

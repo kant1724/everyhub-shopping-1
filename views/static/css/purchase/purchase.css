@@ -15,9 +15,11 @@ body {
 .order-list {
     padding: 15px;
     border: 1px solid #ccc;
+    font-size: 13px;
 }
 
 .order-info {
     padding: 15px;
     border: 1px solid #ccc;
+    font-size: 13px;
 }

@@ -26,10 +26,9 @@ function addCart() {
         }
     }
     id += 1;
-    let itemNo = $('#item_no').val();
     let p = {
         id: id,
-        itemNo: itemNo,
+        itemNo: $('#item_no').val(),
         imagePath: $('#info_image_path').prop('src'),
         itemNm1: $('#info_item_nm_1').text(),
         itemQty: $('#info_item_qty').text(),
@@ -60,8 +59,16 @@ $(document).ready(function() {
     });
 
     $('#order_now').click(function() {
-        let id = addCart();
-        location.href = '/purchase?items=' + id;
+        let param = 'itemNo=' + $('#item_no').val();
+        param += '&imagePath=' + $('#info_image_path').prop('src');
+        param += '&itemNm1=' + $('#info_item_nm_1').text();
+        param += '&itemQty=' + $('#info_item_qty').text();
+        param += '&itemKg=' + $('#info_item_kg').text();
+        param += '&itemPrice=' + $('#info_item_price').text();
+        param += '&itemPriceNum=' + $('#info_item_price_num').text();
+        param += '&itemNm2=' + $('#info_item_nm_2').text();
+        param += '&qty=' + $('#qty').val();
+        location.href = '/purchase?' + param;
     });
 
     $('.qty-plus-btn').click(function() {
