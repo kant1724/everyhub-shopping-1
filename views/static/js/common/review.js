@@ -21,7 +21,7 @@ function constructReviewList(ret) {
 		html += '&nbsp;&nbsp;<div id="review_date" class="review-date">' + reviewDate + '</div>';
 		html += '</td>';
 		html += '</tr>';
-		html += '<tr id="content' + reviewNo + '" style="display: none;">';
+		html += '<tr class="each-content" id="content' + reviewNo + '" style="display: none;">';
 		html += '<td colspan="3">';
 		html += '<div style="text-align: left; padding-left: 50px;">' + content+ '</div>';
 		html += '</td>';
@@ -36,6 +36,8 @@ function constructReviewList(ret) {
 		if (sub.css('display') == 'table-row') {
 			sub.css('display', 'none');
 		} else {
+			let all = $(this).parent().find('.each-content');
+			all.css('display', 'none');
 			sub.css('display', 'table-row');
 		}
 	});
