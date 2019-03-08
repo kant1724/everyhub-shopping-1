@@ -10,32 +10,33 @@ function constructReviewList(ret) {
 		let reviewDate = ret[i].reviewDate;
 		let subject = ret[i].subject;
 		let content = ret[i].content;
-		html += '<div>';
-		html += '<div class="each-review text-left">';
-		html += '<a class="review-no-title">No. </a><div id="review_no" class="review-no">' + reviewNo + '</div>';
+		html += '<tr class="each-review" style="margin-bottom: 0px;">';
+		html += '<td>';
+		html += '<a class="review-no-title"></a><div id="review_no" class="review-no">' + reviewNo + '</div>';
+		html += '</td>';
+		html += '<td>';
 		html += '&nbsp;&nbsp;<div id="review_date" class="review-date">' + reviewDate + '</div>';
+		html += '</td>';
+		html += '<td>';
 		html += '<div class="review-subject">' + subject + '</div>';
-		html += '</div>';
-		html += '<div class="each-review-sub my-3 text-left">';
-		html += '<div class="review-text">' + content + '</div>';
-		html += '</div>';
-		html += '<div class="empty-space-1"></div>';
-		html += '</div>';
+		html += '</td>';
+		html += '</tr>';
+		html += '<tr id="content' + reviewNo + '" style="display: none;">';
+		html += '<td colspan="3">';
+		html += '<div style="text-align: left; padding: 20px;">' + content+ '</div>';
+		html += '</td>';
+		html += '</tr>';
 	}
-	$('#review_list').append(html);
+
+	$('#review_list_tbody').append(html);
 	$('.each-review').unbind();
 	$('.each-review').click(function() {
-		let fontWeight = $(this).find('.review-subject').css('font-weight');
-		if (fontWeight == '700') {
-			let obj = $(this).parent();
-			obj.find('.each-review-sub').hide();
-			obj.find('.empty-space-1').show();
-			obj.find('.review-subject').css('font-weight', '300');
+		let reviewNo = $(this).find('#review_no').text();
+		let sub = $(this).parent().find('#content' + reviewNo);
+		if (sub.css('display') == 'table-row') {
+			sub.css('display', 'none');
 		} else {
-			let obj = $(this).parent();
-			obj.find('.each-review-sub').show();
-			obj.find('.empty-space-1').hide();
-			obj.find('.review-subject').css('font-weight', '700');
+			sub.css('display', 'table-row');
 		}
 	});
 }
