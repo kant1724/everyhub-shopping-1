@@ -43,11 +43,15 @@ $(document).ready(function() {
         ]
     });
 
+    constructOrderList.init(selectOrderListMain);
+
     selectOrderListMain();
 });
 
 function selectOrderListMain() {
-    let inputData = {};
+    let inputData = {
+
+    };
     ajax(serverUrl + '/admin/order_list/selectOrderListMain', inputData, 'selectOrderListMain', 'POST');
 }
 

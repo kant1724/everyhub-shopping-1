@@ -23,8 +23,16 @@
             </div>
             <hr>
             <section class="section mt-3 mb-5 pb-5">
-                <div id="order_list">
-                </div>
+                <table id="order_list" class="table">
+                    <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성일</th>
+                    </tr>
+                    </thead>
+                    <tbody id="order_list_tbody"></tbody>
+                </table>
             </section>
         </div>
     </div>
@@ -35,6 +43,7 @@
     <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
     <script type="text/javascript" src="/static/js/common/properties.js"></script>
+    <script type="text/javascript" src="/static/js/common/order_list.js"></script>
     <script type="text/javascript" src="/static/js/admin/order_list/order_list.js"></script>
 </body>
 
