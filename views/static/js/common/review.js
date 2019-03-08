@@ -15,15 +15,15 @@ function constructReviewList(ret) {
 		html += '<a class="review-no-title"></a><div id="review_no" class="review-no">' + reviewNo + '</div>';
 		html += '</td>';
 		html += '<td>';
-		html += '&nbsp;&nbsp;<div id="review_date" class="review-date">' + reviewDate + '</div>';
+		html += '<div class="review-subject" style="text-align: left;">' + subject + '</div>';
 		html += '</td>';
 		html += '<td>';
-		html += '<div class="review-subject">' + subject + '</div>';
+		html += '&nbsp;&nbsp;<div id="review_date" class="review-date">' + reviewDate + '</div>';
 		html += '</td>';
 		html += '</tr>';
 		html += '<tr id="content' + reviewNo + '" style="display: none;">';
 		html += '<td colspan="3">';
-		html += '<div style="text-align: left; padding: 20px;">' + content+ '</div>';
+		html += '<div style="text-align: left; padding: 20px; margin-left: 10px;">' + content+ '</div>';
 		html += '</td>';
 		html += '</tr>';
 	}
