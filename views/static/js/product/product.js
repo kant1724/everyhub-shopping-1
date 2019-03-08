@@ -89,6 +89,8 @@ $(document).ready(function() {
         location.href = '/admin/product_manager';
     });
 
+    constructReview.init(selectProductReviews);
+
     selectOneProduct();
     selectProductReviews();
 });
@@ -121,5 +123,5 @@ function selectOneProductCallback(ret) {
 }
 
 function selectProductReviewsCallback(ret) {
-    constructReviewList(ret);
+    constructReview.selectCallback(ret)
 }
