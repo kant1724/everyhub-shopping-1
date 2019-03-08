@@ -23,7 +23,7 @@ function constructReviewList(ret) {
 		html += '</tr>';
 		html += '<tr id="content' + reviewNo + '" style="display: none;">';
 		html += '<td colspan="3">';
-		html += '<div style="text-align: left; padding: 20px; margin-left: 10px;">' + content+ '</div>';
+		html += '<div style="text-align: left; padding-left: 50px;">' + content+ '</div>';
 		html += '</td>';
 		html += '</tr>';
 	}
