@@ -14,7 +14,7 @@ let constructReview =  {
 	constructReviewList: function(page) {
 		let html = '';
 		if (this.allData.length == 0) {
-			html += '<div class="mb-3" style="font-size: 13px;">상품 리뷰가 존재하지 않습니다.</div>';
+			html += '<tr class="my-3" style="font-size: 13px;"><td colspan="3">상품 리뷰가 존재하지 않습니다.</td></tr>';
 			$('#review_list').append(html);
 			return;
 		}
@@ -121,7 +121,7 @@ let constructReviewMobile =  {
 	constructReviewList: function(page) {
 		let html = '';
 		if (this.allData.length == 0) {
-			html += '<div class="mb-3" style="font-size: 13px;">상품 리뷰가 존재하지 않습니다.</div>';
+			html += '<tr class="my-3" style="font-size: 13px;"><td colspan="2">상품 리뷰가 존재하지 않습니다.</td></tr>';
 			$('#review_list').append(html);
 			return;
 		}
@@ -141,7 +141,7 @@ let constructReviewMobile =  {
 			html += '</td>';
 			html += '</tr>';
 			html += '<tr class="each-content" id="content' + reviewNo + '" style="display: none;">';
-			html += '<td colspan="3">';
+			html += '<td colspan="2">';
 			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px;">' + content + '</div>';
 			html += '</td>';
 			html += '</tr>';
