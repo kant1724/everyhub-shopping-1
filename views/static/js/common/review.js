@@ -7,7 +7,7 @@ let constructReview =  {
 	allData: [],
 	selectFunction: null,
 
-	init: function (func) {
+	init: function(func) {
 		this.selectFunction = func;
 	},
 
@@ -92,7 +92,7 @@ let constructReview =  {
 		});
 	},
 
-	selectCallback: function (data) {
+	selectCallback: function(data) {
 		if (data.length > 0) {
 			for (let i = 0; i < data.length; ++i) {
 				this.allData.push(data[i]);

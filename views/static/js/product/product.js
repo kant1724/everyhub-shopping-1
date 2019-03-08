@@ -106,7 +106,9 @@ function selectOneProduct() {
 function selectProductReviews() {
     let itemNo = $('#item_no').val();
     let inputData  = {
-        itemNo: itemNo
+        itemNo: itemNo,
+        lastReviewNo: constructReview.lastReviewNo,
+        limit: constructReview.idPerPage * constructReview.pageLength
     };
     ajax(serverUrl + '/product/selectProductReviews', inputData , 'selectProductReviews', 'POST');
 }
