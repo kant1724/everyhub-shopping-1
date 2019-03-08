@@ -92,6 +92,9 @@ function purchaseFromCart() {
 function insertOrderList() {
     orderListMain.orderPersonNm = $('#order_person_nm').val();
     orderListMain.orderTelno = $('#order_telno').val();
+    orderListMain.sendPersonNm = $('#send_person_nm').val();
+    orderListMain.sendTelno = $('#send_telno').val();
+    orderListMain.sendAddress = $('#send_address').val();
     orderListMain.receivePersonNm = $('#receive_person_nm').val();
     orderListMain.receiveTelno = $('#receive_telno').val();
     orderListMain.receiveAddress = $('#receive_address').val();
