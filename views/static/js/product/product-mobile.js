@@ -93,6 +93,8 @@ $(document).ready(function() {
         location.href = '/cart';
     });
 
+    constructReviewMobile.init(selectProductReviews);
+
     selectOneProduct();
     selectProductReviews();
 });
@@ -108,7 +110,9 @@ function selectOneProduct() {
 function selectProductReviews() {
     let itemNo = $('#item_no').val();
     let inputData  = {
-        itemNo: itemNo
+        itemNo: itemNo,
+        lastReviewNo: constructReviewMobile.lastReviewNo,
+        limit: constructReviewMobile.idPerPage * constructReviewMobile.pageLength
     };
     ajax(serverUrl + '/product/selectProductReviews', inputData , 'selectProductReviews', 'POST');
 }
@@ -125,5 +129,5 @@ function selectOneProductCallback(ret) {
 }
 
 function selectProductReviewsCallback(ret) {
-    constructReviewList(ret);
+    constructReviewMobile.selectCallback(ret)
 }

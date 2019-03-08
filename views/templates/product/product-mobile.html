@@ -94,9 +94,19 @@
                 제품후기
             </div>
         </div>
-        <div class="mt-3 mb-4 text-center" style="padding: 10px; border-bottom: 1px solid #ccc;">
-            <div id="review_list">
-            </div>
+        <div class="mt-3 mb-4 text-center">
+            <table id="review_list" class="table">
+                <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>작성일</th>
+                </tr>
+                </thead>
+                <tbody id="review_list_tbody"></tbody>
+            </table>
+        </div>
+        <div class="text-center">
+            <div class="pagination"></div>
         </div>
         <div class="mb-5">
             <div class="mb-1">후기작성</div>
