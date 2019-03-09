@@ -84,10 +84,6 @@ body {
     padding-bottom: 15px;
 }
 
-.each-order:hover {
-    cursor: pointer;
-}
-
 .order-top {
     border-bottom: 1px solid #ccc;
     padding-bottom: 5px;

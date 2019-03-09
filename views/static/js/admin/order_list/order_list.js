@@ -53,7 +53,7 @@ function selectOrderListMainCallback(ret) {
         let qty = ret[i].qty;
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
-            html += '<tr class="each-order" style="margin-bottom: 0px;">';
+            html += '<tr style="margin-bottom: 0px;">';
             let pt = '15px';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
