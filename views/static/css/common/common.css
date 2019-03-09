@@ -26,4 +26,19 @@
     border: 1px solid #4CAF50;
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+.common-button-1 {
+    font-size: 13px;
+    border: 1px solid #333;
+    padding: 4px 15px 4px 15px;
+    border-radius: 5px;
+    color: #333;
+}
+
+.common-button-1:hover {
+    background: #333;
+    color: #FFFFFF !important;
+}

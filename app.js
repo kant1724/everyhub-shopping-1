@@ -22,6 +22,7 @@ app.use('/', require('./getter/main/mainGetter'));
 app.use('/cart', require('./getter/cart/cartGetter'));
 app.use('/product', require('./getter/product/productGetter'));
 app.use('/purchase', require('./getter/purchase/purchaseGetter'));
+app.use('/mypage', require('./getter/mypage/mypageGetter'));
 app.use('/admin/product_manager/', require('./getter/admin/product_manager/productManagerGetter'));
 app.use('/admin/order_list/', require('./getter/admin/order_list/orderListGetter'));
 app.use('/user', require('./getter/user/userGetter'));

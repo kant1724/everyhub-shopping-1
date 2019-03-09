@@ -120,6 +120,7 @@ function modifyProduct() {
     let itemMidCtgrCd = $('#item_mid_ctgr_cd').val();
     let originCd = $('#origin_cd').val();
     let itemDesc = $('#item_desc').val();
+    let notice = $('#notice').val();
     let recommendYn = $('#recommend_yn').val();
 
     let inputData = {
@@ -133,6 +134,7 @@ function modifyProduct() {
         itemMidCtgrCd: itemMidCtgrCd,
         originCd: originCd,
         itemDesc: itemDesc,
+        notice: notice,
         recommendYn: recommendYn,
         remoteUrl: remoteUrl,
         imageChanged: imageChanged
@@ -164,6 +166,7 @@ function selectOneProductCallback(ret) {
     $('#item_price').focus();
     $('#item_price').val(ret[0].itemPrice);
     $('#item_desc').val(ret[0].itemDesc);
+    $('#notice').val(ret[0].notice);
 }
 
 function modifyProductCallback(ret) {

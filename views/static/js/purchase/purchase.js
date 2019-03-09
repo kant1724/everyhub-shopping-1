@@ -32,6 +32,21 @@ $(document).ready(function() {
     } else {
         purchaseDirect();
     }
+
+    $('#order_radio').click(function () {
+        $('#deposit_person_nm').val($('#order_person_nm').val());
+        $('#deposit_person_nm').focus();
+    });
+
+    $('#send_radio').click(function () {
+        $('#deposit_person_nm').val($('#send_person_nm').val());
+        $('#deposit_person_nm').focus();
+    });
+
+    $('#receive_radio').click(function () {
+        $('#deposit_person_nm').val($('#receive_person_nm').val());
+        $('#deposit_person_nm').focus();
+    });
 });
 
 function purchaseDirect() {
@@ -99,6 +114,8 @@ function insertOrderList() {
     orderListMain.receiveTelno = $('#receive_telno').val();
     orderListMain.receiveAddress = $('#receive_address').val();
     orderListMain.orderRemarks = $('#order_remarks').val();
+    orderListMain.depositPersonNm = $('#deposit_person_nm').val();
+    orderListMain.depositRemarks = $('#deposit_remarks').val();
     orderListMain.sellerNo = 1;
 
     let inputData = {
