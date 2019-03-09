@@ -9,6 +9,8 @@ function ajax(url, inputData, gubun, method) {
         success: function (data, status, xhr) {
             if (gubun == 'selectOrderListMain') {
                 selectOrderListMainCallback(data.ret);
+            } else if (gubun == 'writeReview') {
+                writeReviewCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -47,8 +49,6 @@ function selectOrderListMainCallback(ret) {
     for (let i = 0; i < ret.length; ++i) {
         let orderNo = ret[i].orderNo;
         let orderDate = ret[i].orderDate;
-        let orderPersonNm = ret[i].orderPersonNm;
-        let orderTelno = ret[i].orderTelno;
         let itemNm1 = ret[i].itemNm1;
         let qty = ret[i].qty;
         let imagePath = ret[i].imagePath;
@@ -71,8 +71,11 @@ function selectOrderListMainCallback(ret) {
             html += '<td style="vertical-align: middle;">';
             html += '<div id="qty" class="qty">' + qty + '</div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<td rowspan="' + rs + '" style="width: 110px; vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="cancel_order" class="cancel-order"><a class="common-button-1">주문취소</a></div>';
+            html += '</td>';
+            html += '<td rowspan="' + rs + '" style="width: 110px; vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<div id="write_review" class="write-review"><a class="common-button-1">후기작성</a></div>';
             html += '</td>';
             html += '</tr>';
         } else {
@@ -91,5 +94,20 @@ function selectOrderListMainCallback(ret) {
         prevOrderNo = orderNo;
     }
     $('#order_list_tbody').append(html);
+    $('.cancel-order').unbind();
+    $('.cancel-order').click(function() {
+
+    });
+    $('.write-review').unbind();
+    $('.write-review').click(function() {
+
+    });
 }
 
+function writeReview() {
+
+}
+
+function writeReviewCallback() {
+
+}
