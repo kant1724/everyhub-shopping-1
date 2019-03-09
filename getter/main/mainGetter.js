@@ -14,7 +14,12 @@ router.get('/', function(req, res, next) {
 
 router.get('/search_result', function(req, res, next) {
     let query = req.query.query;
-    res.render('templates/main/search_result', {query: query});
+    let md = new MobileDetect(req.headers['user-agent']);
+    if (md.mobile()) {
+        res.render('templates/main/search_result', {query: query});
+    } else {
+        res.render('templates/main/search_result-mobile', {query: query});
+    }
 });
 
 module.exports = router;
