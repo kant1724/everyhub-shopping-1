@@ -46,7 +46,9 @@ let datepicker = {
                 from_picker.set('max', false)
             }
         });
-        $('#startingDate').val('2019-03-01');
-        $('#endingDate').val('2019-04-01');
+        let start = moment().subtract(1, 'months').format('YYYY-MM-DD');
+        let end = moment().format('YYYY-MM-DD');
+        $('#startingDate').val(start);
+        $('#endingDate').val(end);
     }
 };
