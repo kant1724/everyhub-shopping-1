@@ -18,12 +18,16 @@
     <header></header>
     <div class="container mt-5">
         <div class="container">
-            <div class="mb-3 mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">주문목록</div>
-            <div class="mb-3 mt-5  d-inline-block" style="float: right; margin-right: 40px;">
+            <div class="mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">주문목록</div>
+            <div class="mt-5  d-inline-block" style="float: right; margin-right: 40px;">
                 <button type="button" class="btn btn-sm deep-orange btn-rounded excel-down">엑셀다운
                 </button>
             </div>
+            <hr>
             <div class="row">
+                <div class="mt-4 ml-3 mr-3" style="font-size: 15px; color: gray;">
+                    주문일
+                </div>
                 <div class="col-md-2 mr-5">
                     <span style="font-size: 13px;">시작일</span>
                     <div class="md-form" style="margin-top: 5px;">
@@ -42,6 +46,7 @@
                     <a id="search" class="common-button-1">조회</a>
                 </div>
             </div>
+            <hr>
             <section class="section mt-3 mb-5 pb-5">
                 <table id="order_list" class="table table-bordered text-center">
                     <thead>
@@ -50,10 +55,10 @@
                         <th>주문일</th>
                         <th>주문자</th>
                         <th>주문자 연락처</th>
-                        <th>입금확인</th>
-                        <th>배송완료</th>
                         <th>상품명</th>
                         <th>수량</th>
+                        <th>입금확인</th>
+                        <th>배송완료</th>
                     </tr>
                     </thead>
                     <tbody id="order_list_tbody"></tbody>

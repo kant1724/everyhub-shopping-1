@@ -51,6 +51,7 @@ function selectOrderListMainCallback(ret) {
         let orderTelno = ret[i].orderTelno;
         let itemNm1 = ret[i].itemNm1;
         let qty = ret[i].qty;
+        let imagePath = ret[i].imagePath;
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
             html += '<tr style="margin-bottom: 0px;">';
@@ -61,28 +62,28 @@ function selectOrderListMainCallback(ret) {
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_date" class="oreder-date">' + orderDate + '</div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="order_person_nm" class="order-person-nm">' + orderPersonNm + '</div>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70"></div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="order_telno" class="order-telno">' + orderTelno + '</div>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
+            html += '</td>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div id="qty" class="qty">' + qty + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="cancel_order" class="cancel-order"><a class="common-button-1">주문취소</a></div>';
             html += '</td>';
-            html += '<td>';
-            html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
-            html += '</td>';
-            html += '<td>';
-            html += '<div id="qty" class="qty">' + qty + '</div>';
-            html += '</td>';
             html += '</tr>';
         } else {
             html += '<tr>';
-            html += '<td>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70"></div>';
+            html += '</td>';
+            html += '<td style="vertical-align: middle;">';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
             html += '</td>';
-            html += '<td>';
+            html += '<td style="vertical-align: middle;">';
             html += '<div id="qty" class="qty">' + qty + '</div>';
             html += '</td>';
             html += '</tr>';

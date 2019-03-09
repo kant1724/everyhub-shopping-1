@@ -30,6 +30,9 @@
             <div class="tab-content border-right border-bottom border-left mb-5" id="tab_content">
                 <div class="tab-pane fade active show" id="my_order" role="tabpanel" aria-labelledby="my_order">
                     <div class="row">
+                        <div class="mt-4 ml-3 mr-3" style="font-size: 15px; color: gray;">
+                            주문일
+                        </div>
                         <div class="col-md-2 mr-5">
                             <span style="font-size: 13px;">시작일</span>
                             <div class="md-form" style="margin-top: 5px;">
@@ -48,17 +51,17 @@
                             <a id="search" class="common-button-1">조회</a>
                         </div>
                     </div>
+                    <hr>
                     <section class="section mt-3 mb-5 pb-5">
                         <table id="order_list" class="table table-bordered text-center">
                             <thead>
                             <tr>
                                 <th>번호</th>
                                 <th>주문일</th>
-                                <th>주문자</th>
-                                <th>주문자 연락처</th>
-                                <th>주문취소</th>
+                                <th>이미지</th>
                                 <th>상품명</th>
                                 <th>수량</th>
+                                <th>주문취소</th>
                             </tr>
                             </thead>
                             <tbody id="order_list_tbody"></tbody>

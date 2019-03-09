@@ -79,17 +79,17 @@ function selectOrderListMainCallback(ret) {
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="order_telno" class="order-telno">' + orderTelno + '</div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="deposit_confirm_date" class="deposit-confirm-date">' + depositConfirmDate + '</div>';
-            html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
-            html += '</td>';
             html += '<td>';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
             html += '</td>';
             html += '<td>';
             html += '<div id="qty" class="qty">' + qty + '</div>';
+            html += '</td>';
+            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<div id="deposit_confirm_date" class="deposit-confirm-date">' + depositConfirmDate + '</div>';
+            html += '</td>';
+            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
             html += '</td>';
             html += '</tr>';
         } else {
