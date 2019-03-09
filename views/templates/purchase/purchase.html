@@ -48,12 +48,12 @@
                         <textarea style="width: 80%; height: 100px; outline: none;" id="order_remarks"></textarea>
                     </div>
                 </div>
-                <div class="order-info-title-text">보내는자 정보</div>
-                <div>
-                    <div class="form-check mt-3" style="padding-left: 10px;">
-                        <input type="checkbox"  class="form-check-input" id="same_with_order_info">
-                        <label class="form-check-label" for="same_with_order_info">주문자 정보와 동일</label>
-                    </div>
+                <div class="form-check mt-3" style="padding-left: 10px;">
+                    <input type="checkbox"  class="form-check-input" id="has_sender">
+                    <label class="form-check-label" for="has_sender">보내는자 입력</label>
+                </div>
+                <div class="sender-input order-info-title-text">보내는자 정보</div>
+                <div class="sender-input">
                     <div class="d-inline-block ml-2">
                         <div class="md-form">
                             <i class="fas fa-user prefix" style="font-size: 25px;"></i>
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <div class="sender-input">
                     <div class="d-inline-block ml-2">
                         <div class="md-form">
                             <i class="far fa-address-book prefix" style="font-size: 25px;"></i>
@@ -80,6 +80,10 @@
                 </div>
                 <div class="order-info-title-text">받는자 정보</div>
                 <div>
+                    <div class="form-check mt-3" style="padding-left: 10px;">
+                        <input type="checkbox"  class="form-check-input" id="same_with_order_info">
+                        <label class="form-check-label" for="same_with_order_info">주문자 정보와 동일</label>
+                    </div>
                     <div class="d-inline-block ml-2">
                         <div class="md-form">
                             <i class="fas fa-user prefix" style="font-size: 25px;"></i>

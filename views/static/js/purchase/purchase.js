@@ -63,15 +63,27 @@ $(document).ready(function() {
     $('#order_telno').change(function() {
         setSendInfoSameWithOrderInfo(false);
     });
+
+    $('#has_sender').click(function() {
+        setSenderInput();
+    });
 });
+
+function setSenderInput() {
+    if ($('#has_sender').is(':checked')) {
+        $('.sender-input').show();
+    } else {
+        $('.sender-input').hide();
+    }
+}
 
 function setSendInfoSameWithOrderInfo(focus) {
     if ($('#same_with_order_info').is(':checked')) {
-        $('#send_person_nm').val($('#order_person_nm').val());
-        $('#send_telno').val($('#order_telno').val());
+        $('#receive_person_nm').val($('#order_person_nm').val());
+        $('#receive_telno').val($('#order_telno').val());
         if (focus) {
-            $('#send_person_nm').focus();
-            $('#send_telno').focus();
+            $('#receive_person_nm').focus();
+            $('#receive_telno').focus();
         }
     }
 }
