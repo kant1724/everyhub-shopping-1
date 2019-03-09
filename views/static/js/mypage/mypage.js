@@ -68,10 +68,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="order_telno" class="order-telno">' + orderTelno + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="deposit_yn" class="deposit-yn"><a class="common-button-1">입금확인</a></div>';
-            html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="dlvr_yn" class="dlvr-yn"><a class="common-button-1">배송완료</a></div>';
+            html += '<div id="cancel_order" class="cancel-order"><a class="common-button-1">취소</a></div>';
             html += '</td>';
             html += '<td>';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
