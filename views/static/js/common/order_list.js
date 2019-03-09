@@ -25,7 +25,7 @@ let constructOrderList =  {
 			let orderPersonNm = this.allData[i].orderPersonNm;
 			let orderTelno = this.allData[i].orderTelno;
 			let content = '';
-			html += '<tr class="each-review" style="margin-bottom: 0px;">';
+			html += '<tr class="each-order" style="margin-bottom: 0px;">';
 			html += '<td>';
 			html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
 			html += '</td>';
@@ -40,7 +40,7 @@ let constructOrderList =  {
 			html += '</td>';
 			html += '</tr>';
 			html += '<tr class="each-content" id="content' + orderNo + '" style="display: none;">';
-			html += '<td colspan="3">';
+			html += '<td colspan="4">';
 			html += '<div style="text-align: left; padding-left: 50px;">' + content + '</div>';
 			html += '</td>';
 			html += '</tr>';
@@ -54,8 +54,6 @@ let constructOrderList =  {
 			if (sub.css('display') == 'table-row') {
 				sub.css('display', 'none');
 			} else {
-				let all = $(this).parent().find('.each-content');
-				all.css('display', 'none');
 				sub.css('display', 'table-row');
 			}
 		});

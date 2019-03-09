@@ -23,7 +23,8 @@ $(document).ready(function() {
 
 function selectOrderListMain() {
     let inputData = {
-
+        lastOrderNo: constructOrderList.lastOrderNo,
+        limit: constructOrderList.idPerPage * constructOrderList.pageLength
     };
     ajax(serverUrl + '/admin/order_list/selectOrderListMain', inputData, 'selectOrderListMain', 'POST');
 }
