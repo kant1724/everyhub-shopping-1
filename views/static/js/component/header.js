@@ -21,7 +21,7 @@ html += '<i class="far fa-sign-in-alt"></i>&nbsp;&nbsp;로그인';
 html += '</a>';
 html += '</li>';
 html += '<li class="nav-item" style="margin-left: 0px;">';
-html += '<a class="nav-link waves-effect waves-light" href="#">';
+html += '<a class="nav-link waves-effect waves-light" href="/mypage">';
 html += '<i class="far fa-user"></i>&nbsp;&nbsp;마이페이지';
 html += '</a>';
 html += '</li>';
