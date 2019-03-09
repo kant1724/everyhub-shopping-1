@@ -1,0 +1,22 @@
+let footerHtml = '<div class="container py-2 mt-5 mb-4 text-center">';
+footerHtml += '<div class="mt-3">';
+footerHtml += '<p>신선한 과일만을 취급하는 간드락농원 입니다.</p>';
+footerHtml += '</div>';
+footerHtml += '<div class="mt-3">';
+footerHtml += '<div style="text-decoration: underline;" class="d-inline-block">이용약관</div>';
+footerHtml += '<div style="text-decoration: underline;" class="ml-2 d-inline-block">개인정보처리방침</div>';
+footerHtml += '</div>';
+footerHtml += '<div class="mt-3">';
+footerHtml += '<div class="mt-2"><a><i class="fa fa-home mr-3"></i>제주특별자치도 제주시 아라이동</a></div>';
+footerHtml += '<div class="mt-2"><a><i class="fa fa-envelope mr-3"></i>info@example.com</a></div>';
+footerHtml += '<div class="mt-2"><a><i class="fa fa-phone mr-3"></i>02-234-5672</a></div>';
+footerHtml += '<div class="mt-2"><a><i class="fa fa-print mr-3"></i> 010-2342-5671</a></div>';
+footerHtml += '</div>';
+footerHtml += '</div>';
+footerHtml += '<div class="footer-copyright py-3 text-center">';
+footerHtml += '<div class="container-fluid">';
+footerHtml += '© 2019 Copyright: <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> 간드락 농원 </a>';
+footerHtml += '</div>';
+footerHtml += '</div>';
+
+$('footer').append(footerHtml);
