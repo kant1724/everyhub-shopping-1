@@ -23,19 +23,35 @@
                 <button type="button" class="btn btn-sm deep-orange btn-rounded excel-down">엑셀다운
                 </button>
             </div>
-            <hr>
+            <div class="row">
+                <div class="col-md-2 mr-5">
+                    <div class="md-form">
+                        <input type="text" id="startingDate" class="form-control datepicker" style="padding-left: 40px;">
+                        <i class="fal fa-calendar-alt prefix"></i><label for="startingDate"></label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="md-form">
+                        <input type="text" id="endingDate" class="form-control datepicker" style="padding-left: 40px;">
+                        <i class="fal fa-calendar-alt prefix"></i><label for="endingDate"></label>
+                    </div>
+                </div>
+                <div class="col-md-2 mt-4 ml-5">
+                    <a id="search" class="common-button-1">조회</a>
+                </div>
+            </div>
             <section class="section mt-3 mb-5 pb-5">
-                <table id="order_list" class="table">
+                <table id="order_list" class="table table-bordered text-center">
                     <thead>
                     <tr>
                         <th>번호</th>
                         <th>주문일</th>
                         <th>주문자</th>
                         <th>주문자 연락처</th>
-                        <th>보내는자</th>
-                        <th>보내는자 연락처</th>
-                        <th>받는자</th>
-                        <th>받는자 연락처</th>
+                        <th></th>
+                        <th></th>
+                        <th>상품명</th>
+                        <th>수량</th>
                     </tr>
                     </thead>
                     <tbody id="order_list_tbody"></tbody>
@@ -50,8 +66,8 @@
     <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
     <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/component/order_list.js"></script>
     <script type="text/javascript" src="/static/js/component/header.js"></script>
+    <script type="text/javascript" src="/static/js/common/datepicker.js"></script>
     <script type="text/javascript" src="/static/js/admin/order_list/order_list.js"></script>
 </body>
 
