@@ -9,6 +9,10 @@ function ajax(url, inputData, gubun, method) {
         success: function (data, status, xhr) {
             if (gubun == 'selectOrderListMain') {
                 selectOrderListMainCallback(data.ret);
+            } else if (gubun == 'updateDepositConfirmDate') {
+                updateDepositConfirmDateCallback();
+            } else if (gubun == 'updateDlvrConfirmDate') {
+                updateDlvrConfirmDateCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -51,6 +55,14 @@ function selectOrderListMainCallback(ret) {
         let orderTelno = ret[i].orderTelno;
         let itemNm1 = ret[i].itemNm1;
         let qty = ret[i].qty;
+        let depositConfirmDate = ret[i].depositConfirmDate;
+        let dlvrConfirmDate = ret[i].dlvrConfirmDate;
+        if (depositConfirmDate == null || depositConfirmDate == '') {
+            depositConfirmDate = '<a class="confirm-deposit-btn common-button-1">입금확인</a>';
+        }
+        if (dlvrConfirmDate == null || dlvrConfirmDate == '') {
+            dlvrConfirmDate = '<a class="confirm-dlvr-btn common-button-1">배송완료</a>';
+        }
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
             html += '<tr style="margin-bottom: 0px;">';
@@ -68,10 +80,10 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="order_telno" class="order-telno">' + orderTelno + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="deposit_yn" class="deposit-yn"><a class="common-button-1">입금확인</a></div>';
+            html += '<div id="deposit_confirm_date" class="deposit-confirm-date">' + depositConfirmDate + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="dlvr_yn" class="dlvr-yn"><a class="common-button-1">배송완료</a></div>';
+            html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
             html += '</td>';
             html += '<td>';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
@@ -93,4 +105,39 @@ function selectOrderListMainCallback(ret) {
         prevOrderNo = orderNo;
     }
     $('#order_list_tbody').append(html);
+
+    $('.confirm-deposit-btn').unbind();
+    $('.confirm-deposit-btn').click(function() {
+        let orderNo = $(this).parent().parent().parent().find('#order_no').text();
+        updateDepositConfirmDate(orderNo);
+    });
+    $('.confirm-dlvr-btn').unbind();
+    $('.confirm-dlvr-btn').click(function() {
+        let orderNo = $(this).parent().parent().parent().find('#order_no').text();
+        updateDlvrConfirmDate(orderNo);
+    });
+}
+
+function updateDepositConfirmDate(orderNo) {
+    let inputData = {
+        orderNo: orderNo
+    };
+    ajax(serverUrl + '/admin/order_list/updateDepositConfirmDate', inputData, 'updateDepositConfirmDate', 'POST');
+}
+
+function updateDlvrConfirmDate(orderNo) {
+    let inputData = {
+        orderNo: orderNo
+    };
+    ajax(serverUrl + '/admin/order_list/updateDlvrConfirmDate', inputData, 'updateDlvrConfirmDate', 'POST');
+}
+
+function updateDepositConfirmDateCallback() {
+    alert('입금확인 처리되었습니다.');
+    selectOrderListMain();
+}
+
+function updateDlvrConfirmDateCallback() {
+    alert('배송완료 처리되었습니다.');
+    selectOrderListMain();
 }
