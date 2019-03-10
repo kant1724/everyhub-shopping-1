@@ -23,9 +23,20 @@ $(document).ready(function() {
     $('#search').click(function() {
         selectOrderListMain();
     });
+    $('#export_excel').click(function() {
+        exportExcel();
+    });
+
     datepicker.init();
     selectOrderListMain();
 });
+
+function exportExcel() {
+    let wb = XLSX.utils.book_new();
+    let ws = XLSX.utils.json_to_sheet([{'Kind' : '1', 'Count' : '1', 'Percent' : '1'}], { header: ['Kind', 'Count', 'Percent'] });
+    XLSX.utils.book_append_sheet(wb, ws, '주문내역');
+    XLSX.writeFile(wb, "order_list.xlsx");
+}
 
 function selectOrderListMain() {
     let inputData = {
