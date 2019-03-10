@@ -60,8 +60,12 @@ function selectOrderListMainCallback(ret) {
     }
     let prevOrderNo = -1;
     for (let i = 0; i < ret.length; ++i) {
+        let today = moment().format('YYYY-MM-DD');
         let orderNo = ret[i].orderNo;
         let orderDate = ret[i].orderDate;
+        if (orderDate == today) {
+            orderDate = '<span class="today-icon">오늘</span>' + orderDate;
+        }
         let orderPersonNm = ret[i].orderPersonNm;
         let orderTelno = ret[i].orderTelno;
         let itemNm1 = ret[i].itemNm1;

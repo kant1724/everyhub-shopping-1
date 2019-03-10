@@ -56,3 +56,15 @@ body {
     margin-top: 30px;
     margin-bottom: 20px;
 }
+
+.today-icon {
+    position: relative;
+    top: -3px;
+    background: #980000;
+    padding: 1px 3px 2px 3px;
+    color: white;
+    border-radius: 3px;
+    font-size: 8px;
+    margin-right: 7px;
+    font-weight: 700;
+}
