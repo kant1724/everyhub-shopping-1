@@ -89,6 +89,16 @@ $(document).ready(function() {
         location.href = '/admin/product_manager';
     });
 
+    $('#product_review').click(function() {
+        $('#product_review').css('border-bottom', '3px solid #333');
+        $('#qna').css('border-bottom', '0px solid #333');
+    });
+
+    $('#qna').click(function() {
+        $('#qna').css('border-bottom', '3px solid #333');
+        $('#product_review').css('border-bottom', '0px solid #333');
+    });
+
     constructReview.init(selectProductReviews);
 
     selectOneProduct();
