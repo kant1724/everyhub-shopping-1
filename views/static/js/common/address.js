@@ -73,12 +73,18 @@ let searchAddressApi = {
 			html += '<tr>';
 			let roadAddrPart1 = juso[i].roadAddrPart1;
 			let zipNo = juso[i].zipNo;
-			html += '<td style="padding: 3px;">' + roadAddrPart1 + '</td>';
-			html += '<td style="padding: 3px;">' + zipNo + '</td>';
+			html += '<td class="each-address" style="padding: 3px;">' + roadAddrPart1 + '</td>';
+			html += '<td class="each-address" style="padding: 3px;">' + zipNo + '</td>';
 			html += '</tr>';
 		}
 		searchAddressApi.totalCount = ret.results.common.totalCount;
 		searchAddressApi.constructPagination();
 		$('#address_tbody').append(html);
+
+		$('.each-address').click(function() {
+			$('#addressPart1').css('color', 'black');
+			$('#addressPart1').text($(this).text());
+			$('#close_modal').click();
+		});
 	}
 };

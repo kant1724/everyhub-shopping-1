@@ -54,7 +54,8 @@ function goSigningUp() {
         gender = 'F';
     }
     let dateOfBirth = $('#date_of_birth').val();
-    let address = $('#address1').val() + ' ' + $('#address2').val() + ' ' + $('#address3').val() + ' ' + $('#address4').val();
+    let address = $('#addressPart1').text() + ' ' + $('#detail_address').val();
+    alert(address);
     let inputData = {
         telno: telno,
         password: password,

@@ -1,0 +1,9 @@
+.each-address {
+
+}
+
+.each-address:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 700;
+}
