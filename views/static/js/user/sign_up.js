@@ -21,7 +21,21 @@ $(document).ready(function() {
     $('#go_signing_up_btn').click(function() {
         goSigningUp();
     });
+
+    $('#search_address').click(function() {
+        searchAddress();
+    });
 });
+
+function searchAddress() {
+    const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
+    const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
+    const w = 700;
+    const h = 600;
+    const l = (window.screen.width / 2) - (w / 2) + dualScreenLeft;
+    const t = (window.screen.height / 2) - (h / 2) + dualScreenTop - 50;
+    window.open('/address/', '_blank', 'location=1,status=1,scrollbars=1, resizable=0, directories=1, toolbar=1, titlebar=1, width=' + w + ', height=' + h + ', left=' + l + ', top=' + t);
+}
 
 function goSigningUp() {
     let telno = $('#telno').val();
