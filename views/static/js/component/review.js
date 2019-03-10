@@ -30,9 +30,7 @@ let constructReview =  {
 				starValue += '<i class="fas fa-star" style="color: #DBC000;"></i>';
 			}
 			html += '<tr class="each-review" style="margin-bottom: 0px;">';
-			html += '<td>';
-			html += '<div id="review_no" class="review-no">' + reviewNo + '</div>';
-			html += '</td>';
+			html += '<input type="hidden" id="review_no" class="review-no" value="' + reviewNo + '">';
 			html += '<td>';
 			html += '<div id="review_subject" class="review-subject" style="text-align: left;">' + subject + '</div>';
 			html += '</td>';
@@ -41,8 +39,8 @@ let constructReview =  {
 			html += '</td>';
 			html += '</tr>';
 			html += '<tr class="each-content" id="content' + reviewNo + '" style="display: none;">';html += '<td colspan="3">';
-			html += '<div style="text-align: left; padding-left: 50px; font-size: 11px;">별점:&nbsp;&nbsp;' + starValue + '</div>';
-			html += '<div style="text-align: left; padding-left: 50px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
+			html += '<div style="text-align: left; padding-left: 10px; font-size: 11px;">별점:&nbsp;&nbsp;' + starValue + '</div>';
+			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
 			html += '</td>';
 			html += '</tr>';
 		}
@@ -50,7 +48,7 @@ let constructReview =  {
 		$('#review_list_tbody').append(html);
 		$('.each-review').unbind();
 		$('.each-review').click(function () {
-			let reviewNo = $(this).find('#review_no').text();
+			let reviewNo = $(this).find('#review_no').val();
 			let sub = $(this).parent().find('#content' + reviewNo);
 			if (sub.css('display') == 'table-row') {
 				sub.css('display', 'none');
