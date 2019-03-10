@@ -55,8 +55,10 @@ function selectOrderListMainCallback(ret) {
         let orderTelno = ret[i].orderTelno;
         let itemNm1 = ret[i].itemNm1;
         let qty = ret[i].qty;
+        let totalPrice = ret[i].totalPrice;
         let depositConfirmDate = ret[i].depositConfirmDate;
         let dlvrConfirmDate = ret[i].dlvrConfirmDate;
+
         if (depositConfirmDate == null || depositConfirmDate == '') {
             depositConfirmDate = '<a class="confirm-deposit-btn common-button-1">입금확인</a>';
         }
@@ -84,6 +86,9 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '<td>';
             html += '<div id="qty" class="qty">' + qty + '</div>';
+            html += '</td>';
+            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="deposit_confirm_date" class="deposit-confirm-date">' + depositConfirmDate + '</div>';

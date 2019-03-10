@@ -52,6 +52,8 @@ function selectOrderListMainCallback(ret) {
         let itemNm1 = ret[i].itemNm1;
         let qty = ret[i].qty;
         let imagePath = ret[i].imagePath;
+        let totalPrice = ret[i].totalPrice;
+        
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
             html += '<tr style="margin-bottom: 0px;">';
@@ -63,13 +65,16 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="order_date" class="oreder-date">' + orderDate + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70"></div>';
+            html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70" style="border-radius: 5px;"></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="qty" class="qty">' + qty + '</div>';
+            html += '</td>';
+            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="width: 110px; vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="cancel_order" class="cancel-order"><a class="common-button-1">주문취소</a></div>';
@@ -81,7 +86,7 @@ function selectOrderListMainCallback(ret) {
         } else {
             html += '<tr>';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70"></div>';
+            html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70" style="border-radius: 5px;"></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
@@ -100,7 +105,7 @@ function selectOrderListMainCallback(ret) {
     });
     $('.write-review').unbind();
     $('.write-review').click(function() {
-
+        $('#review_modal').modal();
     });
 }
 
