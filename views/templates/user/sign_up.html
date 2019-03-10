@@ -62,22 +62,7 @@
             <div class="screen-ratio-inner">
                 <div class="pt-2 ml-4 pb-2">
                     <a id="search_address" class="common-button-1">주소검색</a>
-                    <div>
-                        <div class="d-inline-block">
-                            <input type="text" style="width: 120px;" class="form-control" id="address1" style="width: 200px;">
-                            <label for="address1">시/도</label>
-                        </div>
-                        <div class="d-inline-block ml-2">
-                            <input type="text" style="width: 120px;" class="form-control" id="address2" style="width: 200px;">
-                            <label for="address2">시/군/구</label>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="d-inline-block">
-                            <input type="text" style="width: 120px;" class="form-control" id="address3" style="width: 200px;">
-                            <label for="address3">동/면/읍</label>
-                        </div>
-                    </div>
+                    <div id="addressPart1" class="mt-3"></div>
                     <div class="d-inline-block">
                         <input type="text" style="width:250px;" class="form-control" id="address4" style="width: 200px;">
                         <label for="address4">상세주소</label>
@@ -90,6 +75,40 @@
                 <i class="fa fa-angle-right right"></i>
             </button>
         </div>
+        <div class="modal fade" id="address_modal" tabindex="-1" role="dialog" aria-labelledby="address_modal"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <input type="hidden" id="item_no_modal">
+                    <input type="hidden" id="star_value">
+                    <div class="modal-body">
+                        <div style="border-bottom: 1px solid #333; font-weight: 700;">
+                            <span>주소검색</span>
+                        </div>
+                        <div class="mt-3">
+                            <span>검색어</span>
+                        </div>
+                        <input id="address_subject" class="mt-2" type="text" style="width: 100%; outline: none; padding: 3px;">
+                        <div class="mt-2"><a id="search_address_modal" class="common-button-1">조회</a></div>
+                        <hr>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="padding: 3px;">주소</th>
+                                    <th style="padding: 3px;">우편번호</th>
+                                </tr>
+                            </thead>
+                            <tbody id="address_tbody">
+                            </tbody>
+                        </table>
+                        <div id="pagination" style="word-wrap: break-word;"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <a id="close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
     <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
@@ -98,6 +117,7 @@
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
     <script type="text/javascript" src="/static/js/common/datepicker.js"></script>
     <script type="text/javascript" src="/static/js/common/properties.js"></script>
+    <script type="text/javascript" src="/static/js/common/address.js"></script>
     <script type="text/javascript" src="/static/js/component/header.js"></script>
     <script type="text/javascript" src="/static/js/component/footer.js"></script>
     <script type="text/javascript" src="/static/js/user/sign_up.js"></script>

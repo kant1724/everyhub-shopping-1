@@ -26,6 +26,5 @@ app.use('/mypage', require('./getter/mypage/mypageGetter'));
 app.use('/admin/product_manager', require('./getter/admin/product_manager/productManagerGetter'));
 app.use('/admin/order_list', require('./getter/admin/order_list/orderListGetter'));
 app.use('/user', require('./getter/user/userGetter'));
-app.use('/address', require('./getter/address/addressGetter'));
 
 module.exports = app;

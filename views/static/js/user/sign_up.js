@@ -25,16 +25,39 @@ $(document).ready(function() {
     $('#search_address').click(function() {
         searchAddress();
     });
+
+    $('#search_address_modal').click(function() {
+        let keyword = $('#address_subject').val();
+        searchAddressApi.searchAddress(1, keyword, constructAddress);
+    });
+
+    $('#address_subject').keydown(function(key) {
+        if (key.keyCode == 13) {
+            let keyword = $('#address_subject').val();
+            searchAddressApi.searchAddress(1, keyword, constructAddress);
+        }
+    });
 });
 
+function constructAddress(ret) {
+    $('#address_tbody').empty();
+    let juso = ret.results.juso;
+    let html = '';
+    for (let i = 0; i < juso.length; ++i) {
+        html += '<tr>';
+        let roadAddrPart1 = juso[i].roadAddrPart1;
+        let zipNo = juso[i].zipNo;
+        html += '<td style="padding: 3px;">' + roadAddrPart1 + '</td>';
+        html += '<td style="padding: 3px;">' + zipNo + '</td>';
+        html += '</tr>';
+    }
+    searchAddressApi.totalCount = ret.results.common.totalCount;
+    searchAddressApi.constructPagination();
+    $('#address_tbody').append(html);
+}
+
 function searchAddress() {
-    const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
-    const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
-    const w = 700;
-    const h = 600;
-    const l = (window.screen.width / 2) - (w / 2) + dualScreenLeft;
-    const t = (window.screen.height / 2) - (h / 2) + dualScreenTop - 50;
-    window.open('/address/', '_blank', 'location=1,status=1,scrollbars=1, resizable=0, directories=1, toolbar=1, titlebar=1, width=' + w + ', height=' + h + ', left=' + l + ', top=' + t);
+    $('#address_modal').modal();
 }
 
 function goSigningUp() {

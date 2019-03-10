@@ -64,7 +64,7 @@ let constructReview =  {
 		$('.pagination').empty();
 		let html = '<a id="prev_page" href="#">&laquo;</a>';
 		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
-			if (i > (this.allData.length - 1) / this.idPerPage + 1) {
+			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
 			html += '<a class="page-no" href="#">' + i + '</a>';
@@ -175,7 +175,7 @@ let constructReviewMobile =  {
 		$('.pagination').empty();
 		let html = '<a id="prev_page" href="#">&laquo;</a>';
 		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
-			if (i > (this.allData.length - 1) / this.idPerPage + 1) {
+			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
 			html += '<a class="page-no" href="#">' + i + '</a>';
