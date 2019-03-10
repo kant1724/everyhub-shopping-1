@@ -28,33 +28,16 @@ $(document).ready(function() {
 
     $('#search_address_modal').click(function() {
         let keyword = $('#address_subject').val();
-        searchAddressApi.searchAddress(1, keyword, constructAddress);
+        searchAddressApi.searchAddress(1, keyword);
     });
 
     $('#address_subject').keydown(function(key) {
         if (key.keyCode == 13) {
             let keyword = $('#address_subject').val();
-            searchAddressApi.searchAddress(1, keyword, constructAddress);
+            searchAddressApi.searchAddress(1, keyword);
         }
     });
 });
-
-function constructAddress(ret) {
-    $('#address_tbody').empty();
-    let juso = ret.results.juso;
-    let html = '';
-    for (let i = 0; i < juso.length; ++i) {
-        html += '<tr>';
-        let roadAddrPart1 = juso[i].roadAddrPart1;
-        let zipNo = juso[i].zipNo;
-        html += '<td style="padding: 3px;">' + roadAddrPart1 + '</td>';
-        html += '<td style="padding: 3px;">' + zipNo + '</td>';
-        html += '</tr>';
-    }
-    searchAddressApi.totalCount = ret.results.common.totalCount;
-    searchAddressApi.constructPagination();
-    $('#address_tbody').append(html);
-}
 
 function searchAddress() {
     $('#address_modal').modal();
