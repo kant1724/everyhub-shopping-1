@@ -1,13 +1,24 @@
 let express = require('express');
 let auth = require('../common/auth').check;
 let router = express.Router();
+let MobileDetect = require('mobile-detect');
 
 router.get('/', function(req, res, next) {
-    res.render('templates/user/login', {});
+    let md = new MobileDetect(req.headers['user-agent']);
+    if (md.mobile()) {
+        res.render('templates/user/login-mobile', {});
+    } else {
+        res.render('templates/user/login', {});
+    }
 });
 
 router.get('/sign_up', function(req, res, next) {
-    res.render('templates/user/sign_up', {});
+    let md = new MobileDetect(req.headers['user-agent']);
+    if (md.mobile()) {
+        res.render('templates/user/sign_up-mobile', {});
+    } else {
+        res.render('templates/user/sign_up', {});
+    }
 });
 
 router.post('/setToken', auth, function(req, res, next) {
