@@ -61,9 +61,9 @@
                                 <th>이미지</th>
                                 <th>상품명</th>
                                 <th>수량</th>
+                                <th>상품후기</th>
                                 <th>총금액</th>
                                 <th>주문취소</th>
-                                <th>후기작성</th>
                             </tr>
                             </thead>
                             <tbody id="order_list_tbody"></tbody>
@@ -142,6 +142,8 @@
          aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
+                <input type="hidden" id="item_no_modal">
+                <input type="hidden" id="star_value">
                 <div class="modal-body">
                     <div style="border-bottom: 1px solid #333; font-weight: 700;">
                         <span>후기작성</span>
@@ -150,7 +152,7 @@
                     <span>별점</span>
                     </div>
                     <div class="mt-2 form-check" style="padding-left: 0px; color: #DBC000;">
-                        <input type="radio" class="form-check-input" id="star_5" name="star">
+                        <input type="radio" class="form-check-input star" id="star_5" name="star">
                         <label class="form-check-label" for="star_5">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -160,7 +162,7 @@
                         </label>
                     </div>
                     <div class="form-check" style="padding-left: 0px; color: #DBC000;">
-                        <input type="radio" class="form-check-input" id="star_4" name="star">
+                        <input type="radio" class="form-check-input star" id="star_4" name="star">
                         <label class="form-check-label" for="star_4">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -169,7 +171,7 @@
                         </label>
                     </div>
                     <div class="form-check" style="padding-left: 0px; color: #DBC000;">
-                        <input type="radio" class="form-check-input" id="star_3" name="star">
+                        <input type="radio" class="form-check-input star" id="star_3" name="star">
                         <label class="form-check-label" for="star_3">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -177,14 +179,14 @@
                         </label>
                     </div>
                     <div class="form-check" style="padding-left: 0px; color: #DBC000;">
-                        <input type="radio" class="form-check-input" id="star_2" name="star">
+                        <input type="radio" class="form-check-input star" id="star_2" name="star">
                         <label class="form-check-label" for="star_2">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                         </label>
                     </div>
                     <div class="form-check" style="padding-left: 0px; color: #DBC000;">
-                        <input type="radio" class="form-check-input" id="star_1" name="star">
+                        <input type="radio" class="form-check-input star" id="star_1" name="star">
                         <label class="form-check-label" for="star_1">
                             <i class="fas fa-star"></i>
                         </label>
@@ -193,16 +195,16 @@
                     <div>
                     <span>제목</span>
                     </div>
-                    <input class="mt-2" type="text" style="width: 100%;">
+                    <input id="review_subject" class="mt-2" type="text" style="width: 100%;">
                     <hr>
                     <div>
                         <span>내용</span>
                     </div>
-                    <textarea class="mt-2" style="width: 100%; height: 150px;"></textarea>
+                    <textarea id="review_content" class="mt-2" style="width: 100%; height: 150px;"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <a class="common-button-1" data-dismiss="modal">닫기</a>
-                    <a class="common-button-1">작성</a>
+                    <a id="close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                    <a id="write_review_btn" class="common-button-1">작성</a>
                 </div>
             </div>
         </div>

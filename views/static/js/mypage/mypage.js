@@ -21,6 +21,16 @@ $(document).ready(function() {
     $('#search').click(function() {
         selectOrderListMain();
     });
+
+    $('.star').click(function() {
+       let starValue = $(this).prop('id').split('_')[1];
+       $('#star_value').val(starValue);
+    });
+
+    $('#write_review_btn').click(function() {
+        writeReview();
+    });
+
     datepicker.init();
     selectOrderListMain();
 });
@@ -49,15 +59,17 @@ function selectOrderListMainCallback(ret) {
     for (let i = 0; i < ret.length; ++i) {
         let orderNo = ret[i].orderNo;
         let orderDate = ret[i].orderDate;
+        let itemNo = ret[i].itemNo;
         let itemNm1 = ret[i].itemNm1;
         let qty = ret[i].qty;
         let imagePath = ret[i].imagePath;
         let totalPrice = ret[i].totalPrice;
-        
+
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
             html += '<tr style="margin-bottom: 0px;">';
             let pt = '15px';
+            html += '<input id="item_no" type="hidden" value="' + itemNo + '">';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
             html += '</td>';
@@ -73,18 +85,19 @@ function selectOrderListMainCallback(ret) {
             html += '<td style="vertical-align: middle;">';
             html += '<div id="qty" class="qty">' + qty + '</div>';
             html += '</td>';
+            html += '<td style="width: 110px; vertical-align: middle;">';
+            html += '<div id="write_review" class="write-review"><a class="common-button-1">후기작성</a></div>';
+            html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="width: 110px; vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="cancel_order" class="cancel-order"><a class="common-button-1">주문취소</a></div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="width: 110px; vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="write_review" class="write-review"><a class="common-button-1">후기작성</a></div>';
-            html += '</td>';
             html += '</tr>';
         } else {
             html += '<tr>';
+            html += '<input id="item_no" type="hidden" value="' + itemNo + '">';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70" style="border-radius: 5px;"></div>';
             html += '</td>';
@@ -93,6 +106,9 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="qty" class="qty">' + qty + '</div>';
+            html += '</td>';
+            html += '<td style="width: 110px; vertical-align: middle;">';
+            html += '<div id="write_review" class="write-review"><a class="common-button-1">후기작성</a></div>';
             html += '</td>';
             html += '</tr>';
         }
@@ -105,14 +121,24 @@ function selectOrderListMainCallback(ret) {
     });
     $('.write-review').unbind();
     $('.write-review').click(function() {
+        let itemNo = $(this).parent().parent().find('#item_no').val();
+        $('#item_no_modal').val(itemNo);
         $('#review_modal').modal();
     });
 }
 
 function writeReview() {
-
+    let itemNo = $('#item_no_modal').val();
+    let starValue = $('#star_value').val();
+    let inputData = {
+        subject: $('#review_subject').val(),
+        content: $('#review_content').val(),
+        star: starValue,
+        itemNo: itemNo
+    };
+    ajax(serverUrl + '/mypage/writeReview', inputData, 'writeReview', 'POST');
 }
 
 function writeReviewCallback() {
-
+    alert('후기가 작성되었습니다.');
 }
