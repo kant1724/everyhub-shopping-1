@@ -24,6 +24,11 @@ let constructReview =  {
 			let reviewDate = this.allData[i].reviewDate;
 			let subject = this.allData[i].subject;
 			let content = this.allData[i].content;
+			let star = this.allData[i].star;
+			let starValue = '';
+			for (let j = 0; j < star; ++j) {
+				starValue += '<i class="fas fa-star" style="color: #DBC000;"></i>';
+			}
 			html += '<tr class="each-review" style="margin-bottom: 0px;">';
 			html += '<td>';
 			html += '<div id="review_no" class="review-no">' + reviewNo + '</div>';
@@ -35,9 +40,9 @@ let constructReview =  {
 			html += '<div id="review_date" class="review-date">' + reviewDate + '</div>';
 			html += '</td>';
 			html += '</tr>';
-			html += '<tr class="each-content" id="content' + reviewNo + '" style="display: none;">';
-			html += '<td colspan="3">';
-			html += '<div style="text-align: left; padding-left: 50px;">' + content + '</div>';
+			html += '<tr class="each-content" id="content' + reviewNo + '" style="display: none;">';html += '<td colspan="3">';
+			html += '<div style="text-align: left; padding-left: 50px; font-size: 11px;">별점:&nbsp;&nbsp;' + starValue + '</div>';
+			html += '<div style="text-align: left; padding-left: 50px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
 			html += '</td>';
 			html += '</tr>';
 		}
@@ -131,6 +136,11 @@ let constructReviewMobile =  {
 			let reviewDate = this.allData[i].reviewDate;
 			let subject = this.allData[i].subject;
 			let content = this.allData[i].content;
+			let star = this.allData[i].star;
+			let starValue = '';
+			for (let j = 0; j < star; ++j) {
+				starValue += '<i class="fas fa-star" style="color: #DBC000;"></i>';
+			}
 			html += '<tr class="each-review" style="margin-bottom: 0px;">';
 			html += '<input type="hidden" id="review_no" class="review-no" value="' + reviewNo + '">';
 			html += '<td>';
@@ -142,7 +152,8 @@ let constructReviewMobile =  {
 			html += '</tr>';
 			html += '<tr class="each-content" id="content' + reviewNo + '" style="display: none;">';
 			html += '<td colspan="2">';
-			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px;">' + content + '</div>';
+			html += '<div style="text-align: left; padding-left: 10px; font-size: 11px;">별점:&nbsp;&nbsp;' + starValue + '</div>';
+			html += '<div style="text-align: left; padding-left: 10px; padding-top: 10px; font-size: 13px;">' + content + '</div>';
 			html += '</td>';
 			html += '</tr>';
 		}
