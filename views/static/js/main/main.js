@@ -54,6 +54,10 @@ function initSwiper() {
         pagination: {
             el: '.swiper-pagination',
             clickable: true
+        },
+        navigation: {
+            prevEl: '.swiper-button-prev',
+            nextEl: '.swiper-button-next'
         }
     });
 }
@@ -93,12 +97,12 @@ function setRecommendProduct(ret) {
     }
     $('#recommend_product').append(html);
 
+    initSwiper();
+
     $('.each-recommend').click(function() {
         let itemNo = $(this).find('#item_no').val();
         location.href = '/product?itemNo=' + itemNo;
     });
-
-    initSwiper();
 }
 
 function setAllProduct(ret) {

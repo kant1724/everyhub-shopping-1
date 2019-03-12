@@ -74,7 +74,7 @@ function setRecommendProduct(ret) {
     let html = '';
     for (let i = 0; i < ret.length; ++i) {
         if (ret[i].recommendYn == 'N') continue;
-        html += '<div class="swiper-slide each-recommend">';
+        html += '<div class="swiper-slide each-recommend mb-5">';
         html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="card-outer" style="background: #FFFFFF;">';
         html += '<div class="view overlay">';
@@ -104,12 +104,12 @@ function setRecommendProduct(ret) {
     }
     $('#recommend_product').append(html);
 
+    initSwiper();
+
     $('.each-recommend').click(function() {
         let itemNo = $(this).find('#item_no').val();
         location.href = '/product?itemNo=' + itemNo;
     });
-
-    initSwiper();
 }
 
 function setAllProduct(ret) {

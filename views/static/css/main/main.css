@@ -197,3 +197,15 @@ body {
     color: #fff;
     background: #000;
 }
+
+.swiper-button-prev {
+    background-image: none;
+    font-size: 26px;
+    color: #333;
+}
+
+.swiper-button-next {
+    background-image: none;
+    font-size: 26px;
+    color: #333;
+}
