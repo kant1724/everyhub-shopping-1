@@ -56,17 +56,16 @@ function goSigningUp() {
     let dateOfBirth = $('#date_of_birth').val();
     let addressMain = $('#address_main').text();
     let addressDetail = $('#address_detail').val();
-    let zipNo = $('#zip_no').val();
-
+    let zipNo = $('#zip_no').text();
     let inputData = {
         telno: telno,
         password: password,
         userNm: userNm,
         gender: gender,
         dateOfBirth: dateOfBirth,
+        zipNo: zipNo,
         addressMain: addressMain,
-        addressDetail: addressDetail,
-        zipNo: zipNo
+        addressDetail: addressDetail
     }
     ajax(serverUrl + '/user/goSigningUp', inputData, 'goSigningUp', 'POST');
 }
@@ -76,5 +75,6 @@ function goSigningUpCallback(ret) {
         alert('이미 등록된 휴대폰 번호입니다.');
     } else {
         alert('회원가입이 완료되었습니다.')
+        location.href = '/user'
     }
 }

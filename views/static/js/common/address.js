@@ -92,10 +92,10 @@ let searchAddressApi = {
 		$('#address_tbody').append(html);
 
 		$('.each-address').click(function() {
-			$('#address_main').text($(this).find('#address_main').text());
 			$('#zip_no').text($(this).find('#zip_no').text());
-			$('#address_main').css('color', 'black');
 			$('#zip_no').css('color', 'black');
+			$('#address_main').text($(this).find('#address_main').text());
+			$('#address_main').css('color', 'black');
 			$('#close_modal').click();
 		});
 	}
