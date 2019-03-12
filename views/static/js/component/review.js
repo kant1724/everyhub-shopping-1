@@ -124,7 +124,7 @@ let constructReviewMobile =  {
 	constructReviewList: function(page) {
 		let html = '';
 		if (this.allData.length == 0) {
-			html += '<tr class="my-3" style="font-size: 13px;"><td colspan="2">상품 리뷰가 존재하지 않습니다.</td></tr>';
+			html += '<tr colspan="2" class="my-3 text-center" style="font-size: 13px;"><td colspan="2">상품 리뷰가 존재하지 않습니다.</td></tr>';
 			$('#review_list').append(html);
 			return;
 		}
