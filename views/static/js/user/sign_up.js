@@ -54,15 +54,19 @@ function goSigningUp() {
         gender = 'F';
     }
     let dateOfBirth = $('#date_of_birth').val();
-    let address = $('#addressPart1').text() + ' ' + $('#detail_address').val();
-    alert(address);
+    let addressMain = $('#address_main').text();
+    let addressDetail = $('#address_detail').val();
+    let zipNo = $('#zip_no').val();
+
     let inputData = {
         telno: telno,
         password: password,
         userNm: userNm,
         gender: gender,
         dateOfBirth: dateOfBirth,
-        address: address
+        addressMain: addressMain,
+        addressDetail: addressDetail,
+        zipNo: zipNo
     }
     ajax(serverUrl + '/user/goSigningUp', inputData, 'goSigningUp', 'POST');
 }
