@@ -43,6 +43,22 @@ $(document).ready(function() {
     selectProductList();
 });
 
+function initSwiper() {
+    let swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        }
+    });
+}
+
 function selectProductList() {
     let inputData = {};
     ajax(serverUrl + '/admin/product_manager/selectProductList', inputData, 'selectProductList', 'POST');
@@ -56,13 +72,9 @@ function selectProductListCallback(ret) {
 function setRecommendProduct(ret) {
     $('#recommend_product').empty();
     let html = '';
-    let cnt = 0;
     for (let i = 0; i < ret.length; ++i) {
         if (ret[i].recommendYn == 'N') continue;
-        if (cnt % 3 == 0) {
-            html += '<div class="row">';
-        }
-        html += '<div class="each-recommend col-lg-4 col-md-12 mb-4">';
+        html += '<div class="swiper-slide each-recommend">';
         html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="card-outer" style="background: #FFFFFF;">';
         html += '<div class="view overlay">';
@@ -89,10 +101,6 @@ function setRecommendProduct(ret) {
         html += '</div>';
         html += '</div>';
         html += '</div>';
-        if (cnt % 3 == 2) {
-            html += '</div>';
-        }
-        cnt += 1;
     }
     $('#recommend_product').append(html);
 
@@ -100,6 +108,8 @@ function setRecommendProduct(ret) {
         let itemNo = $(this).find('#item_no').val();
         location.href = '/product?itemNo=' + itemNo;
     });
+
+    initSwiper();
 }
 
 function setAllProduct(ret) {

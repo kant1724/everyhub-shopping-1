@@ -173,3 +173,19 @@ body {
 #special_price {
     background: #F6F6F6;
 }
+
+.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    color: #000;
+    opacity: 1;
+    background: rgba(0,0,0,0.2);
+}
+
+.swiper-pagination-bullet-active {
+    color: #fff;
+    background: #000;
+}

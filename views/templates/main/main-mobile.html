@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
     <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
+    <link href="/static/lib/swiper/swiper.css" rel="stylesheet">
     <link href="/static/css/common/common.css" rel="stylesheet">
     <link href="/static/css/main/main-mobile.css" rel="stylesheet">
 </head>
@@ -85,7 +86,10 @@
                             <strong>추천 상품</strong>
                         </span>
                         <hr>
-                        <div id="recommend_product" class="pt-3">
+                        <div class="swiper-container">
+                            <div id="recommend_product" class="swiper-wrapper pt-3">
+                            </div>
+                            <div class="swiper-pagination"></div>
                         </div>
                     </section>
                 </div>
@@ -109,6 +113,7 @@
     <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/static/lib/swiper/swiper.js"></script>
     <script type="text/javascript" src="/static/js/common/properties.js"></script>
     <script type="text/javascript" src="/static/js/common/utils.js"></script>
     <script type="text/javascript" src="/static/js/common/nav.js"></script>
