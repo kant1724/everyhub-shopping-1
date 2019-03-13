@@ -33,7 +33,35 @@ $(document).ready(function() {
 
 function exportExcel() {
     let wb = XLSX.utils.book_new();
-    let ws = XLSX.utils.json_to_sheet([{'Kind' : '1', 'Count' : '1', 'Percent' : '1'}], { header: ['Kind', 'Count', 'Percent'] });
+    let header = {
+        header: ['보내는분',
+            '보내는분 전화',
+            '보내는분 주소',
+            '보내는분 상세주소',
+            '받는분',
+            '받는분 전화',
+            '받는분 주소',
+            '받는분 상세주소',
+            '물품명',
+            '박스수량'
+        ]
+    };
+    let data = [];
+    for (let i = 0; i < allData.length; ++i) {
+        let d = {};
+        d['보내는분'] = allData[i].sendPersonNm;
+        d['보내는분 전화'] = allData[i].sendTelno;
+        d['보내는분 주소'] = allData[i].sendAddressMain;
+        d['보내는분 상세주소'] = allData[i].sendAddressDetail;
+        d['받는분'] = allData[i].receivePersonNm;
+        d['받는분 전화'] = allData[i].receiveTelno;
+        d['받는분 주소'] = allData[i].receiveAddressMain;
+        d['받는분 상세주소'] = allData[i].receiveAddressDetail;
+        d['물품명'] = allData[i].itemNm1;
+        d['박스수량'] = allData[i].qty;
+        data.push(d);
+    }
+    let ws = XLSX.utils.json_to_sheet(data, header);
     XLSX.utils.book_append_sheet(wb, ws, '주문내역');
     XLSX.writeFile(wb, "order_list.xlsx");
 }
@@ -46,7 +74,9 @@ function selectOrderListMain() {
     ajax(serverUrl + '/admin/order_list/selectOrderListMain', inputData, 'selectOrderListMain', 'POST');
 }
 
+let allData = [];
 function selectOrderListMainCallback(ret) {
+    allData = ret;
     let html = '';
     $('#order_list_tbody').empty();
     let rowspan = {};
