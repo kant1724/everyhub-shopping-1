@@ -1,4 +1,4 @@
-let constructReview =  {
+let constructQna =  {
 	cur: -1,
 	max: 0,
 	lastQnaNo: 99999999,
@@ -102,7 +102,7 @@ let constructReview =  {
 	}
 };
 
-let constructReviewMobile =  {
+let constructQnaMobile =  {
 	cur: -1,
 	max: 0,
 	lastQnaNo: 99999999,

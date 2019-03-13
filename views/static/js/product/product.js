@@ -11,6 +11,8 @@ function ajax(url, inputData, gubun, method) {
                 selectOneProductCallback(data.ret);
             } else if (gubun == 'selectProductReviews') {
                 selectProductReviewsCallback(data.ret);
+            } else if (gubun == 'selectQna') {
+                selectQnaCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -104,9 +106,11 @@ $(document).ready(function() {
     });
 
     constructReview.init(selectProductReviews);
+    constructQna.init(selectQna);
 
     selectOneProduct();
     selectProductReviews();
+    selectQna();
 });
 
 function selectOneProduct() {
@@ -127,6 +131,16 @@ function selectProductReviews() {
     ajax(serverUrl + '/product/selectProductReviews', inputData , 'selectProductReviews', 'POST');
 }
 
+function selectQna() {
+    let itemNo = $('#item_no').val();
+    let inputData  = {
+        itemNo: itemNo,
+        lastQnaNo: constructQna.lastQnaNo,
+        limit: constructQna.idPerPage * constructQna.pageLength
+    };
+    ajax(serverUrl + '/product/selectQna', inputData , 'selectQna', 'POST');
+}
+
 function selectOneProductCallback(ret) {
     $('#info_image_path').prop('src', ret[0].imagePath);
     $('#info_item_nm_1').text(ret[0].itemNm1);
@@ -140,4 +154,8 @@ function selectOneProductCallback(ret) {
 
 function selectProductReviewsCallback(ret) {
     constructReview.selectCallback(ret)
+}
+
+function selectQnaCallback(ret) {
+    constructQna.selectCallback(ret)
 }
