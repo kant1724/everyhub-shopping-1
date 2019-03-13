@@ -8,6 +8,12 @@ let constructQna =  {
 	selectFunction: null,
 
 	init: function(func) {
+		this.cur = -1;
+		this.max = 0;
+		this.lastQnaNo = 99999999;
+		this.idPerPage = 15;
+		this.pageLength = 10;
+		this.allData = [];
 		this.selectFunction = func;
 	},
 
@@ -25,7 +31,7 @@ let constructQna =  {
 			let subject = this.allData[i].subject;
 			let content = this.allData[i].content;
 			html += '<tr class="each-qna" style="margin-bottom: 0px;">';
-			html += '<input type="hidden" id="qna_no" class="review-no" value="' + qnaNo + '">';
+			html += '<input type="hidden" id="qna_no" class="qna-no" value="' + qnaNo + '">';
 			html += '<td>';
 			html += '<div id="qna_subject" class="qna-subject" style="text-align: left;">' + subject + '</div>';
 			html += '</td>';
@@ -33,7 +39,7 @@ let constructQna =  {
 			html += '<div id="qna_date" class="qna-date">' + qnaDate + '</div>';
 			html += '</td>';
 			html += '</tr>';
-			html += '<tr class="each-qna-content" id="qna_content' + reviewNo + '" style="display: none;">';html += '<td colspan="3">';
+			html += '<tr class="each-qna-content" id="qna_content' + qnaNo + '" style="display: none;">';html += '<td colspan="3">';
 			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
 			html += '</td>';
 			html += '</tr>';
@@ -112,6 +118,12 @@ let constructQnaMobile =  {
 	selectFunction: null,
 
 	init: function(func) {
+		this.cur = -1;
+		this.max = 0;
+		this.lastQnaNo = 99999999;
+		this.idPerPage = 15;
+		this.pageLength = 10;
+		this.allData = [];
 		this.selectFunction = func;
 	},
 
@@ -129,7 +141,7 @@ let constructQnaMobile =  {
 			let subject = this.allData[i].subject;
 			let content = this.allData[i].content;
 			html += '<tr class="each-qna" style="margin-bottom: 0px;">';
-			html += '<input type="hidden" id="qna_no" class="review-no" value="' + qnaNo + '">';
+			html += '<input type="hidden" id="qna_no" class="qna-no" value="' + qnaNo + '">';
 			html += '<td>';
 			html += '<div id="qna_subject" class="qna-subject">' + subject + '</div>';
 			html += '</td>';

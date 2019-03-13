@@ -111,6 +111,8 @@ $(document).ready(function() {
 
     $('#write_qna').click(function() {
         $('#item_no_modal').val($('#item_no').val());
+        $('#qna_subject_modal').val('');
+        $('#qna_content_modal').val('');
         $('#qna_modal').modal();
     });
 
@@ -168,8 +170,8 @@ function selectOneProductCallback(ret) {
 function writeQna() {
     let itemNo = $('#item_no_modal').val();
     let inputData = {
-        subject: $('#qna_subject').val(),
-        content: $('#qna_content').val(),
+        subject: $('#qna_subject_modal').val(),
+        content: $('#qna_content_modal').val(),
         itemNo: itemNo
     };
     ajax(serverUrl + '/product/writeQna', inputData, 'writeQna', 'POST');
@@ -186,4 +188,6 @@ function selectQnaCallback(ret) {
 function writeQnaCallback() {
     alert('질문이 등록되었습니다.');
     $('#close_modal').click();
+    constructQna.init(selectQna);
+    selectQna();
 }
