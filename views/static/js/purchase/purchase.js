@@ -67,6 +67,20 @@ $(document).ready(function() {
     $('#has_sender').click(function() {
         setSenderInput();
     });
+
+    $('#search_send_address').click(function() {
+        $('#zip_no_id').val('send_zip_no');
+        $('#address_main_id').val('send_address_main');
+        $('#address_modal').modal();
+        searchAddressApi.init();
+    });
+
+    $('#search_receive_address').click(function() {
+        $('#zip_no_id').val('receive_zip_no');
+        $('#address_main_id').val('receive_address_main');
+        $('#address_modal').modal();
+        searchAddressApi.init();
+    });
 });
 
 function setSenderInput() {

@@ -11,6 +11,7 @@
     <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
     <link href="/static/css/common/common.css" rel="stylesheet">
+    <link href="/static/css/common/address.css" rel="stylesheet">
     <link href="/static/css/purchase/purchase.css" rel="stylesheet">
 </head>
 
@@ -180,6 +181,40 @@
         <input id="direct_qty" type="hidden" value="{{qty}}">
         <input id="direct_item_price_num" type="hidden" value="{{itemPriceNum}}">
     </div>
+    <div class="modal fade" id="address_modal" tabindex="-1" role="dialog" aria-labelledby="address_modal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <input type="hidden" id="zip_no_id">
+                <input type="hidden" id="address_main_id">
+                <div class="modal-body">
+                    <div style="border-bottom: 1px solid #333; font-weight: 700;">
+                        <span>주소검색</span>
+                    </div>
+                    <div class="mt-3">
+                        <span>검색어</span>
+                    </div>
+                    <input id="address_subject" class="mt-2" type="text" style="width: 100%; outline: none; padding: 3px;">
+                    <div class="mt-2"><a id="search_address_modal" class="common-button-1">조회</a></div>
+                    <hr>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th style="padding: 3px;">주소</th>
+                            <th style="padding: 3px;">우편번호</th>
+                        </tr>
+                        </thead>
+                        <tbody id="address_tbody">
+                        </tbody>
+                    </table>
+                    <div id="pagination" style="word-wrap: break-word;"></div>
+                </div>
+                <div class="modal-footer">
+                    <a id="close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
     <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
@@ -187,6 +222,7 @@
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
     <script type="text/javascript" src="/static/js/common/properties.js"></script>
     <script type="text/javascript" src="/static/js/common/utils.js"></script>
+    <script type="text/javascript" src="/static/js/common/address.js"></script>
     <script type="text/javascript" src="/static/js/component/footer.js"></script>
     <script type="text/javascript" src="/static/js/purchase/purchase.js"></script>
 </body>

@@ -5,6 +5,24 @@ let searchAddressApi = {
 	curPageGroup: 1,
 	countPerPageGroup: 10,
 	curKeyword: '',
+
+	init: function() {
+		$('#search_address_modal').click(function() {
+			let keyword = $('#address_subject').val();
+			searchAddressApi.searchAddress(1, keyword);
+		});
+
+		$('#address_subject').keydown(function(key) {
+			if (key.keyCode == 13) {
+				let keyword = $('#address_subject').val();
+				searchAddressApi.searchAddress(1, keyword);
+			}
+		});
+		$('#pagination').empty();
+		$('#address_tbody').empty();
+		$('#address_subject').val('');
+	},
+
 	searchAddressAjax: function(page, keyword, gubun) {
 		this.curKeyword = keyword;
 		$.ajax({
@@ -92,10 +110,10 @@ let searchAddressApi = {
 		$('#address_tbody').append(html);
 
 		$('.each-address').click(function() {
-			$('#zip_no').text($(this).find('#zip_no').text());
-			$('#zip_no').css('color', 'black');
-			$('#address_main').text($(this).find('#address_main').text());
-			$('#address_main').css('color', 'black');
+			$('#' + $('#zip_no_id').val()).text($(this).find('#zip_no').text());
+			$('#' + $('#zip_no_id').val()).css('color', 'black');
+			$('#' + $('#address_main_id').val()).text($(this).find('#address_main').text());
+			$('#' + $('#address_main_id').val()).css('color', 'black');
 			$('#close_modal').click();
 		});
 	}

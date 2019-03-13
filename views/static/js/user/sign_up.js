@@ -26,16 +26,11 @@ $(document).ready(function() {
         searchAddress();
     });
 
-    $('#search_address_modal').click(function() {
-        let keyword = $('#address_subject').val();
-        searchAddressApi.searchAddress(1, keyword);
-    });
-
-    $('#address_subject').keydown(function(key) {
-        if (key.keyCode == 13) {
-            let keyword = $('#address_subject').val();
-            searchAddressApi.searchAddress(1, keyword);
-        }
+    $('#search_address').click(function() {
+        $('#zip_no_id').val('zip_no');
+        $('#address_main_id').val('address_main');
+        $('#address_modal').modal();
+        searchAddressApi.init();
     });
 });
 
