@@ -93,8 +93,7 @@ $(document).ready(function() {
 
     $('#product_review').click(function() {
         $('#qna_list').hide();
-        $('#qna_text').hide();
-        $('#write_qna_btn').hide();
+        $('#write_qna').hide();
         $('#review_list').show();
         $('#product_review').css('border-bottom', '3px solid #333');
         $('#qna').css('border-bottom', '0px solid #333');
@@ -103,14 +102,14 @@ $(document).ready(function() {
     $('#qna').click(function() {
         $('#review_list').hide();
         $('#qna_list').show();
-        $('#qna_text').show();
-        $('#write_qna_btn').show();
+        $('#write_qna').show();
         $('#qna').css('border-bottom', '3px solid #333');
         $('#product_review').css('border-bottom', '0px solid #333');
     });
 
-    $('#write_qna_btn').click(function() {
-        alert(1);
+    $('#write_qna').click(function() {
+        $('#item_no_modal').val($('#item_no').val());
+        $('#qna_modal').modal();
     });
 
     constructReview.init(selectProductReviews);
