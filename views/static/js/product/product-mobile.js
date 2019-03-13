@@ -116,6 +116,10 @@ $(document).ready(function() {
         $('#qna_modal').modal();
     });
 
+    $('#write_qna_btn').click(function() {
+        alert(1);
+    });
+
     constructReviewMobile.init(selectProductReviews);
     constructQnaMobile.init(selectQna);
 
