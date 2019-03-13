@@ -2,7 +2,7 @@ let constructQna =  {
 	cur: -1,
 	max: 0,
 	lastQnaNo: 99999999,
-	idPerPage: 15,
+	idPerPage: 5,
 	pageLength: 10,
 	allData: [],
 	selectFunction: null,
@@ -11,7 +11,7 @@ let constructQna =  {
 		this.cur = -1;
 		this.max = 0;
 		this.lastQnaNo = 99999999;
-		this.idPerPage = 15;
+		this.idPerPage = 5;
 		this.pageLength = 10;
 		this.allData = [];
 		this.selectFunction = func;
@@ -73,24 +73,24 @@ let constructQna =  {
 		$('.pagination').append(html);
 		$('.page-no').unbind();
 		$('.page-no').click(function () {
-			this.constructQnaList(Number($(this).text()) - 1);
+			constructQna.constructQnaList(Number($(this).text()) - 1);
 		});
 		$('#prev_page').click(function () {
 			$('#prev_page').unbind();
-			if (this.cur > 0) {
-				this.cur -= 1;
-				this.constructPagination();
-				this.constructQnaList(cur * this.pageLength);
+			if (constructQna.cur > 0) {
+				constructQna.cur -= 1;
+				constructQna.constructPagination();
+				constructQna.constructQnaList(cur * constructQna.pageLength);
 			}
 		});
 		$('#next_page').click(function () {
 			$('#next_page').unbind();
-			if (this.max == this.cur) {
-				this.selectFunction();
+			if (constructQna.max == constructQna.cur) {
+				constructQna.selectFunction();
 			} else {
-				this.cur += 1;
-				this.constructPagination();
-				this.constructQnaList(cur * this.pageLength);
+				constructQna.cur += 1;
+				constructQna.constructPagination();
+				constructQna.constructQnaList(cur * constructQna.pageLength);
 			}
 		});
 	},
@@ -112,7 +112,7 @@ let constructQnaMobile =  {
 	cur: -1,
 	max: 0,
 	lastQnaNo: 99999999,
-	idPerPage: 15,
+	idPerPage: 5,
 	pageLength: 10,
 	allData: [],
 	selectFunction: null,
@@ -121,7 +121,7 @@ let constructQnaMobile =  {
 		this.cur = -1;
 		this.max = 0;
 		this.lastQnaNo = 99999999;
-		this.idPerPage = 15;
+		this.idPerPage = 5;
 		this.pageLength = 10;
 		this.allData = [];
 		this.selectFunction = func;
@@ -184,24 +184,24 @@ let constructQnaMobile =  {
 		$('.pagination').append(html);
 		$('.page-no').unbind();
 		$('.page-no').click(function () {
-			this.constructQnaList(Number($(this).text()) - 1);
+			constructQnaMobile.constructQnaList(Number($(this).text()) - 1);
 		});
 		$('#prev_page').click(function () {
 			$('#prev_page').unbind();
-			if (this.cur > 0) {
-				this.cur -= 1;
-				this.constructPagination();
-				this.constructQnaList(cur * this.pageLength);
+			if (constructQnaMobile.cur > 0) {
+				constructQnaMobile.cur -= 1;
+				constructQnaMobile.constructPagination();
+				constructQnaMobile.constructQnaList(cur * constructQnaMobile.pageLength);
 			}
 		});
 		$('#next_page').click(function () {
 			$('#next_page').unbind();
-			if (this.max == this.cur) {
-				this.selectFunction();
+			if (constructQnaMobile.max == constructQnaMobile.cur) {
+				constructQnaMobile.selectFunction();
 			} else {
-				this.cur += 1;
-				this.constructPagination();
-				this.constructQnaList(cur * this.pageLength);
+				constructQnaMobile.cur += 1;
+				constructQnaMobile.constructPagination();
+				constructQnaMobile.constructQnaList(cur * constructQnaMobile.pageLength);
 			}
 		});
 	},
