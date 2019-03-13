@@ -162,15 +162,21 @@ function insertOrderList() {
     orderListMain.orderTelno = $('#order_telno').val();
     orderListMain.sendPersonNm = '';
     orderListMain.sendTelno = '';
-    orderListMain.sendAddress = '';
+    orderListMain.sendZipNo = '';
+    orderListMain.sendAddressMain = '';
+    orderListMain.sendAddressDetail = '';
     if ($('#has_sender').is(':checked')) {
         orderListMain.sendPersonNm = $('#send_person_nm').val();
         orderListMain.sendTelno = $('#send_telno').val();
-        orderListMain.sendAddress = $('#send_address').val();
+        orderListMain.sendZipNo = $('#send_zip_no').text();
+        orderListMain.sendAddressMain = $('#send_address_main').text();
+        orderListMain.sendAddressDetail = $('#send_address_detail').val();
     }
     orderListMain.receivePersonNm = $('#receive_person_nm').val();
     orderListMain.receiveTelno = $('#receive_telno').val();
-    orderListMain.receiveAddress = $('#receive_address').val();
+    orderListMain.receiveZipNo = $('#receive_zip_no').text();
+    orderListMain.receiveAddressMain = $('#receive_address_main').text();
+    orderListMain.receiveAddressDetail = $('#receive_address_detail').val();
     orderListMain.orderRemarks = $('#order_remarks').val();
     orderListMain.depositPersonNm = $('#deposit_person_nm').val();
     orderListMain.depositRemarks = $('#deposit_remarks').val();
