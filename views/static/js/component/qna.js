@@ -1,7 +1,7 @@
 let constructReview =  {
 	cur: -1,
 	max: 0,
-	lastReviewNo: 99999999,
+	lastQnaNo: 99999999,
 	idPerPage: 15,
 	pageLength: 10,
 	allData: [],
@@ -11,49 +11,43 @@ let constructReview =  {
 		this.selectFunction = func;
 	},
 
-	constructReviewList: function(page) {
+	constructQnaList: function(page) {
 		let html = '';
 		if (this.allData.length == 0) {
-			html += '<tr class="my-3" style="font-size: 13px;"><td colspan="3">상품 리뷰가 존재하지 않습니다.</td></tr>';
-			$('#review_list').append(html);
+			html += '<tr class="my-3" style="font-size: 13px;"><td colspan="3">Q&A가 존재하지 않습니다.</td></tr>';
+			$('#qna_list').append(html);
 			return;
 		}
-		$('#review_list_tbody').empty();
+		$('#qna_list_tbody').empty();
 		for (let i = page * this.idPerPage; i < Math.min((page + 1) * this.idPerPage, this.allData.length); ++i) {
-			let reviewNo = this.allData[i].reviewNo;
-			let reviewDate = this.allData[i].reviewDate;
+			let qnaNo = this.allData[i].qnaNo;
+			let qnaDate = this.allData[i].qnaDate;
 			let subject = this.allData[i].subject;
 			let content = this.allData[i].content;
-			let star = this.allData[i].star;
-			let starValue = '';
-			for (let j = 0; j < star; ++j) {
-				starValue += '<i class="fas fa-star" style="color: #DBC000;"></i>';
-			}
-			html += '<tr class="each-review" style="margin-bottom: 0px;">';
-			html += '<input type="hidden" id="review_no" class="review-no" value="' + reviewNo + '">';
+			html += '<tr class="each-qna" style="margin-bottom: 0px;">';
+			html += '<input type="hidden" id="qna_no" class="review-no" value="' + qnaNo + '">';
 			html += '<td>';
-			html += '<div id="review_subject" class="review-subject" style="text-align: left;">' + subject + '</div>';
+			html += '<div id="qna_subject" class="qna-subject" style="text-align: left;">' + subject + '</div>';
 			html += '</td>';
 			html += '<td>';
-			html += '<div id="review_date" class="review-date">' + reviewDate + '</div>';
+			html += '<div id="qna_date" class="qna-date">' + qnaDate + '</div>';
 			html += '</td>';
 			html += '</tr>';
-			html += '<tr class="each-review-content" id="review_content' + reviewNo + '" style="display: none;">';html += '<td colspan="3">';
-			html += '<div style="text-align: left; padding-left: 10px; font-size: 11px;">별점:&nbsp;&nbsp;' + starValue + '</div>';
+			html += '<tr class="each-qna-content" id="qna_content' + reviewNo + '" style="display: none;">';html += '<td colspan="3">';
 			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
 			html += '</td>';
 			html += '</tr>';
 		}
-		this.lastReviewNo = this.allData[this.allData.length - 1].reviewNo;
-		$('#review_list_tbody').append(html);
-		$('.each-review').unbind();
-		$('.each-review').click(function () {
-			let reviewNo = $(this).find('#review_no').val();
-			let sub = $(this).parent().find('#review_content' + reviewNo);
+		this.lastQnaNo = this.allData[this.allData.length - 1].reviewNo;
+		$('#qna_list_tbody').append(html);
+		$('.each-qna').unbind();
+		$('.each-qna').click(function () {
+			let qnaNo = $(this).find('#qna_no').val();
+			let sub = $(this).parent().find('#qna_content' + qnaNo);
 			if (sub.css('display') == 'table-row') {
 				sub.css('display', 'none');
 			} else {
-				let all = $(this).parent().find('.each-review-content');
+				let all = $(this).parent().find('.each-qna-content');
 				all.css('display', 'none');
 				sub.css('display', 'table-row');
 			}
@@ -73,14 +67,14 @@ let constructReview =  {
 		$('.pagination').append(html);
 		$('.page-no').unbind();
 		$('.page-no').click(function () {
-			this.constructReviewList(Number($(this).text()) - 1);
+			this.constructQnaList(Number($(this).text()) - 1);
 		});
 		$('#prev_page').click(function () {
 			$('#prev_page').unbind();
 			if (this.cur > 0) {
 				this.cur -= 1;
 				this.constructPagination();
-				this.constructReviewList(cur * this.pageLength);
+				this.constructQnaList(cur * this.pageLength);
 			}
 		});
 		$('#next_page').click(function () {
@@ -90,7 +84,7 @@ let constructReview =  {
 			} else {
 				this.cur += 1;
 				this.constructPagination();
-				this.constructReviewList(cur * this.pageLength);
+				this.constructQnaList(cur * this.pageLength);
 			}
 		});
 	},
@@ -103,7 +97,7 @@ let constructReview =  {
 		}
 		this.cur += 1;
 		this.constructPagination();
-		this.constructReviewList(this.cur * this.pageLength);
+		this.constructQnaList(this.cur * this.pageLength);
 		this.max = Math.max(this.max, this.cur);
 	}
 };
@@ -111,7 +105,7 @@ let constructReview =  {
 let constructReviewMobile =  {
 	cur: -1,
 	max: 0,
-	lastReviewNo: 99999999,
+	lastQnaNo: 99999999,
 	idPerPage: 15,
 	pageLength: 10,
 	allData: [],
@@ -121,50 +115,44 @@ let constructReviewMobile =  {
 		this.selectFunction = func;
 	},
 
-	constructReviewList: function(page) {
+	constructQnaList: function(page) {
 		let html = '';
 		if (this.allData.length == 0) {
-			html += '<tr colspan="2" class="my-3 text-center" style="font-size: 13px;"><td colspan="2">상품 리뷰가 존재하지 않습니다.</td></tr>';
-			$('#review_list').append(html);
+			html += '<tr colspan="2" class="my-3 text-center" style="font-size: 13px;"><td colspan="2">Q&A가 존재하지 않습니다.</td></tr>';
+			$('#qna_list').append(html);
 			return;
 		}
-		$('#review_list_tbody').empty();
+		$('#qna_list_tbody').empty();
 		for (let i = page * this.idPerPage; i < Math.min((page + 1) * this.idPerPage, this.allData.length); ++i) {
-			let reviewNo = this.allData[i].reviewNo;
-			let reviewDate = this.allData[i].reviewDate;
+			let qnaNo = this.allData[i].qnaNo;
+			let qnaDate = this.allData[i].qnaDate;
 			let subject = this.allData[i].subject;
 			let content = this.allData[i].content;
-			let star = this.allData[i].star;
-			let starValue = '';
-			for (let j = 0; j < star; ++j) {
-				starValue += '<i class="fas fa-star" style="color: #DBC000;"></i>';
-			}
-			html += '<tr class="each-review" style="margin-bottom: 0px;">';
-			html += '<input type="hidden" id="review_no" class="review-no" value="' + reviewNo + '">';
+			html += '<tr class="each-qna" style="margin-bottom: 0px;">';
+			html += '<input type="hidden" id="qna_no" class="review-no" value="' + qnaNo + '">';
 			html += '<td>';
-			html += '<div id="review_subject" class="review-subject">' + subject + '</div>';
+			html += '<div id="qna_subject" class="qna-subject">' + subject + '</div>';
 			html += '</td>';
 			html += '<td>';
-			html += '<div id="review_date" class="review-date">' + reviewDate + '</div>';
+			html += '<div id="qna_date" class="qna-date">' + qnaDate + '</div>';
 			html += '</td>';
 			html += '</tr>';
-			html += '<tr class="each-content" id="content' + reviewNo + '" style="display: none;">';
+			html += '<tr class="each-qna-content" id="qna_content' + qnaNo + '" style="display: none;">';
 			html += '<td colspan="2">';
-			html += '<div style="text-align: left; padding-left: 10px; font-size: 11px;">별점:&nbsp;&nbsp;' + starValue + '</div>';
 			html += '<div style="text-align: left; padding-left: 10px; padding-top: 10px; font-size: 13px;">' + content + '</div>';
 			html += '</td>';
 			html += '</tr>';
 		}
-		this.lastReviewNo = this.allData[this.allData.length - 1].reviewNo;
-		$('#review_list_tbody').append(html);
-		$('.each-review').unbind();
-		$('.each-review').click(function () {
-			let reviewNo = $(this).find('#review_no').val();
-			let sub = $(this).parent().find('#content' + reviewNo);
+		this.lastQnaNo = this.allData[this.allData.length - 1].qnaNo;
+		$('#qna_list_tbody').append(html);
+		$('.each-qna').unbind();
+		$('.each-qna').click(function () {
+			let qnaNo = $(this).find('#qna_no').val();
+			let sub = $(this).parent().find('#qna_content' + qnaNo);
 			if (sub.css('display') == 'table-row') {
 				sub.css('display', 'none');
 			} else {
-				let all = $(this).parent().find('.each-content');
+				let all = $(this).parent().find('.each-qna-content');
 				all.css('display', 'none');
 				sub.css('display', 'table-row');
 			}
@@ -184,14 +172,14 @@ let constructReviewMobile =  {
 		$('.pagination').append(html);
 		$('.page-no').unbind();
 		$('.page-no').click(function () {
-			this.constructReviewList(Number($(this).text()) - 1);
+			this.constructQnaList(Number($(this).text()) - 1);
 		});
 		$('#prev_page').click(function () {
 			$('#prev_page').unbind();
 			if (this.cur > 0) {
 				this.cur -= 1;
 				this.constructPagination();
-				this.constructReviewList(cur * this.pageLength);
+				this.constructQnaList(cur * this.pageLength);
 			}
 		});
 		$('#next_page').click(function () {
@@ -201,7 +189,7 @@ let constructReviewMobile =  {
 			} else {
 				this.cur += 1;
 				this.constructPagination();
-				this.constructReviewList(cur * this.pageLength);
+				this.constructQnaList(cur * this.pageLength);
 			}
 		});
 	},
@@ -214,7 +202,7 @@ let constructReviewMobile =  {
 		}
 		this.cur += 1;
 		this.constructPagination();
-		this.constructReviewList(this.cur * this.pageLength);
+		this.constructQnaList(this.cur * this.pageLength);
 		this.max = Math.max(this.max, this.cur);
 	}
 };

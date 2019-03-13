@@ -90,11 +90,15 @@ $(document).ready(function() {
     });
 
     $('#product_review').click(function() {
+        $('#qna_list').hide();
+        $('#review_list').show();
         $('#product_review').css('border-bottom', '3px solid #333');
         $('#qna').css('border-bottom', '0px solid #333');
     });
 
     $('#qna').click(function() {
+        $('#review_list').hide();
+        $('#qna_list').show();
         $('#qna').css('border-bottom', '3px solid #333');
         $('#product_review').css('border-bottom', '0px solid #333');
     });
