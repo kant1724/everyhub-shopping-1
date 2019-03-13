@@ -41,6 +41,7 @@ let constructQna =  {
 			html += '</tr>';
 			html += '<tr class="each-qna-content" id="qna_content' + qnaNo + '" style="display: none;">';html += '<td colspan="3">';
 			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
+			html += '<div class="qna-reply-list"></div>';
 			html += '</td>';
 			html += '</tr>';
 		}
