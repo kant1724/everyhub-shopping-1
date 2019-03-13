@@ -91,6 +91,20 @@ $(document).ready(function() {
         location.href = '/admin/product_manager';
     });
 
+    $('#product_review').click(function() {
+        $('#qna_list').hide();
+        $('#review_list').show();
+        $('#product_review').css('border-bottom', '3px solid #333');
+        $('#qna').css('border-bottom', '0px solid #333');
+    });
+
+    $('#qna').click(function() {
+        $('#review_list').hide();
+        $('#qna_list').show();
+        $('#qna').css('border-bottom', '3px solid #333');
+        $('#product_review').css('border-bottom', '0px solid #333');
+    });
+
     $('#go_shopping_cart').click(function() {
         location.href = '/cart';
     });
