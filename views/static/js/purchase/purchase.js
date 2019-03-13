@@ -48,7 +48,7 @@ $(document).ready(function() {
         $('#deposit_person_nm').focus();
     });
 
-    $('#same_with_order_info').click(function() {
+    $('#sender_same_with_order_info').click(function() {
         if ($('#order_person_nm').val() == '' || $('#order_telno').val() == '') {
             alert('주문자 정보를 입력하세요.');
             return false;
@@ -56,12 +56,22 @@ $(document).ready(function() {
         setSendInfoSameWithOrderInfo(true);
     });
 
+    $('#receiver_same_with_order_info').click(function() {
+        if ($('#order_person_nm').val() == '' || $('#order_telno').val() == '') {
+            alert('주문자 정보를 입력하세요.');
+            return false;
+        }
+        setReceiveInfoSameWithOrderInfo(true);
+    });
+
     $('#order_person_nm').change(function() {
         setSendInfoSameWithOrderInfo(false);
+        setReceiveInfoSameWithOrderInfo(false);
     });
 
     $('#order_telno').change(function() {
         setSendInfoSameWithOrderInfo(false);
+        setReceiveInfoSameWithOrderInfo(false);
     });
 
     $('#has_sender').click(function() {
@@ -92,7 +102,18 @@ function setSenderInput() {
 }
 
 function setSendInfoSameWithOrderInfo(focus) {
-    if ($('#same_with_order_info').is(':checked')) {
+    if ($('#sender_same_with_order_info').is(':checked')) {
+        $('#send_person_nm').val($('#order_person_nm').val());
+        $('#send_telno').val($('#order_telno').val());
+        if (focus) {
+            $('#send_person_nm').focus();
+            $('#send_telno').focus();
+        }
+    }
+}
+
+function setReceiveInfoSameWithOrderInfo(focus) {
+    if ($('#receiver_same_with_order_info').is(':checked')) {
         $('#receive_person_nm').val($('#order_person_nm').val());
         $('#receive_telno').val($('#order_telno').val());
         if (focus) {
