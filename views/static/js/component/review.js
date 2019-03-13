@@ -68,14 +68,14 @@ let constructReview =  {
 
 	constructPagination: function() {
 		$('.pagination').empty();
-		let html = '<a id="prev_page" href="#">&laquo;</a>';
+		let html = '<a id="prev_page">&laquo;</a>';
 		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
-			html += '<a class="page-no" href="#">' + i + '</a>';
+			html += '<a class="page-no">' + i + '</a>';
 		}
-		html += '<a id="next_page" href="#">&raquo;</a>';
+		html += '<a id="next_page">&raquo;</a>';
 		$('.pagination').append(html);
 		$('.page-no').unbind();
 		$('.page-no').click(function () {
@@ -185,14 +185,14 @@ let constructReviewMobile =  {
 
 	constructPagination: function() {
 		$('.pagination').empty();
-		let html = '<a id="prev_page" href="#">&laquo;</a>';
+		let html = '<a id="prev_page">&laquo;</a>';
 		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
-			html += '<a class="page-no" href="#">' + i + '</a>';
+			html += '<a class="page-no">' + i + '</a>';
 		}
-		html += '<a id="next_page" href="#">&raquo;</a>';
+		html += '<a id="next_page">&raquo;</a>';
 		$('.pagination').append(html);
 		$('.page-no').unbind();
 		$('.page-no').click(function () {
