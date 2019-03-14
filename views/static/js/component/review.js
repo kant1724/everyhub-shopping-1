@@ -57,8 +57,10 @@ let constructReview =  {
 			let reviewNo = $(this).find('#review_no').val();
 			let sub = $(this).parent().find('#review_content' + reviewNo);
 			if (sub.css('display') == 'table-row') {
+				$(this).find('#review_subject').css('font-weight', '300');
 				sub.css('display', 'none');
 			} else {
+				$(this).find('#review_subject').css('font-weight', '700');
 				let all = $(this).parent().find('.each-review-content');
 				all.css('display', 'none');
 				sub.css('display', 'table-row');
@@ -180,8 +182,10 @@ let constructReviewMobile =  {
 			let reviewNo = $(this).find('#review_no').val();
 			let sub = $(this).parent().find('#content' + reviewNo);
 			if (sub.css('display') == 'table-row') {
+				$(this).find('#review_subject').css('font-weight', '300');
 				sub.css('display', 'none');
 			} else {
+				$(this).find('#review_subject').css('font-weight', '700');
 				let all = $(this).parent().find('.each-content');
 				all.css('display', 'none');
 				sub.css('display', 'table-row');

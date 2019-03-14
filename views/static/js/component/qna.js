@@ -60,9 +60,11 @@ let constructQna =  {
 			let qnaNo = $(this).find('#qna_no').val();
 			let sub = $(this).parent().find('#qna_content' + qnaNo);
 			if (sub.css('display') == 'table-row') {
+				$(this).find('#qna_subject').css('font-weight', '300');
 				sub.css('display', 'none');
 				sub.find('.qna-reply-list').empty();
 			} else {
+				$(this).find('#qna_subject').css('font-weight', '700');
 				let all = $(this).parent().find('.each-qna-content');
 				all.css('display', 'none');
 				sub.css('display', 'table-row');
@@ -206,8 +208,10 @@ let constructQnaMobile =  {
 			let qnaNo = $(this).find('#qna_no').val();
 			let sub = $(this).parent().find('#qna_content' + qnaNo);
 			if (sub.css('display') == 'table-row') {
+				$(this).find('#qna_subject').css('font-weight', '300');
 				sub.css('display', 'none');
 			} else {
+				$(this).find('#qna_subject').css('font-weight', '700');
 				let all = $(this).parent().find('.each-qna-content');
 				all.css('display', 'none');
 				sub.css('display', 'table-row');
