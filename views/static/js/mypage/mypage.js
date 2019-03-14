@@ -142,9 +142,10 @@ function selectUserCallback(ret) {
         $('#telno').val(ret[0].telno);
         $('#user_nm').focus();
         $('#telno').focus();
-        $('#zip_no').val(ret[0].zipNo);
-        $('#address_main').val(ret[0].addressMain);
+        $('#zip_no').text(ret[0].zipNo);
+        $('#address_main').text(ret[0].addressMain);
         $('#address_detail').val(ret[0].addressDetail);
+        $('#date_of_birth').val(ret[0].dateOfBirth);
     }
 }
 
