@@ -60,7 +60,7 @@ let constructQna =  {
 				let all = $(this).parent().find('.each-qna-content');
 				all.css('display', 'none');
 				sub.css('display', 'table-row');
-				constructQnaMobile.selectReplyFunction();
+				constructQna.selectReplyFunction(qnaNo);
 			}
 		});
 	},
@@ -119,6 +119,7 @@ let constructQna =  {
 			let html = '';
 			for (let i = 0; i < data.length; ++i) {
 				let content = data[i].content;
+				html += '<div style="background: #EAEAEA; padding: 10px;">' + content + '</div>';
 			}
 			$('#qna_reply_list_' + qnaNo).append(html);
 		}

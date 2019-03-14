@@ -13,6 +13,8 @@ function ajax(url, inputData, gubun, method) {
                 selectProductReviewsCallback(data.ret);
             } else if (gubun == 'selectQna') {
                 selectQnaCallback(data.ret);
+            }  else if (gubun == 'selectQnaReply') {
+                selectQnaReplyCallback(data.ret);
             } else if (gubun == 'writeQna') {
                 writeQnaCallback();
             }
@@ -156,6 +158,13 @@ function selectQna() {
     ajax(serverUrl + '/product/selectQna', inputData , 'selectQna', 'POST');
 }
 
+function selectQnaReply(qnaNo) {
+    let inputData  = {
+        qnaNo: qnaNo
+    };
+    ajax(serverUrl + '/product/selectQnaReply', inputData , 'selectQnaReply', 'POST');
+}
+
 function selectOneProductCallback(ret) {
     $('#info_image_path').prop('src', ret[0].imagePath);
     $('#info_item_nm_1').text(ret[0].itemNm1);
@@ -183,6 +192,10 @@ function selectProductReviewsCallback(ret) {
 
 function selectQnaCallback(ret) {
     constructQna.selectCallback(ret)
+}
+
+function selectQnaReplyCallback(ret) {
+    constructQna.selectReplyCallback(ret)
 }
 
 function writeQnaCallback() {
