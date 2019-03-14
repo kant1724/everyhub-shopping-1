@@ -22,6 +22,11 @@ if ($('#user_no').val() == 0) {
     headerHtml += '</li>';
 } else {
     headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
+    headerHtml += '<a class="nav-link waves-effect waves-light" href="/user">';
+    headerHtml += '<i class="far fa-sign-in-alt"></i>&nbsp;&nbsp;로그아웃';
+    headerHtml += '</a>';
+    headerHtml += '</li>';
+    headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
     headerHtml += '<a class="nav-link waves-effect waves-light" href="/mypage">';
     headerHtml += '<i class="far fa-user"></i>&nbsp;&nbsp;마이페이지';
     headerHtml += '</a>';
