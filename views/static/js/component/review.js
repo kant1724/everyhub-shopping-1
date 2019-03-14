@@ -73,12 +73,18 @@ let constructReview =  {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
-			html += '<a class="review-page-no">' + i + '</a>';
+			if (i == this.cur * this.pageLength + 1) {
+				html += '<a class="review-page-no active">' + i + '</a>';
+			} else {
+				html += '<a class="review-page-no">' + i + '</a>';
+			}
 		}
 		html += '<a id="review_next_page">&raquo;</a>';
 		$('.review-pagination').append(html);
 		$('.review-page-no').unbind();
 		$('.review-page-no').click(function () {
+			$('.review-page-no').prop('class', 'review-page-no');
+			$(this).prop('class', 'review-page-no active');
 			constructReview.constructReviewList(Number($(this).text()) - 1);
 		});
 		$('#review_prev_page').click(function () {
@@ -106,11 +112,11 @@ let constructReview =  {
 			for (let i = 0; i < data.length; ++i) {
 				this.allData.push(data[i]);
 			}
+			this.cur += 1;
+			this.constructPagination();
+			this.constructReviewList(this.cur * this.pageLength);
+			this.max = Math.max(this.max, this.cur);
 		}
-		this.cur += 1;
-		this.constructPagination();
-		this.constructReviewList(this.cur * this.pageLength);
-		this.max = Math.max(this.max, this.cur);
 	}
 };
 
@@ -190,12 +196,18 @@ let constructReviewMobile =  {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
-			html += '<a class="review-page-no">' + i + '</a>';
+			if (i == this.cur * this.pageLength + 1) {
+				html += '<a class="review-page-no active">' + i + '</a>';
+			} else {
+				html += '<a class="review-page-no">' + i + '</a>';
+			}
 		}
 		html += '<a id="review_next_page">&raquo;</a>';
 		$('.review-pagination').append(html);
 		$('.review-page-no').unbind();
 		$('.review-page-no').click(function () {
+			$('.review-page-no').prop('class', 'review-page-no');
+			$(this).prop('class', 'review-page-no active');
 			constructReviewMobile.constructReviewList(Number($(this).text()) - 1);
 		});
 		$('#review_prev_page').click(function () {
@@ -223,10 +235,10 @@ let constructReviewMobile =  {
 			for (let i = 0; i < data.length; ++i) {
 				this.allData.push(data[i]);
 			}
+			this.cur += 1;
+			this.constructPagination();
+			this.constructReviewList(this.cur * this.pageLength);
+			this.max = Math.max(this.max, this.cur);
 		}
-		this.cur += 1;
-		this.constructPagination();
-		this.constructReviewList(this.cur * this.pageLength);
-		this.max = Math.max(this.max, this.cur);
 	}
 };

@@ -84,12 +84,18 @@ let constructQna =  {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
-			html += '<a class="qna-page-no">' + i + '</a>';
+			if (i == this.cur * this.pageLength + 1) {
+				html += '<a class="qna-page-no active">' + i + '</a>';
+			} else {
+				html += '<a class="qna-page-no">' + i + '</a>';
+			}
 		}
 		html += '<a id="qna_next_page">&raquo;</a>';
 		$('.qna-pagination').append(html);
 		$('.qna-page-no').unbind();
 		$('.qna-page-no').click(function () {
+			$('.qna-page-no').prop('class', 'qna-page-no');
+			$(this).prop('class', 'qna-page-no active');
 			constructQna.constructQnaList(Number($(this).text()) - 1);
 		});
 		$('#qna_prev_page').click(function () {
@@ -117,11 +123,11 @@ let constructQna =  {
 			for (let i = 0; i < data.length; ++i) {
 				this.allData.push(data[i]);
 			}
+			this.cur += 1;
+			this.constructPagination();
+			this.constructQnaList(this.cur * this.pageLength);
+			this.max = Math.max(this.max, this.cur);
 		}
-		this.cur += 1;
-		this.constructPagination();
-		this.constructQnaList(this.cur * this.pageLength);
-		this.max = Math.max(this.max, this.cur);
 	},
 
 	selectReplyCallback: function(data) {
@@ -223,12 +229,18 @@ let constructQnaMobile =  {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
-			html += '<a class="qna-page-no">' + i + '</a>';
+			if (i == this.cur * this.pageLength + 1) {
+				html += '<a class="qna-page-no active">' + i + '</a>';
+			} else {
+				html += '<a class="qna-page-no">' + i + '</a>';
+			}
 		}
 		html += '<a id="qna_next_page">&raquo;</a>';
 		$('.qna-pagination').append(html);
 		$('.qna-page-no').unbind();
 		$('.qna-page-no').click(function () {
+			$('.qna-page-no').prop('class', 'qna-page-no');
+			$(this).prop('class', 'qna-page-no active');
 			constructQnaMobile.constructQnaList(Number($(this).text()) - 1);
 		});
 		$('#qna_prev_page').click(function () {
@@ -256,11 +268,11 @@ let constructQnaMobile =  {
 			for (let i = 0; i < data.length; ++i) {
 				this.allData.push(data[i]);
 			}
+			this.cur += 1;
+			this.constructPagination();
+			this.constructQnaList(this.cur * this.pageLength);
+			this.max = Math.max(this.max, this.cur);
 		}
-		this.cur += 1;
-		this.constructPagination();
-		this.constructQnaList(this.cur * this.pageLength);
-		this.max = Math.max(this.max, this.cur);
 	},
 
 	selectReplyCallback: function(data) {

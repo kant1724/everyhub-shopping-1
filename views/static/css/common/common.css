@@ -21,9 +21,9 @@
 }
 
 .review-pagination a.active {
-    background-color: #4CAF50;
+    background-color: gray;
     color: white;
-    border: 1px solid #4CAF50;
+    border: 1px solid gray;
 }
 
 .review-pagination a:hover:not(.active) {
@@ -43,12 +43,12 @@
     border: 1px solid #ddd;
 }
 
-.qna-pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-    border: 1px solid #4CAF50;
-}
 
+.qna-pagination a.active {
+    background-color: gray;
+    color: white;
+    border: 1px solid gray;
+}
 .qna-pagination a:hover:not(.active) {
     background-color: #ddd;
 }
