@@ -133,6 +133,7 @@ function setSendInfoSameWithOrderInfo(focus) {
             $('#send_person_nm').focus();
             $('#send_telno').focus();
             $('#send_address_detail').focus();
+            $('#sender_same_with_order_info').focus();
         }
     }
 }
@@ -148,6 +149,7 @@ function setReceiveInfoSameWithOrderInfo(focus) {
             $('#receive_person_nm').focus();
             $('#receive_telno').focus();
             $('#receive_address_detail').focus();
+            $('#receiver_same_with_order_info').focus();
         }
     }
 }
