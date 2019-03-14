@@ -1,7 +1,7 @@
 let express = require('express');
-let auth = require('../common/auth').check;
 let router = express.Router();
 let MobileDetect = require('mobile-detect');
+let auth = require('../common/auth');
 
 router.get('/', function(req, res, next) {
     let md = new MobileDetect(req.headers['user-agent']);

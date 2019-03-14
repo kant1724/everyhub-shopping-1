@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let MobileDetect = require('mobile-detect');
+let auth = require('../common/auth');
 
 router.get('/', function(req, res, next) {
     let param = req.query;

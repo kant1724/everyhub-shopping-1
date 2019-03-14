@@ -37,3 +37,11 @@ exports.check = (req, res, next) => {
 
 	p.then(respond).catch(onError);
 };
+
+exports.getInfo = (req) => {
+	let token = req.body.token;
+	if (!token) {
+		token = req.cookies.jwt;
+	}
+	return jwt.verify(token, req.app.get('jwt-secret'));
+}
