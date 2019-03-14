@@ -56,7 +56,7 @@ let searchAddressApi = {
 	constructPagination: function() {
 		$('#pagination').empty();
 		this.totalPage = Math.floor((Number(this.totalCount) - 1) / Number(this.countPerPage)) + 1;
-		let html = '<a id="go_prev_page_group" class="ml-1 mr-1 px-2" style="font-size: 16px;">《</a>';
+		let html = '<a id="go_prev_page_group" class="ml-1 mr-1 px-2" style="font-size: 16px;">&laquo;</a>';
 		let start = (this.curPageGroup - 1) * this.countPerPageGroup;
 		for (let i = start; i < start + this.countPerPageGroup && i < this.totalPage; ++i) {
 			if ( i == start) {
@@ -65,7 +65,7 @@ let searchAddressApi = {
 				html += '<a class="page-index ml-1 mr-1 px-2" style="border: 1px solid #333; font-size: 16px;">' + (i + 1) + '</a>';
 			}
 		}
-		html += '<a id="go_next_page_group" class="ml-1 mr-1 px-2" style="font-size: 16px;">》</a>';
+		html += '<a id="go_next_page_group" class="ml-1 mr-1 px-2" style="font-size: 16px;">&raquo;</a>';
 		$('#pagination').append(html);
 		$('#go_prev_page_group').unbind();
 		$('#go_next_page_group').click(function() {

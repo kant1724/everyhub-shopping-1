@@ -6,15 +6,17 @@ let constructQna =  {
 	pageLength: 10,
 	allData: [],
 	selectFunction: null,
+	selectReplyFunction: null
 
-	init: function(func) {
+	init: function(selectFunc, replyFunc) {
 		this.cur = -1;
 		this.max = 0;
 		this.lastQnaNo = 99999999;
 		this.idPerPage = 5;
 		this.pageLength = 10;
 		this.allData = [];
-		this.selectFunction = func;
+		this.selectFunction = selectFunc;
+		this.selectReplyFunction = replyFunc;
 	},
 
 	constructQnaList: function(page) {
@@ -41,7 +43,7 @@ let constructQna =  {
 			html += '</tr>';
 			html += '<tr class="each-qna-content" id="qna_content' + qnaNo + '" style="display: none;">';html += '<td colspan="3">';
 			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
-			html += '<div class="qna-reply-list"></div>';
+			html += '<div id="qna_reply_list_' + qnaNo + '" class="qna-reply-list"></div>';
 			html += '</td>';
 			html += '</tr>';
 		}
@@ -53,10 +55,12 @@ let constructQna =  {
 			let sub = $(this).parent().find('#qna_content' + qnaNo);
 			if (sub.css('display') == 'table-row') {
 				sub.css('display', 'none');
+				sub.find('.qna-reply-list').empty();
 			} else {
 				let all = $(this).parent().find('.each-qna-content');
 				all.css('display', 'none');
 				sub.css('display', 'table-row');
+				constructQnaMobile.selectReplyFunction();
 			}
 		});
 	},
@@ -106,6 +110,18 @@ let constructQna =  {
 		this.constructPagination();
 		this.constructQnaList(this.cur * this.pageLength);
 		this.max = Math.max(this.max, this.cur);
+	},
+
+	selectReplyCallback: function(data) {
+		if (data.length > 0) {
+			let qnaNo = data[0].qnaNo;
+			$('#qna_reply_list_' + qnaNo).empty();
+			let html = '';
+			for (let i = 0; i < data.length; ++i) {
+				let content = data[i].content;
+			}
+			$('#qna_reply_list_' + qnaNo).append(html);
+		}
 	}
 };
 
@@ -117,15 +133,17 @@ let constructQnaMobile =  {
 	pageLength: 10,
 	allData: [],
 	selectFunction: null,
+	selectReplyFunction: null,
 
-	init: function(func) {
+	init: function(selectFunc, replyFunc) {
 		this.cur = -1;
 		this.max = 0;
 		this.lastQnaNo = 99999999;
 		this.idPerPage = 5;
 		this.pageLength = 10;
 		this.allData = [];
-		this.selectFunction = func;
+		this.selectFunction = selectFunc;
+		this.selectReplyFunction = replyFunc;
 	},
 
 	constructQnaList: function(page) {
