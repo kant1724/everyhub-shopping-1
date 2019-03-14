@@ -7,8 +7,9 @@ let constructQna =  {
 	allData: [],
 	selectFunction: null,
 	selectReplyFunction: null,
+	writeReplyFunction: null,
 
-	init: function(selectFunc, replyFunc) {
+	init: function(selectFunc, selectReplyFunc, writeReplyFunc) {
 		this.cur = -1;
 		this.max = 0;
 		this.lastQnaNo = 99999999;
@@ -16,7 +17,8 @@ let constructQna =  {
 		this.pageLength = 10;
 		this.allData = [];
 		this.selectFunction = selectFunc;
-		this.selectReplyFunction = replyFunc;
+		this.selectReplyFunction = selectReplyFunc;
+		this.writeReplyFunction = writeReplyFunc;
 	},
 
 	constructQnaList: function(page) {
@@ -42,6 +44,7 @@ let constructQna =  {
 			html += '</td>';
 			html += '</tr>';
 			html += '<tr class="each-qna-content" id="qna_content' + qnaNo + '" style="display: none;">';html += '<td colspan="3">';
+			html += '<input type="hidden" class="qna-no" value="' + qnaNo + '">';
 			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
 			html += '<div id="qna_reply_list_' + qnaNo + '" class="qna-reply-list"></div>';
 			html += '<div class="mt-3 mb-3 text-left"><textarea id="qna_reply_text" style="width: 80%; height: 100px;"></textarea></div>';
@@ -67,7 +70,9 @@ let constructQna =  {
 		});
 
 		$('.write-qna-reply-btn').click(function() {
-
+			let qnaNo = $(this).parent().parent().find('.qna-no').val();
+			let content = $(this).parent().find('#qna_reply_text').val();
+			constructQna.writeReplyFunction(qnaNo, content);
 		});
 	},
 
@@ -141,8 +146,9 @@ let constructQnaMobile =  {
 	allData: [],
 	selectFunction: null,
 	selectReplyFunction: null,
+	writeReplyFunction: null,
 
-	init: function(selectFunc, replyFunc) {
+	init: function(selectFunc, selectReplyFunc, writeReplyFunc) {
 		this.cur = -1;
 		this.max = 0;
 		this.lastQnaNo = 99999999;
@@ -150,7 +156,8 @@ let constructQnaMobile =  {
 		this.pageLength = 10;
 		this.allData = [];
 		this.selectFunction = selectFunc;
-		this.selectReplyFunction = replyFunc;
+		this.selectReplyFunction = selectReplyFunc;
+		this.writeReplyFunction = writeReplyFunc;
 	},
 
 	constructQnaList: function(page) {

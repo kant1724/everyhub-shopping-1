@@ -17,6 +17,8 @@ function ajax(url, inputData, gubun, method) {
                 selectQnaReplyCallback(data.ret);
             } else if (gubun == 'writeQna') {
                 writeQnaCallback();
+            } else if (gubun == 'writeQnaReply') {
+                writeQnaReplyCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -123,7 +125,7 @@ $(document).ready(function() {
     });
 
     constructReview.init(selectProductReviews);
-    constructQna.init(selectQna, selectQnaReply);
+    constructQna.init(selectQna, selectQnaReply, writeQnaReply);
 
     selectOneProduct();
     selectProductReviews();
@@ -186,6 +188,14 @@ function writeQna() {
     ajax(serverUrl + '/product/writeQna', inputData, 'writeQna', 'POST');
 }
 
+function writeQnaReply(qnaNo, content) {
+    let inputData = {
+        qnaNo: qnaNo,
+        content: content
+    };
+    ajax(serverUrl + '/product/writeQnaReply', inputData, 'writeQnaReply', 'POST');
+}
+
 function selectProductReviewsCallback(ret) {
     constructReview.selectCallback(ret)
 }
@@ -198,9 +208,12 @@ function selectQnaReplyCallback(ret) {
     constructQna.selectReplyCallback(ret)
 }
 
+function writeQnaReplyCallback(ret) {
+}
+
 function writeQnaCallback() {
     alert('질문이 등록되었습니다.');
     $('#close_modal').click();
-    constructQna.init(selectQna, selectQnaReply);
+    constructQna.init(selectQna, selectQnaReply, writeQnaReply);
     selectQna();
 }
