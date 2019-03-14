@@ -48,8 +48,10 @@ let constructQna =  {
 			html += '<input type="hidden" class="qna-no" value="' + qnaNo + '">';
 			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
 			html += '<div id="qna_reply_list_' + qnaNo + '" class="qna-reply-list"></div>';
-			html += '<div class="mt-3 mb-3 text-left"><textarea id="qna_reply_text" style="width: 80%; height: 100px;"></textarea></div>';
-			html += '<div class="text-left"><a id="write_qna_reply_btn" class="write-qna-reply-btn common-button-1">답글작성</a></div>';
+			if ($('#adminYn').val() == 'Y') {
+				html += '<div class="mt-3 mb-3 text-left"><textarea id="qna_reply_text" style="width: 80%; height: 100px;"></textarea></div>';
+				html += '<div class="text-left"><a id="write_qna_reply_btn" class="write-qna-reply-btn common-button-1">답글작성</a></div>';
+			}
 			html += '</td>';
 			html += '</tr>';
 		}
@@ -196,8 +198,10 @@ let constructQnaMobile =  {
 			html += '<input type="hidden" class="qna-no" value="' + qnaNo + '">';
 			html += '<div style="text-align: left; padding-left: 10px; padding-top: 10px; font-size: 13px;">' + content + '</div>';
 			html += '<div id="qna_reply_list_' + qnaNo + '" class="qna-reply-list"></div>';
-			html += '<div class="mt-3 mb-3 text-left"><textarea id="qna_reply_text" style="width: 80%; height: 100px;"></textarea></div>';
-			html += '<div class="text-left"><a id="write_qna_reply_btn" class="write-qna-reply-btn common-button-1">답글작성</a></div>';
+			if ($('#adminYn').val() == 'Y') {
+				html += '<div class="mt-3 mb-3 text-left"><textarea id="qna_reply_text" style="width: 80%; height: 100px;"></textarea></div>';
+				html += '<div class="text-left"><a id="write_qna_reply_btn" class="write-qna-reply-btn common-button-1">답글작성</a></div>';
+			}
 			html += '</td>';
 			html += '</tr>';
 		}

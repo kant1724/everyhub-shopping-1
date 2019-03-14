@@ -32,16 +32,18 @@ if ($('#user_no').val() == 0) {
     headerHtml += '</a>';
     headerHtml += '</li>';
 }
-headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
-headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/product_manager">';
-headerHtml += '<i class="fab fa-product-hunt"></i>&nbsp;&nbsp;상품관리';
-headerHtml += '</a>';
-headerHtml += '</li>';
-headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
-headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/order_list">';
-headerHtml += '<i class="far fa-list-ol"></i>&nbsp;&nbsp;주문목록';
-headerHtml += '</a>';
-headerHtml += '</li>';
+if ($('#adminYn').val() == 'Y') {
+    headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
+    headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/product_manager">';
+    headerHtml += '<i class="fab fa-product-hunt"></i>&nbsp;&nbsp;상품관리';
+    headerHtml += '</a>';
+    headerHtml += '</li>';
+    headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
+    headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/order_list">';
+    headerHtml += '<i class="far fa-list-ol"></i>&nbsp;&nbsp;주문목록';
+    headerHtml += '</a>';
+    headerHtml += '</li>';
+}
 headerHtml += '</ul>';
 headerHtml += '</div>';
 headerHtml += '</div>';

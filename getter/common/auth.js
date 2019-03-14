@@ -56,7 +56,7 @@ exports.getUserNo = (req) => {
 
 exports.getAdminYn = (req) => {
 	let token = req.cookies.jwt;
-	if (!token) return 0;
+	if (!token) return 'N';
 	let decoded = jwt.verify(token, req.app.get('jwt-secret'));
 
 	return decoded.adminYn ? decoded.adminYn : 'N';

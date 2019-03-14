@@ -5,8 +5,8 @@ let auth = require('../common/auth');
 
 router.get('/', function(req, res, next) {
     let md = new MobileDetect(req.headers['user-agent']);
-    param.userNo = auth.getUserNo(req);
-    param.adminYn = auth.getAdminYn(req);
+    let userNo = auth.getUserNo(req);
+    let adminYn = auth.getAdminYn(req);
     if (md.mobile()) {
         res.render('templates/user/login-mobile', {userNo: userNo, adminYn: adminYn});
     } else {
@@ -16,8 +16,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/sign_up', function(req, res, next) {
     let md = new MobileDetect(req.headers['user-agent']);
-    param.userNo = auth.getUserNo(req);
-    param.adminYn = auth.getAdminYn(req);
+    let userNo = auth.getUserNo(req);
+    let adminYn = auth.getAdminYn(req);
     if (md.mobile()) {
         res.render('templates/user/sign_up-mobile', {userNo: userNo, adminYn: adminYn});
     } else {
