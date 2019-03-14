@@ -73,12 +73,14 @@ let constructQna =  {
 				constructQna.selectReplyFunction(qnaNo);
 			}
 		});
-		$('.write-qna-reply-btn').unbind();
-		$('.write-qna-reply-btn').click(function() {
-			let qnaNo = $(this).parent().parent().parent().find('.qna-no').val();
-			let content = $(this).parent().parent().find('#qna_reply_text').val();
-			constructQna.writeReplyFunction(qnaNo, content);
-		});
+		if ($('#adminYn').val() == 'Y') {
+			$('.write-qna-reply-btn').unbind();
+			$('.write-qna-reply-btn').click(function () {
+				let qnaNo = $(this).parent().parent().parent().find('.qna-no').val();
+				let content = $(this).parent().parent().find('#qna_reply_text').val();
+				constructQna.writeReplyFunction(qnaNo, content);
+			});
+		}
 	},
 
 	constructPagination: function() {
@@ -222,12 +224,14 @@ let constructQnaMobile =  {
 				constructQnaMobile.selectReplyFunction(qnaNo);
 			}
 		});
-		$('.write-qna-reply-btn').unbind();
-		$('.write-qna-reply-btn').click(function() {
-			let qnaNo = $(this).parent().parent().parent().find('.qna-no').val();
-			let content = $(this).parent().parent().find('#qna_reply_text').val();
-			constructQnaMobile.writeReplyFunction(qnaNo, content);
-		});
+		if ($('#adminYn').val() == 'Y') {
+			$('.write-qna-reply-btn').unbind();
+			$('.write-qna-reply-btn').click(function () {
+				let qnaNo = $(this).parent().parent().parent().find('.qna-no').val();
+				let content = $(this).parent().parent().find('#qna_reply_text').val();
+				constructQnaMobile.writeReplyFunction(qnaNo, content);
+			});
+		}
 	},
 
 	constructPagination: function() {
