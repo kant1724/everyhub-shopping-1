@@ -44,4 +44,18 @@ exports.getInfo = (req) => {
 		token = req.cookies.jwt;
 	}
 	return jwt.verify(token, req.app.get('jwt-secret'));
-}
+};
+
+exports.getUserNo = (req) => {
+	let token = req.cookies.jwt;
+	let decoded = jwt.verify(token, req.app.get('jwt-secret'));
+
+	return decoded.userNo ? decoded.userNo : 0;
+};
+
+exports.getAdminYn = (req) => {
+	let token = req.cookies.jwt;
+	let decoded = jwt.verify(token, req.app.get('jwt-secret'));
+
+	return decoded.adminYn ? decoded.adminYn : 'N';
+};
