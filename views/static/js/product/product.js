@@ -101,6 +101,8 @@ $(document).ready(function() {
         $('#qna_list').hide();
         $('#write_qna').hide();
         $('#review_list').show();
+        $('#review_pagination').show();
+        $('#qna_pagination').hide();
         $('#product_review').css('border-bottom', '3px solid #333');
         $('#qna').css('border-bottom', '0px solid #333');
     });
@@ -109,6 +111,8 @@ $(document).ready(function() {
         $('#review_list').hide();
         $('#qna_list').show();
         $('#write_qna').show();
+        $('#review_pagination').hide();
+        $('#qna_pagination').show();
         $('#qna').css('border-bottom', '3px solid #333');
         $('#product_review').css('border-bottom', '0px solid #333');
     });

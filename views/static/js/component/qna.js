@@ -78,30 +78,30 @@ let constructQna =  {
 	},
 
 	constructPagination: function() {
-		$('.pagination').empty();
-		let html = '<a id="prev_page">&laquo;</a>';
+		$('.qna-pagination').empty();
+		let html = '<a id="qna_prev_page">&laquo;</a>';
 		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
-			html += '<a class="page-no">' + i + '</a>';
+			html += '<a class="qna-page-no">' + i + '</a>';
 		}
-		html += '<a id="next_page">&raquo;</a>';
-		$('.pagination').append(html);
-		$('.page-no').unbind();
-		$('.page-no').click(function () {
+		html += '<a id="qna_next_page">&raquo;</a>';
+		$('.qna-pagination').append(html);
+		$('.qna-page-no').unbind();
+		$('.qna-page-no').click(function () {
 			constructQna.constructQnaList(Number($(this).text()) - 1);
 		});
-		$('#prev_page').click(function () {
-			$('#prev_page').unbind();
+		$('#qna_prev_page').click(function () {
+			$('#qna_prev_page').unbind();
 			if (constructQna.cur > 0) {
 				constructQna.cur -= 1;
 				constructQna.constructPagination();
 				constructQna.constructQnaList(cur * constructQna.pageLength);
 			}
 		});
-		$('#next_page').click(function () {
-			$('#next_page').unbind();
+		$('#qna_next_page').click(function () {
+			$('#qna_next_page').unbind();
 			if (constructQna.max == constructQna.cur) {
 				constructQna.selectFunction();
 			} else {
@@ -131,7 +131,7 @@ let constructQna =  {
 			let html = '';
 			for (let i = 0; i < data.length; ++i) {
 				let content = data[i].content;
-				html += '<div class="text-left mt-3 mb-3" style="width: 80%; background: #EAEAEA; padding: 10px;">' + content + '</div>';
+				html += '<div class="text-left mt-4 mb-3" style="width: 80%; background: #EAEAEA; padding: 10px; border-radius: 5px;"><div style="font-weight: 700;">답변:</div><div>' + content + '</div></div>';
 			}
 			$('#qna_reply_list_' + qnaNo).append(html);
 		}
@@ -217,30 +217,30 @@ let constructQnaMobile =  {
 	},
 
 	constructPagination: function() {
-		$('.pagination').empty();
-		let html = '<a id="prev_page">&laquo;</a>';
+		$('.qna-pagination').empty();
+		let html = '<a id="qna_prev_page">&laquo;</a>';
 		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
-			html += '<a class="page-no">' + i + '</a>';
+			html += '<a class="qna-page-no">' + i + '</a>';
 		}
-		html += '<a id="next_page">&raquo;</a>';
-		$('.pagination').append(html);
-		$('.page-no').unbind();
-		$('.page-no').click(function () {
+		html += '<a id="qna_next_page">&raquo;</a>';
+		$('.qna-pagination').append(html);
+		$('.qna-page-no').unbind();
+		$('.qna-page-no').click(function () {
 			constructQnaMobile.constructQnaList(Number($(this).text()) - 1);
 		});
-		$('#prev_page').click(function () {
-			$('#prev_page').unbind();
+		$('#qna_prev_page').click(function () {
+			$('#qna_prev_page').unbind();
 			if (constructQnaMobile.cur > 0) {
 				constructQnaMobile.cur -= 1;
 				constructQnaMobile.constructPagination();
 				constructQnaMobile.constructQnaList(constructQnaMobile.cur * constructQnaMobile.pageLength);
 			}
 		});
-		$('#next_page').click(function () {
-			$('#next_page').unbind();
+		$('#qna_next_page').click(function () {
+			$('#qna_next_page').unbind();
 			if (constructQnaMobile.max == constructQnaMobile.cur) {
 				constructQnaMobile.selectFunction();
 			} else {
@@ -270,7 +270,7 @@ let constructQnaMobile =  {
 			let html = '';
 			for (let i = 0; i < data.length; ++i) {
 				let content = data[i].content;
-				html += '<div class="text-left mt-3 mb-3" style="width: 80%; background: #EAEAEA; padding: 10px;">' + content + '</div>';
+				html += '<div class="text-left mt-3 mb-3" style="width: 100%; background: #EAEAEA; padding: 10px; border-radius: 5px;"><div style="font-weight: 700;">답변:</div><div>' + content + '</div></div>';
 			}
 			$('#qna_reply_list_' + qnaNo).append(html);
 		}

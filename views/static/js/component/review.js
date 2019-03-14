@@ -68,29 +68,29 @@ let constructReview =  {
 
 	constructPagination: function() {
 		$('.pagination').empty();
-		let html = '<a id="prev_page">&laquo;</a>';
+		let html = '<a id="review_prev_page">&laquo;</a>';
 		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
-			html += '<a class="page-no">' + i + '</a>';
+			html += '<a class="review-page-no">' + i + '</a>';
 		}
-		html += '<a id="next_page">&raquo;</a>';
-		$('.pagination').append(html);
-		$('.page-no').unbind();
-		$('.page-no').click(function () {
+		html += '<a id="review_next_page">&raquo;</a>';
+		$('.review-pagination').append(html);
+		$('.review-page-no').unbind();
+		$('.review-page-no').click(function () {
 			constructReview.constructReviewList(Number($(this).text()) - 1);
 		});
-		$('#prev_page').click(function () {
-			$('#prev_page').unbind();
+		$('#review_prev_page').click(function () {
+			$('#review_prev_page').unbind();
 			if (constructReview.cur > 0) {
 				constructReview.cur -= 1;
 				constructReview.constructPagination();
 				constructReview.constructReviewList(cur * constructReview.pageLength);
 			}
 		});
-		$('#next_page').click(function () {
-			$('#next_page').unbind();
+		$('#review_next_page').click(function () {
+			$('#review_next_page').unbind();
 			if (constructReview.max == constructReview.cur) {
 				constructReview.selectFunction();
 			} else {
@@ -184,30 +184,30 @@ let constructReviewMobile =  {
 	},
 
 	constructPagination: function() {
-		$('.pagination').empty();
-		let html = '<a id="prev_page">&laquo;</a>';
+		$('.review-pagination').empty();
+		let html = '<a id="review_prev_page">&laquo;</a>';
 		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
-			html += '<a class="page-no">' + i + '</a>';
+			html += '<a class="review-page-no">' + i + '</a>';
 		}
-		html += '<a id="next_page">&raquo;</a>';
-		$('.pagination').append(html);
-		$('.page-no').unbind();
-		$('.page-no').click(function () {
+		html += '<a id="review_next_page">&raquo;</a>';
+		$('.review-pagination').append(html);
+		$('.review-page-no').unbind();
+		$('.review-page-no').click(function () {
 			constructReviewMobile.constructReviewList(Number($(this).text()) - 1);
 		});
-		$('#prev_page').click(function () {
-			$('#prev_page').unbind();
+		$('#review_prev_page').click(function () {
+			$('#review_prev_page').unbind();
 			if (constructReviewMobile.cur > 0) {
 				constructReviewMobile.cur -= 1;
 				constructReviewMobile.constructPagination();
 				constructReviewMobile.constructReviewList(cur * constructReviewMobile.pageLength);
 			}
 		});
-		$('#next_page').click(function () {
-			$('#next_page').unbind();
+		$('#review_next_page').click(function () {
+			$('#review_next_page').unbind();
 			if (constructReviewMobile.max == constructReviewMobile.cur) {
 				constructReviewMobile.selectFunction();
 			} else {

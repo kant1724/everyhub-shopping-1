@@ -7,11 +7,11 @@
     font-family: 'Sunflower', sans-serif;
 }
 
-.pagination {
+.review-pagination {
     display: inline-block;
 }
 
-.pagination a {
+.review-pagination a {
     color: black;
     float: left;
     padding: 4px 8px;
@@ -20,13 +20,36 @@
     border: 1px solid #ddd;
 }
 
-.pagination a.active {
+.review-pagination a.active {
     background-color: #4CAF50;
     color: white;
     border: 1px solid #4CAF50;
 }
 
-.pagination a:hover:not(.active) {
+.review-pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+.qna-pagination {
+    display: inline-block;
+}
+
+.qna-pagination a {
+    color: black;
+    float: left;
+    padding: 4px 8px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+
+.qna-pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+.qna-pagination a:hover:not(.active) {
     background-color: #ddd;
 }
 
