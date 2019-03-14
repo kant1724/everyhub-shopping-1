@@ -116,9 +116,9 @@ function selectUserCallback(ret) {
 
 function setSenderInput() {
     if ($('#has_sender').is(':checked')) {
-        $('.sender-input').show();
+        $('.sender-input').show(500);
     } else {
-        $('.sender-input').hide();
+        $('.sender-input').hide(500);
     }
 }
 
