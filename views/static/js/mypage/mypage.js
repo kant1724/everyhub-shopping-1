@@ -11,6 +11,8 @@ function ajax(url, inputData, gubun, method) {
                 selectOrderListMainCallback(data.ret);
             } else if (gubun == 'writeReview') {
                 writeReviewCallback();
+            } else if (gubun == 'selectUser') {
+                selectUserCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -125,6 +127,25 @@ function selectOrderListMainCallback(ret) {
         $('#item_no_modal').val(itemNo);
         $('#review_modal').modal();
     });
+
+    selectUser();
+}
+
+function selectUser() {
+    let inputData  = {};
+    ajax(serverUrl + '/user/selectUser', inputData , 'selectUser', 'POST');
+}
+
+function selectUserCallback(ret) {
+    if (ret.length > 0) {
+        $('#user_nm').val(ret[0].userNm);
+        $('#telno').val(ret[0].telno);
+        $('#user_nm').focus();
+        $('#telno').focus();
+        $('#zip_no').val(ret[0].zipNo);
+        $('#address_main').val(ret[0].addressMain);
+        $('#address_detail').val(ret[0].addressDetail);
+    }
 }
 
 function writeReview() {
