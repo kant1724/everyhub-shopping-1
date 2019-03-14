@@ -123,7 +123,7 @@ $(document).ready(function() {
     });
 
     constructReview.init(selectProductReviews);
-    constructQna.init(selectQna);
+    constructQna.init(selectQna, selectQnaReply);
 
     selectOneProduct();
     selectProductReviews();
@@ -201,6 +201,6 @@ function selectQnaReplyCallback(ret) {
 function writeQnaCallback() {
     alert('질문이 등록되었습니다.');
     $('#close_modal').click();
-    constructQna.init(selectQna);
+    constructQna.init(selectQna, selectQnaReply);
     selectQna();
 }

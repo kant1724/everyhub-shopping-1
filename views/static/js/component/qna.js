@@ -6,7 +6,7 @@ let constructQna =  {
 	pageLength: 10,
 	allData: [],
 	selectFunction: null,
-	selectReplyFunction: null
+	selectReplyFunction: null,
 
 	init: function(selectFunc, replyFunc) {
 		this.cur = -1;
@@ -44,6 +44,8 @@ let constructQna =  {
 			html += '<tr class="each-qna-content" id="qna_content' + qnaNo + '" style="display: none;">';html += '<td colspan="3">';
 			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
 			html += '<div id="qna_reply_list_' + qnaNo + '" class="qna-reply-list"></div>';
+			html += '<div class="mt-3 mb-3 text-left"><textarea id="qna_reply_text" style="width: 80%; height: 100px;"></textarea></div>';
+			html += '<div class="text-left" id="write_qna_reply_btn" class="write-qna-reply-btn"><a class="common-button-1">답글작성</a></div>';
 			html += '</td>';
 			html += '</tr>';
 		}
@@ -62,6 +64,10 @@ let constructQna =  {
 				sub.css('display', 'table-row');
 				constructQna.selectReplyFunction(qnaNo);
 			}
+		});
+
+		$('.write-qna-reply-btn').click(function() {
+
 		});
 	},
 
