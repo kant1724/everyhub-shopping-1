@@ -78,12 +78,15 @@
                 <div id="order_remarks_label" class="mb-1" style="color: gray;">주문메모</div>
                 <textarea style="padding: 5px; width: 90%; height: 100px; outline: none;" id="order_remarks"></textarea>
             </div>
+            <input type="hidden" id="order_zip_no">
+            <input type="hidden" id="order_address_main">
+            <input type="hidden" id="order_address_detail">
             <div class="form-check mt-3" style="padding-left: 0px;">
                 <input type="checkbox"  class="form-check-input" id="has_sender">
                 <label class="form-check-label" for="has_sender" >보내는자 입력</label>
             </div>
             <div class="sender-input order-info-title-text" style="font-size: 16px;">보내는자 정보</div>
-            <div class="form-check mt-3 sender-input" style="padding-left: 10px;">
+            <div class="form-check mt-3 sender-input" style="padding-left: 0px;">
                 <input type="checkbox"  class="form-check-input" id="sender_same_with_order_info">
                 <label class="form-check-label" for="sender_same_with_order_info">주문자 정보와 동일</label>
             </div>
@@ -109,7 +112,7 @@
                 <div id="send_address_main" class="mt-2 mb-3" style="width: 80%; border-bottom: 1px solid #ddd; color: gray;">주소검색을 클릭하세요.</div>
                 <div class="md-form">
                     <label for="send_address_detail" style="font-size: 13px; width: 200px;">보내는자 상세주소</label>
-                    <input type="text" style="width:250px;" class="form-control" id="send_address_detail" style="width: 200px;">
+                    <input type="text" style="font-size: 13px; width: 250px;" class="form-control" id="send_address_detail">
                 </div>
             </div>
             <div class="order-info-title-text" style="font-size: 16px;">받는자 정보</div>
@@ -139,7 +142,7 @@
                 <div id="receive_address_main" class="mt-2 mb-3" style="width: 80%; border-bottom: 1px solid #ddd; color: gray;">주소검색을 클릭하세요.</div>
                 <div class="md-form">
                     <label for="receive_address_detail" style="font-size: 13px; width: 200px;">받는자 상세주소</label>
-                    <input type="text" style="width:250px;" class="form-control" id="receive_address_detail" style="width: 200px;">
+                    <input type="text" style="font-size: 13px; width: 250px;" class="form-control" id="receive_address_detail">
                 </div>
             </div>
             <div class="order-info-title-text" style="font-size: 16px;">입금 정보</div>

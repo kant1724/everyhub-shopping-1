@@ -9,6 +9,8 @@ function ajax(url, inputData, gubun, method) {
         success: function (data, status, xhr) {
             if (gubun == 'insertOrderList') {
                 insertOrderListCallback();
+            } else if (gubun == 'selectUser') {
+                selectUserCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -91,7 +93,26 @@ $(document).ready(function() {
         $('#address_modal').modal();
         searchAddressApi.init();
     });
+
+    selectUser();
 });
+
+function selectUser() {
+    let inputData  = {};
+    ajax(serverUrl + '/user/selectUser', inputData , 'selectUser', 'POST');
+}
+
+function selectUserCallback(ret) {
+    if (ret.length > 0) {
+        $('#order_person_nm').val(ret[0].userNm);
+        $('#order_telno').val(ret[0].telno);
+        $('#order_person_nm').focus();
+        $('#order_telno').focus();
+        $('#order_zip_no').val(ret[0].zipNo);
+        $('#order_address_main').val(ret[0].addressMain);
+        $('#order_address_detail').val(ret[0].addressDetail);
+    }
+}
 
 function setSenderInput() {
     if ($('#has_sender').is(':checked')) {
@@ -105,9 +126,13 @@ function setSendInfoSameWithOrderInfo(focus) {
     if ($('#sender_same_with_order_info').is(':checked')) {
         $('#send_person_nm').val($('#order_person_nm').val());
         $('#send_telno').val($('#order_telno').val());
+        $('#send_zip_no').text($('#order_zip_no').val());
+        $('#send_address_main').text($('#order_address_main').val());
+        $('#send_address_detail').val($('#order_address_detail').val());
         if (focus) {
             $('#send_person_nm').focus();
             $('#send_telno').focus();
+            $('#send_address_detail').focus();
         }
     }
 }
@@ -116,9 +141,13 @@ function setReceiveInfoSameWithOrderInfo(focus) {
     if ($('#receiver_same_with_order_info').is(':checked')) {
         $('#receive_person_nm').val($('#order_person_nm').val());
         $('#receive_telno').val($('#order_telno').val());
+        $('#receive_zip_no').text($('#order_zip_no').val());
+        $('#receive_address_main').text($('#order_address_main').val());
+        $('#receive_address_detail').val($('#order_address_detail').val());
         if (focus) {
             $('#receive_person_nm').focus();
             $('#receive_telno').focus();
+            $('#receive_address_detail').focus();
         }
     }
 }
