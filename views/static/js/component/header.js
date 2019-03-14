@@ -32,7 +32,7 @@ if ($('#user_no').val() == 0) {
     headerHtml += '</a>';
     headerHtml += '</li>';
 }
-if ($('#admin_yn').val() == 'N') {
+if ($('#admin_yn').val() == 'Y') {
     headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
     headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/product_manager">';
     headerHtml += '<i class="fab fa-product-hunt"></i>&nbsp;&nbsp;상품관리';
