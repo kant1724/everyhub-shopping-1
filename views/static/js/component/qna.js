@@ -97,7 +97,7 @@ let constructQna =  {
 			if (constructQna.cur > 0) {
 				constructQna.cur -= 1;
 				constructQna.constructPagination();
-				constructQna.constructQnaList(cur * constructQna.pageLength);
+				constructQna.constructQnaList(constructQna.cur * constructQna.pageLength);
 			}
 		});
 		$('#qna_next_page').click(function () {
@@ -107,7 +107,7 @@ let constructQna =  {
 			} else {
 				constructQna.cur += 1;
 				constructQna.constructPagination();
-				constructQna.constructQnaList(cur * constructQna.pageLength);
+				constructQna.constructQnaList(constructQna.cur * constructQna.pageLength);
 			}
 		});
 	},

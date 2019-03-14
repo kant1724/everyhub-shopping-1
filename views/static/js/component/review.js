@@ -86,7 +86,7 @@ let constructReview =  {
 			if (constructReview.cur > 0) {
 				constructReview.cur -= 1;
 				constructReview.constructPagination();
-				constructReview.constructReviewList(cur * constructReview.pageLength);
+				constructReview.constructReviewList(constructReview.cur * constructReview.pageLength);
 			}
 		});
 		$('#review_next_page').click(function () {
@@ -96,7 +96,7 @@ let constructReview =  {
 			} else {
 				constructReview.cur += 1;
 				constructReview.constructPagination();
-				constructReview.constructReviewList(cur * constructReview.pageLength);
+				constructReview.constructReviewList(constructReview.cur * constructReview.pageLength);
 			}
 		});
 	},
@@ -203,7 +203,7 @@ let constructReviewMobile =  {
 			if (constructReviewMobile.cur > 0) {
 				constructReviewMobile.cur -= 1;
 				constructReviewMobile.constructPagination();
-				constructReviewMobile.constructReviewList(cur * constructReviewMobile.pageLength);
+				constructReviewMobile.constructReviewList(constructReviewMobile.cur * constructReviewMobile.pageLength);
 			}
 		});
 		$('#review_next_page').click(function () {
@@ -213,7 +213,7 @@ let constructReviewMobile =  {
 			} else {
 				constructReviewMobile.cur += 1;
 				constructReviewMobile.constructPagination();
-				constructReviewMobile.constructReviewList(cur * constructReviewMobile.pageLength);
+				constructReviewMobile.constructReviewList(constructReviewMobile.cur * constructReviewMobile.pageLength);
 			}
 		});
 	},
