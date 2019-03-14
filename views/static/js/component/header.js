@@ -14,16 +14,19 @@ headerHtml += '<a class="nav-link waves-effect waves-light" href="/cart">';
 headerHtml += '<i class="far fa-shopping-cart"></i>&nbsp;&nbsp;장바구니';
 headerHtml += '</a>';
 headerHtml += '</li>';
-headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
-headerHtml += '<a class="nav-link waves-effect waves-light" href="/user">';
-headerHtml += '<i class="far fa-sign-in-alt"></i>&nbsp;&nbsp;로그인';
-headerHtml += '</a>';
-headerHtml += '</li>';
-headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
-headerHtml += '<a class="nav-link waves-effect waves-light" href="/mypage">';
-headerHtml += '<i class="far fa-user"></i>&nbsp;&nbsp;마이페이지';
-headerHtml += '</a>';
-headerHtml += '</li>';
+if ($('#user_no').val() == 0) {
+    headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
+    headerHtml += '<a class="nav-link waves-effect waves-light" href="/user">';
+    headerHtml += '<i class="far fa-sign-in-alt"></i>&nbsp;&nbsp;로그인';
+    headerHtml += '</a>';
+    headerHtml += '</li>';
+} else {
+    headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
+    headerHtml += '<a class="nav-link waves-effect waves-light" href="/mypage">';
+    headerHtml += '<i class="far fa-user"></i>&nbsp;&nbsp;마이페이지';
+    headerHtml += '</a>';
+    headerHtml += '</li>';
+}
 headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
 headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/product_manager">';
 headerHtml += '<i class="fab fa-product-hunt"></i>&nbsp;&nbsp;상품관리';

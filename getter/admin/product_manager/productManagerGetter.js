@@ -6,16 +6,22 @@ let fs = require('fs');
 let auth = require('../../common/auth');
 
 router.get('/', function(req, res, next) {
-    res.render('templates/admin/product_manager/product_manager', {});
+    let userNo = auth.getUserNo(req);
+    let adminYn = auth.getAdminYn(req);
+    res.render('templates/admin/product_manager/product_manager', {userNo: userNo, adminYn: adminYn});
 });
 
 router.get('/product_new', function(req, res, next) {
-    res.render('templates/admin/product_manager/product_manager_new', {});
+    let userNo = auth.getUserNo(req);
+    let adminYn = auth.getAdminYn(req);
+    res.render('templates/admin/product_manager/product_manager_new', {userNo: userNo, adminYn: adminYn});
 });
 
 router.get('/product_modify', function(req, res, next) {
     let itemNo = req.query.itemNo;
-    res.render('templates/admin/product_manager/product_manager_modify', {itemNo : itemNo});
+    let userNo = auth.getUserNo(req);
+    let adminYn = auth.getAdminYn(req);
+    res.render('templates/admin/product_manager/product_manager_modify', {itemNo : itemNo, userNo: userNo, adminYn: adminYn});
 });
 
 module.exports = router;

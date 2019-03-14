@@ -6,7 +6,9 @@ let fs = require('fs');
 let auth = require('../../common/auth');
 
 router.get('/', function(req, res, next) {
-    res.render('templates/admin/order_list/order_list', {});
+    let userNo = auth.getUserNo(req);
+    let adminYn = auth.getAdminYn(req);
+    res.render('templates/admin/order_list/order_list', {userNo: userNo, adminYn: adminYn});
 });
 
 module.exports = router;
