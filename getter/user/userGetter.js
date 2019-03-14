@@ -21,7 +21,7 @@ router.get('/sign_up', function(req, res, next) {
     }
 });
 
-router.post('/setToken', auth, function(req, res, next) {
+router.post('/setToken', auth.check, function(req, res, next) {
     res.status(200).send({ret: ''});
 });
 
