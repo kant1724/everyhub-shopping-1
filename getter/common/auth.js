@@ -61,3 +61,7 @@ exports.getAdminYn = (req) => {
 
 	return decoded.adminYn ? decoded.adminYn : 'N';
 };
+
+exports.delete = (req, res) => {
+	res.cookie('jwt', '');
+};

@@ -22,7 +22,7 @@ if ($('#user_no').val() == 0) {
     headerHtml += '</li>';
 } else {
     headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
-    headerHtml += '<a class="nav-link waves-effect waves-light" href="/user">';
+    headerHtml += '<a id="logout" class="nav-link waves-effect waves-light">';
     headerHtml += '<i class="far fa-sign-in-alt"></i>&nbsp;&nbsp;로그아웃';
     headerHtml += '</a>';
     headerHtml += '</li>';
@@ -50,3 +50,21 @@ headerHtml += '</div>';
 headerHtml += '</nav>';
 
 $('header').append(headerHtml);
+
+function logout(url) {
+    $.ajax(url, {
+        type: 'POST',
+        data: '',
+        async: false,
+        xhrFields: { withCredentials: true },
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        success: function (data, status, xhr) {},
+        error: function (jqXhr, textStatus, errorMessage) {}
+    });
+}
+
+$('#logout').click(function() {
+    logout('/user/logout');
+    location.href = '/user/logout';
+});
