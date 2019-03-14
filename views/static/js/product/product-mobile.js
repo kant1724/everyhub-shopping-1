@@ -13,8 +13,12 @@ function ajax(url, inputData, gubun, method) {
                 selectProductReviewsCallback(data.ret);
             } else if (gubun == 'selectQna') {
                 selectQnaCallback(data.ret);
+            } else if (gubun == 'selectQnaReply') {
+                selectQnaReplyCallback(data.ret);
             } else if (gubun == 'writeQna') {
                 writeQnaCallback();
+            } else if (gubun == 'writeQnaReply') {
+                writeQnaReplyCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -125,7 +129,7 @@ $(document).ready(function() {
     });
 
     constructReviewMobile.init(selectProductReviews);
-    constructQnaMobile.init(selectQna);
+    constructQnaMobile.init(selectQna, selectQnaReply, writeQnaReply);
 
     selectOneProduct();
     selectProductReviews();
@@ -152,12 +156,19 @@ function selectProductReviews() {
 
 function selectQna() {
     let itemNo = $('#item_no').val();
-    let inputData  = {
+        let inputData  = {
         itemNo: itemNo,
         lastQnaNo: constructQnaMobile.lastQnaNo,
         limit: constructQnaMobile.idPerPage * constructQnaMobile.pageLength
     };
     ajax(serverUrl + '/product/selectQna', inputData , 'selectQna', 'POST');
+}
+
+function selectQnaReply(qnaNo) {
+    let inputData  = {
+        qnaNo: qnaNo
+    };
+    ajax(serverUrl + '/product/selectQnaReply', inputData , 'selectQnaReply', 'POST');
 }
 
 function selectOneProductCallback(ret) {
@@ -181,6 +192,14 @@ function writeQna() {
     ajax(serverUrl + '/product/writeQna', inputData, 'writeQna', 'POST');
 }
 
+function writeQnaReply(qnaNo, content) {
+    let inputData = {
+        qnaNo: qnaNo,
+        content: content
+    };
+    ajax(serverUrl + '/product/writeQnaReply', inputData, 'writeQnaReply', 'POST');
+}
+
 function selectProductReviewsCallback(ret) {
     constructReviewMobile.selectCallback(ret)
 }
@@ -189,9 +208,17 @@ function selectQnaCallback(ret) {
     constructQnaMobile.selectCallback(ret)
 }
 
+function selectQnaReplyCallback(ret) {
+    constructQnaMobile.selectReplyCallback(ret)
+}
+
 function writeQnaCallback() {
     alert('질문이 등록되었습니다.');
     $('#close_modal').click();
-    constructQnaMobile.init(selectQna);
+    constructQnaMobile.init(selectQna, selectQnaReply, writeQnaReply);
     selectQna();
+}
+
+function writeQnaReplyCallback() {
+    alert('답글이 등록되었습니다.');
 }

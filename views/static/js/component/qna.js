@@ -43,16 +43,17 @@ let constructQna =  {
 			html += '<div id="qna_date" class="qna-date">' + qnaDate + '</div>';
 			html += '</td>';
 			html += '</tr>';
-			html += '<tr class="each-qna-content" id="qna_content' + qnaNo + '" style="display: none;">';html += '<td colspan="3">';
+			html += '<tr class="each-qna-content" id="qna_content' + qnaNo + '" style="display: none;">';
+			html += '<td colspan="3">';
 			html += '<input type="hidden" class="qna-no" value="' + qnaNo + '">';
 			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
 			html += '<div id="qna_reply_list_' + qnaNo + '" class="qna-reply-list"></div>';
 			html += '<div class="mt-3 mb-3 text-left"><textarea id="qna_reply_text" style="width: 80%; height: 100px;"></textarea></div>';
-			html += '<div class="text-left" id="write_qna_reply_btn" class="write-qna-reply-btn"><a class="common-button-1">답글작성</a></div>';
+			html += '<div class="text-left"><a id="write_qna_reply_btn" class="write-qna-reply-btn common-button-1">답글작성</a></div>';
 			html += '</td>';
 			html += '</tr>';
 		}
-		this.lastQnaNo = this.allData[this.allData.length - 1].reviewNo;
+		this.lastQnaNo = this.allData[this.allData.length - 1].qnaNo;
 		$('#qna_list_tbody').append(html);
 		$('.each-qna').unbind();
 		$('.each-qna').click(function () {
@@ -68,10 +69,10 @@ let constructQna =  {
 				constructQna.selectReplyFunction(qnaNo);
 			}
 		});
-
+		$('.write-qna-reply-btn').unbind();
 		$('.write-qna-reply-btn').click(function() {
-			let qnaNo = $(this).parent().parent().find('.qna-no').val();
-			let content = $(this).parent().find('#qna_reply_text').val();
+			let qnaNo = $(this).parent().parent().parent().find('.qna-no').val();
+			let content = $(this).parent().parent().find('#qna_reply_text').val();
 			constructQna.writeReplyFunction(qnaNo, content);
 		});
 	},
@@ -130,7 +131,7 @@ let constructQna =  {
 			let html = '';
 			for (let i = 0; i < data.length; ++i) {
 				let content = data[i].content;
-				html += '<div style="background: #EAEAEA; padding: 10px;">' + content + '</div>';
+				html += '<div class="text-left mt-3 mb-3" style="width: 80%; background: #EAEAEA; padding: 10px;">' + content + '</div>';
 			}
 			$('#qna_reply_list_' + qnaNo).append(html);
 		}
@@ -184,7 +185,11 @@ let constructQnaMobile =  {
 			html += '</tr>';
 			html += '<tr class="each-qna-content" id="qna_content' + qnaNo + '" style="display: none;">';
 			html += '<td colspan="2">';
+			html += '<input type="hidden" class="qna-no" value="' + qnaNo + '">';
 			html += '<div style="text-align: left; padding-left: 10px; padding-top: 10px; font-size: 13px;">' + content + '</div>';
+			html += '<div id="qna_reply_list_' + qnaNo + '" class="qna-reply-list"></div>';
+			html += '<div class="mt-3 mb-3 text-left"><textarea id="qna_reply_text" style="width: 80%; height: 100px;"></textarea></div>';
+			html += '<div class="text-left"><a id="write_qna_reply_btn" class="write-qna-reply-btn common-button-1">답글작성</a></div>';
 			html += '</td>';
 			html += '</tr>';
 		}
@@ -200,7 +205,14 @@ let constructQnaMobile =  {
 				let all = $(this).parent().find('.each-qna-content');
 				all.css('display', 'none');
 				sub.css('display', 'table-row');
+				constructQnaMobile.selectReplyFunction(qnaNo);
 			}
+		});
+		$('.write-qna-reply-btn').unbind();
+		$('.write-qna-reply-btn').click(function() {
+			let qnaNo = $(this).parent().parent().parent().find('.qna-no').val();
+			let content = $(this).parent().parent().find('#qna_reply_text').val();
+			constructQnaMobile.writeReplyFunction(qnaNo, content);
 		});
 	},
 
@@ -224,7 +236,7 @@ let constructQnaMobile =  {
 			if (constructQnaMobile.cur > 0) {
 				constructQnaMobile.cur -= 1;
 				constructQnaMobile.constructPagination();
-				constructQnaMobile.constructQnaList(cur * constructQnaMobile.pageLength);
+				constructQnaMobile.constructQnaList(constructQnaMobile.cur * constructQnaMobile.pageLength);
 			}
 		});
 		$('#next_page').click(function () {
@@ -234,7 +246,7 @@ let constructQnaMobile =  {
 			} else {
 				constructQnaMobile.cur += 1;
 				constructQnaMobile.constructPagination();
-				constructQnaMobile.constructQnaList(cur * constructQnaMobile.pageLength);
+				constructQnaMobile.constructQnaList(constructQnaMobile.cur * constructQnaMobile.pageLength);
 			}
 		});
 	},
@@ -249,5 +261,18 @@ let constructQnaMobile =  {
 		this.constructPagination();
 		this.constructQnaList(this.cur * this.pageLength);
 		this.max = Math.max(this.max, this.cur);
+	},
+
+	selectReplyCallback: function(data) {
+		if (data.length > 0) {
+			let qnaNo = data[0].qnaNo;
+			$('#qna_reply_list_' + qnaNo).empty();
+			let html = '';
+			for (let i = 0; i < data.length; ++i) {
+				let content = data[i].content;
+				html += '<div class="text-left mt-3 mb-3" style="width: 80%; background: #EAEAEA; padding: 10px;">' + content + '</div>';
+			}
+			$('#qna_reply_list_' + qnaNo).append(html);
+		}
 	}
 };

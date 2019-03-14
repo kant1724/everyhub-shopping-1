@@ -13,7 +13,7 @@ function ajax(url, inputData, gubun, method) {
                 selectProductReviewsCallback(data.ret);
             } else if (gubun == 'selectQna') {
                 selectQnaCallback(data.ret);
-            }  else if (gubun == 'selectQnaReply') {
+            } else if (gubun == 'selectQnaReply') {
                 selectQnaReplyCallback(data.ret);
             } else if (gubun == 'writeQna') {
                 writeQnaCallback();
@@ -208,12 +208,13 @@ function selectQnaReplyCallback(ret) {
     constructQna.selectReplyCallback(ret)
 }
 
-function writeQnaReplyCallback(ret) {
-}
-
 function writeQnaCallback() {
     alert('질문이 등록되었습니다.');
     $('#close_modal').click();
     constructQna.init(selectQna, selectQnaReply, writeQnaReply);
     selectQna();
+}
+
+function writeQnaReplyCallback() {
+    alert('답글이 등록되었습니다.');
 }
