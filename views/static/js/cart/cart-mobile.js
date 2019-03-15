@@ -34,15 +34,18 @@ $(document).ready(function() {
         html += '<input id="id" type="hidden" value="' + productArr[i].id + '">';
         html += '<input id="item_price_num" type="hidden" value="' + productArr[i].itemPriceNum + '">';
         html += '<div class="mt-3 pb-2">';
+        html += '<div>';
         html += '<div class="text-left ml-3" style="margin-bottom: -10px;">';
-        html += '<div class="text-center custom-control custom-checkbox">';
+        html += '<div class="mb-3 text-center custom-control custom-checkbox">';
         html += '<input type="checkbox" class="cart-checkbox custom-control-input" id="cart_check_box' + i + '" checked>';
         html += '<label class="custom-control-label" for="cart_check_box' + i + '"></label>';
+        html += '</div>';
+        html += '<i class="fal fa-times remove-item" style="font-size: 20px; float: right; margin-right: 15px;"></i>';
         html += '</div>';
         html += '<div style="display: inline-block;">';
         html += '<img style="top: -32px; position: relative; border-radius: 5px;" overflow: hidden; width="100px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0">';
         html += '</div>';
-        html += '<div style="overflow: hidden; display: inline-block; top: 10px; margin-left: 5px; position: relative;">';
+        html += '<div style="overflow: hidden; display: inline-block; top: 10px; margin-left: 30px; position: relative;">';
         html += '<a id="item_nm_1" style="font-size: 14px; margin-left: 20px; font-weight: 700;">' + productArr[i].itemNm1 + '</a>';
         html += '<br>';
         html += '<a id="item_qty" style="margin-left: 20px; font-size: 13px;">' + productArr[i].itemQty + '과</a>&nbsp/&nbsp;';
@@ -61,7 +64,6 @@ $(document).ready(function() {
         html += '</div>';
         html += '</div>';
         html += '<div id="sum" style="margin-bottom: 10px; font-size: 14px; padding-bottom: 15px;">' + numberWithCommas(Number(productArr[i].itemPriceNum) * productArr[i].qty) + '원</div>';
-        html += '<button type="button" class="btn btn-sm btn-danger btn-rounded remove-item">삭제</button>';
         html += '</div>';
         html += '</div>';
     }
@@ -69,7 +71,7 @@ $(document).ready(function() {
     $('#cart_list').append(html);
 
     $('.remove-item').click(function() {
-        let id = $(this).parent().parent().find('#id').val();
+        let id = $(this).parent().parent().parent().parent().find('#id').val();
         let productArr = JSON.parse(localStorage.getItem('product'));
         for (let i = 0; i < productArr.length; ++i) {
             if (productArr[i].id == id) {
@@ -78,7 +80,7 @@ $(document).ready(function() {
             }
         }
         localStorage.setItem('product', JSON.stringify(productArr));
-        $(this).parent().parent().fadeOut(500, function() {
+        $(this).parent().parent().parent().fadeOut(500, function() {
             $(this).remove();
         });
     });
