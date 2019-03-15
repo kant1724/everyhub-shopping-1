@@ -30,11 +30,10 @@ $(document).ready(function() {
     let productArr = JSON.parse(localStorage.getItem('product'));
     let html = '';
     for (let i = 0; i < productArr.length; ++i) {
-        html += '<div class="each-item container text-center">';
+        html += '<div class="each-item container text-center" style="border-bottom: 1px solid #ccc;">';
         html += '<input id="id" type="hidden" value="' + productArr[i].id + '">';
         html += '<input id="item_price_num" type="hidden" value="' + productArr[i].itemPriceNum + '">';
-        html += '<div class="mt-3 pb-2" style="border: 1px solid #ccc;">';
-        html += '<div style="font-size: 14px; border-bottom: 1px solid #ccc; margin-bottom: 15px; font-weight: 700; background: #FAFAFA;">상품</div>';
+        html += '<div class="mt-3 pb-2">';
         html += '<div class="text-left ml-3" style="margin-bottom: -10px;">';
         html += '<div class="text-center custom-control custom-checkbox">';
         html += '<input type="checkbox" class="cart-checkbox custom-control-input" id="cart_check_box' + i + '" checked>';
@@ -55,13 +54,13 @@ $(document).ready(function() {
         html += '</div>';
         html += '</div>';
         html += '<div style="margin-bottom: 15px;" class="btn-group radio-group ml-2" data-toggle="buttons">';
-        html += '<div class="d-inline-block pb-2">';
+        html += '<div class="d-inline-block">';
         html += '<div class="qty-minus-btn mr-1"><i class="far fa-minus"></i></div>';
         html += '<input style="width: 60px; font-size: 12px; text-align: center; position: relative; top: 2px;" type="number" class="qty" id="qty" value="' + productArr[i].qty + '"/>';
         html += '<div class="qty-plus-btn ml-1"><i class="far fa-plus"></i></div>';
         html += '</div>';
         html += '</div>';
-        html += '<div id="sum" style="margin-bottom: 10px; border-bottom: 1px solid #ccc; font-size: 14px; padding-bottom: 15px;">' + numberWithCommas(Number(productArr[i].itemPriceNum) * productArr[i].qty) + '원</div>';
+        html += '<div id="sum" style="margin-bottom: 10px; font-size: 14px; padding-bottom: 15px;">' + numberWithCommas(Number(productArr[i].itemPriceNum) * productArr[i].qty) + '원</div>';
         html += '<button type="button" class="btn btn-sm btn-danger btn-rounded remove-item">삭제</button>';
         html += '</div>';
         html += '</div>';
