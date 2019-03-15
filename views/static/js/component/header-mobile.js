@@ -63,3 +63,7 @@ $('#logout').click(function() {
     logout('/user/logout');
     location.href = '/user/logout';
 });
+
+$('#go_shopping_cart').click(function() {
+    location.href = '/cart';
+});

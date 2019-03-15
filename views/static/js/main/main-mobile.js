@@ -36,10 +36,6 @@ $(document).ready(function() {
         location.href = '/admin/product_manager';
     });
 
-    $('#go_shopping_cart').click(function() {
-        location.href = '/cart';
-    });
-
     selectProductList();
 });
 

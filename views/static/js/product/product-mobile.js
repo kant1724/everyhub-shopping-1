@@ -117,10 +117,6 @@ $(document).ready(function() {
         $('#product_review').css('border-bottom', '0px solid #333');
     });
 
-    $('#go_shopping_cart').click(function() {
-        location.href = '/cart';
-    });
-
     $('#write_qna').click(function() {
         $('#item_no_modal').val($('#item_no').val());
         $('#qna_subject_modal').val('');
