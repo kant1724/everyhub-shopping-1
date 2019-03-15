@@ -189,7 +189,41 @@
                 </div>
                 <div class="modal-footer">
                     <a id="write_review_btn" class="common-button-1">작성</a>
-                    <a id="close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                    <a id="review_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="address_modal" tabindex="-1" role="dialog" aria-labelledby="address_modal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <input type="hidden" id="zip_no_id">
+                <input type="hidden" id="address_main_id">
+                <div class="modal-body">
+                    <div style="border-bottom: 1px solid #333; font-weight: 700;">
+                        <span>주소검색</span>
+                    </div>
+                    <div class="md-form mt-3">
+                        <label id="address_subject_label" for="address_subject" style="font-size: 13px; width: 200px;">여기에 주소를 입력하세요</label>
+                        <input id="address_subject" class="mt-2" type="text" style="width: 100%; outline: none; padding: 3px;">
+                    </div>
+                    <div class="mt-2"><a id="search_address_modal" class="common-button-1">조회</a></div>
+                    <hr>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th style="padding: 3px;">주소</th>
+                            <th style="padding: 3px;">우편번호</th>
+                        </tr>
+                        </thead>
+                        <tbody id="address_tbody">
+                        </tbody>
+                    </table>
+                    <div id="pagination" style="word-wrap: break-word;"></div>
+                </div>
+                <div class="modal-footer">
+                    <a id="address_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
                 </div>
             </div>
         </div>

@@ -14,202 +14,236 @@
     <link href="/static/css/mypage/mypage.css" rel="stylesheet">
 </head>
 <body>
-<header></header>
-<div class="container mt-5 pt-3">
-    <div class="classic-tabs pt-3" style="margin: auto;">
-        <ul class="nav tabs-white" id="" role="tablist" style="border: 1px solid #ddd; height: 42px;">
-            <li class="nav-item" >
-                <a style="color: #333; padding: 7px; font-size: 15px;" class="nav-link  waves-light active show" id="profile-tab-classic" data-toggle="tab" href="#my_order"
-                   role="tab" aria-controls="profile-classic" aria-selected="true">주문내역</a>
-            </li>
-            <li class="nav-item">
-                <a style="color: #333; padding: 7px; margin-left: 20px; font-size: 15px;" class="nav-link waves-light" id="follow-tab-classic" data-toggle="tab" href="#my_info" role="tab"
-                   aria-controls="follow-classic" aria-selected="false">내정보</a>
-            </li>
-        </ul>
-        <div class="tab-content border-right border-bottom border-left mb-5" id="tab_content">
-            <div class="tab-pane fade active show" id="my_order" role="tabpanel" aria-labelledby="my_order">
-                <div class="row">
-                    <div class="mt-4 ml-3 mr-3" style="font-size: 15px; color: gray;">
-                        주문일
-                    </div>
-                    <div class="col-md-2 mr-5">
-                        <span style="font-size: 13px;">시작일</span>
-                        <div class="md-form" style="margin-top: 5px;">
-                            <input type="text" id="startingDate" class="form-control datepicker" style="padding-left: 40px;">
-                            <i class="fal fa-calendar-alt prefix"></i><label for="startingDate"></label>
+    <header></header>
+    <div class="container mt-5 pt-3">
+        <div class="classic-tabs pt-3" style="margin: auto;">
+            <ul class="nav tabs-white" id="" role="tablist" style="border: 1px solid #ddd; height: 42px;">
+                <li class="nav-item" >
+                    <a style="color: #333; padding: 7px; font-size: 15px;" class="nav-link  waves-light active show" id="profile-tab-classic" data-toggle="tab" href="#my_order"
+                       role="tab" aria-controls="profile-classic" aria-selected="true">주문내역</a>
+                </li>
+                <li class="nav-item">
+                    <a style="color: #333; padding: 7px; margin-left: 20px; font-size: 15px;" class="nav-link waves-light" id="follow-tab-classic" data-toggle="tab" href="#my_info" role="tab"
+                       aria-controls="follow-classic" aria-selected="false">내정보</a>
+                </li>
+            </ul>
+            <div class="tab-content border-right border-bottom border-left mb-5" id="tab_content">
+                <div class="tab-pane fade active show" id="my_order" role="tabpanel" aria-labelledby="my_order">
+                    <div class="row">
+                        <div class="mt-4 ml-3 mr-3" style="font-size: 15px; color: gray;">
+                            주문일
+                        </div>
+                        <div class="col-md-2 mr-5">
+                            <span style="font-size: 13px;">시작일</span>
+                            <div class="md-form" style="margin-top: 5px;">
+                                <input type="text" id="startingDate" class="form-control datepicker" style="padding-left: 40px;">
+                                <i class="fal fa-calendar-alt prefix"></i><label for="startingDate"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span style="font-size: 13px;">종료일</span>
+                            <div class="md-form" style="margin-top: 5px;">
+                                <input type="text" id="endingDate" class="form-control datepicker" style="padding-left: 40px;">
+                                <i class="fal fa-calendar-alt prefix"></i><label for="endingDate"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 mt-4 ml-5">
+                            <a id="search" class="common-button-1">조회</a>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <span style="font-size: 13px;">종료일</span>
-                        <div class="md-form" style="margin-top: 5px;">
-                            <input type="text" id="endingDate" class="form-control datepicker" style="padding-left: 40px;">
-                            <i class="fal fa-calendar-alt prefix"></i><label for="endingDate"></label>
+                    <hr>
+                    <section class="section mt-3 mb-5 pb-5">
+                        <table id="order_list" class="table table-bordered text-center">
+                            <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>주문일</th>
+                                <th>이미지</th>
+                                <th>상품명</th>
+                                <th>수량</th>
+                                <th>상품후기</th>
+                                <th>총금액</th>
+                                <th>주문취소</th>
+                            </tr>
+                            </thead>
+                            <tbody id="order_list_tbody"></tbody>
+                        </table>
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="my_info" role="tabpanel" aria-labelledby="my_info">
+                    <div class="mt-3 ml-4">
+                        <div class="">
+                            <label for="telno">휴대폰번호(-제외)</label>
+                            <input type="number" class="form-control" id="telno" style="width: 200px;">
                         </div>
                     </div>
-                    <div class="col-md-2 mt-4 ml-5">
-                        <a id="search" class="common-button-1">조회</a>
+                    <div class="mt-3 ml-4">
+                        <div class="">
+                            <label for="password">비밀번호</label>
+                            <input type="password" class="form-control" id="password" style="width: 200px;">
+                        </div>
+                    </div>
+                    <div class="mt-3 ml-4">
+                        <div class="">
+                            <label for="user_nm">이름</label>
+                            <input type="text" class="form-control" id="user_nm"  style="width: 200px;">
+                        </div>
+                    </div>
+                    <div class="mt-3 ml-4">
+                        <i class="fas fa-user mr-3" style="font-size: 25px;"></i>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="gender_male" name="gender_radio">
+                            <label class="form-check-label" for="gender_male">남</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="gender_female" name="gender_radio">
+                            <label class="form-check-label" for="gender_female">여</label>
+                        </div>
+                    </div>
+                    <div class="mt-3 ml-4">
+                        <div class="" style="width: 240px;">
+                            <label for="date_of_birth">생년월일</label>
+                            <input type="text" id="date_of_birth" class="form-control datepicker">
+                        </div>
+                    </div>
+                    <div class="text-center mt-4 mb-3" style="font-size: 15px; background: #EAEAEA;">주소</div>
+                    <div class="pt-2 ml-4 pb-2">
+                        <a id="search_address" class="common-button-1">주소검색</a>
+                        <div class="mt-3" style="font-weight: 700;">우편번호:</div>
+                        <div id="zip_no" class="mt-2 mb-3" style="width: 80%; border-bottom: 1px solid #ddd; color: gray;">주소검색을 클릭하세요.</div>
+                        <div class="mt-3" style="font-weight: 700;">기본주소:</div>
+                        <div id="address_main" class="mt-2 mb-3" style="width: 80%; border-bottom: 1px solid #ddd; color: gray;">주소검색을 클릭하세요.</div>
+                        <div class="mt-1 d-inline-block">
+                            <label for="address_detail" style="font-weight: 700;">상세주소</label>
+                            <input type="text" style="width:250px;" class="form-control" id="address_detail" style="width: 200px;">
+                        </div>
                     </div>
                 </div>
-                <hr>
-                <section class="section mt-3 mb-5 pb-5">
-                    <table id="order_list" class="table table-bordered text-center">
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal fade" id="review_modal" tabindex="-1" role="dialog" aria-labelledby="review_modal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <input type="hidden" id="item_no_modal">
+                <input type="hidden" id="star_value">
+                <div class="modal-body">
+                    <div style="border-bottom: 1px solid #333; font-weight: 700;">
+                        <span>후기작성</span>
+                    </div>
+                    <div class="mt-3">
+                        <span>별점</span>
+                    </div>
+                    <div class="mt-2 form-check" style="padding-left: 0px; color: #DBC000;">
+                        <input type="radio" class="form-check-input star" id="star_5" name="star">
+                        <label class="form-check-label" for="star_5">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </label>
+                    </div>
+                    <div class="form-check" style="padding-left: 0px; color: #DBC000;">
+                        <input type="radio" class="form-check-input star" id="star_4" name="star">
+                        <label class="form-check-label" for="star_4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </label>
+                    </div>
+                    <div class="form-check" style="padding-left: 0px; color: #DBC000;">
+                        <input type="radio" class="form-check-input star" id="star_3" name="star">
+                        <label class="form-check-label" for="star_3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </label>
+                    </div>
+                    <div class="form-check" style="padding-left: 0px; color: #DBC000;">
+                        <input type="radio" class="form-check-input star" id="star_2" name="star">
+                        <label class="form-check-label" for="star_2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </label>
+                    </div>
+                    <div class="form-check" style="padding-left: 0px; color: #DBC000;">
+                        <input type="radio" class="form-check-input star" id="star_1" name="star">
+                        <label class="form-check-label" for="star_1">
+                            <i class="fas fa-star"></i>
+                        </label>
+                    </div>
+                    <hr>
+                    <div>
+                        <span>제목</span>
+                    </div>
+                    <input id="review_subject" class="mt-2" type="text" style="width: 100%;">
+                    <hr>
+                    <div>
+                        <span>내용</span>
+                    </div>
+                    <textarea id="review_content" class="mt-2" style="width: 100%; height: 150px;"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <a id="write_review_btn" class="common-button-1">작성</a>
+                    <a id="review_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="address_modal" tabindex="-1" role="dialog" aria-labelledby="address_modal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <input type="hidden" id="zip_no_id">
+                <input type="hidden" id="address_main_id">
+                <div class="modal-body">
+                    <div style="border-bottom: 1px solid #333; font-weight: 700;">
+                        <span>주소검색</span>
+                    </div>
+                    <div class="md-form mt-3">
+                        <label id="address_subject_label" for="address_subject" style="font-size: 13px; width: 200px;">여기에 주소를 입력하세요</label>
+                        <input id="address_subject" class="mt-2" type="text" style="width: 100%; outline: none; padding: 3px;">
+                    </div>
+                    <div class="mt-2"><a id="search_address_modal" class="common-button-1">조회</a></div>
+                    <hr>
+                    <table class="table">
                         <thead>
                         <tr>
-                            <th>번호</th>
-                            <th>주문일</th>
-                            <th>이미지</th>
-                            <th>상품명</th>
-                            <th>수량</th>
-                            <th>상품후기</th>
-                            <th>총금액</th>
-                            <th>주문취소</th>
+                            <th style="padding: 3px;">주소</th>
+                            <th style="padding: 3px;">우편번호</th>
                         </tr>
                         </thead>
-                        <tbody id="order_list_tbody"></tbody>
+                        <tbody id="address_tbody">
+                        </tbody>
                     </table>
-                </section>
-            </div>
-            <div class="tab-pane fade" id="my_info" role="tabpanel" aria-labelledby="my_info">
-                <div class="mt-3 ml-4">
-                    <div class="">
-                        <label for="telno">휴대폰번호(-제외)</label>
-                        <input type="number" class="form-control" id="telno" style="width: 200px;">
-                    </div>
+                    <div id="pagination" style="word-wrap: break-word;"></div>
                 </div>
-                <div class="mt-3 ml-4">
-                    <div class="">
-                        <label for="password">비밀번호</label>
-                        <input type="password" class="form-control" id="password" style="width: 200px;">
-                    </div>
-                </div>
-                <div class="mt-3 ml-4">
-                    <div class="">
-                        <label for="user_nm">이름</label>
-                        <input type="text" class="form-control" id="user_nm"  style="width: 200px;">
-                    </div>
-                </div>
-                <div class="mt-3 ml-4">
-                    <i class="fas fa-user mr-3" style="font-size: 25px;"></i>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="gender_male" name="gender_radio">
-                        <label class="form-check-label" for="gender_male">남</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="gender_female" name="gender_radio">
-                        <label class="form-check-label" for="gender_female">여</label>
-                    </div>
-                </div>
-                <div class="mt-3 ml-4">
-                    <div class="" style="width: 240px;">
-                        <label for="date_of_birth">생년월일</label>
-                        <input type="text" id="date_of_birth" class="form-control datepicker">
-                    </div>
-                </div>
-                <div class="text-center mt-4 mb-3" style="font-size: 15px; background: #EAEAEA;">주소</div>
-                <div class="pt-2 ml-4 pb-2">
-                    <a id="search_address" class="common-button-1">주소검색</a>
-                    <div class="mt-3" style="font-weight: 700;">우편번호:</div>
-                    <div id="zip_no" class="mt-2 mb-3" style="width: 80%; border-bottom: 1px solid #ddd; color: gray;">주소검색을 클릭하세요.</div>
-                    <div class="mt-3" style="font-weight: 700;">기본주소:</div>
-                    <div id="address_main" class="mt-2 mb-3" style="width: 80%; border-bottom: 1px solid #ddd; color: gray;">주소검색을 클릭하세요.</div>
-                    <div class="mt-1 d-inline-block">
-                        <label for="address_detail" style="font-weight: 700;">상세주소</label>
-                        <input type="text" style="width:250px;" class="form-control" id="address_detail" style="width: 200px;">
-                    </div>
+                <div class="modal-footer">
+                    <a id="address_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div>
-<div class="modal fade" id="review_modal" tabindex="-1" role="dialog" aria-labelledby="review_modal"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <input type="hidden" id="item_no_modal">
-            <input type="hidden" id="star_value">
-            <div class="modal-body">
-                <div style="border-bottom: 1px solid #333; font-weight: 700;">
-                    <span>후기작성</span>
-                </div>
-                <div class="mt-3">
-                    <span>별점</span>
-                </div>
-                <div class="mt-2 form-check" style="padding-left: 0px; color: #DBC000;">
-                    <input type="radio" class="form-check-input star" id="star_5" name="star">
-                    <label class="form-check-label" for="star_5">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </label>
-                </div>
-                <div class="form-check" style="padding-left: 0px; color: #DBC000;">
-                    <input type="radio" class="form-check-input star" id="star_4" name="star">
-                    <label class="form-check-label" for="star_4">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </label>
-                </div>
-                <div class="form-check" style="padding-left: 0px; color: #DBC000;">
-                    <input type="radio" class="form-check-input star" id="star_3" name="star">
-                    <label class="form-check-label" for="star_3">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </label>
-                </div>
-                <div class="form-check" style="padding-left: 0px; color: #DBC000;">
-                    <input type="radio" class="form-check-input star" id="star_2" name="star">
-                    <label class="form-check-label" for="star_2">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </label>
-                </div>
-                <div class="form-check" style="padding-left: 0px; color: #DBC000;">
-                    <input type="radio" class="form-check-input star" id="star_1" name="star">
-                    <label class="form-check-label" for="star_1">
-                        <i class="fas fa-star"></i>
-                    </label>
-                </div>
-                <hr>
-                <div>
-                    <span>제목</span>
-                </div>
-                <input id="review_subject" class="mt-2" type="text" style="width: 100%;">
-                <hr>
-                <div>
-                    <span>내용</span>
-                </div>
-                <textarea id="review_content" class="mt-2" style="width: 100%; height: 150px;"></textarea>
-            </div>
-            <div class="modal-footer">
-                <a id="write_review_btn" class="common-button-1">작성</a>
-                <a id="close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
-            </div>
-        </div>
-    </div>
-</div>
-<footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
-<input type="hidden" id="info_item_price_num">
-<input type="hidden" id="item_no" value="{{itemNo}}">
-<input type="hidden" id="user_no" value="{{userNo}}">
-<input type="hidden" id="admin_yn" value="{{adminYn}}">
-<script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="/static/js/component/header-mobile.js"></script>
-<script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-<script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-<script type="text/javascript" src="/static/lib/moment/moment.min.js"></script>
-<script type="text/javascript" src="/static/js/common/properties.js"></script>
-<script type="text/javascript" src="/static/js/common/utils.js"></script>
-<script type="text/javascript" src="/static/js/common/datepicker.js"></script>
-<script type="text/javascript" src="/static/js/component/footer.js"></script>
-<script type="text/javascript" src="/static/js/mypage/mypage.js"></script>
+    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
+    <input type="hidden" id="info_item_price_num">
+    <input type="hidden" id="item_no" value="{{itemNo}}">
+    <input type="hidden" id="user_no" value="{{userNo}}">
+    <input type="hidden" id="admin_yn" value="{{adminYn}}">
+    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/component/header-mobile.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/static/lib/moment/moment.min.js"></script>
+    <script type="text/javascript" src="/static/js/common/properties.js"></script>
+    <script type="text/javascript" src="/static/js/common/utils.js"></script>
+    <script type="text/javascript" src="/static/js/common/datepicker.js"></script>
+    <script type="text/javascript" src="/static/js/component/footer.js"></script>
+    <script type="text/javascript" src="/static/js/mypage/mypage.js"></script>
 </body>
 
 </html>

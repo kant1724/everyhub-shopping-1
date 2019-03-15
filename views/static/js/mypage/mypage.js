@@ -33,6 +33,13 @@ $(document).ready(function() {
         writeReview();
     });
 
+    $('#search_address').click(function() {
+        $('#zip_no_id').val('receive_zip_no');
+        $('#address_main_id').val('receive_address_main');
+        $('#address_modal').modal();
+        searchAddressApi.init();
+    });
+
     datepicker.init();
     selectOrderListMain();
 });
