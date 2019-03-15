@@ -146,6 +146,12 @@ function selectUserCallback(ret) {
         $('#address_main').text(ret[0].addressMain);
         $('#address_detail').val(ret[0].addressDetail);
         $('#date_of_birth').val(ret[0].dateOfBirth);
+        let gender = ret[0].gender;
+        if (gender == 'M') {
+            $('#gender_male').prop('checked', true);
+        } else {
+            $('#gender_female').prop('checked', true);
+        }
     }
 }
 
