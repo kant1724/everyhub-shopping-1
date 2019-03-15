@@ -40,12 +40,12 @@ $(document).ready(function() {
         html += '<input type="checkbox" class="cart-checkbox custom-control-input" id="cart_check_box' + i + '" checked>';
         html += '<label class="custom-control-label" for="cart_check_box' + i + '"></label>';
         html += '</div>';
-        html += '<i class="fal fa-times remove-item" style="font-size: 20px; float: right; margin-right: 15px;"></i>';
+        html += '<i class="fal fa-times remove-item" style="font-size: 25px; float: right; margin-right: 20px;"></i>';
         html += '</div>';
         html += '<div style="display: inline-block;">';
         html += '<img style="top: -32px; position: relative; border-radius: 5px;" overflow: hidden; width="100px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0">';
         html += '</div>';
-        html += '<div style="overflow: hidden; display: inline-block; top: 10px; margin-left: 30px; position: relative;">';
+        html += '<div style="overflow: hidden; display: inline-block; top: 10px; margin-left: 15px; position: relative;">';
         html += '<a id="item_nm_1" style="font-size: 14px; margin-left: 20px; font-weight: 700;">' + productArr[i].itemNm1 + '</a>';
         html += '<br>';
         html += '<a id="item_qty" style="margin-left: 20px; font-size: 13px;">' + productArr[i].itemQty + '과</a>&nbsp/&nbsp;';
