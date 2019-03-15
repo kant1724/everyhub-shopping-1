@@ -66,6 +66,7 @@ let constructQna =  {
 				sub.css('display', 'none');
 				sub.find('.qna-reply-list').empty();
 			} else {
+				$('.qna-subject').css('font-weight', '300');
 				$(this).find('#qna_subject').css('font-weight', '700');
 				let all = $(this).parent().find('.each-qna-content');
 				all.css('display', 'none');
@@ -217,6 +218,7 @@ let constructQnaMobile =  {
 				$(this).find('#qna_subject').css('font-weight', '300');
 				sub.css('display', 'none');
 			} else {
+				$('.qna-subject').css('font-weight', '300');
 				$(this).find('#qna_subject').css('font-weight', '700');
 				let all = $(this).parent().find('.each-qna-content');
 				all.css('display', 'none');

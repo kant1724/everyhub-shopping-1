@@ -60,6 +60,7 @@ let constructReview =  {
 				$(this).find('#review_subject').css('font-weight', '300');
 				sub.css('display', 'none');
 			} else {
+				$('.review-subject').css('font-weight', '300');
 				$(this).find('#review_subject').css('font-weight', '700');
 				let all = $(this).parent().find('.each-review-content');
 				all.css('display', 'none');
@@ -185,6 +186,7 @@ let constructReviewMobile =  {
 				$(this).find('#review_subject').css('font-weight', '300');
 				sub.css('display', 'none');
 			} else {
+				$('.review-subject').css('font-weight', '300');
 				$(this).find('#review_subject').css('font-weight', '700');
 				let all = $(this).parent().find('.each-content');
 				all.css('display', 'none');
