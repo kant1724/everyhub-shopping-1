@@ -114,7 +114,7 @@ let searchAddressApi = {
 			$('#' + $('#zip_no_id').val()).css('color', 'black');
 			$('#' + $('#address_main_id').val()).text($(this).find('#address_main').text());
 			$('#' + $('#address_main_id').val()).css('color', 'black');
-			$('#close_modal').click();
+			$('#address_close_modal').click();
 		});
 	}
 };

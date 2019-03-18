@@ -13,6 +13,8 @@ function ajax(url, inputData, gubun, method) {
                 writeReviewCallback();
             } else if (gubun == 'selectUser') {
                 selectUserCallback(data.ret);
+            } else if (gubun == 'updateUser') {
+                updateUserCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -34,10 +36,14 @@ $(document).ready(function() {
     });
 
     $('#search_address').click(function() {
-        $('#zip_no_id').val('receive_zip_no');
-        $('#address_main_id').val('receive_address_main');
+        $('#zip_no_id').val('zip_no');
+        $('#address_main_id').val('address_main');
         $('#address_modal').modal();
         searchAddressApi.init();
+    });
+
+    $('#update_user').click(function() {
+         updateUser();
     });
 
     datepicker.init();
@@ -146,6 +152,7 @@ function selectUser() {
 function selectUserCallback(ret) {
     if (ret.length > 0) {
         $('#user_nm').val(ret[0].userNm);
+        $('#password').val(ret[0].password);
         $('#telno').val(ret[0].telno);
         $('#user_nm').focus();
         $('#telno').focus();
@@ -174,6 +181,30 @@ function writeReview() {
     ajax(serverUrl + '/mypage/writeReview', inputData, 'writeReview', 'POST');
 }
 
+function updateUser() {
+    let gender = '';
+    if ($('#gender_male').is('checked')) {
+        gender = 'M';
+    } else {
+        gender = 'F';
+    }
+    let inputData = {
+        userNm: $('#user_nm').val(),
+        password: $('#password').val(),
+        telno: $('#telno').val(),
+        gender: gender,
+        dateOfBirth: $('#date_of_birth').val(),
+        zipNo: $('#zip_no').text(),
+        addressMain: $('#address_main').text(),
+        addressDetail: $('#address_detail').val()
+    };
+    ajax(serverUrl + '/mypage/updateUser', inputData, 'updateUser', 'POST');
+}
+
 function writeReviewCallback() {
     alert('후기가 작성되었습니다.');
+}
+
+function updateUserCallback() {
+    alert('내정보가 변경되었습니다.');
 }
