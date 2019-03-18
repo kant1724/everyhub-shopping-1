@@ -15,6 +15,8 @@ function ajax(url, inputData, gubun, method) {
                 selectUserCallback(data.ret);
             } else if (gubun == 'updateUser') {
                 updateUserCallback();
+            } else if (gubun == 'cancelOrder') {
+                cancelOrderCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -79,6 +81,9 @@ function selectOrderListMainCallback(ret) {
         let qty = ret[i].qty;
         let imagePath = ret[i].imagePath;
         let totalPrice = ret[i].totalPrice;
+        let depositConfirmDate = ret[i].depositConfirmDate;
+        let dlvrConfirmDate = ret[i].dlvrConfirmDate;
+        let cancelDate = ret[i].cancelDate;
 
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
@@ -107,7 +112,15 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="width: 110px; vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="cancel_order" class="cancel-order"><a class="common-button-1">주문취소</a></div>';
+            if (dlvrConfirmDate != null && dlvrConfirmDate != '') {
+                html += '취소불가';
+            } else {
+                if (cancelDate != null && cancelDate != '') {
+                    html += cancelDate;
+                } else {
+                    html += '<div id="cancel_order" class="cancel-order"><a class="common-button-1">주문취소</a></div>';
+                }
+            }
             html += '</td>';
             html += '</tr>';
         } else {
@@ -132,7 +145,8 @@ function selectOrderListMainCallback(ret) {
     $('#order_list_tbody').append(html);
     $('.cancel-order').unbind();
     $('.cancel-order').click(function() {
-
+        let orderNo = $(this).parent().parent().find('#order_no').text();
+        cancelOrder(orderNo);
     });
     $('.write-review').unbind();
     $('.write-review').click(function() {
@@ -199,6 +213,18 @@ function updateUser() {
         addressDetail: $('#address_detail').val()
     };
     ajax(serverUrl + '/mypage/updateUser', inputData, 'updateUser', 'POST');
+}
+
+function cancelOrder(orderNo) {
+    let inputData = {
+        orderNo: orderNo
+    };
+    ajax(serverUrl + '/mypage/cancelOrder', inputData, 'cancelOrder', 'POST');
+}
+
+function cancelOrderCallback() {
+    alert('주문이 취소되었습니다.');
+    selectOrderListMain();
 }
 
 function writeReviewCallback() {
