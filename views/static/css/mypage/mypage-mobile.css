@@ -10,6 +10,8 @@ body {
 #order_list td {
     font-size: 9px;
     padding: 3px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 #order_list a {
