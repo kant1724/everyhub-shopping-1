@@ -129,7 +129,7 @@ function selectOrderListMainCallback(ret) {
             html += '<td style="vertical-align: middle;">';
             html += '<div id="qty" class="qty">' + qty + '</div>';
             html += '</td>';
-            html += '<td style="width: 110px; vertical-align: middle;">';
+            html += '<td style="vertical-align: middle;">';
             html += '<div id="write_review" class="write-review"><a class="common-button-1">후기작성</a></div>';
             html += '</td>';
             html += '</tr>';
