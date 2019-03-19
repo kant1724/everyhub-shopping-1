@@ -1,0 +1,23 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+#order_list th {
+    font-size: 9px;
+    padding: 3px;
+}
+
+#order_list td {
+    font-size: 9px;
+    padding: 3px;
+}
+
+#order_list a {
+    font-size: 9px;
+    padding: 1px;
+}
+
+#search {
+    margin-left: 10px;
+    font-size: 9px;
+}

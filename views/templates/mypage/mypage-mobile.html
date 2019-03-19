@@ -11,7 +11,7 @@
     <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
     <link href="/static/css/common/common.css" rel="stylesheet">
-    <link href="/static/css/mypage/mypage.css" rel="stylesheet">
+    <link href="/static/css/mypage/mypage-mobile.css" rel="stylesheet">
 </head>
 <body>
     <header></header>
@@ -34,31 +34,28 @@
                             주문일
                         </div>
                         <div class="col-md-2 mr-5">
-                            <span style="font-size: 13px;">시작일</span>
+                            <span style="font-size: 9px;">시작일</span>
                             <div class="md-form" style="margin-top: 5px;">
                                 <input type="text" id="startingDate" class="form-control datepicker" style="padding-left: 40px;">
                                 <i class="fal fa-calendar-alt prefix"></i><label for="startingDate"></label>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                             <a id="search" class="common-button-1">조회</a>
-                            <span style="font-size: 13px;">종료일</span>
+                        <div class="col-md-2 mr-5">
+                            <span style="font-size: 9px;">종료일</span>
                             <div class="md-form" style="margin-top: 5px;">
                                 <input type="text" id="endingDate" class="form-control datepicker" style="padding-left: 40px;">
                                 <i class="fal fa-calendar-alt prefix"></i><label for="endingDate"></label>
                             </div>
                         </div>
-                        <div class="col-md-2 mt-4 ml-5">
-                        </div>
+                        <a id="search" class="common-button-1">조회</a>
                     </div>
                     <hr>
-                    <section class="section mt-3 mb-5 pb-5">
+                    <section class="section mt-3 mb-5 pb-5"">
                         <table id="order_list" class="table table-bordered text-center">
                             <thead>
                             <tr>
                                 <th>번호</th>
                                 <th>주문일</th>
-                                <th>이미지</th>
                                 <th>상품명</th>
                                 <th>수량</th>
                                 <th>상품후기</th>
@@ -244,7 +241,7 @@
     <script type="text/javascript" src="/static/js/common/address.js"></script>
     <script type="text/javascript" src="/static/js/common/datepicker.js"></script>
     <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/mypage/mypage.js"></script>
+    <script type="text/javascript" src="/static/js/mypage/mypage-mobile.js"></script>
 </body>
 
 </html>
