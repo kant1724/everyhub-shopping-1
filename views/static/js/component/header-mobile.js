@@ -8,7 +8,7 @@ let headerHtml = '<nav class="top-nav navbar fixed-top navbar-expand-lg navbar-l
     headerHtml += '<div id="logout"><div class="text-center"><i style="font-size: 22px;" class=" fal fa-sign-out-alt"></i></div><div class="text-center">로그아웃</div></div>';
 }
 headerHtml += '<div id="go_home"><div class="text-center"><i style="font-size: 22px;" class="fas fa-home"></i></div><div class="text-center">홈</div></div>';
-headerHtml += '<div id="go_shopping_cart"><div class="text-center"><i style="font-size: 22px;" class="far fa-shopping-cart"></i></div><div class="text-center">카트</div></div>';
+headerHtml += '<div id="go_shopping_cart"><div class="text-center"><i style="font-size: 22px;" class="far fa-shopping-cart"></i></div><div class="text-center">장바구니</div></div>';
 headerHtml += '</div>';
 headerHtml += '</nav>';
 

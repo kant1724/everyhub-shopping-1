@@ -124,9 +124,6 @@ function selectOrderListMainCallback(ret) {
             html += '<tr>';
             html += '<input id="item_no" type="hidden" value="' + itemNo + '">';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70" style="border-radius: 5px;"></div>';
-            html += '</td>';
-            html += '<td style="vertical-align: middle;">';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
