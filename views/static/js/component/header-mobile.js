@@ -1,8 +1,9 @@
 let headerHtml = '<nav class="top-nav navbar fixed-top navbar-expand-lg navbar-light white">';
-headerHtml += '<div class="container pl-5 pr-5">';
-if ($('#user_no').val() == 0) {
+    if ($('#user_no').val() == 0) {
+    headerHtml += '<div class="container" style="padding-left: 40px; padding-right: 45px;">';
     headerHtml += '<div id="go_login"><div class="text-center"><i style="font-size: 22px;" class="far fa-user"></i></div><div class="text-center">로그인</div></div>';
 } else {
+    headerHtml += '<div class="container" style="padding-left: 20px; padding-right: 25px;">';
     headerHtml += '<div id="go_mypage"><div class="text-center"><i style="font-size: 22px;" class="fas fa-user"></i></div><div class="text-center">주문내역</div></div>';
     headerHtml += '<div id="logout"><div class="text-center"><i style="font-size: 22px;" class=" fal fa-sign-out-alt"></i></div><div class="text-center">로그아웃</div></div>';
 }
