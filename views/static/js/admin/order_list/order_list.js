@@ -43,7 +43,8 @@ function exportExcel() {
             '받는분 주소',
             '받는분 상세주소',
             '물품명',
-            '박스수량'
+            '박스수량',
+            '송장번호'
         ]
     };
     let data = [];
@@ -59,6 +60,7 @@ function exportExcel() {
         d['받는분 상세주소'] = allData[i].receiveAddressDetail;
         d['물품명'] = allData[i].itemNm1;
         d['박스수량'] = allData[i].qty;
+        d['송장번호'] = '';
         data.push(d);
     }
     let ws = XLSX.utils.json_to_sheet(data, header);
@@ -103,12 +105,10 @@ function selectOrderListMainCallback(ret) {
         let totalPrice = ret[i].totalPrice;
         let depositConfirmDate = ret[i].depositConfirmDate;
         let dlvrConfirmDate = ret[i].dlvrConfirmDate;
+        let invoiceNo = ret[i].invoiceNo ? ret[i].invoiceNo : '';
 
         if (depositConfirmDate == null || depositConfirmDate == '') {
             depositConfirmDate = '<a class="confirm-deposit-btn common-button-1">입금확인</a>';
-        }
-        if (dlvrConfirmDate == null || dlvrConfirmDate == '') {
-            dlvrConfirmDate = '<a class="confirm-dlvr-btn common-button-1">배송완료</a>';
         }
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
@@ -139,7 +139,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="deposit_confirm_date" class="deposit-confirm-date">' + depositConfirmDate + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
+            html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
             html += '</tr>';
         } else {
