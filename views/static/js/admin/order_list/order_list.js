@@ -108,15 +108,15 @@ function selectOrderListMainCallback(ret) {
         let orderPersonNm = ret[i].orderPersonNm;
         let orderTelno = ret[i].orderTelno;
         let itemNm1 = ret[i].itemNm1;
-        let qty = ret[i].qty;
+        let invoiceNo = ret[i].invoiceNo ? ret[i].invoiceNo : '';
         let totalPrice = ret[i].totalPrice;
         let depositConfirmDate = ret[i].depositConfirmDate;
         let dlvrConfirmDate = ret[i].dlvrConfirmDate;
-        let invoiceNo = ret[i].invoiceNo ? ret[i].invoiceNo : '';
 
         if (depositConfirmDate == null || depositConfirmDate == '') {
             depositConfirmDate = '<a class="confirm-deposit-btn common-button-1">입금확인</a>';
         }
+
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
             html += '<tr style="margin-bottom: 0px;">';
@@ -136,16 +136,13 @@ function selectOrderListMainCallback(ret) {
             html += '<td>';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
             html += '</td>';
-            html += '<td>';
-            html += '<div id="qty" class="qty">' + qty + '</div>';
-            html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="deposit_confirm_date" class="deposit-confirm-date">' + depositConfirmDate + '</div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<td>';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
             html += '</tr>';
@@ -155,7 +152,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
             html += '</td>';
             html += '<td>';
-            html += '<div id="qty" class="qty">' + qty + '</div>';
+            html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
             html += '</tr>';
         }

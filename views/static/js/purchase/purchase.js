@@ -154,7 +154,6 @@ function setReceiveInfoSameWithOrderInfo(focus) {
 function purchaseDirect() {
     let html = '';
     let eachOrder = {};
-    eachOrder.qty = $('#direct_qty').val();
     eachOrder.itemNo = $('#direct_item_no').val();
     html += '<div class="my-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + $('#direct_image_path').val() + '" alt="" class="img-fluid z-depth-0"></div>';
     html += '<div class="my-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
@@ -164,7 +163,10 @@ function purchaseDirect() {
     html += '<div><i class="far fa-check-circle"></i>&nbsp;&nbsp;가격: ' + numberWithCommas(Number($('#direct_item_price_num').val()) * Number($('#direct_qty').val())) + '원</div>';
     html += '</div>';
     html += '<hr>';
-    orderListDetail.push(eachOrder);
+    let qty = Number($('#direct_qty').val());
+    for (let i = 0; i < qty; ++i) {
+        orderListDetail.push(eachOrder);
+    }
     let sum = Number($('#direct_item_price_num').val()) * Number($('#direct_qty').val());
     html += '<div style="font-size: 16px; font-weight: 700; color: red;"><i class="far fa-won-sign"></i>&nbsp;&nbsp;총금액: ' + numberWithCommas(sum) + '원</div>';
     $('#order_list').append(html);
