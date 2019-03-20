@@ -78,7 +78,7 @@ function selectOrderListMainCallback(ret) {
         let orderDate = ret[i].orderDate;
         let itemNo = ret[i].itemNo;
         let itemNm1 = ret[i].itemNm1;
-        let qty = ret[i].qty;
+        let invoiceNo = ret[i].invoiceNo ? ret[i].invoiceNo : '';
         let imagePath = ret[i].imagePath;
         let totalPrice = ret[i].totalPrice;
         let depositConfirmDate = ret[i].depositConfirmDate;
@@ -102,9 +102,6 @@ function selectOrderListMainCallback(ret) {
             html += '<td style="vertical-align: middle;">';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
             html += '</td>';
-            html += '<td style="vertical-align: middle;">';
-            html += '<div id="qty" class="qty">' + qty + '</div>';
-            html += '</td>';
             html += '<td style="width: 110px; vertical-align: middle;">';
             html += '<div id="write_review" class="write-review"><a class="common-button-1">후기작성</a></div>';
             html += '</td>';
@@ -122,6 +119,9 @@ function selectOrderListMainCallback(ret) {
                 }
             }
             html += '</td>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
+            html += '</td>';
             html += '</tr>';
         } else {
             html += '<tr>';
@@ -132,11 +132,11 @@ function selectOrderListMainCallback(ret) {
             html += '<td style="vertical-align: middle;">';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
             html += '</td>';
-            html += '<td style="vertical-align: middle;">';
-            html += '<div id="qty" class="qty">' + qty + '</div>';
-            html += '</td>';
             html += '<td style="width: 110px; vertical-align: middle;">';
             html += '<div id="write_review" class="write-review"><a class="common-button-1">후기작성</a></div>';
+            html += '</td>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
             html += '</tr>';
         }
