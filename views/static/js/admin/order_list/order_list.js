@@ -29,13 +29,36 @@ $(document).ready(function() {
     $('#update_invoice_no').click(function() {
         updateInvoiceNo();
     });
+    $('#file_input').change(function (e) {
+        executeUpdate();
+    });
 
     datepicker.init();
     selectOrderListMain();
 });
 
 function updateInvoiceNo() {
+    $('#file_input').click();
+}
 
+function executeUpdate() {
+    let files =  document.getElementById('file_input').files;
+    let i,f;
+    for (i = 0, f = files[i]; i != files.length; ++i) {
+        let reader = new FileReader();
+        let name = f.name;
+        reader.onload = function(e) {
+            let data = e.target.result;
+            let workbook = XLSX.read(data, {type: 'binary'});
+            workbook.SheetNames.forEach(function(sheetName) {
+                // Here is your object
+                let XLRowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                let jsonObj = JSON.stringify(XLRowObject);
+                console.log(jsonObj);
+            })
+        };
+        reader.readAsBinaryString(f);
+    }
 }
 
 function exportExcel() {
