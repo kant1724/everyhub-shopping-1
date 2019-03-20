@@ -26,10 +26,17 @@ $(document).ready(function() {
     $('#export_excel').click(function() {
         exportExcel();
     });
+    $('#update_invoice_no').click(function() {
+        updateInvoiceNo();
+    });
 
     datepicker.init();
     selectOrderListMain();
 });
+
+function updateInvoiceNo() {
+
+}
 
 function exportExcel() {
     let wb = XLSX.utils.book_new();
