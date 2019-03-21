@@ -35,8 +35,6 @@ function selectProductListCallback(ret) {
         html += '<td class="text-center"><img src = "' + ret[i].imagePath+ '" alt="" width="80px" style="border-radius: 5px;" class="img-fluid z-depth-0"></td>';
         html += '<td class="text-center">' + ret[i].itemNm1 + '</td>';
         html += '<td class="text-center">' + ret[i].itemNm2 + '</td>';
-        html += '<td class="text-center">' + ret[i].itemQty + '과</td>';
-        html += '<td class="text-center">' + ret[i].itemKg + 'KG</td>';
         html += '<td class="text-center">' + ret[i].recommendYn + '</td>';
         html += '<td class="text-center"><a id="item_option" class="common-button-1 item-option">등록</a></td>';
         html += '<td class="text-center"><a id="modify_product" class="common-button-1 modify-product">변경</a></td></tr>';
