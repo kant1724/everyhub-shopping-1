@@ -100,8 +100,6 @@ function modifyProduct() {
     let itemNo = $('#item_no').val();
     let itemNm1 = $('#item_nm_1').val();
     let itemNm2 = $('#item_nm_2').val();
-    let itemQty = $('#item_qty').val();
-    let itemKg = $('#item_kg').val();
     let itemMainCtgrCd = $('#item_main_ctgr_cd').val();
     let itemMidCtgrCd = $('#item_mid_ctgr_cd').val();
     let originCd = $('#origin_cd').val();
@@ -113,8 +111,6 @@ function modifyProduct() {
         itemNo: itemNo,
         itemNm1: itemNm1,
         itemNm2: itemNm2,
-        itemQty: itemQty,
-        itemKg: itemKg,
         itemMainCtgrCd: itemMainCtgrCd,
         itemMidCtgrCd: itemMidCtgrCd,
         originCd: originCd,
@@ -145,14 +141,6 @@ function selectOneProductCallback(ret) {
     //$('#item_mid_ctgr_cd').parent().find('.select-dropdown li:contains("' + ret[0].itemMidCtgrNm + '")').trigger('click')
 
     $('#origin_cd').val(ret[0].originCd);
-    $('#item_qty').focus();
-    $('#item_qty').val(ret[0].itemQty);
-    $('#item_kg').focus();
-    $('#item_kg').val(ret[0].itemKg);
-    $('#item_price').focus();
-    $('#item_price').val(ret[0].itemPrice);
-    $('#shipping_fee').focus();
-    $('#shipping_fee').val(ret[0].shippingFee);
     $('#item_desc').val(ret[0].itemDesc);
     $('#notice').val(ret[0].notice);
     $('#keeping_method').val(ret[0].keepingMethod);
