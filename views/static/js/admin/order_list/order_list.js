@@ -145,6 +145,12 @@ function selectOrderListMainCallback(ret) {
             html += '<tr style="margin-bottom: 0px;">';
             let pt = '15px';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<div class="ml-2 custom-control custom-checkbox">';
+            html += '<input type="checkbox" class="custom-control-input" id="select_order' + orderNo + '">';
+            html += '<label class="custom-control-label" for="select_order' + orderNo + '"></label>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
