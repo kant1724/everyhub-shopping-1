@@ -41,7 +41,9 @@ $(document).ready(function() {
 });
 
 function startDlvr() {
-    if (confirm('선택된 주문내역의 배송을 시작하시겠습니까?'));
+    if (confirm('선택된 주문내역의 배송을 시작하시겠습니까?')) {
+
+    }
 }
 
 function updateInvoiceNo() {
