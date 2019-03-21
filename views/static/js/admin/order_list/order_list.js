@@ -32,10 +32,17 @@ $(document).ready(function() {
     $('#file_input').change(function (e) {
         executeUpdate();
     });
+    $('#start_dlvr').click(function() {
+        startDlvr();
+    });
 
     datepicker.init();
     selectOrderListMain();
 });
+
+function startDlvr() {
+    if (confirm('선택된 주문내역의 배송을 시작하시겠습니까?'));
+}
 
 function updateInvoiceNo() {
     $('#file_input').click();
