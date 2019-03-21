@@ -89,6 +89,7 @@ function exportExcel() {
     let data = [];
     for (let i = 0; i < allData.length; ++i) {
         let d = {};
+        d['주문번호'] = allData[i].orderNo;
         d['보내는분'] = allData[i].sendPersonNm;
         d['보내는분 전화'] = allData[i].sendTelno;
         d['보내는분 주소'] = allData[i].sendAddressMain;
