@@ -184,8 +184,6 @@ function selectOneProductCallback(ret) {
     $('#info_item_nm_1').text(ret[0].itemNm1);
     $('#info_item_qty').text(ret[0].itemQty);
     $('#info_item_kg').text(ret[0].itemKg);
-    $('#info_item_price').text(numberWithCommas(ret[0].itemPrice) + '원');
-    $('#info_item_price_num').text(ret[0].itemPrice);
     $('#info_item_desc').text(ret[0].itemDesc);
     $('#info_item_nm_2').text(ret[0].itemNm2);
 }

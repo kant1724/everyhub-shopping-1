@@ -83,14 +83,12 @@ function setRecommendProduct(ret) {
         html += '<a class="card-title mb-1">';
         html += '<a style="font-size: 16px; font-weight: 700;">' + ret[i].itemNm1 + '</a>';
         html += '</a><br>';
-        html += '<a class="pt-5" style="font-size: 15px;"><strong>' + ret[i].itemQty + '과 / ' + ret[i].itemKg + 'KG</strong></a><br>';
         html += '<a class="all-product-detail-text3">원산지: 국내산</a><br>';
         html += '<hr>';
         html += '<a class="all-product-detail-text3">' + ret[i].itemDesc +'</a>';
         html += '<div class="row mb-0 mt-3">';
         html += '<a class="ml-3 mb-0 pb-0 mt-1 font-weight-bold" style="font-size: 16px;">';
         html += '<span class="red-text">';
-        html += '<strong>' + numberWithCommas(ret[i].itemPrice) + '원</strong>';
         html += '</span>';
         html += '</a>';
         html += '</div>';
@@ -117,8 +115,6 @@ function setAllProduct(ret) {
         html += '<div class="col-12"><a><img src="' + ret[i].imagePath + '" style="border-radius: 5px; height: 150px;" class="img-fluid"></a></div>';
         html += '<div class="col-12 pt-2 text-center">';
         html += '<a class="pt-3" style="font-size: 14px; font-weight: 700;"><strong>' + ret[i].itemNm1 + ' ' + ret[i].itemNm2 + '</strong></a><br>';
-        html += '<a class="pt-3" style="font-size: 13px;"><strong>' + ret[i].itemQty + '과 / ' + ret[i].itemKg + 'KG</strong></a><br>';
-        html += '<a class="mt-1 font-weight-bold" style="font-size: 13px;"><strong>' + numberWithCommas(ret[i].itemPrice) + '원</strong></a><br>';
         html += '<a class="all-product-detail-text3" style="font-size: 12px;">원산지: 국내산</a>';
         html += '</div></div></div><hr>';
     }
