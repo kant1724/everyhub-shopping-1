@@ -106,11 +106,13 @@ function registerNewProduct() {
     let itemQty = $('#item_qty').val();
     let itemKg = $('#item_kg').val();
     let itemPrice = $('#item_price ').val();
+    let shippingFee = $('#shipping_fee').val();
     let itemMainCtgrCd = $('#item_main_ctgr_cd').val();
     let itemMidCtgrCd = $('#item_mid_ctgr_cd').val();
     let originCd = $('#origin_cd').val();
     let itemDesc = $('#item_desc').val();
     let notice = $('#notice').val();
+    let keepingMethod = $('#keeping_method').val();
     let recommendYn = $('#recommend_yn').val();
 
     let inputData = {
@@ -120,11 +122,13 @@ function registerNewProduct() {
         itemQty: itemQty,
         itemKg: itemKg,
         itemPrice: itemPrice,
+        shippingFee: shippingFee,
         itemMainCtgrCd: itemMainCtgrCd,
         itemMidCtgrCd: itemMidCtgrCd,
         originCd: originCd,
         itemDesc: itemDesc,
         notice: notice,
+        keepingMethod: keepingMethod,
         recommendYn: recommendYn,
         remoteUrl: remoteUrl,
         imageChanged: imageChanged

@@ -112,13 +112,14 @@ function modifyProduct() {
     let itemQty = $('#item_qty').val();
     let itemKg = $('#item_kg').val();
     let itemPrice = $('#item_price ').val();
+    let shippingFee = $('#shipping_fee').val();
     let itemMainCtgrCd = $('#item_main_ctgr_cd').val();
     let itemMidCtgrCd = $('#item_mid_ctgr_cd').val();
     let originCd = $('#origin_cd').val();
     let itemDesc = $('#item_desc').val();
     let notice = $('#notice').val();
+    let keepingMethod = $('#keeping_method').val();
     let recommendYn = $('#recommend_yn').val();
-
     let inputData = {
         itemNo: itemNo,
         itemNm1: itemNm1,
@@ -126,11 +127,13 @@ function modifyProduct() {
         itemQty: itemQty,
         itemKg: itemKg,
         itemPrice: itemPrice,
+        shippingFee: shippingFee,
         itemMainCtgrCd: itemMainCtgrCd,
         itemMidCtgrCd: itemMidCtgrCd,
         originCd: originCd,
         itemDesc: itemDesc,
         notice: notice,
+        keepingMethod: keepingMethod,
         recommendYn: recommendYn,
         remoteUrl: remoteUrl,
         imageChanged: imageChanged
@@ -161,8 +164,11 @@ function selectOneProductCallback(ret) {
     $('#item_kg').val(ret[0].itemKg);
     $('#item_price').focus();
     $('#item_price').val(ret[0].itemPrice);
+    $('#shipping_fee').focus();
+    $('#shipping_fee').val(ret[0].shippingFee);
     $('#item_desc').val(ret[0].itemDesc);
     $('#notice').val(ret[0].notice);
+    $('#keeping_method').val(ret[0].keepingMethod);
 }
 
 function modifyProductCallback(ret) {
