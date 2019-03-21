@@ -20,9 +20,9 @@ router.get('/search_result', function(req, res, next) {
     let userNo = auth.getUserNo(req);
     let adminYn = auth.getAdminYn(req);
     if (md.mobile()) {
-        res.render('templates/main/search_result', {query: query, userNo: userNo, adminYn: adminYn});
-    } else {
         res.render('templates/main/search_result-mobile', {query: query, userNo: userNo, adminYn: adminYn});
+    } else {
+        res.render('templates/main/search_result', {query: query, userNo: userNo, adminYn: adminYn});
     }
 });
 
