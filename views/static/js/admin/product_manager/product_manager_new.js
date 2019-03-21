@@ -68,15 +68,6 @@ function checkValidation() {
         $('#item_nm_1_label').css('color', 'gray');
     }
 
-    if ($('#item_price').val() == undefined || $('#price').val() == '') {
-        $('#item_price_label').text('가격을 입력하세요.');
-        $('#item_price_label').css('color', 'red');
-        isOk = false;
-    } else {
-        $('#item_price_label').text('가격');
-        $('#item_price_label').css('color', 'gray');
-    }
-
     if ($('#item_desc').val() == undefined || $('#item_desc').val() == '') {
         $('#item_desc_label').text('상품설명을 입력하세요.');
         $('#item_desc_label').css('color', 'red');
@@ -105,8 +96,6 @@ function registerNewProduct() {
     let itemNm2 = $('#item_nm_2').val();
     let itemQty = $('#item_qty').val();
     let itemKg = $('#item_kg').val();
-    let itemPrice = $('#item_price ').val();
-    let shippingFee = $('#shipping_fee').val();
     let itemMainCtgrCd = $('#item_main_ctgr_cd').val();
     let itemMidCtgrCd = $('#item_mid_ctgr_cd').val();
     let originCd = $('#origin_cd').val();
@@ -121,8 +110,6 @@ function registerNewProduct() {
         itemNm2: itemNm2,
         itemQty: itemQty,
         itemKg: itemKg,
-        itemPrice: itemPrice,
-        shippingFee: shippingFee,
         itemMainCtgrCd: itemMainCtgrCd,
         itemMidCtgrCd: itemMidCtgrCd,
         originCd: originCd,
