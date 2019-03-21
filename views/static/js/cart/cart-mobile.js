@@ -52,9 +52,6 @@ $(document).ready(function() {
             html += '<div style="overflow: hidden; display: inline-block; top: 10px; margin-left: 15px; position: relative;">';
             html += '<a id="item_nm_1" style="font-size: 14px; margin-left: 20px; font-weight: 700;">' + productArr[i].itemNm1 + '</a>';
             html += '<br>';
-            html += '<a id="item_qty" style="margin-left: 20px; font-size: 13px;">' + productArr[i].itemQty + '과</a>&nbsp/&nbsp;';
-            html += '<a id="item_kg" style="font-size: 13px;">' + productArr[i].itemKg + 'KG</a>';
-            html += '<br>';
             html += '<a id="item_price" style="margin-left: 20px; font-size: 12px;">' + productArr[i].itemPrice + '</a>';
             html += '<br>';
             html += '<a style="margin-left: 20px; font-size: 12px;">원산지: 국내산</a>';

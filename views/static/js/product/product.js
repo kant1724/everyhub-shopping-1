@@ -83,20 +83,6 @@ $(document).ready(function() {
         location.href = '/purchase?' + param;
     });
 
-    $('.qty-plus-btn').click(function() {
-        let qtyObj = $(this).parent().find('#qty');
-        let qty = Number(qtyObj.val());
-        qtyObj.val(qty + 1);
-    });
-
-    $('.qty-minus-btn').click(function() {
-        let qtyObj = $(this).parent().find('#qty');
-        let qty = Number(qtyObj.val());
-        if (qty > 0) {
-            qtyObj.val(qty - 1);
-        }
-    });
-
     $('.admin-page').click(function() {
         location.href = '/admin/product_manager';
     });
