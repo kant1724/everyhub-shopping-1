@@ -52,10 +52,10 @@
                             <strong>원산지: </strong>국내산
                         </p>
                         <div class="ml-xl-0 ml-4">
-                            <div class="d-inline-block text-center pb-3">
-                                <div class="qty-minus-btn"><i class="far fa-minus"></i></div>
-                                <input style="width: 60px; font-size: 12px; text-align: center; position: relative; top: 2px;" type="number" id="qty" value="1" />
-                                <div class="qty-plus-btn"><i class="far fa-plus"></i></div>
+                            <div class="def-number-input number-input">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                <input id="qty" class="quantity" min="0" name="quantity" value="1" type="number">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                             </div>
                             <div class="mb-2">
                                 <button id="order_now" class="btn btn-sm btn-secondary btn-rounded order-now mt-2" style="margin: 0px;">

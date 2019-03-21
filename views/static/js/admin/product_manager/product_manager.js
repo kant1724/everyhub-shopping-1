@@ -41,8 +41,13 @@ function selectProductListCallback(ret) {
     }
     $('.product-table tbody').append(html);
 
+    $('.modify-product').unbind();
     $('.modify-product').click(function() {
         let itemNo = $(this).parent().parent().find('.item-no').text();
         location.href = '/admin/product_manager/product_modify?itemNo=' + itemNo;
+    });
+
+    $('.item-option').unbind();
+    $('.item-option').click(function() {
     });
 }
