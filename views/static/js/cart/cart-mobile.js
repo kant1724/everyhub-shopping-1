@@ -54,6 +54,8 @@ $(document).ready(function() {
             html += '<br>';
             html += '<a id="item_price" style="margin-left: 20px; font-size: 12px;">' + productArr[i].itemPrice + '</a>';
             html += '<br>';
+            html += '<a id="item_price" style="margin-left: 20px; font-size: 12px;">' + productArr[i].shippingFee + '</a>';
+            html += '<br>';
             html += '<a style="margin-left: 20px; font-size: 12px;">원산지: 국내산</a>';
             html += '</div>';
             html += '</div>';
@@ -64,7 +66,7 @@ $(document).ready(function() {
             html += '<div class="qty-plus-btn ml-1"><i class="far fa-plus"></i></div>';
             html += '</div>';
             html += '</div>';
-            html += '<div id="sum" style="margin-bottom: 10px; font-size: 14px; padding-bottom: 15px;">' + numberWithCommas(Number(productArr[i].itemPriceNum) * productArr[i].qty) + '원</div>';
+            html += '<div id="sum" style="margin-bottom: 10px; font-size: 14px; padding-bottom: 15px;">' + numberWithCommas((Number(productArr[i].itemPriceNum) + Number(productArr[i].shippingFeeNum)) * productArr[i].qty) + '원</div>';
             html += '</div>';
             html += '</div>';
         }

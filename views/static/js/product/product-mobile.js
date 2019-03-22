@@ -50,7 +50,7 @@ function addCart() {
         itemNm2: $('#info_item_nm_2').text(),
         itemPrice: $('#info_item_price').text(),
         itemPriceNum: $('#info_item_price_num').val(),
-        shippingFee: $('#info_shipping_fee').val(),
+        shippingFeeNum: $('#info_shipping_fee_num').val(),
         qty: $('#qty').val()
     };
     if (localStorage.getItem('product') != null) {
@@ -86,7 +86,7 @@ $(document).ready(function() {
         param += '&itemNm2=' + $('#info_item_nm_2').text();
         param += '&itemPrice=' + $('#info_item_price').text();
         param += '&itemPriceNum=' + $('#info_item_price_num').val();
-        param += '&shippingFee=' + $('#info_shipping_fee').val();
+        param += '&shippingFeeNum=' + $('#info_shipping_fee_num').val();
         param += '&qty=' + $('#qty').val();
         location.href = '/purchase?' + param;
     });
@@ -131,10 +131,11 @@ $(document).ready(function() {
         for (let i = 0; i < optionData.length; ++i) {
             if (optionData[i].optionNo == optionNo) {
                 $('#info_item_price').text(numberWithCommas(optionData[i].itemPrice) + '원');
+                $('#info_shipping_fee').text(numberWithCommas(optionData[i].shippingFee) + '원');
                 $('#info_item_price_num').val(optionData[i].itemPrice);
+                $('#info_shipping_fee_num').val(optionData[i].shippingFee);
                 $('#info_option_no').val(optionData[i].optionNo);
                 $('#info_option_nm').val(optionData[i].optionNm);
-                $('#info_shipping_fee').val(optionData[i].shippingFee);
             }
         }
     });
@@ -173,10 +174,11 @@ function selectItemOptionCallback(ret) {
         $('#item_option').append('<option value="' + optionNo + '">' + optionNm + '</option>');
     }
     $('#info_item_price').text(numberWithCommas(optionData[0].itemPrice) + '원');
+    $('#info_shipping_fee').text(numberWithCommas(optionData[0].shippingFee) + '원');
     $('#info_item_price_num').val(optionData[0].itemPrice);
+    $('#info_shipping_fee_num').val(optionData[0].shippingFee);
     $('#info_option_no').val(optionData[0].optionNo);
     $('#info_option_nm').val(optionData[0].optionNm);
-    $('#info_shipping_fee').val(optionData[0].shippingFee);
 }
 
 function selectProductReviews() {

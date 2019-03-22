@@ -34,10 +34,17 @@
                         <span style="font-size: 18px; color: #333;" class="text-md-left product-name font-weight-bold mb-1 ml-xl-0 ml-4">
                             <strong id="info_item_nm_1"></strong>
                         </span>
-                        <div class="mb-3">
+                        <div class="mb-1">
                             <span style="font-size: 16px;" class="text-md-left ml-xl-0 ml-4">
                                 <span class="red-text font-weight-bold">
-                                    <strong id="info_item_price">0원</strong>
+                                    <strong id="info_item_price"></strong>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="mb-3">
+                            <span style="font-size: 13px;" class="text-md-left ml-xl-0 ml-4">
+                                <span>
+                                    배송비: <strong id="info_shipping_fee"></strong>
                                 </span>
                             </span>
                         </div>
@@ -136,6 +143,7 @@
     </div>
     <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
     <input type="hidden" id="info_item_price_num">
+    <input type="hidden" id="info_shipping_fee_num">
     <input type="hidden" id="info_option_no">
     <input type="hidden" id="info_option_nm">
     <input type="hidden" id="item_no" value="{{itemNo}}">
