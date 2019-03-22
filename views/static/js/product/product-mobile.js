@@ -7,8 +7,8 @@ function ajax(url, inputData, gubun, method) {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         success: function (data, status, xhr) {
-            if (gubun == 'selectOneProduct') {
-                selectOneProductCallback(data.ret);
+            if (gubun == 'selectOneItem') {
+                selectOneItemCallback(data.ret);
             } else if (gubun == 'selectProductReviews') {
                 selectProductReviewsCallback(data.ret);
             } else if (gubun == 'selectQna') {
@@ -125,17 +125,17 @@ $(document).ready(function() {
     constructReviewMobile.init(selectProductReviews);
     constructQnaMobile.init(selectQna, selectQnaReply, writeQnaReply);
 
-    selectOneProduct();
+    selectOneItem();
     selectProductReviews();
     selectQna();
 });
 
-function selectOneProduct() {
+function selectOneItem() {
     let itemNo = $('#item_no').val();
     let inputData  = {
         itemNo: itemNo
     };
-    ajax(serverUrl + '/admin/product_manager/selectOneProduct', inputData , 'selectOneProduct', 'POST');
+    ajax(serverUrl + '/admin/item_manager/selectOneItem', inputData , 'selectOneItem', 'POST');
 }
 
 function selectProductReviews() {
@@ -165,7 +165,7 @@ function selectQnaReply(qnaNo) {
     ajax(serverUrl + '/product/selectQnaReply', inputData , 'selectQnaReply', 'POST');
 }
 
-function selectOneProductCallback(ret) {
+function selectOneItemCallback(ret) {
     $('#info_image_path').prop('src', ret[0].imagePath);
     $('#info_item_nm_1').text(ret[0].itemNm1);
     $('#info_item_qty').text(ret[0].itemQty);
