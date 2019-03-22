@@ -59,27 +59,19 @@
     <div class="modal fade" id="option_modal" tabindex="-1" role="dialog" aria-labelledby="option_modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-body">
+                <div class="modal-body" style="margin: 20px;">
                     <input type="hidden" id="option_no">
-                    <div class="md-form">
-                        <i class="fas fa-pencil prefix" style="font-size: 25px;"></i>
-                        <input type="text" class="form-control" id="option_nm" style="width: 200px;">
-                        <label id="option_nm_label" for="option_nm">옵션명</label>
-                    </div>
-                    <div class="md-form">
-                        <i class="far fa-won-sign prefix" style="font-size: 25px;"></i>
-                        <input type="number" class="form-control" id="item_price" style="width: 200px;">
-                        <label id="item_price_label" for="item_price">가격</label>
-                    </div>
-                    <div class="md-form">
-                        <i class="far fa-won-sign prefix" style="font-size: 25px;"></i>
-                        <input type="number" class="form-control" id="shipping_fee" style="width: 200px;">
-                        <label id="shipping_fee_label" for="shipping_fee">배송비</label>
-                    </div>
+                    <label id="option_nm_label" for="option_nm">옵션명</label>
+                    <input type="text" class="form-control" id="option_nm" style="width: 200px;">
+                    <label id="item_price_label" for="item_price">가격</label>
+                    <input type="number" class="form-control" id="item_price" style="width: 200px;">
+                    <label id="shipping_fee_label" for="shipping_fee">배송비</label>
+                    <input type="number" class="form-control" id="shipping_fee" style="width: 200px;">
                 </div>
-                <div class="modal-footer">
-                    <a id="save_option" class="common-button-1" data-dismiss="modal">저장</a>
-                    <a id="address_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                <hr>
+                <div class="text-center pb-5">
+                    <a id="save_option" class="common-button-1">저장</a>
+                    <a id="option_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
                 </div>
             </div>
         </div>
