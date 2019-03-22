@@ -19,6 +19,8 @@ function ajax(url, inputData, gubun, method) {
                 writeQnaCallback();
             } else if (gubun == 'writeQnaReply') {
                 writeQnaReplyCallback();
+            } else if (gubun == 'selectItemOption') {
+                selectItemOptionCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -41,11 +43,13 @@ function addCart() {
     let p = {
         id: id,
         itemNo: $('#item_no').val(),
+        optionNo: $('#option_no').val(),
         imagePath: $('#info_image_path').prop('src'),
         itemNm1: $('#info_item_nm_1').text(),
+        itemNm2: $('#info_item_nm_2').text(),
         itemPrice: $('#info_item_price').text(),
         itemPriceNum: $('#info_item_price_num').text(),
-        itemNm2: $('#info_item_nm_2').text(),
+        shippingFee: $('#info_shipping_fee').text(),
         qty: $('#qty').val()
     };
     if (localStorage.getItem('product') != null) {
@@ -74,11 +78,14 @@ $(document).ready(function() {
 
     $('#order_now').click(function() {
         let param = 'itemNo=' + $('#item_no').val();
+        param += '&optionNo=' + $('#info_option_no').val();
+        param += '&optionNm=' + $('#info_option_nm').val();
         param += '&imagePath=' + $('#info_image_path').prop('src');
         param += '&itemNm1=' + $('#info_item_nm_1').text();
+        param += '&itemNm2=' + $('#info_item_nm_2').text();
         param += '&itemPrice=' + $('#info_item_price').text();
         param += '&itemPriceNum=' + $('#info_item_price_num').text();
-        param += '&itemNm2=' + $('#info_item_nm_2').text();
+        param += '&shippingFee=' + $('#info_shipping_fee').text();
         param += '&qty=' + $('#qty').val();
         location.href = '/purchase?' + param;
     });
@@ -118,10 +125,24 @@ $(document).ready(function() {
         writeQna();
     });
 
+    $('#item_option').change(function() {
+        let optionNo = $(this).val();
+        for (let i = 0; i < optionData.length; ++i) {
+            if (optionData[i].optionNo == optionNo) {
+                $('#info_item_price').text(numberWithCommas(optionData[i].itemPrice) + '원');
+                $('#info_item_price_num').val(optionData[i].itemPrice);
+                $('#info_shipping_fee').val(optionData[i].shippingFee);
+                $('#info_option_no').val(optionData[i].optionNo);
+                $('#info_option_nm').val(optionData[i].optionNm);
+            }
+        }
+    });
+
     constructReview.init(selectProductReviews);
     constructQna.init(selectQna, selectQnaReply, writeQnaReply);
 
     selectOneItem();
+    selectItemOption();
     selectProductReviews();
     selectQna();
 });
@@ -132,6 +153,28 @@ function selectOneItem() {
         itemNo: itemNo
     };
     ajax(serverUrl + '/admin/item_manager/selectOneItem', inputData , 'selectOneItem', 'POST');
+}
+
+function selectItemOption() {
+    let itemNo = $('#item_no').val();
+    let inputData = {
+        itemNo: itemNo
+    };
+    ajax(serverUrl + '/admin/item_manager/selectItemOption', inputData, 'selectItemOption', 'POST');
+}
+
+let optionData = [];
+function selectItemOptionCallback(ret) {
+    optionData = ret;
+    for (let i = 0; i < ret.length; ++i) {
+        let optionNo = ret[i].optionNo;
+        let optionNm = ret[i].optionNm;
+        $('#item_option').append('<option value="' + optionNo + '">' + optionNm + '</option>');
+    }
+    $('#info_item_price').text(numberWithCommas(optionData[0].itemPrice) + '원');
+    $('#info_option_no').val(optionData[0].optionNo);
+    $('#info_option_nm').val(optionData[0].optionNm);
+    $('#info_shipping_fee').val(optionData[0].shippingFee);
 }
 
 function selectProductReviews() {
