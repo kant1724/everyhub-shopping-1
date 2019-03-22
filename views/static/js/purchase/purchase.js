@@ -155,6 +155,7 @@ function purchaseDirect() {
     let html = '';
     let eachOrder = {};
     eachOrder.itemNo = $('#direct_item_no').val();
+    eachOrder.optionNo = $('#direct_option_no').val();
     html += '<div class="my-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + $('#direct_image_path').val() + '" alt="" class="img-fluid z-depth-0"></div>';
     html += '<div class="my-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
     html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;상품명: ' + $('#direct_item_nm_1').val() + '</div>';
@@ -188,6 +189,7 @@ function purchaseFromCart() {
                 let eachOrder = {};
                 eachOrder.qty = productArr[j].qty;
                 eachOrder.itemNo = productArr[j].itemNo;
+                eachOrder.optionNo = productArr[j].optionNo;
                 html += '<div style="font-size: 20px; font-weight: 700; color: gray;"><i class="far fa-list"></i>&nbsp;&nbsp;주문' + cnt + '</div>';
                 html += '<hr>';
                 html += '<div class="my-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></div>';
