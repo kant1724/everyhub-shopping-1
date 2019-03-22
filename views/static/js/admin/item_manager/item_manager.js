@@ -41,6 +41,8 @@ function selectItemListCallback(ret) {
     }
     $('.item-table tbody').append(html);
 
+    $('td').css('vertical-align', 'middle');
+
     $('.modify-item').unbind();
     $('.modify-item').click(function() {
         let itemNo = $(this).parent().parent().find('.item-no').text();

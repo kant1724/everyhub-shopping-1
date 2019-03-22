@@ -26,7 +26,7 @@
             <hr>
             <section class="section mt-3 mb-5 pb-5">
                 <div class="table-responsive">
-                    <table class="table product-table">
+                    <table class="table option-table">
                         <thead>
                             <tr>
                                 <th class="font-weight-bold text-center">
@@ -42,10 +42,10 @@
                                    <strong>배송비</strong>
                                 </th>
                                 <th class="font-weight-bold text-center">
-                                    <strong>삭제</strong>
+                                    <strong>변경</strong>
                                 </th>
                                 <th class="font-weight-bold text-center">
-                                    <strong>변경</strong>
+                                    <strong>삭제</strong>
                                 </th>
                             </tr>
                         </thead>
@@ -56,6 +56,7 @@
             </section>
         </div>
     </div>
+    <input type="hidden" id="item_no" value="{{itemNo}}">
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
     <footer class="page-footer text-center text-md-left stylish-color-dark pt-0">

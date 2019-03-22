@@ -7,8 +7,8 @@ function ajax(url, inputData, gubun, method) {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         success: function (data, status, xhr) {
-            if (gubun == 'selectProductOption') {
-                selectProductOptionCallback(data.ret);
+            if (gubun == 'selectItemOption') {
+                selectItemOptionCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -16,34 +16,32 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
-
-    selectProductOption();
+    selectItemOption();
 });
 
-function selectProductOption() {
-    let inputData = {};
-    ajax(serverUrl + '/admin/product_manager/selectProductOption', inputData, 'selectProductOption', 'POST');
+function selectItemOption() {
+    let itemNo = $('#item_no').val();
+    let inputData = {
+        itemNo: itemNo
+    };
+    ajax(serverUrl + '/admin/item_manager/selectItemOption', inputData, 'selectItemOption', 'POST');
 }
 
-function selectProductOptionCallback(ret) {
+function selectItemOptionCallback(ret) {
     let html = '';
     for (let i = 0; i < ret.length; ++i) {
-        html += '<tr><td class="text-center item-no">' + ret[i].itemNo +'</td>';
-        html += '<td class="text-center"><img src = "' + ret[i].imagePath+ '" alt="" width="80px" style="border-radius: 5px;" class="img-fluid z-depth-0"></td>';
-        html += '<td class="text-center">' + ret[i].itemNm1 + '</td>';
-        html += '<td class="text-center">' + ret[i].itemNm2 + '</td>';
-        html += '<td class="text-center">' + ret[i].recommendYn + '</td>';
-        html += '<td class="text-center"><a id="item_option" class="common-button-1 item-option">등록</a></td>';
-        html += '<td class="text-center"><a id="modify_product" class="common-button-1 modify-product">변경</a></td></tr>';
+        html += '<tr><td class="text-center item-no">' + ret[i].optionNo +'</td>';
+        html += '<td class="text-center">' + ret[i].optionNm + '</td>';
+        html += '<td class="text-center">' + ret[i].itemPrice + '</td>';
+        html += '<td class="text-center">' + ret[i].shippingFee + '</td>';
+        html += '<td class="text-center"><a id="modify_option" class="common-button-1 item-option">변경</a></td>';
+        html += '<td class="text-center"><a id="delete_option" class="common-button-1 modify-product">삭제</a></td></tr>';
     }
-    $('.item-table tbody').append(html);
+    $('.option-table tbody').append(html);
 
-    $('.modify-item').unbind();
-    $('.modify-item').click(function() {
+    $('.modify-option').unbind();
+    $('.modify-option').click(function() {
         let optionNo = $(this).parent().parent().find('.item-no').text();
     });
 
-    $('.item-option').unbind();
-    $('.item-option').click(function() {
-    });
 }
