@@ -73,6 +73,10 @@ $(document).ready(function() {
         }
 
         $('#cart_list').append(html);
+        $('.cart-checkbox').click(function() {
+            setTotalPrice();
+        });
+        setTotalPrice();
 
         $('.remove-item').click(function() {
             let id = $(this).parent().parent().parent().parent().find('#id').val();
@@ -86,6 +90,7 @@ $(document).ready(function() {
             localStorage.setItem('product', JSON.stringify(productArr));
             $(this).parent().parent().parent().fadeOut(500, function() {
                 $(this).remove();
+                setTotalPrice();
             });
         });
         $('.qty-plus-btn').click(function () {
@@ -99,6 +104,7 @@ $(document).ready(function() {
             let itemPriceNum = $(this).parent().parent().parent().parent().find('#item_price_num').val();
             let shippingFeeNum = $(this).parent().parent().parent().parent().find('#shipping_fee_num').val();
             sumObj.text(numberWithCommas(nQty * (Number(itemPriceNum) + Number(shippingFeeNum)) + '원'));
+            setTotalPrice();
         });
         $('.qty-minus-btn').click(function() {
             let qtyObj = $(this).parent().parent().find('.qty');
@@ -112,10 +118,33 @@ $(document).ready(function() {
                 let itemPriceNum = $(this).parent().parent().parent().parent().find('#item_price_num').val();
                 let shippingFeeNum = $(this).parent().parent().parent().parent().find('#shipping_fee_num').val();
                 sumObj.text(numberWithCommas(nQty * (Number(itemPriceNum) + Number(shippingFeeNum)) + '원'));
+                setTotalPrice();
             }
         });
     }
 });
+
+function setTotalPrice() {
+    let itemObj = $('#cart_list').find('.each-item');
+    let text = '';
+    let totalItemPrice = 0;
+    let totalShippingFee = 0;
+    for (let i = 0; i < itemObj.length; ++i) {
+        let checked = $(itemObj[i]).find('.cart-checkbox').is(':checked');
+        if (!checked) {
+            continue;
+        }
+        let itemPriceNum = $(itemObj[i]).find('#item_price_num').val();
+        let shippingFeeNum = $(itemObj[i]).find('#shipping_fee_num').val();
+        let qty = $(itemObj[i]).find('.qty').val();
+        totalItemPrice += Number(itemPriceNum) * Number(qty);
+        totalShippingFee += Number(shippingFeeNum) * Number(qty);
+    }
+    text += '<span style="float: right;">가격: ' + numberWithCommas(totalItemPrice) + '원</span><br>';
+    text += '<span style="float: right;">+ 배송비: ' + numberWithCommas(totalShippingFee) + '원</span><br>';
+    text += '<span style="float: right;">= ' + numberWithCommas(totalItemPrice + totalShippingFee) + '원</span>';
+    $('#totalPrice').html(text);
+}
 
 function setQty(id, qty) {
     let productArr = JSON.parse(localStorage.getItem('product'));
