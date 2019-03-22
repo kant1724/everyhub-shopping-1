@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>상품정보</title>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
+    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
+    <link href="/static/css/common/common.css" rel="stylesheet">
+    <link href="/static/css/admin/item_manager/item_option.css" rel="stylesheet">
+</head>
+
+<body class="cart-v1 hidden-sn white-skin animated">
+    <header></header>
+    <div class="container pt-5">
+        <div class="container">
+            <div class="mb-3 mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">옵션목록</div>
+            <div class="mb-3 mt-5  d-inline-block" style="float: right; margin-right: 40px;">
+                <button type="button" class="btn btn-sm deep-orange btn-rounded new-product-btn">옵션등록
+                </button>
+            </div>
+            <hr>
+            <section class="section mt-3 mb-5 pb-5">
+                <div class="table-responsive">
+                    <table class="table product-table">
+                        <thead>
+                            <tr>
+                                <th class="font-weight-bold text-center">
+                                    <strong>옵션번호</strong>
+                                </th>
+                                <th class="font-weight-bold text-center">
+                                    <strong>옵션명</strong>
+                                </th>
+                                <th class="font-weight-bold text-center">
+                                    <strong>가격</strong>
+                                </th>
+                                <th class="font-weight-bold text-center">
+                                   <strong>배송비</strong>
+                                </th>
+                                <th class="font-weight-bold text-center">
+                                    <strong>삭제</strong>
+                                </th>
+                                <th class="font-weight-bold text-center">
+                                    <strong>변경</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+    <input type="hidden" id="user_no" value="{{userNo}}">
+    <input type="hidden" id="admin_yn" value="{{adminYn}}">
+    <footer class="page-footer text-center text-md-left stylish-color-dark pt-0">
+    </footer>
+    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/static/js/common/properties.js"></script>
+    <script type="text/javascript" src="/static/js/component/header.js"></script>
+    <script type="text/javascript" src="/static/js/component/footer.js"></script>
+    <script type="text/javascript" src="/static/js/admin/item_manager/item_option.js"></script>
+</body>
+
+</html>

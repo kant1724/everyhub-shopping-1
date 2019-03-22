@@ -7,8 +7,8 @@ function ajax(url, inputData, gubun, method) {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         success: function (data, status, xhr) {
-            if (gubun == 'selectProductList') {
-                selectProductListCallback(data.ret);
+            if (gubun == 'selectItemList') {
+                selectItemListCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -16,19 +16,19 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
-    $('.new-product-btn').click(function() {
-       location.href = '/admin/product_manager/product_new';
+    $('.new-item-btn').click(function() {
+       location.href = '/admin/item_manager/item_new';
     });
 
-    selectProductList();
+    selectItemList();
 });
 
-function selectProductList() {
+function selectItemList() {
     let inputData = {};
-    ajax(serverUrl + '/admin/product_manager/selectProductList', inputData, 'selectProductList', 'POST');
+    ajax(serverUrl + '/admin/item_manager/selectItemList', inputData, 'selectItemList', 'POST');
 }
 
-function selectProductListCallback(ret) {
+function selectItemListCallback(ret) {
     let html = '';
     for (let i = 0; i < ret.length; ++i) {
         html += '<tr><td class="text-center item-no">' + ret[i].itemNo +'</td>';
@@ -37,17 +37,19 @@ function selectProductListCallback(ret) {
         html += '<td class="text-center">' + ret[i].itemNm2 + '</td>';
         html += '<td class="text-center">' + ret[i].recommendYn + '</td>';
         html += '<td class="text-center"><a id="item_option" class="common-button-1 item-option">등록</a></td>';
-        html += '<td class="text-center"><a id="modify_product" class="common-button-1 modify-product">변경</a></td></tr>';
+        html += '<td class="text-center"><a id="modify_item" class="common-button-1 modify-item">변경</a></td></tr>';
     }
-    $('.product-table tbody').append(html);
+    $('.item-table tbody').append(html);
 
-    $('.modify-product').unbind();
-    $('.modify-product').click(function() {
+    $('.modify-item').unbind();
+    $('.modify-item').click(function() {
         let itemNo = $(this).parent().parent().find('.item-no').text();
-        location.href = '/admin/product_manager/product_modify?itemNo=' + itemNo;
+        location.href = '/admin/item_manager/item_modify?itemNo=' + itemNo;
     });
 
     $('.item-option').unbind();
     $('.item-option').click(function() {
+        let itemNo = $(this).parent().parent().find('.item-no').text();
+        location.href = '/admin/item_manager/item_option?itemNo=' + itemNo;
     });
 }

@@ -7,8 +7,8 @@ function ajax(url, inputData, gubun, method) {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         success: function (data, status, xhr) {
-            if (gubun == 'selectProductList') {
-                selectProductListCallback(data.ret);
+            if (gubun == 'selectItemList') {
+                selectItemListCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -33,15 +33,15 @@ $(document).ready(function() {
         }
     });
 
-    selectProductList();
+    selectItemList();
 });
 
-function selectProductList() {
+function selectItemList() {
     let inputData = {};
-    ajax(serverUrl + '/admin/product_manager/selectProductList', inputData, 'selectProductList', 'POST');
+    ajax(serverUrl + '/admin/item_manager/selectItemList', inputData, 'selectItemList', 'POST');
 }
 
-function selectProductListCallback(ret) {
+function selectItemListCallback(ret) {
     setRecommendProduct(ret);
     setAllProduct(ret);
 }
