@@ -32,8 +32,8 @@ function addCart() {
     let id = 0;
     if (productArr != null) {
         for (let i = 0; i < productArr.length; ++i) {
-            let itemNo = productArr[i].itemNo;
-            if ($('#item_no').val() == itemNo) {
+            let optionNo = productArr[i].optionNo;
+            if ($('#info_option_no').val() == optionNo) {
                 return -1;
             }
             id = Math.max(productArr[i].id, id);
@@ -42,6 +42,8 @@ function addCart() {
     id += 1;
     let p = {
         id: id,
+        optionNo: $('#info_option_no').val(),
+        optionNm: $('#info_option_nm').val(),
         itemNo: $('#item_no').val(),
         imagePath: $('#info_image_path').prop('src'),
         itemNm1: $('#info_item_nm_1').text(),
@@ -171,6 +173,7 @@ function selectItemOptionCallback(ret) {
         $('#item_option').append('<option value="' + optionNo + '">' + optionNm + '</option>');
     }
     $('#info_item_price').text(numberWithCommas(optionData[0].itemPrice) + '원');
+    $('#info_item_price_num').text(optionData[0].itemPrice);
     $('#info_option_no').val(optionData[0].optionNo);
     $('#info_option_nm').val(optionData[0].optionNm);
     $('#info_shipping_fee').val(optionData[0].shippingFee);
@@ -206,8 +209,6 @@ function selectQnaReply(qnaNo) {
 function selectOneItemCallback(ret) {
     $('#info_image_path').prop('src', ret[0].imagePath);
     $('#info_item_nm_1').text(ret[0].itemNm1);
-    $('#info_item_qty').text(ret[0].itemQty);
-    $('#info_item_kg').text(ret[0].itemKg);
     $('#info_item_desc').text(ret[0].itemDesc);
     $('#info_item_nm_2').text(ret[0].itemNm2);
 }

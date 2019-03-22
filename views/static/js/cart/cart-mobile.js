@@ -71,7 +71,7 @@ $(document).ready(function() {
 
         $('#cart_list').append(html);
 
-        $('.remove-item').click(function () {
+        $('.remove-item').click(function() {
             let id = $(this).parent().parent().parent().parent().find('#id').val();
             let productArr = JSON.parse(localStorage.getItem('product'));
             for (let i = 0; i < productArr.length; ++i) {
@@ -81,7 +81,7 @@ $(document).ready(function() {
                 }
             }
             localStorage.setItem('product', JSON.stringify(productArr));
-            $(this).parent().parent().parent().fadeOut(500, function () {
+            $(this).parent().parent().parent().fadeOut(500, function() {
                 $(this).remove();
             });
         });
@@ -96,7 +96,7 @@ $(document).ready(function() {
             let itemPriceNum = $(this).parent().parent().parent().parent().find('#item_price_num').val();
             sumObj.text(numberWithCommas(nQty * Number(itemPriceNum) + '원'));
         });
-        $('.qty-minus-btn').click(function () {
+        $('.qty-minus-btn').click(function() {
             let qtyObj = $(this).parent().parent().find('.qty');
             let qty = qtyObj.val();
             if (qty > 0) {
