@@ -16,6 +16,14 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
+    $('.new-option-btn').click(function() {
+        $('#option_modal').modal();
+    });
+
+    $('#save_option').click(function() {
+        alert(1);
+    });
+
     selectItemOption();
 });
 
@@ -43,5 +51,4 @@ function selectItemOptionCallback(ret) {
     $('.modify-option').click(function() {
         let optionNo = $(this).parent().parent().find('.item-no').text();
     });
-
 }

@@ -26,9 +26,6 @@ $(document).ready(function() {
     $('#export_excel').click(function() {
         exportExcel();
     });
-    $('#update_invoice_no').click(function() {
-        updateInvoiceNo();
-    });
     $('#file_input').change(function (e) {
         executeUpdate();
     });
