@@ -17,7 +17,6 @@
 <body class="cart-v1 hidden-sn white-skin animated">
     <header></header>
     <div class="container mt-5">
-        <input type="file" id="file_input" style="display: none;"/>
         <div class="container">
             <div class="mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">주문목록</div>
             <div class="mt-5  d-inline-block" style="float: right; margin-right: 40px;">
@@ -60,6 +59,7 @@
                         <th>주문자</th>
                         <th>주문자 연락처</th>
                         <th>상품명</th>
+                        <th>옵션명</th>
                         <th>총금액</th>
                         <th>입금확인</th>
                         <th>송장번호</th>
@@ -68,6 +68,22 @@
                     <tbody id="order_list_tbody"></tbody>
                 </table>
             </section>
+        </div>
+    </div>
+    <div class="modal fade" id="invoice_no_modal" tabindex="-1" role="dialog" aria-labelledby="invoice_no_modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <input type="hidden" id="modal_order_no">
+                <input type="hidden" id="modal_order_seq">
+                <div class="modal-body" style="margin: 20px;">
+                    <input type="text" class="form-control" id="modal_invoice_no" style="width: 200px;">
+                    <label id="invoice_no_label" for="modal_invoice_no">송장번호를 입력하세요.</label>
+                </div>
+                <div class="text-center pb-5">
+                    <a id="save_invoice_no" class="common-button-1">저장</a>
+                    <a id="invoice_no_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                </div>
+            </div>
         </div>
     </div>
     <input type="hidden" id="user_no" value="{{userNo}}">

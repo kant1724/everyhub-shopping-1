@@ -13,6 +13,8 @@ function ajax(url, inputData, gubun, method) {
                 updateDepositConfirmDateCallback();
             } else if (gubun == 'updateDlvrConfirmDate') {
                 updateDlvrConfirmDateCallback();
+            } else if (gubun == 'updateInvoiceNo') {
+                updateInvoiceNoCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -26,11 +28,11 @@ $(document).ready(function() {
     $('#export_excel').click(function() {
         exportExcel();
     });
-    $('#file_input').change(function (e) {
-        executeUpdate();
-    });
     $('#start_dlvr').click(function() {
         startDlvr();
+    });
+    $('#save_invoice_no').click(function() {
+        updateInvoiceNo();
     });
 
     datepicker.init();
@@ -44,27 +46,21 @@ function startDlvr() {
 }
 
 function updateInvoiceNo() {
-    $('#file_input').click();
+    let orderNo = $('#modal_order_no').val();
+    let orderSeq = $('#modal_order_seq').val();
+    let invoiceNo = $('#modal_invoice_no').val();
+    let inputData = {
+        orderNo: orderNo,
+        orderSeq: orderSeq,
+        invoiceNo: invoiceNo
+    };
+    ajax(serverUrl + '/admin/order_list/updateInvoiceNo', inputData, 'updateInvoiceNo', 'POST');
 }
 
-function executeUpdate() {
-    let files =  document.getElementById('file_input').files;
-    let i,f;
-    for (i = 0, f = files[i]; i != files.length; ++i) {
-        let reader = new FileReader();
-        let name = f.name;
-        reader.onload = function(e) {
-            let data = e.target.result;
-            let workbook = XLSX.read(data, {type: 'binary'});
-            workbook.SheetNames.forEach(function(sheetName) {
-                // Here is your object
-                let XLRowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-                let jsonObj = JSON.stringify(XLRowObject);
-                console.log(jsonObj);
-            })
-        };
-        reader.readAsBinaryString(f);
-    }
+function updateInvoiceNoCallback() {
+    alert('저장되었습니다.');
+    $('#invoice_no_close_modal').click();
+    selectOrderListMain();
 }
 
 function exportExcel() {
@@ -131,6 +127,7 @@ function selectOrderListMainCallback(ret) {
     for (let i = 0; i < ret.length; ++i) {
         let today = moment().format('YYYY-MM-DD');
         let orderNo = ret[i].orderNo;
+        let orderSeq = ret[i].orderSeq;
         let orderDate = ret[i].orderDate;
         if (orderDate == today) {
             orderDate = '<span class="today-icon">오늘</span>' + orderDate;
@@ -138,6 +135,7 @@ function selectOrderListMainCallback(ret) {
         let orderPersonNm = ret[i].orderPersonNm;
         let orderTelno = ret[i].orderTelno;
         let itemNm1 = ret[i].itemNm1;
+        let optionNm = ret[i].optionNm;
         let invoiceNo = ret[i].invoiceNo ? ret[i].invoiceNo : '';
         let totalPrice = ret[i].totalPrice;
         let depositConfirmDate = ret[i].depositConfirmDate;
@@ -147,10 +145,15 @@ function selectOrderListMainCallback(ret) {
             depositConfirmDate = '<a class="confirm-deposit-btn common-button-1">입금확인</a>';
         }
 
+        if (invoiceNo == null || invoiceNo == '') {
+            invoiceNo = '<a class="write-invoice-no-btn common-button-1">입력</a>';
+        }
+
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
             html += '<tr style="margin-bottom: 0px;">';
             let pt = '15px';
+            html += '<input type="hidden" id="order_seq" value="' + orderSeq + '">';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div class="ml-2 custom-control custom-checkbox">';
             html += '<input type="checkbox" class="custom-control-input" id="select_order' + orderNo + '">';
@@ -172,6 +175,9 @@ function selectOrderListMainCallback(ret) {
             html += '<td>';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
             html += '</td>';
+            html += '<td>';
+            html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
+            html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
             html += '</td>';
@@ -184,6 +190,7 @@ function selectOrderListMainCallback(ret) {
             html += '</tr>';
         } else {
             html += '<tr>';
+            html += '<input type="hidden" id="order_seq" value="' + orderSeq + '">';
             html += '<td>';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
             html += '</td>';
@@ -205,6 +212,15 @@ function selectOrderListMainCallback(ret) {
     $('.confirm-dlvr-btn').click(function() {
         let orderNo = $(this).parent().parent().parent().find('#order_no').text();
         updateDlvrConfirmDate(orderNo);
+    });
+
+    $('.write-invoice-no-btn').unbind();
+    $('.write-invoice-no-btn').click(function() {
+        let orderNo = $(this).parent().parent().parent().find('#order_no').text();
+        let orderSeq = $(this).parent().parent().parent().find('#order_seq').val();
+        $('#modal_order_no').val(orderNo);
+        $('#modal_order_seq').val(orderSeq);
+        $('#invoice_no_modal').modal();
     });
 }
 
