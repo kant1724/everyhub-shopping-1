@@ -37,6 +37,7 @@ $(document).ready(function() {
             html += '<input id="option_no" type="hidden" value="' + productArr[i].optionNo + '">';
             html += '<input id="item_no" type="hidden" value="' + productArr[i].itemNo + '">';
             html += '<input id="item_price_num" type="hidden" value="' + productArr[i].itemPriceNum + '">';
+            html += '<input id="shipping_fee_num" type="hidden" value="' + productArr[i].shippingFeeNum + '">';
             html += '<td><div class="custom-control custom-checkbox">';
             html += '<input type="checkbox" class="cart-checkbox custom-control-input" id="cart_check_box' + i + '" checked>';
             html += '<label class="custom-control-label" for="cart_check_box' + i + '"></label>';
@@ -79,7 +80,8 @@ $(document).ready(function() {
             setQty(id, nQty);
             let sumObj = $(this).parent().parent().parent().find('#sum');
             let itemPriceNum = $(this).parent().parent().parent().find('#item_price_num').val();
-            sumObj.text(numberWithCommas(nQty * Number(itemPriceNum) + '원'));
+            let shippingFeeNum = $(this).parent().parent().parent().find('#shipping_fee_num').val();
+            sumObj.text(numberWithCommas(nQty * (Number(itemPriceNum) + Number(shippingFeeNum)) + '원'));
         });
         $('.minus-qty').click(function() {
             let qtyObj = $(this).parent().parent().find('.qty');
@@ -91,7 +93,8 @@ $(document).ready(function() {
                 setQty(id, nQty);
                 let sumObj = $(this).parent().parent().parent().find('#sum');
                 let itemPriceNum = $(this).parent().parent().parent().find('#item_price_num').val();
-                sumObj.text(numberWithCommas(nQty * Number(itemPriceNum) + '원'));
+                let shippingFeeNum = $(this).parent().parent().parent().find('#shipping_fee_num').val();
+                sumObj.text(numberWithCommas(nQty * (Number(itemPriceNum) + Number(shippingFeeNum)) + '원'));
             }
         });
         $('.admin-page').click(function() {

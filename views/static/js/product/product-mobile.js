@@ -49,6 +49,7 @@ function addCart() {
         itemNm1: $('#info_item_nm_1').text(),
         itemNm2: $('#info_item_nm_2').text(),
         itemPrice: $('#info_item_price').text(),
+        shippingFee: $('#info_shipping_fee').text(),
         itemPriceNum: $('#info_item_price_num').val(),
         shippingFeeNum: $('#info_shipping_fee_num').val(),
         qty: $('#qty').val()
@@ -85,6 +86,7 @@ $(document).ready(function() {
         param += '&itemNm1=' + $('#info_item_nm_1').text();
         param += '&itemNm2=' + $('#info_item_nm_2').text();
         param += '&itemPrice=' + $('#info_item_price').text();
+        param += '&shippingFee=' + $('#info_shipping_fee').text();
         param += '&itemPriceNum=' + $('#info_item_price_num').val();
         param += '&shippingFeeNum=' + $('#info_shipping_fee_num').val();
         param += '&qty=' + $('#qty').val();

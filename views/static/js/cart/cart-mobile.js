@@ -37,6 +37,7 @@ $(document).ready(function() {
             html += '<div class="each-item container text-center" style="border-bottom: 1px solid #ccc;">';
             html += '<input id="id" type="hidden" value="' + productArr[i].id + '">';
             html += '<input id="item_price_num" type="hidden" value="' + productArr[i].itemPriceNum + '">';
+            html += '<input id="shipping_fee_num" type="hidden" value="' + productArr[i].shippingFeeNum + '">';
             html += '<div class="mt-3 pb-2">';
             html += '<div>';
             html += '<div class="text-left ml-3" style="margin-bottom: -10px;">';
@@ -52,9 +53,9 @@ $(document).ready(function() {
             html += '<div style="overflow: hidden; display: inline-block; top: 10px; margin-left: 15px; position: relative;">';
             html += '<a id="item_nm_1" style="font-size: 14px; margin-left: 20px; font-weight: 700;">' + productArr[i].itemNm1 + '</a>';
             html += '<br>';
-            html += '<a id="item_price" style="margin-left: 20px; font-size: 12px;">' + productArr[i].itemPrice + '</a>';
+            html += '<a id="item_price" style="margin-left: 20px; font-size: 12px;">단가: ' + productArr[i].itemPrice + '</a>';
             html += '<br>';
-            html += '<a id="item_price" style="margin-left: 20px; font-size: 12px;">' + productArr[i].shippingFee + '</a>';
+            html += '<a id="shipping_fee" style="margin-left: 20px; font-size: 12px;">배송비: ' + productArr[i].shippingFee + '</a>';
             html += '<br>';
             html += '<a style="margin-left: 20px; font-size: 12px;">원산지: 국내산</a>';
             html += '</div>';
@@ -96,7 +97,8 @@ $(document).ready(function() {
             setQty(id, nQty);
             let sumObj = $(this).parent().parent().parent().find('#sum');
             let itemPriceNum = $(this).parent().parent().parent().parent().find('#item_price_num').val();
-            sumObj.text(numberWithCommas(nQty * Number(itemPriceNum) + '원'));
+            let shippingFeeNum = $(this).parent().parent().parent().parent().find('#shipping_fee_num').val();
+            sumObj.text(numberWithCommas(nQty * (Number(itemPriceNum) + Number(shippingFeeNum)) + '원'));
         });
         $('.qty-minus-btn').click(function() {
             let qtyObj = $(this).parent().parent().find('.qty');
@@ -108,7 +110,8 @@ $(document).ready(function() {
                 setQty(id, nQty);
                 let sumObj = $(this).parent().parent().parent().find('#sum');
                 let itemPriceNum = $(this).parent().parent().parent().parent().find('#item_price_num').val();
-                sumObj.text(numberWithCommas(nQty * Number(itemPriceNum) + '원'));
+                let shippingFeeNum = $(this).parent().parent().parent().parent().find('#shipping_fee_num').val();
+                sumObj.text(numberWithCommas(nQty * (Number(itemPriceNum) + Number(shippingFeeNum)) + '원'));
             }
         });
     }
