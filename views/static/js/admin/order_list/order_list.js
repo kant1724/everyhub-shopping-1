@@ -147,12 +147,13 @@ function selectOrderListMainCallback(ret) {
 
         if (invoiceNo == null || invoiceNo == '') {
             invoiceNo = '<a class="write-invoice-no-btn common-button-1">입력</a>';
+        } else {
+            invoiceNo = '<div>' + invoiceNo + '</div><a class="write-invoice-no-btn" style="text-decoration: underline; color: gray; font-size: 12px;">변경</a>';
         }
-
+        let pt = '15px';
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
             html += '<tr style="margin-bottom: 0px;">';
-            let pt = '15px';
             html += '<input type="hidden" id="order_seq" value="' + orderSeq + '">';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div class="ml-2 custom-control custom-checkbox">';
@@ -172,10 +173,10 @@ function selectOrderListMainCallback(ret) {
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="order_telno" class="order-telno">' + orderTelno + '</div>';
             html += '</td>';
-            html += '<td>';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
             html += '</td>';
-            html += '<td>';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
@@ -191,10 +192,10 @@ function selectOrderListMainCallback(ret) {
         } else {
             html += '<tr>';
             html += '<input type="hidden" id="order_seq" value="' + orderSeq + '">';
-            html += '<td>';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
             html += '</td>';
-            html += '<td>';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
             html += '</tr>';
