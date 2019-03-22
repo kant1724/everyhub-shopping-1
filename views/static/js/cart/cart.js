@@ -73,6 +73,7 @@ $(document).ready(function() {
             localStorage.setItem('product', JSON.stringify(productArr));
             $(this).parent().parent().fadeOut(500, function() {
                 $(this).remove();
+                setTotalPrice();
             });
         });
         $('.plus-qty').click(function() {
