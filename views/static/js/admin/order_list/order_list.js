@@ -54,7 +54,10 @@ function updateDlvrConfirmDate() {
             orderListDetail.push(orderList);
         }
         let inputData = {
-            orderListDetail: orderListDetail
+            data: JSON.stringify(
+                {
+                    orderListDetail: orderListDetail
+                })
         };
         ajax(serverUrl + '/admin/order_list/updateDlvrConfirmDate', inputData, 'updateDlvrConfirmDate', 'POST');
     }
@@ -171,20 +174,27 @@ function selectOrderListMainCallback(ret) {
             hasInvoiceNo = true;
             invoiceNo = '<div>' + invoiceNo + '</div><a class="write-invoice-no-btn" style="text-decoration: underline; color: gray; font-size: 12px;">변경</a>';
         }
+
+        if(dlvrConfirmDate == null || dlvrConfirmDate == '') {
+            dlvrConfirmDate = '';
+        }
+
         let pt = '15px';
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
             html += '<tr class="each-order" style="margin-bottom: 0px;">';
             html += '<input type="hidden" id="order_seq" value="' + orderSeq + '">';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
-            html += '<div class="ml-2 custom-control custom-checkbox">';
-            if (!hasInvoiceNo) {
-                html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" disabled>';
-            } else {
-                html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" checked>';
+            if (!dlvrConfirmDate) {
+                html += '<div class="ml-2 custom-control custom-checkbox">';
+                if (!hasInvoiceNo) {
+                    html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" disabled>';
+                } else {
+                    html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" checked>';
+                }
+                html += '<label class="custom-control-label" for="select_order' + orderNo + '_' + orderSeq + '"></label>';
+                html += '</div>';
             }
-            html += '<label class="custom-control-label" for="select_order' + orderNo + '_' + orderSeq + '"></label>';
-            html += '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
@@ -213,18 +223,23 @@ function selectOrderListMainCallback(ret) {
             html += '<td>';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
+            html += '<td>';
+            html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
+            html += '</td>';
             html += '</tr>';
         } else {
             html += '<tr class="each-order">';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
-            html += '<div class="ml-2 custom-control custom-checkbox">';
-            if (!hasInvoiceNo) {
-                html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" disabled>';
-            } else {
-                html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" checked>';
+            if (!dlvrConfirmDate) {
+                html += '<div class="ml-2 custom-control custom-checkbox">';
+                if (!hasInvoiceNo) {
+                    html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" disabled>';
+                } else {
+                    html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" checked>';
+                }
+                html += '<label class="custom-control-label" for="select_order' + orderNo + '_' + orderSeq + '"></label>';
+                html += '</div>';
             }
-            html += '<label class="custom-control-label" for="select_order' + orderNo + '_' + orderSeq + '"></label>';
-            html += '</div>';
             html += '</td>';
             html += '<input type="hidden" id="order_seq" value="' + orderSeq + '">';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
@@ -235,6 +250,9 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
+            html += '</td>';
+            html += '<td>';
+            html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
             html += '</td>';
             html += '</tr>';
         }
@@ -268,13 +286,6 @@ function updateDepositConfirmDate(orderNo) {
         orderNo: orderNo
     };
     ajax(serverUrl + '/admin/order_list/updateDepositConfirmDate', inputData, 'updateDepositConfirmDate', 'POST');
-}
-
-function updateDlvrConfirmDate(orderNo) {
-    let inputData = {
-        orderNo: orderNo
-    };
-    ajax(serverUrl + '/admin/order_list/updateDlvrConfirmDate', inputData, 'updateDlvrConfirmDate', 'POST');
 }
 
 function updateDepositConfirmDateCallback() {
