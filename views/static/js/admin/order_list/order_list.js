@@ -196,7 +196,7 @@ function selectOrderListMainCallback(ret) {
                 html += '</div>';
             }
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
@@ -240,6 +240,9 @@ function selectOrderListMainCallback(ret) {
                 html += '<label class="custom-control-label" for="select_order' + orderNo + '_' + orderSeq + '"></label>';
                 html += '</div>';
             }
+            html += '</td>';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
             html += '</td>';
             html += '<input type="hidden" id="order_seq" value="' + orderSeq + '">';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
