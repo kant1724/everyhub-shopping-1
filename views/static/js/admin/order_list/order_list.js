@@ -29,7 +29,7 @@ $(document).ready(function() {
         exportExcel();
     });
     $('#start_dlvr').click(function() {
-        startDlvr();
+        updateDlvrConfirmDate();
     });
     $('#save_invoice_no').click(function() {
         updateInvoiceNo();
@@ -39,10 +39,30 @@ $(document).ready(function() {
     selectOrderListMain();
 });
 
-function startDlvr() {
+function updateDlvrConfirmDate() {
     if (confirm('선택된 주문내역의 배송을 시작하시겠습니까?')) {
-
+        let orderObj = $('#order_list_tbody').find('.each-order');
+        let orderListDetail = [];
+        for (let i = 0; i < orderObj.length; ++i) {
+            let orderList = {};
+            let checked = $(orderObj[i]).find('.select-order').is(':checked');
+            if (!checked) {
+                continue;
+            }
+            orderList.orderNo = $(orderObj[i]).find('#order_no').text();
+            orderList.orderSeq = $(orderObj[i]).find('#order_seq').val();
+            orderListDetail.push(orderList);
+        }
+        let inputData = {
+            orderListDetail: orderListDetail
+        };
+        ajax(serverUrl + '/admin/order_list/updateDlvrConfirmDate', inputData, 'updateDlvrConfirmDate', 'POST');
     }
+}
+
+function updateDlvrConfirmDateCallback() {
+   alert('배송이 시작되었습니다.');
+    selectOrderListMain();
 }
 
 function updateInvoiceNo() {
@@ -144,21 +164,26 @@ function selectOrderListMainCallback(ret) {
         if (depositConfirmDate == null || depositConfirmDate == '') {
             depositConfirmDate = '<a class="confirm-deposit-btn common-button-1">입금확인</a>';
         }
-
+        let hasInvoiceNo = false;
         if (invoiceNo == null || invoiceNo == '') {
             invoiceNo = '<a class="write-invoice-no-btn common-button-1">입력</a>';
         } else {
+            hasInvoiceNo = true;
             invoiceNo = '<div>' + invoiceNo + '</div><a class="write-invoice-no-btn" style="text-decoration: underline; color: gray; font-size: 12px;">변경</a>';
         }
         let pt = '15px';
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
-            html += '<tr style="margin-bottom: 0px;">';
+            html += '<tr class="each-order" style="margin-bottom: 0px;">';
             html += '<input type="hidden" id="order_seq" value="' + orderSeq + '">';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div class="ml-2 custom-control custom-checkbox">';
-            html += '<input type="checkbox" class="custom-control-input" id="select_order' + orderNo + '">';
-            html += '<label class="custom-control-label" for="select_order' + orderNo + '"></label>';
+            if (!hasInvoiceNo) {
+                html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" disabled>';
+            } else {
+                html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" checked>';
+            }
+            html += '<label class="custom-control-label" for="select_order' + orderNo + '_' + orderSeq + '"></label>';
             html += '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
@@ -190,10 +215,23 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '</tr>';
         } else {
-            html += '<tr>';
+            html += '<tr class="each-order">';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<div class="ml-2 custom-control custom-checkbox">';
+            if (!hasInvoiceNo) {
+                html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" disabled>';
+            } else {
+                html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" checked>';
+            }
+            html += '<label class="custom-control-label" for="select_order' + orderNo + '_' + orderSeq + '"></label>';
+            html += '</div>';
+            html += '</td>';
             html += '<input type="hidden" id="order_seq" value="' + orderSeq + '">';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
+            html += '</td>';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
