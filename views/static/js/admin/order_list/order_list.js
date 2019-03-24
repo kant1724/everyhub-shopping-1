@@ -51,6 +51,8 @@ function updateDlvrConfirmDate() {
             }
             orderList.orderNo = $(orderObj[i]).find('#order_no').text();
             orderList.orderSeq = $(orderObj[i]).find('#order_seq').val();
+            orderList.itemNm1 = $(orderObj[i]).find('#item_nm_1').text();
+            orderList.optionNm = $(orderObj[i]).find('#option_nm').text();
             orderListDetail.push(orderList);
         }
         let inputData = {
