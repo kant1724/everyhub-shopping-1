@@ -29,7 +29,7 @@ $(document).ready(function() {
             items += id + ';';
         }
         if (items == '') {
-            alert('구매할 물품을 선택하세요.');
+            alert('구매할 상품을 선택하세요.');
             return;
         }
         items = items.substring(0, items.length - 1);

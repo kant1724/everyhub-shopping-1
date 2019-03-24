@@ -288,5 +288,5 @@ function insertOrderListCallback() {
         localStorage.setItem('product', JSON.stringify(productArr));
     }
 
-    location.href = '/purchase/purchase_complete';
+    window.location.replace('/purchase/purchase_complete');
 }
