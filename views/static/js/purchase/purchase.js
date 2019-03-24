@@ -250,5 +250,16 @@ function insertOrderList() {
 }
 
 function insertOrderListCallback() {
+    let itemArr = $('#items').val().split(';');
+    let productArr = JSON.parse(localStorage.getItem('product'));
+    for (let i = 0; i < itemArr.length; ++i) {
+        for (let j = 0; j < productArr.length; ++j) {
+            if (productArr[j].id == itemArr[i]) {
+                productArr.splice(j, 1);
+            }
+        }
+    }
+    localStorage.setItem('product', JSON.stringify(productArr));
+
     alert('주문이 완료되었습니다.\n0000-000-00000 계좌로 입금해 주세요.');
 }

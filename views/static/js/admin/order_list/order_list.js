@@ -63,11 +63,6 @@ function updateDlvrConfirmDate() {
     }
 }
 
-function updateDlvrConfirmDateCallback() {
-   alert('배송이 시작되었습니다.');
-    selectOrderListMain();
-}
-
 function updateInvoiceNo() {
     let orderNo = $('#modal_order_no').val();
     let orderSeq = $('#modal_order_seq').val();
@@ -278,6 +273,7 @@ function selectOrderListMainCallback(ret) {
     $('.write-invoice-no-btn').click(function() {
         let orderNo = $(this).parent().parent().parent().find('#order_no').text();
         let orderSeq = $(this).parent().parent().parent().find('#order_seq').val();
+        $('#modal_invoice_no').val('');
         $('#modal_order_no').val(orderNo);
         $('#modal_order_seq').val(orderSeq);
         $('#invoice_no_modal').modal();
