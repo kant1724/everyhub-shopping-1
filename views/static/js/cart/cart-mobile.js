@@ -39,7 +39,7 @@ $(document).ready(function() {
     let productArr = JSON.parse(localStorage.getItem('product'));
     let html = '';
     if (productArr == null || productArr.length == 0) {
-        html += '<div class="text-center ml-3">장바구니가 비어있습니다.</div>';
+        html += '<div class="text-center ml-3" style="background: #FAFAFA;">장바구니가 비어있습니다.</div>';
         $('#cart_list').append(html);
     } else {
         for (let i = 0; i < productArr.length; ++i) {
