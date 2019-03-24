@@ -218,7 +218,7 @@ function selectOrderListMainCallback(ret) {
             html += '<td>';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
-            html += '<td>';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
             html += '</td>';
             html += '</tr>';
@@ -249,7 +249,7 @@ function selectOrderListMainCallback(ret) {
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
-            html += '<td>';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
             html += '</td>';
             html += '</tr>';

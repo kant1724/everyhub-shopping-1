@@ -40,9 +40,9 @@ function selectItemListCallback(ret) {
         html += '<td class="text-center">' + ret[i].itemNm2 + '</td>';
         html += '<td class="text-center">' + ret[i].recommendYn + '</td>';
         html += '<td class="text-center">' + ret[i].useYn + '</td>';
-        html += '<td class="text-center"><a id="item_option" class="common-button-1 item-option">등록</a></td>';
-        html += '<td class="text-center"><a id="modify_item" class="common-button-1 modify-item">변경</a></td>';
-        html += '<td class="text-center"><a id="delete_item" class="common-button-1 delete-item">삭제</a></td></tr>';
+        html += '<td class="text-center" style="width: 120px;"><a id="item_option" class="common-button-1 item-option">옵션등록</a></td>';
+        html += '<td class="text-center" style="width: 80px;"><a id="modify_item" class="common-button-1 modify-item">변경</a></td>';
+        html += '<td class="text-center" style="width: 80px;"><a id="delete_item" class="common-button-1 delete-item">삭제</a></td></tr>';
     }
     $('.item-table tbody').append(html);
 
