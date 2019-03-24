@@ -5,16 +5,17 @@ let auth = require('../common/auth');
 
 router.get('/', function(req, res, next) {
     let param = req.query;
+    let userNo = auth.getUserNo(req);
+    let adminYn = auth.getAdminYn(req);
     param.userNo = auth.getUserNo(req);
     param.adminYn = auth.getAdminYn(req);
     let md = new MobileDetect(req.headers['user-agent']);
-    if (param.userNo == 0) {
-        let userNo = auth.getUserNo(req);
-        let adminYn = auth.getAdminYn(req);
+    if (userNo == 0) {
+        param = JSON.stringify(param);
         if (md.mobile()) {
-            res.render('templates/user/login-mobile', {userNo: userNo, adminYn: adminYn});
+            res.render('templates/user/login-mobile', {userNo: userNo, adminYn: adminYn, param: param, gubun: 'purchase'});
         } else {
-            res.render('templates/user/login', {userNo: userNo, adminYn: adminYn});
+            res.render('templates/user/login', {userNo: userNo, adminYn: adminYn, param: param, gubun: 'purchase'});
         }
     } else {
         if (md.mobile()) {

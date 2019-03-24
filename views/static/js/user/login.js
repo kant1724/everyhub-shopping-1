@@ -43,7 +43,6 @@ function login() {
 
 function loginCallback(ret) {
     if (ret != 'not ok') {
-        localStorage.clear();
         let inputData = {
             token: ret
         };
@@ -52,5 +51,28 @@ function loginCallback(ret) {
 }
 
 function setTokenCallback(ret) {
-    location.href = '/';
+    let gubun = $('#gubun').val();
+    if (gubun == 'purchase') {
+        let p = JSON.parse($('#param').val());
+        let param = '';
+        if (isNull(p.items)) {
+            param += 'itemNo=' + p.itemNo;
+            param += '&optionNo=' + p.optionNo;
+            param += '&optionNm=' + p.optionNm;
+            param += '&imagePath=' + p.imagePath;
+            ;
+            param += '&itemNm1=' + p.itemNm1;
+            param += '&itemNm2=' + p.itemNm2;
+            param += '&itemPrice=' + p.itemPrice;
+            param += '&shippingFee=' + p.shippingFee;
+            param += '&itemPriceNum=' + p.itemPriceNum;
+            param += '&shippingFeeNum=' + p.shippingFeeNum;
+            param += '&qty=' + p.qty;
+        } else {
+            param += 'items=' + p.items;
+        }
+        location.href = '/purchase?' + param;
+    } else {
+        location.href = '/';
+    }
 }
