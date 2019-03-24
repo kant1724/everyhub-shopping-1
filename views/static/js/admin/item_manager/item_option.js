@@ -57,8 +57,8 @@ function selectItemOptionCallback(ret) {
         html += '<td class="text-center option-nm">' + ret[i].optionNm + '</td>';
         html += '<td class="text-center item-price">' + ret[i].itemPrice + '</td>';
         html += '<td class="text-center shipping-fee">' + ret[i].shippingFee + '</td>';
-        html += '<td class="text-center"><a id="modify_option" class="common-button-1 modify-option">변경</a></td>';
-        html += '<td class="text-center"><a id="delete_option" class="common-button-1 delete-option">삭제</a></td></tr>';
+        html += '<td class="text-center" style="width: 100px;"><a id="modify_option" class="common-button-1 modify-option">변경</a></td>';
+        html += '<td class="text-center" style="width: 100px;"><a id="delete_option" class="common-button-1 delete-option">삭제</a></td></tr>';
     }
     $('.option-table tbody').append(html);
 

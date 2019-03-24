@@ -194,7 +194,7 @@ function selectOrderListMainCallback(ret) {
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<td rowspan="' + rs + '" style="width: 150px; vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_date" class="oreder-date">' + orderDate + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
@@ -212,13 +212,13 @@ function selectOrderListMainCallback(ret) {
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<td rowspan="' + rs + '" style="width: 150px; vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="deposit_confirm_date" class="deposit-confirm-date">' + depositConfirmDate + '</div>';
             html += '</td>';
-            html += '<td>';
+            html += '<td style="width: 120px;">';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
-            html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<td style="width: 120px; vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
             html += '</td>';
             html += '</tr>';
@@ -293,6 +293,6 @@ function updateDepositConfirmDateCallback() {
 }
 
 function updateDlvrConfirmDateCallback() {
-    alert('배송완료 처리되었습니다.');
+    alert('배송시작 처리되었습니다.');
     selectOrderListMain();
 }
