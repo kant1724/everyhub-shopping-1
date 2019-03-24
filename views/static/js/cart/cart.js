@@ -21,10 +21,21 @@ $(document).ready(function() {
                 continue;
             }
             let id = $(itemObj[i]).find('#id').val();
+            let qty = $(itemObj[i]).find('.qty').text();
+            if (qty == 0) {
+                alert('수량은 1이상이어야 합니다.');
+                return;
+            }
             items += id + ';';
         }
+        if (items == '') {
+            alert('구매할 물품을 선택하세요.');
+            return;
+        }
+        items = items.substring(0, items.length - 1);
         location.href = '/purchase?items=' + items;
     });
+
     let productArr = JSON.parse(localStorage.getItem('product'));
     let html = '';
     if (productArr == null || productArr.length == 0) {

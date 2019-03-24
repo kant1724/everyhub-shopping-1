@@ -90,6 +90,10 @@ $(document).ready(function() {
         param += '&itemPriceNum=' + $('#info_item_price_num').val();
         param += '&shippingFeeNum=' + $('#info_shipping_fee_num').val();
         param += '&qty=' + $('#qty').val();
+        if ($('#qty').val() == 0) {
+            alert('수량은 1이상이어야 합니다.');
+            return;
+        }
         location.href = '/purchase?' + param;
     });
 
