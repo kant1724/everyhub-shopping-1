@@ -23,7 +23,11 @@ $(document).ready(function() {
     $('.mdb-select').materialSelect();
 
     $('.payment-btn').click(function() {
-        insertOrderList();
+        if (checkValid()) {
+            if (confirm('해당내용으로 주문하시겠습니까?')) {
+                insertOrderList();
+            }
+        }
     });
 
     if ($('#items').val() != '') {
@@ -156,14 +160,16 @@ function purchaseDirect() {
     let eachOrder = {};
     eachOrder.itemNo = $('#direct_item_no').val();
     eachOrder.optionNo = $('#direct_option_no').val();
-    html += '<div class="my-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + $('#direct_image_path').val() + '" alt="" class="img-fluid z-depth-0"></div>';
-    html += '<div class="my-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
-    html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;상품명: ' + $('#direct_item_nm_1').val() + '</div>';
-    html += '<div class="mb-2">' + $('#direct_option_nm').val() + '</div>';
-    html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;단가: ' + $('#direct_item_price').val() + '</div>';
-    html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;배송비: ' + $('#direct_shipping_fee').val() + '</div>';
-    html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;수량: ' + $('#direct_qty').val() + '</div>';
-    html += '<div><i class="far fa-check-circle"></i>&nbsp;&nbsp;가격: ' + numberWithCommas((Number($('#direct_item_price_num').val()) + Number($('#direct_shipping_fee_num').val())) * Number($('#direct_qty').val())) + '원</div>';
+    html += '<div style="font-size: 11px;">';
+    html += '<div class="mt-2 mb-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + $('#direct_image_path').val() + '" alt="" class="img-fluid z-depth-0"></div>';
+    html += '<div class="mb-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
+    html += '<div class="mb-2">상품명: ' + $('#direct_item_nm_1').val() + '</div>';
+    html += '<div class="mb-2">옵션: ' + $('#direct_option_nm').val() + '</div>';
+    html += '<div class="mb-2">단가: ' + $('#direct_item_price').val() + '</div>';
+    html += '<div class="mb-2">배송비: ' + $('#direct_shipping_fee').val() + '</div>';
+    html += '<div class="mb-2">수량: ' + $('#direct_qty').val() + '</div>';
+    html += '<div>가격: ' + numberWithCommas((Number($('#direct_item_price_num').val()) + Number($('#direct_shipping_fee_num').val())) * Number($('#direct_qty').val())) + '원</div>';
+    html += '</div>';
     html += '</div>';
     html += '<hr>';
     let qty = Number($('#direct_qty').val());
@@ -192,14 +198,16 @@ function purchaseFromCart() {
                 eachOrder.optionNo = productArr[j].optionNo;
                 html += '<div style="font-size: 20px; font-weight: 700; color: gray;"><i class="far fa-list"></i>&nbsp;&nbsp;주문' + cnt + '</div>';
                 html += '<hr>';
-                html += '<div class="my-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></div>';
-                html += '<div class="my-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
-                html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;상품명: ' + productArr[j].itemNm1 + '</div>';
-                html += '<div class="mb-2">' + productArr[j].optionNm + '</div>';
-                html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;단가: ' + productArr[j].itemPrice + '</div>';
-                html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;배송비: ' + productArr[j].shippingFee + '</div>';
-                html += '<div class="mb-2"><i class="far fa-check-circle"></i>&nbsp;&nbsp;수량: ' + productArr[j].qty + '</div>';
-                html += '<div><i class="far fa-check-circle"></i>&nbsp;&nbsp;가격: ' + numberWithCommas((Number(productArr[j].itemPriceNum) + Number(productArr[j].shippingFeeNum)) * productArr[j].qty) + '원</div>';
+                html += '<div style="font-size: 11px;">';
+                html += '<div class="mt-2 mb-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></div>';
+                html += '<div class="mb-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
+                html += '<div class="mb-2">상품명: ' + productArr[j].itemNm1 + '</div>';
+                html += '<div class="mb-2">옵션: ' + productArr[j].optionNm + '</div>';
+                html += '<div class="mb-2">단가: ' + productArr[j].itemPrice + '</div>';
+                html += '<div class="mb-2">배송비: ' + productArr[j].shippingFee + '</div>';
+                html += '<div class="mb-2">수량: ' + productArr[j].qty + '</div>';
+                html += '<div>가격: ' + numberWithCommas((Number(productArr[j].itemPriceNum) + Number(productArr[j].shippingFeeNum)) * productArr[j].qty) + '원</div>';
+                html += '</div>';
                 html += '</div>';
                 html += '<hr>';
                 orderListDetail.push(eachOrder);
@@ -212,6 +220,19 @@ function purchaseFromCart() {
     $('#order_list').append(html);
 
     orderListMain.totalPrice = sum;
+}
+
+function checkValid() {
+    if (isNull($('#order_person_nm').val())) {
+        alert('주문자명을 입력하세요.');
+        return false;
+    }
+    if (isNull($('#order_telno').val())) {
+        alert('주문자 전화번호를 입력하세요.');
+        return false;
+    }
+
+    return true;
 }
 
 function insertOrderList() {
@@ -251,15 +272,17 @@ function insertOrderList() {
 
 function insertOrderListCallback() {
     let itemArr = $('#items').val().split(';');
-    let productArr = JSON.parse(localStorage.getItem('product'));
-    for (let i = 0; i < itemArr.length; ++i) {
-        for (let j = 0; j < productArr.length; ++j) {
-            if (productArr[j].id == itemArr[i]) {
-                productArr.splice(j, 1);
+    if (itemArr != null && itemArr != '') {
+        let productArr = JSON.parse(localStorage.getItem('product'));
+        for (let i = 0; i < itemArr.length; ++i) {
+            for (let j = 0; j < productArr.length; ++j) {
+                if (productArr[j].id == itemArr[i]) {
+                    productArr.splice(j, 1);
+                }
             }
         }
+        localStorage.setItem('product', JSON.stringify(productArr));
     }
-    localStorage.setItem('product', JSON.stringify(productArr));
 
-    alert('주문이 완료되었습니다.\n0000-000-00000 계좌로 입금해 주세요.');
+    location.href = '/purchase/purchase_complete';
 }

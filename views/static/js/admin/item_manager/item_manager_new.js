@@ -101,6 +101,7 @@ function registerNewItem() {
     let notice = $('#notice').val();
     let keepingMethod = $('#keeping_method').val();
     let recommendYn = $('#recommend_yn').val();
+    let useYn = $('#use_yn').val();
 
     let inputData = {
         itemNo: itemNo,
@@ -113,6 +114,7 @@ function registerNewItem() {
         notice: notice,
         keepingMethod: keepingMethod,
         recommendYn: recommendYn,
+        useYn: useYn,
         remoteUrl: remoteUrl,
         imageChanged: imageChanged
     };

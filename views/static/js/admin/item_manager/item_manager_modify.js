@@ -107,6 +107,7 @@ function modifyItem() {
     let notice = $('#notice').val();
     let keepingMethod = $('#keeping_method').val();
     let recommendYn = $('#recommend_yn').val();
+    let useYn = $('#use_yn').val();
     let inputData = {
         itemNo: itemNo,
         itemNm1: itemNm1,
@@ -118,6 +119,7 @@ function modifyItem() {
         notice: notice,
         keepingMethod: keepingMethod,
         recommendYn: recommendYn,
+        useYn: useYn,
         remoteUrl: remoteUrl,
         imageChanged: imageChanged
     };
@@ -134,12 +136,8 @@ function selectOneItemCallback(ret) {
     $('#item_nm_2').val(ret[0].itemNm2);
     $('#item_main_ctgr_cd').val(ret[0].itemMainCtgrCd);
     $('#item_mid_ctgr_cd').val(ret[0].itemMidCtgrCd);
+    $('#use_yn').val(ret[0].useYn);
     $('#recommend_yn').val(ret[0].recommendYn);
-    $('#recommend_yn').parent().find('.select-dropdown li:contains("' + ret[0].recommendYn+ '")').trigger('click')
-
-    //$('#item_main_ctgr_cd').parent().find('.select-dropdown li:contains("' + ret[0].itemMainCtgrNm + '")').trigger('click')
-    //$('#item_mid_ctgr_cd').parent().find('.select-dropdown li:contains("' + ret[0].itemMidCtgrNm + '")').trigger('click')
-
     $('#origin_cd').val(ret[0].originCd);
     $('#item_desc').val(ret[0].itemDesc);
     $('#notice').val(ret[0].notice);

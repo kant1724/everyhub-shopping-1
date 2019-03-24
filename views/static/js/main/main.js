@@ -37,7 +37,9 @@ $(document).ready(function() {
 });
 
 function selectItemList() {
-    let inputData = {};
+    let inputData = {
+        useYn: 'Y'
+    };
     ajax(serverUrl + '/admin/item_manager/selectItemList', inputData, 'selectItemList', 'POST');
 }
 
