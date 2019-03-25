@@ -27,13 +27,13 @@ body {
     display: inline-block;
     margin-left: 5%;
     margin-right: 5%;
-    color: #ccc;
+    color: #FFFFFF;
 }
 
 .menu {
-    background-color: #FFFFFF;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    background-color: #222;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-size: 14px;
 }
 
