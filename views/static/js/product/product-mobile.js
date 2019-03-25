@@ -48,6 +48,7 @@ function addCart() {
         imagePath: $('#info_image_path').prop('src'),
         itemNm1: $('#info_item_nm_1').text(),
         itemNm2: $('#info_item_nm_2').text(),
+        keepingMethod: $('#keeping_method').val(),
         itemPrice: $('#info_item_price').text(),
         shippingFee: $('#info_shipping_fee').text(),
         itemPriceNum: $('#info_item_price_num').val(),
@@ -85,6 +86,7 @@ $(document).ready(function() {
         param += '&imagePath=' + $('#info_image_path').prop('src');
         param += '&itemNm1=' + $('#info_item_nm_1').text();
         param += '&itemNm2=' + $('#info_item_nm_2').text();
+        param += '&keepingMethod=' + $('#keeping_method').val();
         param += '&itemPrice=' + $('#info_item_price').text();
         param += '&shippingFee=' + $('#info_shipping_fee').text();
         param += '&itemPriceNum=' + $('#info_item_price_num').val();

@@ -161,6 +161,7 @@ function purchaseDirect() {
     eachOrder.qty = $('#direct_qty').val();
     eachOrder.itemNo = $('#direct_item_no').val();
     eachOrder.itemNm1 = $('#direct_item_nm_1').val();
+    eachOrder.keepingMethod = $('#direct_keeping_method').val();
     eachOrder.optionNo = $('#direct_option_no').val();
     html += '<div style="font-size: 11px;">';
     html += '<div class="mt-2 mb-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + $('#direct_image_path').val() + '" alt="" class="img-fluid z-depth-0"></div>';
@@ -198,6 +199,7 @@ function purchaseFromCart() {
                 eachOrder.qty = productArr[j].qty;
                 eachOrder.itemNo = productArr[j].itemNo;
                 eachOrder.itemNm1 = productArr[j].itemNm1;
+                eachOrder.keepingMethod = productArr[j].keepingMethod;
                 eachOrder.optionNo = productArr[j].optionNo;
                 html += '<div style="font-size: 20px; font-weight: 700; color: gray;"><i class="far fa-list"></i>&nbsp;&nbsp;주문' + cnt + '</div>';
                 html += '<hr>';

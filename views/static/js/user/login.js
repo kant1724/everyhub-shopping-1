@@ -60,9 +60,9 @@ function setTokenCallback(ret) {
             param += '&optionNo=' + p.optionNo;
             param += '&optionNm=' + p.optionNm;
             param += '&imagePath=' + p.imagePath;
-            ;
             param += '&itemNm1=' + p.itemNm1;
             param += '&itemNm2=' + p.itemNm2;
+            param += '&keepingMethod=' + p.keepingMethod;
             param += '&itemPrice=' + p.itemPrice;
             param += '&shippingFee=' + p.shippingFee;
             param += '&itemPriceNum=' + p.itemPriceNum;
