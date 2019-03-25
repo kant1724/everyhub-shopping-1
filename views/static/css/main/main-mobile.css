@@ -30,6 +30,7 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 14px;
+    border-bottom: 1px solid #333;
 }
 
 .menu-1 {
