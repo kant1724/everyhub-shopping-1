@@ -20,6 +20,11 @@ if ($('#user_no').val() == 0) {
     headerHtml += '<i class="far fa-sign-in-alt"></i>&nbsp;&nbsp;로그인';
     headerHtml += '</a>';
     headerHtml += '</li>';
+    headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
+    headerHtml += '<a class="nav-link waves-effect waves-light" href="/user/sign_up">';
+    headerHtml += '<i class="far fa-user-plus"></i>&nbsp;&nbsp;회원가입';
+    headerHtml += '</a>';
+    headerHtml += '</li>';
 } else {
     headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
     headerHtml += '<a class="nav-link waves-effect waves-light" href="/mypage">';
