@@ -12,7 +12,7 @@ body {
 }
 
 .top-main {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('http://14.63.168.58:5005/static/data/shopping/top.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('http://14.63.168.58:5006/static/data/shopping/top.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
