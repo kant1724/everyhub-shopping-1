@@ -39,7 +39,7 @@ function searchAddress() {
 }
 
 function goSigningUp() {
-    let telno = $('#telno').val();
+    let telno = $('#telno_1').val() + $('#telno_2').val() + $('#telno_3').val();
     let password = $('#password').val();
     let userNm = $('#user_nm').val();
     let gender = 'M';
