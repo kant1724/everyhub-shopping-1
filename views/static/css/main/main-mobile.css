@@ -22,15 +22,14 @@ body {
     display: inline-block;
     margin-left: 5%;
     margin-right: 5%;
-    color: #FFFFFF;
+    color: #333;
 }
 
 .menu {
-    background-color: #222;
+    background-color: #EAEAEA;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 14px;
-    border-bottom: 1px solid #333;
 }
 
 .menu-1 {
