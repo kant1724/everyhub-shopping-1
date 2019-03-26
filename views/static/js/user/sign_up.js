@@ -40,6 +40,9 @@ function searchAddress() {
 
 function goSigningUp() {
     let telno = $('#telno_1').val() + $('#telno_2').val() + $('#telno_3').val();
+    let telno1 = $('#telno_1').val();
+    let telno2 = $('#telno_2').val();
+    let telno3 = $('#telno_3').val();
     let password = $('#password').val();
     let userNm = $('#user_nm').val();
     let gender = 'M';
@@ -54,6 +57,9 @@ function goSigningUp() {
     let zipNo = $('#zip_no').text();
     let inputData = {
         telno: telno,
+        telno1: telno1,
+        telno2: telno2,
+        telno3: telno3,
         password: password,
         userNm: userNm,
         gender: gender,
