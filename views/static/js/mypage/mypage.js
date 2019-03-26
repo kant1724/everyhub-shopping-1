@@ -161,7 +161,9 @@ function selectUserCallback(ret) {
     if (ret.length > 0) {
         $('#user_nm').val(ret[0].userNm);
         $('#password').val(ret[0].password);
-        $('#telno').val(ret[0].telno);
+        $('#telno_1').val(ret[0].telno1);
+        $('#telno_2').val(ret[0].telno2);
+        $('#telno_3').val(ret[0].telno3);
         $('#user_nm').focus();
         $('#telno').focus();
         $('#zip_no').text(ret[0].zipNo);
@@ -199,7 +201,10 @@ function updateUser() {
     let inputData = {
         userNm: $('#user_nm').val(),
         password: $('#password').val(),
-        telno: $('#telno').val(),
+        telno: $('#telno_1').val() + $('#telno_2').val() + $('#telno_3').val(),
+        telno1: $('#telno_1').val(),
+        telno2: $('#telno_2').val(),
+        telno3: $('#telno_3').val(),
         gender: gender,
         dateOfBirth: $('#date_of_birth').val(),
         zipNo: $('#zip_no').text(),

@@ -30,18 +30,32 @@
                 <hr>
                 <div class="order-info-title-text" style="font-size: 16px;">주문자 정보</div>
                 <div>
-                    <div class="d-inline-block ml-2">
+                    <div class="ml-2">
                         <div class="md-form">
                             <i class="far fa-user prefix" style="font-size: 25px;"></i>
                             <input type="text" class="form-control" id="order_person_nm" style="font-size: 13px; width: 200px;">
                             <label id="order_person_nm_label" for="order_person_nm" style="font-size: 13px;">주문자</label>
                         </div>
                     </div>
-                    <div class="d-inline-block">
-                        <div class="md-form">
-                            <i class="fal fa-mobile-alt prefix" style="font-size: 25px;"></i>
-                            <input type="text" min="0" class="form-control" id="order_telno" style="font-size: 13px; width: 200px;">
-                            <label id="order_telno_label" for="order_telno" style="font-size: 13px;">주문자 전화번호</label>
+                    <div class="ml-2">
+                        <div style="position: relative; top: 10px;">
+                            주문자 전화번호
+                        </div>
+                        <div class="md-form d-inline-block">
+                            <i class="fas fa-mobile-alt prefix" style="font-size: 25px;"></i>
+                            <input type="text" class="form-control" id="order_telno_1" style="width: 50px; text-align: center; font-size: 13px;">
+                        </div>
+                        <div class="md-form d-inline-block">
+                            -
+                        </div>
+                        <div class="md-form d-inline-block">
+                            <input type="text" class="form-control" id="order_telno_2" style="width: 50px; text-align: center; font-size: 13px;">
+                        </div>
+                        <div class="md-form d-inline-block">
+                            -
+                        </div>
+                        <div class="md-form d-inline-block">
+                            <input type="text" class="form-control" id="order_telno_3" style="width: 50px; text-align: center; font-size: 13px;">
                         </div>
                     </div>
                     <div class="ml-2">
@@ -62,18 +76,32 @@
                         <input type="checkbox"  class="form-check-input" id="sender_same_with_order_info">
                         <label class="form-check-label" for="sender_same_with_order_info">주문자 정보와 동일</label>
                     </div>
-                    <div class="d-inline-block ml-2">
+                    <div class="ml-2">
                         <div class="md-form">
                             <i class="fas fa-user prefix" style="font-size: 25px;"></i>
                             <input type="text" class="form-control" id="send_person_nm"  style="font-size: 13px; width: 200px;">
                             <label id="send_person_nm_label" for="send_person_nm" style="font-size: 13px;">보내는자</label>
                         </div>
                     </div>
-                    <div class="d-inline-block">
-                        <div class="md-form">
-                            <i class="far fa-mobile-alt prefix" style="font-size: 25px;"></i>
-                            <input type="text" class="form-control" id="send_telno"  style="font-size: 13px; width: 200px;">
-                            <label id="send_telno_label" for="send_telno" style="font-size: 13px;">보내는자 전화번호</label>
+                    <div class="ml-2">
+                        <div style="position: relative; top: 10px;">
+                            보내는자 전화번호
+                        </div>
+                        <div class="md-form d-inline-block">
+                            <i class="fas fa-mobile-alt prefix" style="font-size: 25px;"></i>
+                            <input type="text" class="form-control" id="send_telno_1" style="width: 50px; text-align: center; font-size: 13px;">
+                        </div>
+                        <div class="md-form d-inline-block">
+                            -
+                        </div>
+                        <div class="md-form d-inline-block">
+                            <input type="text" class="form-control" id="send_telno_2" style="width: 50px; text-align: center; font-size: 13px;">
+                        </div>
+                        <div class="md-form d-inline-block">
+                            -
+                        </div>
+                        <div class="md-form d-inline-block">
+                            <input type="text" class="form-control" id="send_telno_3" style="width: 50px; text-align: center; font-size: 13px;">
                         </div>
                     </div>
                 </div>
@@ -96,18 +124,32 @@
                         <input type="checkbox"  class="form-check-input" id="receiver_same_with_order_info">
                         <label class="form-check-label" for="receiver_same_with_order_info">주문자 정보와 동일</label>
                     </div>
-                    <div class="d-inline-block ml-2">
+                    <div class="ml-2">
                         <div class="md-form">
                             <i class="fas fa-user prefix" style="font-size: 25px;"></i>
                             <input type="text" class="form-control" id="receive_person_nm"  style="font-size: 13px; width: 200px;">
                             <label id="receive_person_nm_label" for="receive_person_nm" style="font-size: 13px;">받는자</label>
                         </div>
                     </div>
-                    <div class="d-inline-block">
-                        <div class="md-form">
-                            <i class="far fa-mobile-alt prefix" style="font-size: 25px;"></i>
-                            <input type="text" class="form-control" id="receive_telno"  style="font-size: 13px; width: 200px;">
-                            <label id="receive_telno_label" for="receive_telno" style="font-size: 13px;">받는자 전화번호</label>
+                    <div class="ml-2">
+                        <div style="position: relative; top: 10px;">
+                            받는자 전화번호
+                        </div>
+                        <div class="md-form d-inline-block">
+                            <i class="fas fa-mobile-alt prefix" style="font-size: 25px;"></i>
+                            <input type="text" class="form-control" id="receive_telno_1" style="width: 50px; text-align: center; font-size: 13px;">
+                        </div>
+                        <div class="md-form d-inline-block">
+                            -
+                        </div>
+                        <div class="md-form d-inline-block">
+                            <input type="text" class="form-control" id="receive_telno_2" style="width: 50px; text-align: center; font-size: 13px;">
+                        </div>
+                        <div class="md-form d-inline-block">
+                            -
+                        </div>
+                        <div class="md-form d-inline-block">
+                            <input type="text" class="form-control" id="receive_telno_3" style="width: 50px; text-align: center; font-size: 13px;">
                         </div>
                     </div>
                 </div>

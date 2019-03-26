@@ -107,6 +107,9 @@ function selectUserCallback(ret) {
     if (ret.length > 0) {
         $('#order_person_nm').val(ret[0].userNm);
         $('#order_telno').val(ret[0].telno);
+        $('#order_telno_1').val(ret[0].telno1);
+        $('#order_telno_2').val(ret[0].telno2);
+        $('#order_telno_3').val(ret[0].telno3);
         $('#order_person_nm').focus();
         $('#order_telno').focus();
         $('#order_zip_no').val(ret[0].zipNo);
@@ -126,13 +129,14 @@ function setSenderInput() {
 function setSendInfoSameWithOrderInfo(focus) {
     if ($('#sender_same_with_order_info').is(':checked')) {
         $('#send_person_nm').val($('#order_person_nm').val());
-        $('#send_telno').val($('#order_telno').val());
+        $('#send_telno_1').val($('#order_telno_1').val());
+        $('#send_telno_2').val($('#order_telno_2').val());
+        $('#send_telno_3').val($('#order_telno_3').val());
         $('#send_zip_no').text($('#order_zip_no').val());
         $('#send_address_main').text($('#order_address_main').val());
         $('#send_address_detail').val($('#order_address_detail').val());
         if (focus) {
             $('#send_person_nm').focus();
-            $('#send_telno').focus();
             $('#send_address_detail').focus();
             $('#sender_same_with_order_info').focus();
         }
@@ -142,13 +146,14 @@ function setSendInfoSameWithOrderInfo(focus) {
 function setReceiveInfoSameWithOrderInfo(focus) {
     if ($('#receiver_same_with_order_info').is(':checked')) {
         $('#receive_person_nm').val($('#order_person_nm').val());
-        $('#receive_telno').val($('#order_telno').val());
+        $('#receive_telno_1').val($('#order_telno_1').val());
+        $('#receive_telno_2').val($('#order_telno_2').val());
+        $('#receive_telno_3').val($('#order_telno_3').val());
         $('#receive_zip_no').text($('#order_zip_no').val());
         $('#receive_address_main').text($('#order_address_main').val());
         $('#receive_address_detail').val($('#order_address_detail').val());
         if (focus) {
             $('#receive_person_nm').focus();
-            $('#receive_telno').focus();
             $('#receive_address_detail').focus();
             $('#receiver_same_with_order_info').focus();
         }
@@ -232,10 +237,6 @@ function checkValid() {
         alert('주문자명을 입력하세요.');
         return false;
     }
-    if (isNull($('#order_telno').val())) {
-        alert('주문자 전화번호를 입력하세요.');
-        return false;
-    }
 
     return true;
 }
@@ -243,7 +244,7 @@ function checkValid() {
 function insertOrderList() {
     orderListMain.acno = '11111-11111-1111';
     orderListMain.orderPersonNm = $('#order_person_nm').val();
-    orderListMain.orderTelno = $('#order_telno').val();
+    orderListMain.orderTelno = $('#order_telno_1').val() + $('#order_telno_2').val() + $('#order_telno_3').val();
     orderListMain.sendPersonNm = '';
     orderListMain.sendTelno = '';
     orderListMain.sendZipNo = '';
@@ -251,13 +252,13 @@ function insertOrderList() {
     orderListMain.sendAddressDetail = '';
     if ($('#has_sender').is(':checked')) {
         orderListMain.sendPersonNm = $('#send_person_nm').val();
-        orderListMain.sendTelno = $('#send_telno').val();
+        orderListMain.sendTelno = $('#send_telno_1').val() + $('#send_telno_2').val() + $('#send_telno_3').val();
         orderListMain.sendZipNo = $('#send_zip_no').text();
         orderListMain.sendAddressMain = $('#send_address_main').text();
         orderListMain.sendAddressDetail = $('#send_address_detail').val();
     }
     orderListMain.receivePersonNm = $('#receive_person_nm').val();
-    orderListMain.receiveTelno = $('#receive_telno').val();
+    orderListMain.receiveTelno = $('#receive_telno_1').val() + $('#receive_telno_2').val() + $('#receive_telno_3').val();
     orderListMain.receiveZipNo = $('#receive_zip_no').text();
     orderListMain.receiveAddressMain = $('#receive_address_main').text();
     orderListMain.receiveAddressDetail = $('#receive_address_detail').val();
