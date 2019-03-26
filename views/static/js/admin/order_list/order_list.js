@@ -217,7 +217,7 @@ function selectOrderListMainCallback(ret) {
             html += '<td rowspan="' + rs + '" style="width: 150px; vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="deposit_confirm_date" class="deposit-confirm-date">' + depositConfirmDate + '</div>';
             html += '</td>';
-            html += '<td style="width: 120px;">';
+            html += '<td style="width: 120px; vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
             html += '<td style="width: 120px; vertical-align: middle; padding-top: ' + pt + ';">';
