@@ -37,3 +37,7 @@ body {
 .qty-plus-btn:hover, .qty-minus-btn:hover {
     cursor: pointer;
 }
+
+.remove-item {
+    cursor: pointer;
+}

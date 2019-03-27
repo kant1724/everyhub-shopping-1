@@ -65,7 +65,7 @@ $(document).ready(function() {
             html += '</label>';
             html += '<label class="plus-qty btn btn-sm btn-danger btn-rounded"><input type="radio" name="options" id="option2">+</label>';
             html += '</div></td><td id="sum">' + numberWithCommas((Number(productArr[i].itemPriceNum) + Number(productArr[i].shippingFeeNum)) * productArr[i].qty) + '원</td>';
-            html += '<td><button type="button" class="btn btn-sm btn-danger remove-item" data-toggle="tooltip" data-placement="top" title="Remove item">X</button></td></tr>';
+            html += '<td><i class="fal fa-times remove-item" style="font-size: 25px; float: right; margin-right: 20px;"></i></td></tr>';
         }
         $('#cart_tbody').append(html);
         $('.cart-checkbox').click(function() {
