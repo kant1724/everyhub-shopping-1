@@ -73,7 +73,7 @@ function logout() {
 }
 
 function logoutCallback() {
-    location.href = '/';
+    location.href = '/user/logout';
 }
 
 function selectOrderListMain() {
