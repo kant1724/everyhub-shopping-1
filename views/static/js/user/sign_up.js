@@ -9,6 +9,8 @@ function ajax(url, inputData, gubun, method) {
         success: function (data, status, xhr) {
             if (gubun == "goSigningUp") {
                 goSigningUpCallback(data.ret);
+            } else if (gubun == 'checkDup') {
+                checkDupCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -32,6 +34,10 @@ $(document).ready(function() {
         $('#address_modal').modal();
         searchAddressApi.init();
     });
+
+    $('#check_dup').click(function() {
+        checkDup();
+    })
 });
 
 function searchAddress() {
@@ -39,6 +45,10 @@ function searchAddress() {
 }
 
 function goSigningUp() {
+    if (isDup) {
+        alert('중복체크를 확인해주세요.');
+        return;
+    }
     let telno = $('#telno_1').val() + $('#telno_2').val() + $('#telno_3').val();
     let telno1 = $('#telno_1').val();
     let telno2 = $('#telno_2').val();
@@ -77,5 +87,23 @@ function goSigningUpCallback(ret) {
     } else {
         alert('회원가입이 완료되었습니다.')
         location.href = '/user'
+    }
+}
+
+function checkDup() {
+    let telno = $('#telno_1').val() + $('#telno_2').val() + $('#telno_3').val();
+    let inputData = {
+        telno: telno
+    };
+    ajax(serverUrl + '/user/checkDup', inputData, 'checkDup', 'POST');
+}
+
+let isDup = true;
+function checkDupCallback(ret) {
+    if (ret == 'ok') {
+        alert('가입할 수 있는 휴대폰 번호입니다.');
+        isDup = false;
+    } else {
+        alert('이미 가입된 휴대폰 번호입니다.');
     }
 }
