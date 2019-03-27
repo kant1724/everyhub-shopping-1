@@ -17,6 +17,8 @@ function ajax(url, inputData, gubun, method) {
                 updateUserCallback();
             } else if (gubun == 'cancelOrder') {
                 cancelOrderCallback();
+            } else if (gubun == 'logout') {
+                logoutCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -58,8 +60,21 @@ $(document).ready(function() {
          updateUser();
     });
 
+    $('#logout').click(function() {
+        logout();
+    });
+
     selectOrderListMain();
 });
+
+function logout() {
+    let inputData = {};
+    ajax(serverUrl + '/user/logout', inputData, 'logout', 'POST');
+}
+
+function logoutCallback() {
+    location.href = '/';
+}
 
 function selectOrderListMain() {
     let inputData = {
