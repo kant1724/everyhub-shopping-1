@@ -18,7 +18,11 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
-    $('.datepicker').pickadate(datepickerOption);
+    $('[data-toggle="datepicker"]').datepicker({
+        format: 'yyyy-mm-dd',
+        language: 'ko-KR',
+        autoHide: true
+    });
 
     $('#go_signing_up_btn').click(function() {
         goSigningUp();

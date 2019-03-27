@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
     <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
+    <link href="/static/lib/datepicker/datepicker.css" rel="stylesheet">
     <link href="/static/css/common/common.css" rel="stylesheet">
     <link href="/static/css/admin/order_list/order_list.css" rel="stylesheet">
 </head>
@@ -30,21 +31,21 @@
                 <div class="mt-4 ml-3 mr-3" style="font-size: 15px; color: gray;">
                     주문일
                 </div>
-                <div class="col-md-2 mr-5">
+                <div class="col-md-2 mr-3">
                     <span style="font-size: 13px;">시작일</span>
                     <div class="md-form" style="margin-top: 5px;">
-                        <input type="text" id="startingDate" class="form-control datepicker" style="padding-left: 40px;">
                         <i class="fal fa-calendar-alt prefix"></i><label for="startingDate"></label>
+                        <input id="startingDate" data-toggle="datepicker" style="padding: 5px;" readonly>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <span style="font-size: 13px;">종료일</span>
                     <div class="md-form" style="margin-top: 5px;">
-                        <input type="text" id="endingDate" class="form-control datepicker" style="padding-left: 40px;">
                         <i class="fal fa-calendar-alt prefix"></i><label for="endingDate"></label>
+                        <input id="endingDate" data-toggle="datepicker" style="padding: 5px;" readonly>
                     </div>
                 </div>
-                <div class="col-md-2 mt-4 ml-5">
+                <div class="col-md-2 ml-2" style="margin-top: 35px;">
                     <a id="search" class="common-button-1">조회</a>
                 </div>
             </div>
@@ -95,12 +96,13 @@
     <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/static/lib/datepicker/datepicker.js"></script>
+    <script type="text/javascript" src="/static/lib/datepicker/datepicker.ko-KR.js"></script>
     <script type="text/javascript" src="/static/lib/moment/moment.min.js"></script>
     <script type="text/javascript" src="/static/lib/js-xlsx/xlsx.full.min.js"></script>
     <script type="text/javascript" src="/static/js/common/properties.js"></script>
     <script type="text/javascript" src="/static/js/common/utils.js"></script>
     <script type="text/javascript" src="/static/js/component/header.js"></script>
-    <script type="text/javascript" src="/static/js/common/datepicker.js"></script>
     <script type="text/javascript" src="/static/js/admin/order_list/order_list.js"></script>
 </body>
 

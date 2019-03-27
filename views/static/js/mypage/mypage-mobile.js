@@ -24,6 +24,16 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
+    $('[data-toggle="datepicker"]').datepicker({
+        format: 'yyyy-mm-dd',
+        language: 'ko-KR',
+        autoHide: true
+    });
+    let start = moment().subtract(1, 'months').format('YYYY-MM-DD');
+    let end = moment().format('YYYY-MM-DD');
+    $('#startingDate').val(start);
+    $('#endingDate').val(end);
+
     $('#search').click(function() {
         selectOrderListMain();
     });
@@ -48,7 +58,6 @@ $(document).ready(function() {
          updateUser();
     });
 
-    datepicker.init();
     selectOrderListMain();
 });
 
