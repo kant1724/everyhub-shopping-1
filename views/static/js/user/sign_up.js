@@ -92,6 +92,10 @@ function goSigningUpCallback(ret) {
 
 function checkDup() {
     let telno = $('#telno_1').val() + $('#telno_2').val() + $('#telno_3').val();
+    if (isNull(telno)) {
+        alert('휴대폰 번호를 입력하세요.');
+        return;
+    }
     let inputData = {
         telno: telno
     };
