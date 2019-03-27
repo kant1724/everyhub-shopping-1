@@ -40,21 +40,25 @@ $(document).ready(function() {
 });
 
 function updateDlvrConfirmDate() {
-    if (confirm('선택된 주문내역의 배송을 시작하시겠습니까?')) {
-        let orderObj = $('#order_list_tbody').find('.each-order');
-        let orderListDetail = [];
-        for (let i = 0; i < orderObj.length; ++i) {
-            let orderList = {};
-            let checked = $(orderObj[i]).find('.select-order').is(':checked');
-            if (!checked) {
-                continue;
-            }
-            orderList.orderNo = $(orderObj[i]).find('#order_no').text();
-            orderList.orderSeq = $(orderObj[i]).find('#order_seq').val();
-            orderList.itemNm1 = $(orderObj[i]).find('#item_nm_1').text();
-            orderList.optionNm = $(orderObj[i]).find('#option_nm').text();
-            orderListDetail.push(orderList);
+    let orderObj = $('#order_list_tbody').find('.each-order');
+    let orderListDetail = [];
+    for (let i = 0; i < orderObj.length; ++i) {
+        let orderList = {};
+        let checked = $(orderObj[i]).find('.select-order').is(':checked');
+        if (!checked) {
+            continue;
         }
+        orderList.orderNo = $(orderObj[i]).find('#order_no').text();
+        orderList.orderSeq = $(orderObj[i]).find('#order_seq').val();
+        orderList.itemNm1 = $(orderObj[i]).find('#item_nm_1').text();
+        orderList.optionNm = $(orderObj[i]).find('#option_nm').text();
+        orderListDetail.push(orderList);
+    }
+    if (orderListDetail.length == 0) {
+        alert('배송시작할 주문을 선택하세요.');
+        return;
+    }
+    if (confirm('선택된 주문내역의 배송을 시작하시겠습니까?')) {
         let inputData = {
             data: JSON.stringify(
                 {
@@ -63,6 +67,7 @@ function updateDlvrConfirmDate() {
         };
         ajax(serverUrl + '/admin/order_list/updateDlvrConfirmDate', inputData, 'updateDlvrConfirmDate', 'POST');
     }
+
 }
 
 function updateInvoiceNo() {
