@@ -3,6 +3,15 @@ body {
     oveflow-x: hidden;
 }
 
+#title_logo {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#title_logo:hover {
+    cursor: pointer;
+}
+
 .light-black {
     background: #333333;
 }

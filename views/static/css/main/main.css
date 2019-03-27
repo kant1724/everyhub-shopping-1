@@ -7,6 +7,15 @@ body {
     background: #333333;
 }
 
+#title_logo {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#title_logo:hover {
+    cursor: pointer;
+}
+
 #logo_div {
     padding: 20px;
 }
@@ -36,6 +45,7 @@ body {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 14px;
+    border-bottom: 1px solid #ccc;
 }
 
 .menu-1 {

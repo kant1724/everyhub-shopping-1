@@ -16,6 +16,9 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
+    $('#title_logo').click(function() {
+        location.href = '/';
+    });
     $('.smooth-goto').click(function() {
         $('html, body').animate({scrollTop: $(this.hash).offset().top - 60}, 1000);
     });
