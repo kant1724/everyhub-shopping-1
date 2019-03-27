@@ -242,7 +242,7 @@ function validationCheck() {
     } else if (isNull($('#receive_person_nm').val())) {
         alert('받는자명을 입력하세요');
         return false;
-    } else if (isNull($('#receive_address_main').val())) {
+    } else if (isNull($('#receive_address_main').text())) {
         alert('받는자 주소를 입력하세요');
         return false;
     } else if (isNull($('#receive_address_detail').val())) {
