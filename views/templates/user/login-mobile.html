@@ -18,9 +18,12 @@
     <div class="wrapper mt-5 pt-5">
         <div class="form-signin mt-3">
             <div class="text-center"><h2 class="mb-3">간드락 농원 로그인</h2></div>
-            <input id="telno" type="text" class="form-control" placeholder="휴대폰번호" required=""/>
-            <br>
-            <input id="password" type="password" class="form-control" placeholder="패스워드" required=""/>
+            <div class="mb-3">
+                <input id="telno" type="text" placeholder="휴대폰번호" required=""/>
+            </div>
+            <div>
+                <input id="password" type="password" autocomplete="new-password" placeholder="패스워드" required=""/>
+            </div>
             <button id="login" class="btn btn-info btn-block">로그인</button>
             <button id="sign_up" class="btn btn-danger btn-block">회원가입</button>
         </div>

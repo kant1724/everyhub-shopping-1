@@ -35,3 +35,8 @@ input[type="password"] {
     margin-bottom: 15px;
 }
 
+input {
+    width: 305px;
+    padding: 5px;
+
+}
