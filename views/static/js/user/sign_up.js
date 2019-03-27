@@ -49,6 +49,10 @@ function goSigningUp() {
         alert('중복체크를 확인해주세요.');
         return;
     }
+    if (!validationCheck()) {
+        return;
+    }
+
     let telno = $('#telno_1').val() + $('#telno_2').val() + $('#telno_3').val();
     let telno1 = $('#telno_1').val();
     let telno2 = $('#telno_2').val();
@@ -79,6 +83,53 @@ function goSigningUp() {
         addressDetail: addressDetail
     }
     ajax(serverUrl + '/user/goSigningUp', inputData, 'goSigningUp', 'POST');
+}
+
+function validationCheck() {
+    let telno1 = $('#telno_1').val();
+    let telno2 = $('#telno_2').val();
+    let telno3 = $('#telno_3').val();
+    if (isNull(telno1) || isNull(telno2) || isNull(telno3)) {
+        alert('휴대폰 번호를 정확히 입력하세요.');
+        return false;
+    }
+    let password = $('#password').val();
+    if (isNull(password)) {
+        alert('패스워드를 입력하세요.');
+        return false;
+    }
+    let userNm = $('#user_nm').val();
+    if (isNull(userNm)) {
+        alert('이름을 입력하세요.');
+        return false;
+    }
+    if ($('#gender_male').is(':checked')) {
+    } else if ($('#gender_female').is(':checked')) {
+    } else {
+        alert('성별을 체크하세요.');
+        return false;
+    }
+    let dateOfBirth = $('#date_of_birth').val();
+    if (isNull(dateOfBirth)) {
+        alert('생일을 입력하세요.');
+        return false;
+    }
+    let addressMain = $('#address_main').text();
+    if (isNull(addressMain)) {
+        alert('주소를 입력하세요.');
+        return false;
+    }
+    let addressDetail = $('#address_detail').val();
+    if (isNull(addressDetail)) {
+        alert('상세주소를 입력하세요.');
+        return false;
+    }
+    let zipNo = $('#zip_no').text();
+    if (isNull(zipNo)) {
+        alert('주소를 입력하세요.');
+        return false;
+    }
+    return true;
 }
 
 function goSigningUpCallback(ret) {
