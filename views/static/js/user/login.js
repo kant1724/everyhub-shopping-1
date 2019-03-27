@@ -47,7 +47,9 @@ function loginCallback(ret) {
             token: ret
         };
         ajax('/user/setToken', inputData, 'setToken', 'POST');
-    } else {}
+    } else {
+        alert('로그인 정보가 정확하지 않습니다.');
+    }
 }
 
 function setTokenCallback(ret) {

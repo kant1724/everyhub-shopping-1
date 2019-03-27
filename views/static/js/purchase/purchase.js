@@ -23,7 +23,7 @@ $(document).ready(function() {
     $('.mdb-select').materialSelect();
 
     $('.payment-btn').click(function() {
-        if (checkValid()) {
+        if (validationCheck()) {
             if (confirm('해당내용으로 주문하시겠습니까?')) {
                 insertOrderList();
             }
@@ -232,9 +232,24 @@ function purchaseFromCart() {
     orderListMain.totalPrice = sum;
 }
 
-function checkValid() {
+function validationCheck() {
     if (isNull($('#order_person_nm').val())) {
         alert('주문자명을 입력하세요.');
+        return false;
+    } else if (isNull($('#order_telno_1').val()) || isNull($('#order_telno_2').val()) || isNull($('#order_telno_3').val())) {
+        alert('주문자 휴대폰 번호를 입력하세요.');
+        return false;
+    } else if (isNull($('#receive_person_nm').val())) {
+        alert('받는자명을 입력하세요');
+        return false;
+    } else if (isNull($('#receive_address_main').val())) {
+        alert('받는자 주소를 입력하세요');
+        return false;
+    } else if (isNull($('#receive_address_detail').val())) {
+        alert('받는자 상세주소를 입력하세요');
+        return false;
+    } else if (isNull($('#deposit_person_nm').val())) {
+        alert('입금자명을 입력하세요');
         return false;
     }
 
