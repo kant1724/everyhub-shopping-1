@@ -25,6 +25,18 @@ $(document).ready(function() {
     $('#sign_up').click(function() {
         sign_up();
     });
+
+    $("#telno").keydown(function(key) {
+        if (key.keyCode == 13) {
+            login();
+        }
+    });
+
+    $("#password").keydown(function(key) {
+        if (key.keyCode == 13) {
+            login();
+        }
+    });
 });
 
 function sign_up() {
