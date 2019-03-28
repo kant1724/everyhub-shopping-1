@@ -25,6 +25,7 @@ app.use('/purchase', require('./getter/purchase/purchaseGetter'));
 app.use('/mypage', require('./getter/mypage/mypageGetter'));
 app.use('/admin/item_manager', require('./getter/admin/item_manager/itemManagerGetter'));
 app.use('/admin/order_list', require('./getter/admin/order_list/orderListGetter'));
+app.use('/admin/user_manager', require('./getter/admin/user_manager/userManagerGetter'));
 app.use('/user', require('./getter/user/userGetter'));
 
 module.exports = app;
