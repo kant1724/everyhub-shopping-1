@@ -12,7 +12,7 @@
 }
 
 .review-pagination a {
-    color: black;
+    color: #000000;
     float: left;
     padding: 4px 8px;
     text-decoration: none;
@@ -22,8 +22,16 @@
 
 .review-pagination a.active {
     background-color: #333;
-    color: white;
+    color: #FFFFFF;
     border: 1px solid #333;
+}
+
+.review-pagination a.active:hover {
+    color: #FFFFFF;
+}
+
+.review-pagination a:hover {
+    color: #FFFFFF;
 }
 
 .review-pagination a:hover:not(.active) {
@@ -35,7 +43,7 @@
 }
 
 .qna-pagination a {
-    color: black;
+    color: #000000;
     float: left;
     padding: 4px 8px;
     text-decoration: none;
@@ -45,9 +53,14 @@
 
 .qna-pagination a.active {
     background-color: #333;
-    color: white;
+    color: #FFFFFF;
     border: 1px solid #333;
 }
+
+.qna-pagination a.active:hover {
+    color: #FFFFFF;
+}
+
 .qna-pagination a:hover:not(.active) {
     background-color: #ddd;
 }

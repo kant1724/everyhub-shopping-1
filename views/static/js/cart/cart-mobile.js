@@ -149,9 +149,9 @@ function setTotalPrice() {
         totalItemPrice += Number(itemPriceNum) * Number(qty);
         totalShippingFee += Number(shippingFeeNum) * Number(qty);
     }
-    text += '<span style="float: right;">가격: ' + numberWithCommas(totalItemPrice) + '원</span><br>';
-    text += '<span style="float: right;">+ 배송비: ' + numberWithCommas(totalShippingFee) + '원</span><br>';
-    text += '<span style="float: right;">= ' + numberWithCommas(totalItemPrice + totalShippingFee) + '원</span>';
+    text += '<div style="float: right;">가격: ' + numberWithCommas(totalItemPrice) + '원</div><br>';
+    text += '<div style="float: right;">+ 배송비: ' + numberWithCommas(totalShippingFee) + '원</div><br>';
+    text += '<div style="float: right;">= ' + numberWithCommas(totalItemPrice + totalShippingFee) + '원</div>';
     $('#totalPrice').html(text);
 }
 
