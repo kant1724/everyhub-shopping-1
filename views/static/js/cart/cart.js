@@ -60,10 +60,10 @@ $(document).ready(function() {
             html += '<td>' + productArr[i].shippingFee + '</td>';
             html += '<td class="text-center text-md-left"><span class="qty">' + productArr[i].qty + '</span>';
             html += '<div class="btn-group radio-group ml-2" data-toggle="buttons">';
-            html += '<label class="minus-qty btn btn-sm btn-danger btn-rounded">';
+            html += '<label class="minus-qty btn btn-sm deep-orange btn-rounded">';
             html += '<input type="radio" name="options" id="option1">&mdash;';
             html += '</label>';
-            html += '<label class="plus-qty btn btn-sm btn-danger btn-rounded"><input type="radio" name="options" id="option2">+</label>';
+            html += '<label class="plus-qty btn btn-sm deep-orange btn-rounded"><input type="radio" name="options" id="option2">+</label>';
             html += '</div></td><td id="sum">' + numberWithCommas((Number(productArr[i].itemPriceNum) + Number(productArr[i].shippingFeeNum)) * productArr[i].qty) + '원</td>';
             html += '<td><i class="fal fa-times remove-item" style="font-size: 25px; float: right; margin-right: 20px;"></i></td></tr>';
         }
