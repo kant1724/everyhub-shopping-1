@@ -15,40 +15,39 @@
     <link href="/static/css/admin/user_manager/user_manager.css" rel="stylesheet">
 </head>
 
-<body class="cart-v1 hidden-sn white-skin animated">
+<body>
     <header></header>
     <div class="mt-5" style="width: 80%; margin: auto;">
         <div class="ml-3 mr-3">
             <div class="mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">회원목록</div>
             <hr>
             <section class="section mt-3 mb-5 pb-5">
-                <table id="order_list" class="table table-bordered text-center">
+                <table id="user_list" class="table table-bordered text-center">
                     <thead>
                     <tr>
-                        <th>선택</th>
                         <th>휴대폰번호</th>
                         <th>회원명</th>
                         <th>매니저명</th>
+                        <th>매니저휴대폰번호</th>
                         <th>매니저지정</th>
                     </tr>
                     </thead>
-                    <tbody id="order_list_tbody"></tbody>
+                    <tbody id="user_list_tbody"></tbody>
                 </table>
             </section>
         </div>
     </div>
-    <div class="modal fade" id="manager_no_modal" tabindex="-1" role="dialog" aria-labelledby="invoice_no_modal" aria-hidden="true">
+    <div class="modal fade" id="manager_modal" tabindex="-1" role="dialog" aria-labelledby="manager_modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <input type="hidden" id="modal_order_no">
-                <input type="hidden" id="modal_order_seq">
+            <div class="modal-content text-center">
+                <input type="hidden" id="modal_user_no">
                 <div class="modal-body" style="margin: 20px;">
-                    <input type="text" class="form-control" id="modal_invoice_no" style="width: 200px;">
-                    <label id="invoice_no_label" for="modal_invoice_no">매니저 휴대폰번호를 입력하세요.(-제외)</label>
+                    <input type="text" class="form-control" id="modal_manager_telno" style="width: 200px; margin: auto;">
+                    <label id="manager_telno_label" class="mt-2" for="modal_manager_telno">매니저 휴대폰번호를 입력하세요.(-제외)</label>
                 </div>
                 <div class="text-center pb-5">
-                    <a id="save_invoice_no" class="common-button-1">저장</a>
-                    <a id="invoice_no_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                    <a id="save_manager_telno" class="common-button-1">저장</a>
+                    <a id="manager_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
                 </div>
             </div>
         </div>
@@ -61,7 +60,6 @@
     <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/lib/moment/moment.min.js"></script>
     <script type="text/javascript" src="/static/js/common/properties.js"></script>
     <script type="text/javascript" src="/static/js/common/utils.js"></script>
     <script type="text/javascript" src="/static/js/component/header.js"></script>

@@ -41,7 +41,7 @@ $(document).ready(function() {
 
     $('#check_dup').click(function() {
         checkDup();
-    })
+    });
 });
 
 function searchAddress() {
@@ -85,7 +85,7 @@ function goSigningUp() {
         zipNo: zipNo,
         addressMain: addressMain,
         addressDetail: addressDetail
-    }
+    };
     ajax(serverUrl + '/user/goSigningUp', inputData, 'goSigningUp', 'POST');
 }
 

@@ -15,7 +15,7 @@
     <link href="/static/css/admin/order_list/order_list.css" rel="stylesheet">
 </head>
 
-<body class="cart-v1 hidden-sn white-skin animated">
+<body>
     <header></header>
     <div class="mt-5" style="width: 80%; margin: auto;">
         <div class="ml-3 mr-3">
@@ -74,12 +74,12 @@
     </div>
     <div class="modal fade" id="invoice_no_modal" tabindex="-1" role="dialog" aria-labelledby="invoice_no_modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content text-center">
                 <input type="hidden" id="modal_order_no">
                 <input type="hidden" id="modal_order_seq">
                 <div class="modal-body" style="margin: 20px;">
-                    <input type="text" class="form-control" id="modal_invoice_no" style="width: 200px;">
-                    <label id="invoice_no_label" for="modal_invoice_no">송장번호를 입력하세요.</label>
+                    <input type="text" class="form-control" id="modal_invoice_no" style="width: 200px; margin: auto;">
+                    <label id="invoice_no_label" class="mt-2" for="modal_invoice_no">송장번호를 입력하세요.</label>
                 </div>
                 <div class="text-center pb-5">
                     <a id="save_invoice_no" class="common-button-1">저장</a>

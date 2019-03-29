@@ -43,6 +43,11 @@ if ($('#admin_yn').val() == 'Y') {
     headerHtml += '<i class="far fa-list-ol"></i>&nbsp;&nbsp;주문목록';
     headerHtml += '</a>';
     headerHtml += '</li>';
+    headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
+    headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/user_manager">';
+    headerHtml += '<i class="fab fa-product-hunt"></i>&nbsp;&nbsp;회원관리';
+    headerHtml += '</a>';
+    headerHtml += '</li>';
 }
 headerHtml += '</ul>';
 headerHtml += '</div>';
