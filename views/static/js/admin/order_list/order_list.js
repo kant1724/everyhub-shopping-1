@@ -61,6 +61,7 @@ function updateDlvrConfirmDate() {
         orderList.orderSeq = $(orderObj[i]).find('#order_seq').val();
         orderList.itemNm1 = $(orderObj[i]).find('#item_nm_1').text();
         orderList.optionNm = $(orderObj[i]).find('#option_nm').text();
+        orderList.orderTelno = $(orderObj[i]).find('#order_telno').text();
         orderListDetail.push(orderList);
     }
     if (orderListDetail.length == 0) {
@@ -76,7 +77,6 @@ function updateDlvrConfirmDate() {
         };
         ajax(serverUrl + '/admin/order_list/updateDlvrConfirmDate', inputData, 'updateDlvrConfirmDate', 'POST');
     }
-
 }
 
 function updateInvoiceNo() {
