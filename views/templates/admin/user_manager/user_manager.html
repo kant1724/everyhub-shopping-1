@@ -21,7 +21,7 @@
         <div class="ml-3 mr-3">
             <div class="mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">회원목록</div>
             <hr>
-            <section class="section mt-3 mb-5 pb-5">
+            <section class="section mt-3 mb-3 pb-3">
                 <table id="user_list" class="table table-bordered text-center">
                     <thead>
                     <tr>
@@ -35,6 +35,9 @@
                     <tbody id="user_list_tbody"></tbody>
                 </table>
             </section>
+            <div id="user_list_pagination" class="text-center mb-5">
+                <div class="user-list-pagination"></div>
+            </div>
         </div>
     </div>
     <div class="modal fade" id="manager_modal" tabindex="-1" role="dialog" aria-labelledby="manager_modal" aria-hidden="true">
@@ -63,6 +66,7 @@
     <script type="text/javascript" src="/static/js/common/properties.js"></script>
     <script type="text/javascript" src="/static/js/common/utils.js"></script>
     <script type="text/javascript" src="/static/js/component/header.js"></script>
+    <script type="text/javascript" src="/static/js/component/user_list.js"></script>
     <script type="text/javascript" src="/static/js/admin/user_manager/user_manager.js"></script>
 </body>
 
