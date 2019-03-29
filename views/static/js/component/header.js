@@ -45,7 +45,7 @@ if ($('#admin_yn').val() == 'Y') {
     headerHtml += '</li>';
     headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
     headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/user_manager">';
-    headerHtml += '<i class="fab fa-product-hunt"></i>&nbsp;&nbsp;회원관리';
+    headerHtml += '<i class="far fa-users"></i>&nbsp;&nbsp;회원관리';
     headerHtml += '</a>';
     headerHtml += '</li>';
 }
