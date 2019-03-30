@@ -221,6 +221,7 @@ function selectOneItemCallback(ret) {
     $('#info_item_nm_1').text(ret[0].itemNm1);
     $('#info_item_desc').text(ret[0].itemDesc);
     $('#info_item_nm_2').text(ret[0].itemNm2);
+    $('#keeping_method').val(ret[0].keepingMethod);
 }
 
 function writeQna() {
