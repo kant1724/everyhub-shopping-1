@@ -7,15 +7,16 @@ footerHtml += '<div style="text-decoration: underline;" class="d-inline-block">�
 footerHtml += '<div style="text-decoration: underline;" class="ml-2 d-inline-block">개인정보처리방침</div>';
 footerHtml += '</div>';
 footerHtml += '<div class="mt-3">';
-footerHtml += '<div class="mt-2"><a><i class="fa fa-home mr-3"></i>제주특별자치도 제주시 아라이동</a></div>';
-footerHtml += '<div class="mt-2"><a><i class="fa fa-envelope mr-3"></i>info@example.com</a></div>';
-footerHtml += '<div class="mt-2"><a><i class="fa fa-phone mr-3"></i>02-234-5672</a></div>';
-footerHtml += '<div class="mt-2"><a><i class="fa fa-print mr-3"></i> 010-2342-5671</a></div>';
+footerHtml += '<div class="mt-2"><span><i class="fa fa-home mr-3"></i>제주시 연동 1247(신비의 도로 근처)</span></div>';
+footerHtml += '<div class="mt-2"><span><i class="fa fa-envelope mr-3"></i>gandeurak@naver.com</span></div>';
+footerHtml += '<div class="mt-2"><span><i class="fa fa-phone mr-3"></i>010-9427-8169</span></div>';
+footerHtml += '<div class="mt-2"><span>농협: 352-0590-1078-73</span></div>';
+footerHtml += '<div class="mt-2"><span>예금주: 현병윤</span></div>';
 footerHtml += '</div>';
 footerHtml += '</div>';
 footerHtml += '<div class="footer-copyright py-3 text-center">';
 footerHtml += '<div class="container-fluid">';
-footerHtml += '© 2019 Copyright: <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> 간드락 농원 </a>';
+footerHtml += '© 2019 Copyright: 간드락 농원</a>';
 footerHtml += '</div>';
 footerHtml += '</div>';
 

@@ -53,35 +53,35 @@ function selectItemListCallback(ret) {
 }
 
 function initSwiper1() {
-    let swiper = new Swiper('.top-swiper-container', {
+    let swiper = new Swiper('.swiper-container.top-swiper', {
         autoplay: {
             delay: 5000,
         },
         slidesPerView: 1,
         loop: false,
         pagination: {
-            el: '.top-swiper-pagination',
+            el: '.swiper-pagination.top-swiper',
             clickable: true
         },
         navigation: {
-            prevEl: '.top-swiper-button-prev',
-            nextEl: '.top-swiper-button-next'
+            prevEl: '.swiper-button-prev.top-swiper',
+            nextEl: '.swiper-button-next.top-swiper'
         }
     });
 }
 
 function initSwiper2() {
-    let swiper = new Swiper('.swiper-container', {
+    let swiper = new Swiper('.swiper-container.rcm-swiper', {
         slidesPerView: 3,
         spaceBetween: 30,
         loop: true,
         pagination: {
-            el: '.swiper-pagination',
+            el: '.swiper-pagination.rcm-swiper',
             clickable: true
         },
         navigation: {
-            prevEl: '.swiper-button-prev',
-            nextEl: '.swiper-button-next'
+            prevEl: '.swiper-button-prev.rcm-swiper',
+            nextEl: '.swiper-button-next.rcm-swiper'
         }
     });
 }
