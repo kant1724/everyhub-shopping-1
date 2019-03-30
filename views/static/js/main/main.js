@@ -54,6 +54,9 @@ function selectItemListCallback(ret) {
 
 function initSwiper1() {
     let swiper = new Swiper('.top-swiper-container', {
+        autoplay: {
+            delay: 5000,
+        },
         slidesPerView: 1,
         loop: false,
         pagination: {
