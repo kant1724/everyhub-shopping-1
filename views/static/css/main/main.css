@@ -231,6 +231,10 @@ body {
     color: #333;
 }
 
+.top-swiper-pagination {
+    background: #F6F6F6;
+}
+
 .top-swiper-button-prev {
     background-image: none;
     font-size: 26px;

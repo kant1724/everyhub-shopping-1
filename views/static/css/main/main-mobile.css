@@ -21,8 +21,16 @@ body {
 }
 
 .top-main-1 {
-    background-image: url('/static/res/top-mobile.jpg');
-    height: 500px;
+    background-image: url('/static/res/top_1.jpg');
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.top-main-2 {
+    background-image: url('/static/res/top_2.jpg');
+    height: 250px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -200,4 +208,20 @@ body {
 .swiper-pagination-bullet-active {
     color: #fff;
     background: #000;
+}
+
+.top-swiper-pagination {
+    background: #F6F6F6;
+}
+
+.top-swiper-button-prev {
+    background-image: none;
+    font-size: 26px;
+    color: #333;
+}
+
+.top-swiper-button-next {
+    background-image: none;
+    font-size: 26px;
+    color: #333;
 }
