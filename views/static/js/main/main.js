@@ -36,6 +36,7 @@ $(document).ready(function() {
         }
     });
 
+    initSwiper1();
     selectItemList();
 });
 
@@ -51,7 +52,22 @@ function selectItemListCallback(ret) {
     setAllProduct(ret);
 }
 
-function initSwiper() {
+function initSwiper1() {
+    let swiper = new Swiper('.top-swiper-container', {
+        slidesPerView: 1,
+        loop: false,
+        pagination: {
+            el: '.top-swiper-pagination',
+            clickable: true
+        },
+        navigation: {
+            prevEl: '.top-swiper-button-prev',
+            nextEl: '.top-swiper-button-next'
+        }
+    });
+}
+
+function initSwiper2() {
     let swiper = new Swiper('.swiper-container', {
         slidesPerView: 3,
         spaceBetween: 30,
@@ -100,7 +116,7 @@ function setRecommendProduct(ret) {
     }
     $('#recommend_product').append(html);
 
-    initSwiper();
+    initSwiper2();
 
     $('.each-recommend').click(function() {
         let itemNo = $(this).find('#item_no').val();
@@ -111,7 +127,7 @@ function setRecommendProduct(ret) {
 function setAllProduct(ret) {
     let html = '';
     for (let i = 0; i < ret.length; ++i) {
-        html += '<div class="swiper-slide each-item col-lg-4 col-md-12 col-12 pt-2">';
+        html += '<div class="each-item col-lg-4 col-md-12 col-12 pt-2">';
         html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="row py-2 mb-4 hoverable align-items-center">';
         html += '<div class="col-6"><a><img src="' + ret[i].imagePath + '" style="border-radius: 5px; height: 150px;" class="img-fluid"></a></div>';

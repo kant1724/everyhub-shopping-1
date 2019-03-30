@@ -20,8 +20,9 @@ body {
     margin-top: 51px;
 }
 
-.top-main {
-    background: url('http://14.63.168.58:5006/static/data/shopping/top.jpg');
+.top-main-1 {
+    background-image: url('/static/res/top-mobile.jpg');
+    height: 500px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

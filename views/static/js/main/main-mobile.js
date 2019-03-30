@@ -39,10 +39,26 @@ $(document).ready(function() {
         location.href = '/admin/product_manager';
     });
 
+    initSwiper1();
     selectItemList();
 });
 
-function initSwiper() {
+function initSwiper1() {
+    let swiper = new Swiper('.top-swiper-container', {
+        slidesPerView: 1,
+        loop: false,
+        pagination: {
+            el: '.top-swiper-pagination',
+            clickable: true
+        },
+        navigation: {
+            prevEl: '.top-swiper-button-prev',
+            nextEl: '.top-swiper-button-next'
+        }
+    });
+}
+
+function initSwiper2() {
     let swiper = new Swiper('.swiper-container', {
         slidesPerView: 1,
         spaceBetween: 30,
@@ -103,7 +119,7 @@ function setRecommendProduct(ret) {
     }
     $('#recommend_product').append(html);
 
-    initSwiper();
+    initSwiper2();
 
     $('.each-recommend').click(function() {
         let itemNo = $(this).find('#item_no').val();

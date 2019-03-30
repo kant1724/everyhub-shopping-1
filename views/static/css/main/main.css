@@ -24,8 +24,16 @@ body {
     margin-top: 57px;
 }
 
-.top-main {
-    background:  url('http://14.63.168.58:5006/static/data/shopping/top.jpg');
+.top-main-1 {
+    background-image: url('/static/res/top_1.jpg');
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.top-main-2 {
+    background-image: url('/static/res/top_2.jpg');
     height: 500px;
     background-size: cover;
     background-position: center;
@@ -218,6 +226,18 @@ body {
 }
 
 .swiper-button-next {
+    background-image: none;
+    font-size: 26px;
+    color: #333;
+}
+
+.top-swiper-button-prev {
+    background-image: none;
+    font-size: 26px;
+    color: #333;
+}
+
+.top-swiper-button-next {
     background-image: none;
     font-size: 26px;
     color: #333;
