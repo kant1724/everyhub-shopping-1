@@ -68,3 +68,7 @@ body {
     margin-right: 7px;
     font-weight: 700;
 }
+
+.oreder-detail:hover {
+    cursor: pointer;
+}

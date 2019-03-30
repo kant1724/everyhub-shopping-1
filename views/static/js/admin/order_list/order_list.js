@@ -174,6 +174,18 @@ function selectOrderListMainCallback(ret) {
         let totalPrice = ret[i].totalPrice;
         let depositConfirmDate = ret[i].depositConfirmDate;
         let dlvrConfirmDate = ret[i].dlvrConfirmDate;
+        let sendPersonNm = ret[i].sendPersonNm;
+        let sendTelno = ret[i].sendTelno;
+        let sendZipNo = ret[i].sendZipNo;
+        let sendAddressMain = ret[i].sendAddressMain;
+        let sendAddressDetail = ret[i].sendAddressDetail;
+        let receivePersonNm = ret[i].receivePersonNm;
+        let receiveTelno = ret[i].receiveTelno;
+        let receiveZipNo = ret[i].receiveZipNo;
+        let receiveAddressMain = ret[i].receiveAddressMain;
+        let receiveAddressDetail = ret[i].receiveAddressDetail;
+        let orderRemarks = ret[i].orderRemarks;
+        let depositRemarks = ret[i].depositRemarks;
 
         if (depositConfirmDate == null || depositConfirmDate == '') {
             depositConfirmDate = '<a class="confirm-deposit-btn common-button-1">입금확인</a>';
@@ -194,7 +206,19 @@ function selectOrderListMainCallback(ret) {
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
             html += '<tr class="each-order" style="margin-bottom: 0px;">';
-            html += '<input type="hidden" id="order_seq" value="' + orderSeq + '">';
+            html += '<input type="hidden" class="order-seq" value="' + orderSeq + '">';
+            html += '<input type="hidden" class="send-person-nm" value="' + sendPersonNm + '">';
+            html += '<input type="hidden" class="send-telno" value="' + sendTelno + '">';
+            html += '<input type="hidden" class="send-zip-no" value="' + sendZipNo + '">';
+            html += '<input type="hidden" class="send-address-main" value="' + sendAddressMain + '">';
+            html += '<input type="hidden" class="send-address-detail" value="' + sendAddressDetail + '">';
+            html += '<input type="hidden" class="receive-person-nm" value="' + receivePersonNm + '">';
+            html += '<input type="hidden" class="receive-telno" value="' + receiveTelno + '">';
+            html += '<input type="hidden" class="receive-zip-no" value="' + receiveZipNo + '">';
+            html += '<input type="hidden" class="receive-address-main" value="' + receiveAddressMain + '">';
+            html += '<input type="hidden" class="receive-address-detail" value="' + receiveAddressDetail + '">';
+            html += '<input type="hidden" class="order-remarks" value="' + orderRemarks + '">';
+            html += '<input type="hidden" class="deposit-remarks" value="' + depositRemarks + '">';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             if (!dlvrConfirmDate) {
                 html += '<div class="ml-2 custom-control custom-checkbox">';
@@ -212,6 +236,7 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="width: 150px; vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_date" class="oreder-date">' + orderDate + '</div>';
+            html += '<div id="order_detail" class="oreder-detail" style="text-decoration: underline; font-size: 13px; color: gray;">상세정보</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="order_person_nm" class="order-person-nm">' + orderPersonNm + '</div>';
@@ -274,6 +299,37 @@ function selectOrderListMainCallback(ret) {
     }
     $('#order_list_tbody').append(html);
 
+    $('.oreder-detail').unbind();
+    $('.oreder-detail').click(function() {
+        let orderNo = $(this).parent().parent().find('#order_no').text();
+        let sendPersonNm = $(this).parent().parent().find('.send-person-nm').val();
+        let sendTelno = $(this).parent().parent().find('.send-telno').val();
+        let sendZipNo = $(this).parent().parent().find('.send-zip-no').val();
+        let sendAddressMain = $(this).parent().parent().find('.send-address-main').val();
+        let sendAddressDetail = $(this).parent().parent().find('.send-address-detail').val();
+        let receivePersonNm = $(this).parent().parent().find('.receive-person-nm').val();
+        let receiveTelno = $(this).parent().parent().find('.receive-telno').val();
+        let receiveZipNo = $(this).parent().parent().find('.receive-zip-no').val();
+        let receiveAddressMain = $(this).parent().parent().find('.receive-address-main').val();
+        let receiveAddressDetail = $(this).parent().parent().find('.receive-address-detail').val();
+        let orderRemarks = $(this).parent().parent().find('.order-remarks').val();
+        let depositRemarks = $(this).parent().parent().find('.deposit-remarks').val();
+
+        $('#modal_send_person_nm').text('보내는자: ' + sendPersonNm);
+        $('#modal_send_telno').text('보내는자 연락처: ' + sendTelno);
+        $('#modal_send_zip_no').text('보내는자 우편번호: ' + sendZipNo);
+        $('#modal_send_address_main').text('보내는자 주소: ' + sendAddressMain);
+        $('#modal_send_address_detail').text('보내는자 상세주소: ' + sendAddressDetail);
+        $('#modal_receive_person_nm').text('받는자: ' + receivePersonNm);
+        $('#modal_receive_telno').text('받는자 연락처: ' + receiveTelno);
+        $('#modal_receive_zip_no').text('받는자 우편번호: ' + receiveZipNo);
+        $('#modal_receive_address_main').text('받는자 주소: ' + receiveAddressMain);
+        $('#modal_receive_address_detail').text('받는자 상세주소: ' + receiveAddressDetail);
+        $('#modal_order_remarks').text('주문메모: ' + orderRemarks);
+        $('#modal_deposit_remarks').text('입금메모: ' + depositRemarks);
+
+        $('#order_detail_modal').modal();
+    });
     $('.confirm-deposit-btn').unbind();
     $('.confirm-deposit-btn').click(function() {
         let orderNo = $(this).parent().parent().parent().find('#order_no').text();
@@ -288,7 +344,7 @@ function selectOrderListMainCallback(ret) {
     $('.write-invoice-no-btn').unbind();
     $('.write-invoice-no-btn').click(function() {
         let orderNo = $(this).parent().parent().parent().find('#order_no').text();
-        let orderSeq = $(this).parent().parent().parent().find('#order_seq').val();
+        let orderSeq = $(this).parent().parent().parent().find('.order-seq').val();
         $('#modal_invoice_no').val('');
         $('#modal_order_no').val(orderNo);
         $('#modal_order_seq').val(orderSeq);
