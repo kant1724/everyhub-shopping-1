@@ -100,12 +100,12 @@ let constructQna =  {
 		html += '<a id="qna_next_page">&raquo;</a>';
 		$('.qna-pagination').append(html);
 		$('.qna-page-no').unbind();
-		$('.qna-page-no').click(function () {
+		$('.qna-page-no').click(function() {
 			$('.qna-page-no').prop('class', 'qna-page-no');
 			$(this).prop('class', 'qna-page-no active');
 			constructQna.constructQnaList(Number($(this).text()) - 1);
 		});
-		$('#qna_prev_page').click(function () {
+		$('#qna_prev_page').click(function() {
 			$('#qna_prev_page').unbind();
 			if (constructQna.cur > 0) {
 				constructQna.cur -= 1;
@@ -113,7 +113,7 @@ let constructQna =  {
 				constructQna.constructQnaList(constructQna.cur * constructQna.pageLength);
 			}
 		});
-		$('#qna_next_page').click(function () {
+		$('#qna_next_page').click(function() {
 			$('#qna_next_page').unbind();
 			if (constructQna.max == constructQna.cur) {
 				constructQna.selectFunction();
@@ -211,7 +211,7 @@ let constructQnaMobile =  {
 		this.lastQnaNo = this.allData[this.allData.length - 1].qnaNo;
 		$('#qna_list_tbody').append(html);
 		$('.each-qna').unbind();
-		$('.each-qna').click(function () {
+		$('.each-qna').click(function() {
 			let qnaNo = $(this).find('#qna_no').val();
 			let sub = $(this).parent().find('#qna_content' + qnaNo);
 			if (sub.css('display') == 'table-row') {
@@ -252,12 +252,12 @@ let constructQnaMobile =  {
 		html += '<a id="qna_next_page">&raquo;</a>';
 		$('.qna-pagination').append(html);
 		$('.qna-page-no').unbind();
-		$('.qna-page-no').click(function () {
+		$('.qna-page-no').click(function() {
 			$('.qna-page-no').prop('class', 'qna-page-no');
 			$(this).prop('class', 'qna-page-no active');
 			constructQnaMobile.constructQnaList(Number($(this).text()) - 1);
 		});
-		$('#qna_prev_page').click(function () {
+		$('#qna_prev_page').click(function() {
 			$('#qna_prev_page').unbind();
 			if (constructQnaMobile.cur > 0) {
 				constructQnaMobile.cur -= 1;
@@ -265,7 +265,7 @@ let constructQnaMobile =  {
 				constructQnaMobile.constructQnaList(constructQnaMobile.cur * constructQnaMobile.pageLength);
 			}
 		});
-		$('#qna_next_page').click(function () {
+		$('#qna_next_page').click(function() {
 			$('#qna_next_page').unbind();
 			if (constructQnaMobile.max == constructQnaMobile.cur) {
 				constructQnaMobile.selectFunction();

@@ -88,8 +88,8 @@ function selectItemOptionCallback(ret) {
 function insertItemOption() {
     let itemNo = $('#item_no').val();
     let optionNm = $('#option_nm').val();
-    let itemPrice = $('#item_price').val();
-    let shippingFee = $('#shipping_fee').val();
+    let itemPrice = $('#item_price').val() ? $('#item_price').val() : 0;
+    let shippingFee = $('#shipping_fee').val() ? $('#shipping_fee').val() : 0;
 
     let inputData = {
         itemNo: itemNo,
@@ -110,8 +110,8 @@ function updateItemOption() {
     let optionNo = $('#option_no').val();
     let itemNo = $('#item_no').val();
     let optionNm = $('#option_nm').val();
-    let itemPrice = $('#item_price').val();
-    let shippingFee = $('#shipping_fee').val();
+    let itemPrice = $('#item_price').val() ? $('#item_price').val() : 0;
+    let shippingFee = $('#shipping_fee').val() ? $('#shipping_fee').val() : 0;
 
     let inputData = {
         optionNo: optionNo,

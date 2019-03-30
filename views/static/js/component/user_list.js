@@ -51,7 +51,7 @@ let constructUserList =  {
 	},
 
 	constructPagination: function() {
-		$('.pagination').empty();
+		$('.user-list-pagination').empty();
 		let html = '<a id="user_list_prev_page">&laquo;</a>';
 		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
@@ -66,12 +66,12 @@ let constructUserList =  {
 		html += '<a id="user_list_next_page">&raquo;</a>';
 		$('.user-list-pagination').append(html);
 		$('.user-list-page-no').unbind();
-		$('.user-list-page-no').click(function () {
+		$('.user-list-page-no').click(function() {
 			$('.user-list-page-no').prop('class', 'user-list-page-no');
 			$(this).prop('class', 'user-list-page-no active');
 			constructUserList.constructUserList(Number($(this).text()) - 1);
 		});
-		$('#user_list_prev_page').click(function () {
+		$('#user_list_prev_page').click(function() {
 			$('#user_list_prev_page').unbind();
 			if (constructUserList.cur > 0) {
 				constructUserList.cur -= 1;
@@ -79,7 +79,7 @@ let constructUserList =  {
 				constructUserList.constructUserList(constructUserList.cur * constructUserList.pageLength);
 			}
 		});
-		$('#user_list_next_page').click(function () {
+		$('#user_list_next_page').click(function() {
 			$('#user_list_next_page').unbind();
 			if (constructUserList.max == constructUserList.cur) {
 				constructUserList.selectFunction();

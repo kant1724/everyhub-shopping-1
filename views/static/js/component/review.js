@@ -70,7 +70,7 @@ let constructReview =  {
 	},
 
 	constructPagination: function() {
-		$('.pagination').empty();
+		$('.review-pagination').empty();
 		let html = '<a id="review_prev_page">&laquo;</a>';
 		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
@@ -85,12 +85,12 @@ let constructReview =  {
 		html += '<a id="review_next_page">&raquo;</a>';
 		$('.review-pagination').append(html);
 		$('.review-page-no').unbind();
-		$('.review-page-no').click(function () {
+		$('.review-page-no').click(function() {
 			$('.review-page-no').prop('class', 'review-page-no');
 			$(this).prop('class', 'review-page-no active');
 			constructReview.constructReviewList(Number($(this).text()) - 1);
 		});
-		$('#review_prev_page').click(function () {
+		$('#review_prev_page').click(function() {
 			$('#review_prev_page').unbind();
 			if (constructReview.cur > 0) {
 				constructReview.cur -= 1;
@@ -98,7 +98,7 @@ let constructReview =  {
 				constructReview.constructReviewList(constructReview.cur * constructReview.pageLength);
 			}
 		});
-		$('#review_next_page').click(function () {
+		$('#review_next_page').click(function() {
 			$('#review_next_page').unbind();
 			if (constructReview.max == constructReview.cur) {
 				constructReview.selectFunction();
