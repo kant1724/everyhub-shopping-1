@@ -46,8 +46,7 @@ function addCart() {
         optionNm: $('#info_option_nm').val(),
         itemNo: $('#item_no').val(),
         imagePath: $('#info_image_path').prop('src'),
-        itemNm1: $('#info_item_nm_1').text(),
-        itemNm2: $('#info_item_nm_2').text(),
+        itemNm: $('#info_item_nm').text(),
         keepingMethod: $('#keeping_method').val(),
         itemPrice: $('#info_item_price').text(),
         shippingFee: $('#info_shipping_fee').text(),
@@ -84,8 +83,7 @@ $(document).ready(function() {
         param += '&optionNo=' + encodeURIComponent($('#info_option_no').val());
         param += '&optionNm=' + encodeURIComponent($('#info_option_nm').val());
         param += '&imagePath=' + encodeURIComponent($('#info_image_path').prop('src'));
-        param += '&itemNm1=' + encodeURIComponent($('#info_item_nm_1').text());
-        param += '&itemNm2=' + encodeURIComponent($('#info_item_nm_2').text());
+        param += '&itemNm=' + encodeURIComponent($('#info_item_nm').text());
         param += '&keepingMethod=' + encodeURIComponent($('#keeping_method').val());
         param += '&itemPrice=' + encodeURIComponent($('#info_item_price').text());
         param += '&shippingFee=' + encodeURIComponent($('#info_shipping_fee').text());
@@ -217,18 +215,18 @@ function selectQnaReply(qnaNo) {
 }
 
 function selectOneItemCallback(ret) {
-    let itemNm1 = ret[0].itemNm1
+    let itemNm = ret[0].itemNm;
     if (ret[0].shipYn == 'N' || ret[0].soldOutYn == 'Y') {
         $('#order_now').prop('disabled', true);
         $('#add_cart').prop('disabled', true);
     }
     if (ret[0].shipYn == 'N') {
-        itemNm1 += '<span class="ml-2" style="color: #980000">(출하전)</span>'
+        itemNm += '<span class="ml-2" style="color: #980000">(출하전)</span>'
     } else if (ret[0].soldOutYn == 'Y') {
-        itemNm1 += '<span class="ml-2" style="color: #980000">(품절)</span>'
+        itemNm += '<span class="ml-2" style="color: #980000">(품절)</span>'
     }
     $('#info_image_path').prop('src', ret[0].imagePath);
-    $('#info_item_nm_1').html(itemNm1);
+    $('#info_item_nm').html(itemNm);
     $('#info_item_desc').text(ret[0].itemDesc);
     $('#keeping_method').val(ret[0].keepingMethod);
 }

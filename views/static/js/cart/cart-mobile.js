@@ -60,7 +60,7 @@ $(document).ready(function() {
             html += '<img style="top: -32px; position: relative; border-radius: 5px;" overflow: hidden; width="100px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0">';
             html += '</div>';
             html += '<div style="overflow: hidden; display: inline-block; top: 10px; margin-left: 15px; position: relative;">';
-            html += '<a id="item_nm_1" style="font-size: 14px; margin-left: 20px; font-weight: 700;">' + productArr[i].itemNm1 + '</a>';
+            html += '<a id="item_nm" style="font-size: 14px; margin-left: 20px; font-weight: 700;">' + productArr[i].itemNm + '</a>';
             html += '<br>';
             html += '<a id="item_price" style="margin-left: 20px; font-size: 12px;">단가: ' + productArr[i].itemPrice + '</a>';
             html += '<br>';

@@ -65,13 +65,13 @@ function selectOneItem() {
 
 function checkValidation() {
     let isOk = true;
-    if ($('#item_nm_1').val() == undefined || $('#item_nm_1').val() == '') {
-        $('#item_nm_1_label').text('상품명1을 입력하세요.');
-        $('#item_nm_1_label').css('color', 'red');
+    if ($('#item_nm').val() == undefined || $('#item_nm').val() == '') {
+        $('#item_nm_label').text('상품명을 입력하세요.');
+        $('#item_nm_label').css('color', 'red');
         isOk = false;
     } else {
-        $('#item_nm_1_label').text('상품명1');
-        $('#item_nm_1_label').css('color', 'gray');
+        $('#item_nm_label').text('상품명');
+        $('#item_nm_label').css('color', 'gray');
     }
 
     if ($('#item_desc').val() == undefined || $('#item_desc').val() == '') {
@@ -97,8 +97,7 @@ function modifyItem() {
         return;
     }
     let itemNo = $('#item_no').val();
-    let itemNm1 = $('#item_nm_1').val();
-    let itemNm2 = $('#item_nm_2').val();
+    let itemNm = $('#item_nm').val();
     let itemMainCtgrCd = $('#item_main_ctgr_cd').val();
     let itemMidCtgrCd = $('#item_mid_ctgr_cd').val();
     let originCd = $('#origin_cd').val();
@@ -111,8 +110,7 @@ function modifyItem() {
     let soldOutYn = $('#sold_out_yn').val();
     let inputData = {
         itemNo: itemNo,
-        itemNm1: itemNm1,
-        itemNm2: itemNm2,
+        itemNm: itemNm,
         itemMainCtgrCd: itemMainCtgrCd,
         itemMidCtgrCd: itemMidCtgrCd,
         originCd: originCd,
@@ -133,10 +131,8 @@ function modifyItem() {
 function selectOneItemCallback(ret) {
     let imagePath = ret[0].imagePath;
     $('#image_div').css('background-image', 'url("' + imagePath + '")');
-    $('#item_nm_1').focus();
-    $('#item_nm_1').val(ret[0].itemNm1);
-    $('#item_nm_2').focus();
-    $('#item_nm_2').val(ret[0].itemNm2);
+    $('#item_nm').focus();
+    $('#item_nm').val(ret[0].itemNm);
     $('#item_main_ctgr_cd').val(ret[0].itemMainCtgrCd);
     $('#item_mid_ctgr_cd').val(ret[0].itemMidCtgrCd);
     $('#use_yn').val(ret[0].useYn);

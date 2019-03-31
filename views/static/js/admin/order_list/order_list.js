@@ -59,7 +59,7 @@ function updateDlvrConfirmDate() {
         }
         orderList.orderNo = $(orderObj[i]).find('#order_no').text();
         orderList.orderSeq = $(orderObj[i]).find('#order_seq').val();
-        orderList.itemNm1 = $(orderObj[i]).find('#item_nm_1').text();
+        orderList.itemNm = $(orderObj[i]).find('#item_nm').text();
         orderList.optionNm = $(orderObj[i]).find('#option_nm').text();
         orderList.orderTelno = $(orderObj[i]).find('#order_telno').text();
         orderListDetail.push(orderList);
@@ -125,7 +125,7 @@ function exportExcel() {
         d['받는분 전화'] = allData[i].receiveTelno;
         d['받는분 주소'] = allData[i].receiveAddressMain;
         d['받는분 상세주소'] = allData[i].receiveAddressDetail;
-        d['물품명'] = allData[i].itemNm1;
+        d['물품명'] = allData[i].itemNm;
         d['박스수량'] = allData[i].qty;
         d['송장번호'] = '';
         data.push(d);
@@ -168,7 +168,7 @@ function selectOrderListMainCallback(ret) {
         }
         let orderPersonNm = ret[i].orderPersonNm;
         let orderTelno = ret[i].orderTelno;
-        let itemNm1 = ret[i].itemNm1;
+        let itemNm = ret[i].itemNm;
         let optionNm = ret[i].optionNm;
         let invoiceNo = ret[i].invoiceNo ? ret[i].invoiceNo : '';
         let totalPrice = ret[i].totalPrice;
@@ -248,7 +248,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="order_telno" class="order-telno">' + orderTelno + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
+            html += '<div id="item_nm" class="item-nm">' + itemNm + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
@@ -288,7 +288,7 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '<input type="hidden" id="order_seq" value="' + orderSeq + '">';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
+            html += '<div id="item_nm" class="item-nm">' + itemNm + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';

@@ -74,8 +74,7 @@ function setTokenCallback(ret) {
             param += '&optionNo=' + encodeURIComponent(p.optionNo);
             param += '&optionNm=' + encodeURIComponent(p.optionNm);
             param += '&imagePath=' + encodeURIComponent(p.imagePath);
-            param += '&itemNm1=' + encodeURIComponent(p.itemNm1);
-            param += '&itemNm2=' + encodeURIComponent(p.itemNm2);
+            param += '&itemNm=' + encodeURIComponent(p.itemNm);
             param += '&keepingMethod=' + encodeURIComponent(p.keepingMethod);
             param += '&itemPrice=' + encodeURIComponent(p.itemPrice);
             param += '&shippingFee=' + encodeURIComponent(p.shippingFee);

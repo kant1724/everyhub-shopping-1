@@ -85,6 +85,7 @@ function selectOrderListMain() {
 }
 
 function selectOrderListMainCallback(ret) {
+    if (isNull(ret)) return;
     let html = '';
     $('#order_list_tbody').empty();
     let rowspan = {};
@@ -101,7 +102,7 @@ function selectOrderListMainCallback(ret) {
         let orderNo = ret[i].orderNo;
         let orderDate = ret[i].orderDate;
         let itemNo = ret[i].itemNo;
-        let itemNm1 = ret[i].itemNm1;
+        let itemNm = ret[i].itemNm;
         let invoiceNo = ret[i].invoiceNo ? ret[i].invoiceNo : '';
         let imagePath = ret[i].imagePath;
         let totalPrice = ret[i].totalPrice;
@@ -121,7 +122,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="order_date" class="order-date"><div>' + orderDate + '</div></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '<div class="write-review" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">후기작성</span></div></div>';
+            html += '<div id="item_nm" class="item-nm">' + itemNm + '<div class="write-review" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">후기작성</span></div></div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
@@ -145,7 +146,7 @@ function selectOrderListMainCallback(ret) {
             html += '<tr>';
             html += '<input id="item_no" type="hidden" value="' + itemNo + '">';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '<div class="write-review" style="margin-top: 10px; font-size: 10px; text-decoration: underline; color: gray;"><a>후기작성</a></div></div>';
+            html += '<div id="item_nm" class="item-nm">' + itemNm + '<div class="write-review" style="margin-top: 10px; font-size: 10px; text-decoration: underline; color: gray;"><a>후기작성</a></div></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';

@@ -54,7 +54,7 @@ $(document).ready(function() {
             html += '<label class="custom-control-label" for="cart_check_box' + i + '"></label>';
             html += '</div></td>';
             html += '<th scope="row"><img style="width: 80px; border-radius: 5px;" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></th>';
-            html += '<td>' + productArr[i].itemNm1 + ' ' + productArr[i].itemNm2 + '</td>';
+            html += '<td>' + productArr[i].itemNm + '</td>';
             html += '<td>' + productArr[i].optionNm + '</td>';
             html += '<td>' + productArr[i].itemPrice + '</td>';
             html += '<td>' + productArr[i].shippingFee + '</td>';

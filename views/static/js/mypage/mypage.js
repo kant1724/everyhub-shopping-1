@@ -85,6 +85,7 @@ function selectOrderListMain() {
 }
 
 function selectOrderListMainCallback(ret) {
+    if (isNull(ret)) return;
     let html = '';
     $('#order_list_tbody').empty();
     let rowspan = {};
@@ -101,7 +102,7 @@ function selectOrderListMainCallback(ret) {
         let orderNo = ret[i].orderNo;
         let orderDate = ret[i].orderDate;
         let itemNo = ret[i].itemNo;
-        let itemNm1 = ret[i].itemNm1;
+        let itemNm = ret[i].itemNm;
         let invoiceNo = ret[i].invoiceNo ? ret[i].invoiceNo : '';
         let imagePath = ret[i].imagePath;
         let totalPrice = ret[i].totalPrice;
@@ -124,7 +125,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70" style="border-radius: 5px;"></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
+            html += '<div id="item_nm" class="item-nm">' + itemNm + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
@@ -151,7 +152,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70" style="border-radius: 5px;"></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '</div>';
+            html += '<div id="item_nm" class="item-nm">' + itemNm + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';

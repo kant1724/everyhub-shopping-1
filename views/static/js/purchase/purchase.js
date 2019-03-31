@@ -165,13 +165,13 @@ function purchaseDirect() {
     let eachOrder = {};
     eachOrder.qty = $('#direct_qty').val();
     eachOrder.itemNo = $('#direct_item_no').val();
-    eachOrder.itemNm1 = $('#direct_item_nm_1').val();
+    eachOrder.itemNm = $('#direct_item_nm').val();
     eachOrder.keepingMethod = $('#direct_keeping_method').val();
     eachOrder.optionNo = $('#direct_option_no').val();
     html += '<div style="font-size: 11px;">';
     html += '<div class="mt-2 mb-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + $('#direct_image_path').val() + '" alt="" class="img-fluid z-depth-0"></div>';
     html += '<div class="mb-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
-    html += '<div class="mb-2">상품명: ' + $('#direct_item_nm_1').val() + '</div>';
+    html += '<div class="mb-2">상품명: ' + $('#direct_item_nm').val() + '</div>';
     html += '<div class="mb-2">옵션: ' + $('#direct_option_nm').val() + '</div>';
     html += '<div class="mb-2">단가: ' + $('#direct_item_price').val() + '</div>';
     html += '<div class="mb-2">배송비: ' + $('#direct_shipping_fee').val() + '</div>';
@@ -203,7 +203,7 @@ function purchaseFromCart() {
                 let eachOrder = {};
                 eachOrder.qty = productArr[j].qty;
                 eachOrder.itemNo = productArr[j].itemNo;
-                eachOrder.itemNm1 = productArr[j].itemNm1;
+                eachOrder.itemNm = productArr[j].itemNm;
                 eachOrder.keepingMethod = productArr[j].keepingMethod;
                 eachOrder.optionNo = productArr[j].optionNo;
                 html += '<div style="font-size: 20px; font-weight: 700; color: gray;"><i class="far fa-list"></i>&nbsp;&nbsp;주문' + cnt + '</div>';
@@ -211,7 +211,7 @@ function purchaseFromCart() {
                 html += '<div style="font-size: 11px;">';
                 html += '<div class="mt-2 mb-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></div>';
                 html += '<div class="mb-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
-                html += '<div class="mb-2">상품명: ' + productArr[j].itemNm1 + '</div>';
+                html += '<div class="mb-2">상품명: ' + productArr[j].itemNm + '</div>';
                 html += '<div class="mb-2">옵션: ' + productArr[j].optionNm + '</div>';
                 html += '<div class="mb-2">단가: ' + productArr[j].itemPrice + '</div>';
                 html += '<div class="mb-2">배송비: ' + productArr[j].shippingFee + '</div>';

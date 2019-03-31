@@ -36,8 +36,7 @@ function selectItemListCallback(ret) {
     for (let i = 0; i < ret.length; ++i) {
         html += '<tr><td class="text-center item-no">' + ret[i].itemNo +'</td>';
         html += '<td class="text-center"><img src = "' + ret[i].imagePath+ '" alt="" width="80px" style="border-radius: 5px;" class="img-fluid z-depth-0"></td>';
-        html += '<td class="text-center">' + ret[i].itemNm1 + '</td>';
-        html += '<td class="text-center">' + ret[i].itemNm2 + '</td>';
+        html += '<td class="text-center">' + ret[i].itemNm + '</td>';
         html += '<td class="text-center">' + ret[i].recommendYn + '</td>';
         html += '<td class="text-center">' + ret[i].useYn + '</td>';
         html += '<td class="text-center" style="width: 120px;"><span id="item_option" class="item-option text-underline-link">옵션등록</span></td>';

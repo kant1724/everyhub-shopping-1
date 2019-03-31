@@ -103,7 +103,7 @@ function setRecommendProduct(ret) {
         html += '</div>';
         html += '<div class="card-body">';
         html += '<a class="card-title mb-1">';
-        html += '<a style="font-size: 16px; font-weight: 700;">' + ret[i].itemNm1 + '</a>';
+        html += '<a style="font-size: 16px; font-weight: 700;">' + ret[i].itemNm + '</a>';
         html += '</a><br>';
         html += '<a class="all-product-detail-text3">원산지: 국내산</a><br>';
         html += '<a style="color: #980000; font-size: 13px;">' + shipYn + '</a><br>';
@@ -138,7 +138,7 @@ function setAllProduct(ret) {
         html += '<div class="row py-2 mb-4 align-items-center">';
         html += '<div class="col-12"><a><img src="' + ret[i].imagePath + '" style="border-radius: 5px; height: 150px;" class="img-fluid"></a></div>';
         html += '<div class="col-12 pt-2 text-center">';
-        html += '<a class="pt-3" style="font-size: 14px; font-weight: 700;"><strong>' + ret[i].itemNm1 + ' ' + ret[i].itemNm2 + '</strong></a><br>';
+        html += '<a class="pt-3" style="font-size: 14px; font-weight: 700;"><strong>' + ret[i].itemNm + '</strong></a><br>';
         html += '<a class="all-product-detail-text3" style="font-size: 12px;">원산지: 국내산</a><br>';
         html += '<a style="color: #980000; font-size: 13px;">' + shipYn + '</a>';
         html += '</div></div></div><hr>';
