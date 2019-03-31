@@ -25,8 +25,9 @@ let searchAddressApi = {
 
 	searchAddressAjax: function(page, keyword, gubun) {
 		this.curKeyword = keyword;
+		let url = 'http://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage=' + page + '&countPerPage=' + this.countPerPage + '&keyword=' + encodeURIComponent(keyword) + '&confmKey=U01TX0FVVEgyMDE5MDIyODE5MzIxMTEwODU1MTA=&resultType=json';
 		$.ajax({
-			url: 'http://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage=' + page + '&countPerPage=' + this.countPerPage + '&keyword=' + keyword + '&confmKey=U01TX0FVVEgyMDE5MDIyODE5MzIxMTEwODU1MTA=&resultType=json',
+			url: url,
 			type: 'GET',
 			dataType: 'json',
 			success: function (jsonStr) {

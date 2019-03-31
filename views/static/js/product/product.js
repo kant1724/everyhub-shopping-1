@@ -80,18 +80,18 @@ $(document).ready(function() {
     });
 
     $('#order_now').click(function() {
-        let param = 'itemNo=' + $('#item_no').val();
-        param += '&optionNo=' + $('#info_option_no').val();
-        param += '&optionNm=' + $('#info_option_nm').val();
-        param += '&imagePath=' + $('#info_image_path').prop('src');
-        param += '&itemNm1=' + $('#info_item_nm_1').text();
-        param += '&itemNm2=' + $('#info_item_nm_2').text();
-        param += '&keepingMethod=' + $('#keeping_method').val();
-        param += '&itemPrice=' + $('#info_item_price').text();
-        param += '&shippingFee=' + $('#info_shipping_fee').text();
-        param += '&itemPriceNum=' + $('#info_item_price_num').val();
-        param += '&shippingFeeNum=' + $('#info_shipping_fee_num').val();
-        param += '&qty=' + $('#qty').val();
+        let param = 'itemNo=' + encodeURIComponent($('#item_no').val());
+        param += '&optionNo=' + encodeURIComponent($('#info_option_no').val());
+        param += '&optionNm=' + encodeURIComponent($('#info_option_nm').val());
+        param += '&imagePath=' + encodeURIComponent($('#info_image_path').prop('src'));
+        param += '&itemNm1=' + encodeURIComponent($('#info_item_nm_1').text());
+        param += '&itemNm2=' + encodeURIComponent($('#info_item_nm_2').text());
+        param += '&keepingMethod=' + encodeURIComponent($('#keeping_method').val());
+        param += '&itemPrice=' + encodeURIComponent($('#info_item_price').text());
+        param += '&shippingFee=' + encodeURIComponent($('#info_shipping_fee').text());
+        param += '&itemPriceNum=' + encodeURIComponent($('#info_item_price_num').val());
+        param += '&shippingFeeNum=' + encodeURIComponent($('#info_shipping_fee_num').val());
+        param += '&qty=' + encodeURIComponent($('#qty').val());
         if ($('#qty').val() == 0) {
             alert('수량은 1이상이어야 합니다.');
             return;
