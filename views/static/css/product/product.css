@@ -22,14 +22,15 @@ input[type=number] {
 }
 
 .qty-plus-btn, .qty-minus-btn {
-    padding-top: 1px;
-    width: 24px;
-    height: 24px;
+    vertical-align: middle;
+    padding-top: 4px;
+    width: 29.5px;
+    height: 29.5px;
     display: inline-block;
     font-size: 13px;
     border: 1px solid gray;
     position:relative;
-    top: 2px;
+    top: 1.5px;
     color: #333;
 }
 

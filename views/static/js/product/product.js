@@ -130,6 +130,16 @@ $(document).ready(function() {
         $('#qna_modal').modal();
     });
 
+    $('.qty-plus-btn').click(function() {
+        $('#qty').val(Number($('#qty').val()) + 1);
+    });
+
+    $('.qty-minus-btn').click(function() {
+        if (Number($('#qty').val()) > 0) {
+            $('#qty').val(Number($('#qty').val()) - 1);
+        }
+    });
+
     $('#write_qna_btn').click(function() {
         writeQna();
     });
