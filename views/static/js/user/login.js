@@ -70,20 +70,20 @@ function setTokenCallback(ret) {
         let p = JSON.parse($('#param').val());
         let param = '';
         if (isNull(p.items)) {
-            param += 'itemNo=' + p.itemNo;
-            param += '&optionNo=' + p.optionNo;
-            param += '&optionNm=' + p.optionNm;
-            param += '&imagePath=' + p.imagePath;
-            param += '&itemNm1=' + p.itemNm1;
-            param += '&itemNm2=' + p.itemNm2;
-            param += '&keepingMethod=' + p.keepingMethod;
-            param += '&itemPrice=' + p.itemPrice;
-            param += '&shippingFee=' + p.shippingFee;
-            param += '&itemPriceNum=' + p.itemPriceNum;
-            param += '&shippingFeeNum=' + p.shippingFeeNum;
-            param += '&qty=' + p.qty;
+            param += 'itemNo=' + encodeURIComponent(p.itemNo);
+            param += '&optionNo=' + encodeURIComponent(p.optionNo);
+            param += '&optionNm=' + encodeURIComponent(p.optionNm);
+            param += '&imagePath=' + encodeURIComponent(p.imagePath);
+            param += '&itemNm1=' + encodeURIComponent(p.itemNm1);
+            param += '&itemNm2=' + encodeURIComponent(p.itemNm2);
+            param += '&keepingMethod=' + encodeURIComponent(p.keepingMethod);
+            param += '&itemPrice=' + encodeURIComponent(p.itemPrice);
+            param += '&shippingFee=' + encodeURIComponent(p.shippingFee);
+            param += '&itemPriceNum=' + encodeURIComponent(p.itemPriceNum);
+            param += '&shippingFeeNum=' + encodeURIComponent(p.shippingFeeNum);
+            param += '&qty=' + encodeURIComponent(p.qty);
         } else {
-            param += 'items=' + p.items;
+            param += 'items=' + encodeURIComponent(p.items);
         }
         location.href = '/purchase?' + param;
     } else {

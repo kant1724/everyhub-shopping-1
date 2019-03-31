@@ -33,7 +33,7 @@ $(document).ready(function() {
             return;
         }
         items = items.substring(0, items.length - 1);
-        location.href = '/purchase?items=' + items;
+        location.href = '/purchase?items=' + encodeURIComponent(items);
     });
 
     let productArr = JSON.parse(localStorage.getItem('product'));
