@@ -64,6 +64,9 @@ function goSigningUp() {
         gender = 'F';
     }
     let dateOfBirth = $('#date_of_birth_y').val() + $('#date_of_birth_m').val() + $('#date_of_birth_d').val();
+    let dateOfBirthY = $('#date_of_birth_y').val();
+    let dateOfBirthM = $('#date_of_birth_m').val();
+    let dateOfBirthD = $('#date_of_birth_d').val();
     let addressMain = $('#address_main').text();
     let addressDetail = $('#address_detail').val();
     let zipNo = $('#zip_no').text();
@@ -76,6 +79,9 @@ function goSigningUp() {
         userNm: userNm,
         gender: gender,
         dateOfBirth: dateOfBirth,
+        dateOfBirthY: dateOfBirthY,
+        dateOfBirthM: dateOfBirthM,
+        dateOfBirthD: dateOfBirthD,
         zipNo: zipNo,
         addressMain: addressMain,
         addressDetail: addressDetail

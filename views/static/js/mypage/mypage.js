@@ -193,7 +193,9 @@ function selectUserCallback(ret) {
         $('#zip_no').text(ret[0].zipNo);
         $('#address_main').text(ret[0].addressMain);
         $('#address_detail').val(ret[0].addressDetail);
-        $('#date_of_birth').val(ret[0].dateOfBirth);
+        $('#date_of_birth_y').val(ret[0].dateOfBirthY);
+        $('#date_of_birth_m').val(ret[0].dateOfBirthM);
+        $('#date_of_birth_d').val(ret[0].dateOfBirthD);
         let gender = ret[0].gender;
         if (gender == 'M') {
             $('#gender_male').prop('checked', true);
@@ -230,7 +232,10 @@ function updateUser() {
         telno2: $('#telno_2').val(),
         telno3: $('#telno_3').val(),
         gender: gender,
-        dateOfBirth: $('#date_of_birth').val(),
+        dateOfBirth: $('#date_of_birth_y').val() + $('#date_of_birth_m').val() + $('#date_of_birth_d').val(),
+        dateOfBirthY: $('#date_of_birth_y').val(),
+        dateOfBirthM: $('#date_of_birth_m').val(),
+        dateOfBirthD: $('#date_of_birth_d').val(),
         zipNo: $('#zip_no').text(),
         addressMain: $('#address_main').text(),
         addressDetail: $('#address_detail').val()
