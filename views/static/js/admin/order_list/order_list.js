@@ -185,11 +185,14 @@ function selectOrderListMainCallback(ret) {
         let receiveAddressMain = ret[i].receiveAddressMain;
         let receiveAddressDetail = ret[i].receiveAddressDetail;
         let orderRemarks = ret[i].orderRemarks;
+        let depositPersonNm = ret[i].depositPersonNm;
         let depositRemarks = ret[i].depositRemarks;
+        let cancelDate = ret[i].cancelDate ? ret[i].cancelDate : '';
 
         if (depositConfirmDate == null || depositConfirmDate == '') {
-            depositConfirmDate = '<a class="confirm-deposit-btn common-button-1">입금확인</a>';
+            depositPersonNm += '<br><a class="confirm-deposit-btn" style="font-size: 11px; text-decoration: underline; color: gray;">입금확인</a>';
         }
+
         let hasInvoiceNo = false;
         if (invoiceNo == null || invoiceNo == '') {
             invoiceNo = '<a class="write-invoice-no-btn common-button-1">입력</a>';
@@ -253,14 +256,17 @@ function selectOrderListMainCallback(ret) {
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="width: 150px; vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="deposit_confirm_date" class="deposit-confirm-date">' + depositConfirmDate + '</div>';
+            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<div id="deposit_person_nm" class="deposit-person-nm">' + depositPersonNm + '</div>';
             html += '</td>';
             html += '<td style="width: 120px; vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
             html += '<td style="width: 120px; vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
+            html += '</td>';
+            html += '<td style="width: 120px; vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<div id="cancel_date" class="cancel-date">' + cancelDate + '</div>';
             html += '</td>';
             html += '</tr>';
         } else {
@@ -315,18 +321,18 @@ function selectOrderListMainCallback(ret) {
         let orderRemarks = $(this).parent().parent().find('.order-remarks').val();
         let depositRemarks = $(this).parent().parent().find('.deposit-remarks').val();
 
-        $('#modal_send_person_nm').text('보내는자: ' + sendPersonNm);
-        $('#modal_send_telno').text('보내는자 연락처: ' + sendTelno);
-        $('#modal_send_zip_no').text('보내는자 우편번호: ' + sendZipNo);
-        $('#modal_send_address_main').text('보내는자 주소: ' + sendAddressMain);
-        $('#modal_send_address_detail').text('보내는자 상세주소: ' + sendAddressDetail);
-        $('#modal_receive_person_nm').text('받는자: ' + receivePersonNm);
-        $('#modal_receive_telno').text('받는자 연락처: ' + receiveTelno);
-        $('#modal_receive_zip_no').text('받는자 우편번호: ' + receiveZipNo);
-        $('#modal_receive_address_main').text('받는자 주소: ' + receiveAddressMain);
-        $('#modal_receive_address_detail').text('받는자 상세주소: ' + receiveAddressDetail);
-        $('#modal_order_remarks').text('주문메모: ' + orderRemarks);
-        $('#modal_deposit_remarks').text('입금메모: ' + depositRemarks);
+        $('#modal_send_person_nm').text(sendPersonNm);
+        $('#modal_send_telno').text(sendTelno);
+        $('#modal_send_zip_no').text(sendZipNo);
+        $('#modal_send_address_main').text(sendAddressMain);
+        $('#modal_send_address_detail').text(sendAddressDetail);
+        $('#modal_receive_person_nm').text(receivePersonNm);
+        $('#modal_receive_telno').text(receiveTelno);
+        $('#modal_receive_zip_no').text(receiveZipNo);
+        $('#modal_receive_address_main').text(receiveAddressMain);
+        $('#modal_receive_address_detail').text(receiveAddressDetail);
+        $('#modal_order_remarks').text(orderRemarks);
+        $('#modal_deposit_remarks').text(depositRemarks);
 
         $('#order_detail_modal').modal();
     });
