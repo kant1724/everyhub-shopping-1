@@ -37,7 +37,6 @@ $(document).ready(function() {
             updateItemOption();
         }
     });
-
     selectItemOption();
 });
 
@@ -57,8 +56,8 @@ function selectItemOptionCallback(ret) {
         html += '<td class="text-center option-nm">' + ret[i].optionNm + '</td>';
         html += '<td class="text-center item-price">' + ret[i].itemPrice + '</td>';
         html += '<td class="text-center shipping-fee">' + ret[i].shippingFee + '</td>';
-        html += '<td class="text-center" style="width: 100px;"><a id="modify_option" class="common-button-1 modify-option">변경</a></td>';
-        html += '<td class="text-center" style="width: 100px;"><a id="delete_option" class="common-button-1 delete-option">삭제</a></td></tr>';
+        html += '<td class="text-center" style="width: 100px;"><a id="modify_option" class="modify-option" style="font-size: 13px; color: #333; text-decoration: underline;">변경</a></td>';
+        html += '<td class="text-center" style="width: 100px;"><a id="delete_option" class="delete-option" style="font-size: 13px; color: #333; text-decoration: underline;">삭제</a></td></tr>';
     }
     $('.option-table tbody').append(html);
 
@@ -95,7 +94,7 @@ function insertItemOption() {
         itemNo: itemNo,
         optionNm: optionNm,
         itemPrice: itemPrice,
-        shippingFee, shippingFee
+        shippingFee: shippingFee
     };
     ajax(serverUrl + '/admin/item_manager/insertItemOption', inputData, 'insertItemOption', 'POST');
 }
@@ -118,7 +117,7 @@ function updateItemOption() {
         itemNo: itemNo,
         optionNm: optionNm,
         itemPrice: itemPrice,
-        shippingFee, shippingFee
+        shippingFee: shippingFee
     };
     ajax(serverUrl + '/admin/item_manager/updateItemOption', inputData, 'updateItemOption', 'POST');
 }
