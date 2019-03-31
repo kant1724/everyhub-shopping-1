@@ -62,7 +62,7 @@ function initSwiper2() {
     let swiper = new Swiper('.swiper-container.rcm-swiper', {
         slidesPerView: 1,
         spaceBetween: 30,
-        loop: true,
+        loop: false,
         pagination: {
             el: '.swiper-pagination.rcm-swiper',
             clickable: true
