@@ -18,12 +18,6 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
-    $('[data-toggle="datepicker"]').datepicker({
-        format: 'yyyy-mm-dd',
-        language: 'ko-KR',
-        autoHide: true
-    });
-
     $('#go_signing_up_btn').click(function() {
         goSigningUp();
     });
@@ -69,7 +63,7 @@ function goSigningUp() {
     } else if ($('#gender_female').is(':checked')) {
         gender = 'F';
     }
-    let dateOfBirth = $('#date_of_birth').val();
+    let dateOfBirth = $('#date_of_birth_y').val() + $('#date_of_birth_m').val() + $('#date_of_birth_d').val();
     let addressMain = $('#address_main').text();
     let addressDetail = $('#address_detail').val();
     let zipNo = $('#zip_no').text();
@@ -111,11 +105,6 @@ function validationCheck() {
     } else if ($('#gender_female').is(':checked')) {
     } else {
         alert('성별을 체크하세요.');
-        return false;
-    }
-    let dateOfBirth = $('#date_of_birth').val();
-    if (isNull(dateOfBirth)) {
-        alert('생일을 입력하세요.');
         return false;
     }
     let addressMain = $('#address_main').text();
