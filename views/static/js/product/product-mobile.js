@@ -177,6 +177,8 @@ function selectItemOptionCallback(ret) {
     for (let i = 0; i < ret.length; ++i) {
         let optionNo = ret[i].optionNo;
         let optionNm = ret[i].optionNm;
+        let useYn = ret[i].useYn;
+        if (useYn == 'N') continue;
         $('#item_option').append('<option value="' + optionNo + '">' + optionNm + '</option>');
     }
     $('#info_item_price').text(numberWithCommas(optionData[0].itemPrice) + '원');

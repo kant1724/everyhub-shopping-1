@@ -27,6 +27,7 @@ $(document).ready(function() {
         $('#option_nm').val('');
         $('#item_price').val('');
         $('#shipping_fee').val('');
+        $('#use_yn').val('');
         $('#option_modal').modal();
     });
 
@@ -56,6 +57,7 @@ function selectItemOptionCallback(ret) {
         html += '<td class="text-center option-nm">' + ret[i].optionNm + '</td>';
         html += '<td class="text-center item-price">' + ret[i].itemPrice + '</td>';
         html += '<td class="text-center shipping-fee">' + ret[i].shippingFee + '</td>';
+        html += '<td class="text-center use-yn">' + ret[i].useYn + '</td>';
         html += '<td class="text-center" style="width: 100px;"><span id="modify_option" class="modify-option text-underline-link">변경</span></td>';
         html += '<td class="text-center" style="width: 100px;"><span id="delete_option" class="delete-option text-underline-link">삭제</span></td></tr>';
     }
@@ -67,11 +69,13 @@ function selectItemOptionCallback(ret) {
         let optionNm = $(this).parent().parent().find('.option-nm').text();
         let itemPrice = $(this).parent().parent().find('.item-price').text();
         let shippingFee = $(this).parent().parent().find('.shipping-fee').text();
+        let useYn = $(this).parent().parent().find('.use-yn').text();
 
         $('#option_no').val(optionNo);
         $('#option_nm').val(optionNm);
         $('#item_price').val(itemPrice);
         $('#shipping_fee').val(shippingFee);
+        $('#use_yn').val(useYn);
         $('#option_modal').modal();
     });
 
@@ -89,12 +93,14 @@ function insertItemOption() {
     let optionNm = $('#option_nm').val();
     let itemPrice = $('#item_price').val() ? $('#item_price').val() : 0;
     let shippingFee = $('#shipping_fee').val() ? $('#shipping_fee').val() : 0;
+    let useYn = $('#use_yn').val() ? $('#use_yn').val() : 'N';
 
     let inputData = {
         itemNo: itemNo,
         optionNm: optionNm,
         itemPrice: itemPrice,
-        shippingFee: shippingFee
+        shippingFee: shippingFee,
+        useYn: useYn
     };
     ajax(serverUrl + '/admin/item_manager/insertItemOption', inputData, 'insertItemOption', 'POST');
 }
@@ -111,13 +117,15 @@ function updateItemOption() {
     let optionNm = $('#option_nm').val();
     let itemPrice = $('#item_price').val() ? $('#item_price').val() : 0;
     let shippingFee = $('#shipping_fee').val() ? $('#shipping_fee').val() : 0;
+    let useYn = $('#use_yn').val();
 
     let inputData = {
         optionNo: optionNo,
         itemNo: itemNo,
         optionNm: optionNm,
         itemPrice: itemPrice,
-        shippingFee: shippingFee
+        shippingFee: shippingFee,
+        useYn: useYn
     };
     ajax(serverUrl + '/admin/item_manager/updateItemOption', inputData, 'updateItemOption', 'POST');
 }

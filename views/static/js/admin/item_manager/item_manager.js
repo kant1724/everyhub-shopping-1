@@ -39,7 +39,7 @@ function selectItemListCallback(ret) {
         html += '<td class="text-center">' + ret[i].itemNm + '</td>';
         html += '<td class="text-center">' + ret[i].recommendYn + '</td>';
         html += '<td class="text-center">' + ret[i].useYn + '</td>';
-        html += '<td class="text-center" style="width: 120px;"><span id="item_option" class="item-option text-underline-link">옵션등록</span></td>';
+        html += '<td class="text-center" style="width: 120px;"><span id="item_option" class="item-option text-underline-link">옵션관리</span></td>';
         html += '<td class="text-center" style="width: 80px;"><span id="modify_item" class="modify-item text-underline-link">변경</span></td>';
         html += '<td class="text-center" style="width: 80px;"><span id="delete_item" class="delete-item text-underline-link">삭제</span></td></tr>';
     }

@@ -85,7 +85,6 @@ function selectOrderListMain() {
 }
 
 function selectOrderListMainCallback(ret) {
-    if (isNull(ret)) return;
     let html = '';
     $('#order_list_tbody').empty();
     let rowspan = {};
