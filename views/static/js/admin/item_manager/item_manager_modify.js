@@ -96,7 +96,6 @@ function modifyItem() {
     if (!checkValidation()) {
         return;
     }
-
     let itemNo = $('#item_no').val();
     let itemNm1 = $('#item_nm_1').val();
     let itemNm2 = $('#item_nm_2').val();
@@ -108,6 +107,8 @@ function modifyItem() {
     let keepingMethod = $('#keeping_method').val();
     let recommendYn = $('#recommend_yn').val();
     let useYn = $('#use_yn').val();
+    let shipYn = $('#ship_yn').val();
+    let soldOutYn = $('#sold_out_yn').val();
     let inputData = {
         itemNo: itemNo,
         itemNm1: itemNm1,
@@ -120,6 +121,8 @@ function modifyItem() {
         keepingMethod: keepingMethod,
         recommendYn: recommendYn,
         useYn: useYn,
+        shipYn: shipYn,
+        soldOutYn: soldOutYn,
         remoteUrl: remoteUrl,
         imageChanged: imageChanged
     };
@@ -137,6 +140,8 @@ function selectOneItemCallback(ret) {
     $('#item_main_ctgr_cd').val(ret[0].itemMainCtgrCd);
     $('#item_mid_ctgr_cd').val(ret[0].itemMidCtgrCd);
     $('#use_yn').val(ret[0].useYn);
+    $('#ship_yn').val(ret[0].shipYn);
+    $('#sold_out_yn').val(ret[0].soldOutYn);
     $('#recommend_yn').val(ret[0].recommendYn);
     $('#origin_cd').val(ret[0].originCd);
     $('#item_desc').val(ret[0].itemDesc);

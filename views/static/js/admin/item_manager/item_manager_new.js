@@ -90,7 +90,6 @@ function registerNewItem() {
     if (!checkValidation()) {
         return;
     }
-
     let itemNo = $('#item_no').val();
     let itemNm1 = $('#item_nm_1').val();
     let itemNm2 = $('#item_nm_2').val();
@@ -102,6 +101,8 @@ function registerNewItem() {
     let keepingMethod = $('#keeping_method').val();
     let recommendYn = $('#recommend_yn').val();
     let useYn = $('#use_yn').val();
+    let shipYn = $('#ship_yn').val();
+    let soldOutYn = $('#sold_out_yn').val();
 
     let inputData = {
         itemNo: itemNo,
@@ -115,6 +116,8 @@ function registerNewItem() {
         keepingMethod: keepingMethod,
         recommendYn: recommendYn,
         useYn: useYn,
+        shipYn: shipYn,
+        soldOutYn: soldOutYn,
         remoteUrl: remoteUrl,
         imageChanged: imageChanged
     };

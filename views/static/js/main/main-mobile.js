@@ -91,6 +91,7 @@ function setRecommendProduct(ret) {
     let html = '';
     for (let i = 0; i < ret.length; ++i) {
         if (ret[i].recommendYn == 'N') continue;
+        let shipYn = ret[i].shipYn == 'Y' ? '출하완료' : '출하전'
         html += '<div class="swiper-slide each-recommend mb-5">';
         html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="card-outer" style="background: #FFFFFF;">';
@@ -105,6 +106,7 @@ function setRecommendProduct(ret) {
         html += '<a style="font-size: 16px; font-weight: 700;">' + ret[i].itemNm1 + '</a>';
         html += '</a><br>';
         html += '<a class="all-product-detail-text3">원산지: 국내산</a><br>';
+        html += '<a style="color: #980000; font-size: 13px;">' + shipYn + '</a><br>';
         html += '<hr>';
         html += '<a class="all-product-detail-text3">' + ret[i].itemDesc +'</a>';
         html += '<div class="row mb-0 mt-3">';
@@ -130,13 +132,15 @@ function setRecommendProduct(ret) {
 function setAllProduct(ret) {
     let html = '';
     for (let i = 0; i < ret.length; ++i) {
+        let shipYn = ret[i].shipYn == 'Y' ? '출하완료' : '출하전'
         html += '<div class="each-item col-lg-4 col-md-6 col-6 pt-2">';
         html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="row py-2 mb-4 align-items-center">';
         html += '<div class="col-12"><a><img src="' + ret[i].imagePath + '" style="border-radius: 5px; height: 150px;" class="img-fluid"></a></div>';
         html += '<div class="col-12 pt-2 text-center">';
         html += '<a class="pt-3" style="font-size: 14px; font-weight: 700;"><strong>' + ret[i].itemNm1 + ' ' + ret[i].itemNm2 + '</strong></a><br>';
-        html += '<a class="all-product-detail-text3" style="font-size: 12px;">원산지: 국내산</a>';
+        html += '<a class="all-product-detail-text3" style="font-size: 12px;">원산지: 국내산</a><br>';
+        html += '<a style="color: #980000; font-size: 13px;">' + shipYn + '</a>';
         html += '</div></div></div><hr>';
     }
     $('#all_item_list').append(html);
