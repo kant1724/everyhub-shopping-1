@@ -111,6 +111,11 @@
     text-decoration: underline;
 }
 
+.padding-input {
+    font-size: 11px;
+    padding: 7px;
+}
+
 .text-underline-link:hover {
     cursor: pointer;
 }
