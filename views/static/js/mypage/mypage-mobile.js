@@ -118,10 +118,10 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
-            html += '<div id="order_date" class="oreder-date"><div>' + orderDate + '</div></div>';
+            html += '<div id="order_date" class="order-date"><div>' + orderDate + '</div></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '<div class="write-review" style="margin-top: 10px; font-size: 10px; text-decoration: underline; color: gray;"><a>후기작성</a></div></div>';
+            html += '<div id="item_nm_1" class="item-nm-1">' + itemNm1 + '<div class="write-review" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">후기작성</span></div></div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
@@ -133,7 +133,7 @@ function selectOrderListMainCallback(ret) {
                 if (cancelDate != null && cancelDate != '') {
                     html += '취소완료';
                 } else {
-                    html += '<div id="cancel_order" class="cancel-order"><a class="common-button-1">주문취소</a></div>';
+                    html += '<div id="cancel_order" class="cancel-order"><span class="text-underline-link" style="font-size: 11px;">주문취소</span></div>';
                 }
             }
             html += '</td>';
@@ -157,8 +157,10 @@ function selectOrderListMainCallback(ret) {
     $('#order_list_tbody').append(html);
     $('.cancel-order').unbind();
     $('.cancel-order').click(function() {
-        let orderNo = $(this).parent().parent().find('#order_no').text();
-        cancelOrder(orderNo);
+        if (confirm('해당 주문을 취소하시겠습니까?')) {
+            let orderNo = $(this).parent().parent().find('#order_no').text();
+            cancelOrder(orderNo);
+        }
     });
     $('.write-review').unbind();
     $('.write-review').click(function() {

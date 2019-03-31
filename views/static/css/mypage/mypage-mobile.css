@@ -3,19 +3,19 @@ body {
 }
 
 #order_list th {
-    font-size: 9px;
+    font-size: 11px;
     padding: 3px;
 }
 
 #order_list td {
-    font-size: 9px;
+    font-size: 11px;
     padding: 3px;
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
 #order_list a {
-    font-size: 9px;
+    font-size: 11px;
     padding: 1px;
 }
 

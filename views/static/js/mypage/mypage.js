@@ -118,7 +118,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
-            html += '<div id="order_date" class="oreder-date"><div>' + orderDate + '</div><div class="write-review" style="margin-top: 10px; font-size: 13px; text-decoration: underline; color: gray;"><a>후기작성</a></div></div>';
+            html += '<div id="order_date" class="oreder-date"><div>' + orderDate + '</div><div class="write-review text-underline-link" style="margin-top: 10px;"><a>후기작성</a></div></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70" style="border-radius: 5px;"></div>';
@@ -136,7 +136,7 @@ function selectOrderListMainCallback(ret) {
                 if (cancelDate != null && cancelDate != '') {
                     html += cancelDate;
                 } else {
-                    html += '<div id="cancel_order" class="cancel-order"><a class="common-button-1">주문취소</a></div>';
+                    html += '<div id="cancel_order" class="cancel-order"><span class="text-underline-link">주문취소</span></div>';
                 }
             }
             html += '</td>';
@@ -163,8 +163,10 @@ function selectOrderListMainCallback(ret) {
     $('#order_list_tbody').append(html);
     $('.cancel-order').unbind();
     $('.cancel-order').click(function() {
-        let orderNo = $(this).parent().parent().find('#order_no').text();
-        cancelOrder(orderNo);
+        if (confirm('해당 주문을 취소하시겠습니까?')) {
+            let orderNo = $(this).parent().parent().find('#order_no').text();
+            cancelOrder(orderNo);
+        }
     });
     $('.write-review').unbind();
     $('.write-review').click(function() {
