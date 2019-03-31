@@ -37,7 +37,7 @@ let constructUserList =  {
 			html += '<td>' + telno + '</td>';
 			html += '<td>' + managerNm + '</td>';
 			html += '<td>' + managerTelno + '</td>';
-			html += '<td><a class="save-manager-telno-btn" style="text-decoration: underline; color: #333; font-size: 12px;">매니저지정</a></td>';
+			html += '<td><span class="save-manager-telno-btn text-underline-link">매니저지정</span></td>';
 			html += '</tr>';
 		}
 		this.lastUserNo = this.allData[this.allData.length - 1].userNo;

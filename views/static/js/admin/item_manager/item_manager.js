@@ -40,9 +40,9 @@ function selectItemListCallback(ret) {
         html += '<td class="text-center">' + ret[i].itemNm2 + '</td>';
         html += '<td class="text-center">' + ret[i].recommendYn + '</td>';
         html += '<td class="text-center">' + ret[i].useYn + '</td>';
-        html += '<td class="text-center" style="width: 120px;"><a id="item_option" class="item-option" style="font-size: 13px; color: #333; text-decoration: underline;">옵션등록</a></td>';
-        html += '<td class="text-center" style="width: 80px;"><a id="modify_item" class="modify-item" style="font-size: 13px; color: #333; text-decoration: underline;">변경</a></td>';
-        html += '<td class="text-center" style="width: 80px;"><a id="delete_item" class="delete-item" style="font-size: 13px; color: #333; text-decoration: underline;">삭제</a></td></tr>';
+        html += '<td class="text-center" style="width: 120px;"><span id="item_option" class="item-option text-underline-link">옵션등록</span></td>';
+        html += '<td class="text-center" style="width: 80px;"><span id="modify_item" class="modify-item text-underline-link">변경</span></td>';
+        html += '<td class="text-center" style="width: 80px;"><span id="delete_item" class="delete-item text-underline-link">삭제</span></td></tr>';
     }
     $('.item-table tbody').append(html);
 

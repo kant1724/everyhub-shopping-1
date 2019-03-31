@@ -190,12 +190,12 @@ function selectOrderListMainCallback(ret) {
         let cancelDate = ret[i].cancelDate ? ret[i].cancelDate : '';
 
         if (depositConfirmDate == null || depositConfirmDate == '') {
-            depositPersonNm += '<br><a class="confirm-deposit-btn" style="font-size: 11px; text-decoration: underline; color: gray;">입금확인</a>';
+            depositPersonNm += '<br><span class="confirm-deposit-btn text-underline-link" style="font-size: 11px;">입금확인</span>';
         }
 
         let hasInvoiceNo = false;
         if (invoiceNo == null || invoiceNo == '') {
-            invoiceNo = '<a class="write-invoice-no-btn" style="font-size: 13px; text-decoration: underline; color: gray;">입력</a>';
+            invoiceNo = '<span class="write-invoice-no-btn text-underline-link">입력</span>';
         } else {
             hasInvoiceNo = true;
             invoiceNo = '<div>' + invoiceNo + '</div><a class="write-invoice-no-btn" style="text-decoration: underline; color: gray; font-size: 12px;">변경</a>';
@@ -239,7 +239,7 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="width: 150px; vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_date" class="oreder-date">' + orderDate + '</div>';
-            html += '<div id="order_detail" class="oreder-detail" style="text-decoration: underline; font-size: 13px; color: gray;">상세정보</div>';
+            html += '<div id="order_detail" class="oreder-detail text-underline-link">상세정보</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="order_person_nm" class="order-person-nm">' + orderPersonNm + '</div>';

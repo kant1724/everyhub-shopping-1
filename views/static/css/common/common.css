@@ -105,6 +105,16 @@
     color: #FFFFFF !important;
 }
 
+.text-underline-link {
+    font-size: 13px;
+    color: #5D5D5D;
+    text-decoration: underline;
+}
+
+.text-underline-link:hover {
+    cursor: pointer;
+}
+
 .common-select {
     outline: none;
     padding: 10px;
