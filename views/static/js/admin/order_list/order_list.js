@@ -195,7 +195,7 @@ function selectOrderListMainCallback(ret) {
 
         let hasInvoiceNo = false;
         if (invoiceNo == null || invoiceNo == '') {
-            invoiceNo = '<a class="write-invoice-no-btn common-button-1">입력</a>';
+            invoiceNo = '<a class="write-invoice-no-btn" style="font-size: 13px; text-decoration: underline; color: gray;">입력</a>';
         } else {
             hasInvoiceNo = true;
             invoiceNo = '<div>' + invoiceNo + '</div><a class="write-invoice-no-btn" style="text-decoration: underline; color: gray; font-size: 12px;">변경</a>';
@@ -259,13 +259,13 @@ function selectOrderListMainCallback(ret) {
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="deposit_person_nm" class="deposit-person-nm">' + depositPersonNm + '</div>';
             html += '</td>';
-            html += '<td style="width: 120px; vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
-            html += '<td style="width: 120px; vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
             html += '</td>';
-            html += '<td style="width: 120px; vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="cancel_date" class="cancel-date">' + cancelDate + '</div>';
             html += '</td>';
             html += '</tr>';
