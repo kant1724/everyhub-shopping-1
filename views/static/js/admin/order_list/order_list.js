@@ -170,7 +170,7 @@ function selectOrderListMainCallback(ret) {
         let orderTelno = ret[i].orderTelno;
         let itemNm = ret[i].itemNm;
         let optionNm = ret[i].optionNm;
-        let invoiceNo = ret[i].invoiceNo ? ret[i].invoiceNo : '';
+        let qty = ret[i].qty ? ret[i].qty : '';
         let totalPrice = ret[i].totalPrice;
         let depositConfirmDate = ret[i].depositConfirmDate;
         let dlvrConfirmDate = ret[i].dlvrConfirmDate;
@@ -194,13 +194,14 @@ function selectOrderListMainCallback(ret) {
         }
 
         let hasInvoiceNo = false;
+        /**
         if (invoiceNo == null || invoiceNo == '') {
             invoiceNo = '<span class="write-invoice-no-btn text-underline-link">입력</span>';
         } else {
             hasInvoiceNo = true;
             invoiceNo = '<div>' + invoiceNo + '</div><a class="write-invoice-no-btn" style="text-decoration: underline; color: gray; font-size: 12px;">변경</a>';
         }
-
+        **/
         if(dlvrConfirmDate == null || dlvrConfirmDate == '') {
             dlvrConfirmDate = '';
         }
@@ -253,14 +254,14 @@ function selectOrderListMainCallback(ret) {
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
             html += '</td>';
+            html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<div id="qty" class="qty">' + qty + '</div>';
+            html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="deposit_person_nm" class="deposit-person-nm">' + depositPersonNm + '</div>';
-            html += '</td>';
-            html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
@@ -294,7 +295,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
+            html += '<div id="qty" class="qty">' + qty + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';

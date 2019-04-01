@@ -102,7 +102,8 @@ function selectOrderListMainCallback(ret) {
         let orderDate = ret[i].orderDate;
         let itemNo = ret[i].itemNo;
         let itemNm = ret[i].itemNm;
-        let invoiceNo = ret[i].invoiceNo ? ret[i].invoiceNo : '';
+        let optionNm = ret[i].optionNm;
+        let qty = ret[i].qty ? ret[i].qty : '';
         let imagePath = ret[i].imagePath;
         let totalPrice = ret[i].totalPrice;
         let depositConfirmDate = ret[i].depositConfirmDate;
@@ -117,11 +118,14 @@ function selectOrderListMainCallback(ret) {
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
-            html += '<div id="order_date" class="order-date"><div>' + orderDate + '</div></div>';
-            html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="item_nm" class="item-nm">' + itemNm + '<div class="write-review" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">후기작성</span></div></div>';
+            html += '</td>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
+            html += '</td>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div id="qty" class="qty">' + qty + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
@@ -137,9 +141,6 @@ function selectOrderListMainCallback(ret) {
                 }
             }
             html += '</td>';
-            html += '<td style="vertical-align: middle;">';
-            html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
-            html += '</td>';
             html += '</tr>';
         } else {
             html += '<tr>';
@@ -148,7 +149,10 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="item_nm" class="item-nm">' + itemNm + '<div class="write-review" style="margin-top: 10px; font-size: 10px; text-decoration: underline; color: gray;"><a>후기작성</a></div></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
+            html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
+            html += '</td>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div id="qty" class="qty">' + qty + '</div>';
             html += '</td>';
             html += '</tr>';
         }

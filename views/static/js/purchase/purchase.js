@@ -180,10 +180,7 @@ function purchaseDirect() {
     html += '</div>';
     html += '</div>';
     html += '<hr>';
-    let qty = Number($('#direct_qty').val());
-    for (let i = 0; i < qty; ++i) {
-        orderListDetail.push(eachOrder);
-    }
+    orderListDetail.push(eachOrder);
     let sum = (Number($('#direct_item_price_num').val()) + Number($('#direct_shipping_fee_num').val())) * Number($('#direct_qty').val());
     html += '<div style="font-size: 16px; font-weight: 700; color: red;"><i class="far fa-won-sign"></i>&nbsp;&nbsp;총금액: ' + numberWithCommas(sum) + '원</div>';
     $('#order_list').append(html);

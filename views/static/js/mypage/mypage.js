@@ -102,7 +102,8 @@ function selectOrderListMainCallback(ret) {
         let orderDate = ret[i].orderDate;
         let itemNo = ret[i].itemNo;
         let itemNm = ret[i].itemNm;
-        let invoiceNo = ret[i].invoiceNo ? ret[i].invoiceNo : '';
+        let optionNm = ret[i].optionNm;
+        let qty = ret[i].qty ? ret[i].qty : '';
         let imagePath = ret[i].imagePath;
         let totalPrice = ret[i].totalPrice;
         let depositConfirmDate = ret[i].depositConfirmDate;
@@ -126,6 +127,12 @@ function selectOrderListMainCallback(ret) {
             html += '<td style="vertical-align: middle;">';
             html += '<div id="item_nm" class="item-nm">' + itemNm + '</div>';
             html += '</td>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
+            html += '</td>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div id="qty" class="qty">' + qty + '</div>';
+            html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
             html += '</td>';
@@ -140,9 +147,6 @@ function selectOrderListMainCallback(ret) {
                 }
             }
             html += '</td>';
-            html += '<td style="vertical-align: middle;">';
-            html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
-            html += '</td>';
             html += '</tr>';
         } else {
             html += '<tr>';
@@ -154,7 +158,10 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="item_nm" class="item-nm">' + itemNm + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="invoice_no" class="invoice-no">' + invoiceNo + '</div>';
+            html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
+            html += '</td>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div id="qty" class="qty">' + qty + '</div>';
             html += '</td>';
             html += '</tr>';
         }
