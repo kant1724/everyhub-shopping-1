@@ -203,6 +203,7 @@ function purchaseFromCart() {
                 eachOrder.itemNm = productArr[j].itemNm;
                 eachOrder.keepingMethod = productArr[j].keepingMethod;
                 eachOrder.optionNo = productArr[j].optionNo;
+                eachOrder.optionNm = productArr[j].optionNm;
                 html += '<div style="font-size: 20px; font-weight: 700; color: gray;"><i class="far fa-list"></i>&nbsp;&nbsp;주문' + cnt + '</div>';
                 html += '<hr>';
                 html += '<div style="font-size: 11px;">';
