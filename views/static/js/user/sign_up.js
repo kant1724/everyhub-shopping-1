@@ -52,6 +52,22 @@ $(document).ready(function() {
             $('#telno_3').focus();
         }
     });
+
+    $('#date_of_birth_y').keyup(function(event) {
+        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
+        let val = $(this).val();
+        if (val.length >= 4) {
+            $('#date_of_birth_m').focus();
+        }
+    });
+
+    $('#date_of_birth_m').keyup(function(event) {
+        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
+        let val = $(this).val();
+        if (val.length >= 2) {
+            $('#date_of_birth_d').focus();
+        }
+    });
 });
 
 function searchAddress() {
