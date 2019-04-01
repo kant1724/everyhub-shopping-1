@@ -228,14 +228,13 @@ function selectQnaReply(qnaNo) {
 
 function selectOneItemCallback(ret) {
     let itemNm = ret[0].itemNm;
-    if (ret[0].shipYn == 'N' || ret[0].soldOutYn == 'Y') {
-        $('#order_now').prop('disabled', true);
-        $('#add_cart').prop('disabled', true);
-    }
     if (ret[0].shipYn == 'N') {
         itemNm += '<span class="ml-2" style="color: #980000">(출하전)</span>'
     } else if (ret[0].soldOutYn == 'Y') {
         itemNm += '<span class="ml-2" style="color: #980000">(품절)</span>'
+    } else {
+        $('#order_now').prop('disabled', false);
+        $('#add_cart').prop('disabled', false);
     }
     $('#info_image_path').prop('src', ret[0].imagePath);
     $('#info_item_nm').html(itemNm);
