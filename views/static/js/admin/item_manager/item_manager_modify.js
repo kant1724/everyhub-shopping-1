@@ -108,6 +108,8 @@ function modifyItem() {
     let useYn = $('#use_yn').val();
     let shipYn = $('#ship_yn').val();
     let soldOutYn = $('#sold_out_yn').val();
+    let sortOrder = $('#sort_order').val();
+
     let inputData = {
         itemNo: itemNo,
         itemNm: itemNm,
@@ -122,6 +124,7 @@ function modifyItem() {
         shipYn: shipYn,
         soldOutYn: soldOutYn,
         remoteUrl: remoteUrl,
+        sortOrder: sortOrder,
         imageChanged: imageChanged
     };
 
@@ -143,6 +146,8 @@ function selectOneItemCallback(ret) {
     $('#item_desc').val(ret[0].itemDesc);
     $('#notice').val(ret[0].notice);
     $('#keeping_method').val(ret[0].keepingMethod);
+    $('#sort_order').focus();
+    $('#sort_order').val(ret[0].sortOrder);
 }
 
 function modifyItemCallback(ret) {
