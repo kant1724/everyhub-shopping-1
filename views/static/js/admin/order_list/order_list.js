@@ -89,6 +89,7 @@ function selectInvoiceNoCallback(ret) {
         html += '<td>' + ret[i].orderNo + '</td>';
         html += '<td class="modal-invoice-no">' + ret[i].invoiceNo + '</td>';
         html += '<td><span class="delete-invoice-no text-underline-link">삭제</span></td>';
+        html += '</tr>';
     }
     $('#invoice_list_tbody').append(html);
 
@@ -251,14 +252,6 @@ function selectOrderListMainCallback(ret) {
         }
 
         let hasInvoiceNo = true;
-        /**
-        if (invoiceNo == null || invoiceNo == '') {
-            invoiceNo = '<span class="write-invoice-no-btn text-underline-link">입력</span>';
-        } else {
-            hasInvoiceNo = true;
-            invoiceNo = '<div>' + invoiceNo + '</div><a class="write-invoice-no-btn" style="text-decoration: underline; color: gray; font-size: 12px;">변경</a>';
-        }
-        **/
         if(dlvrConfirmDate == null || dlvrConfirmDate == '') {
             dlvrConfirmDate = '';
         }

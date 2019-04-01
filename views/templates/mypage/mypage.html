@@ -64,6 +64,7 @@
                                 <th>옵션명</th>
                                 <th>수량</th>
                                 <th>총금액</th>
+                                <th>송장번호</th>
                                 <th>주문취소</th>
                             </tr>
                             </thead>
@@ -239,6 +240,28 @@
                 </div>
                 <div class="modal-footer">
                     <a id="address_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="invoice_no_modal" tabindex="-1" role="dialog" aria-labelledby="invoice_no_modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content text-center">
+                <input type="hidden" id="modal_order_no">
+                <div class="mt-5 container">
+                    <table id="invoice_list" class="table table-bordered text-center">
+                        <thead>
+                        <tr>
+                            <th>주문번호</th>
+                            <th>송장번호</th>
+                        </tr>
+                        </thead>
+                        <tbody id="invoice_list_tbody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center pb-5">
+                    <a id="invoice_no_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
                 </div>
             </div>
         </div>
