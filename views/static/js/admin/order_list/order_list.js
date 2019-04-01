@@ -266,7 +266,7 @@ function selectOrderListMainCallback(ret) {
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
             html += '</td>';
-            html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="cancel_date" class="cancel-date">' + cancelDate + '</div>';
             html += '</td>';
             html += '</tr>';
