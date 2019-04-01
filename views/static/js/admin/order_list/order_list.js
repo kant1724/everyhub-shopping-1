@@ -125,7 +125,7 @@ function exportExcel() {
         d['받는분 전화'] = allData[i].receiveTelno;
         d['받는분 주소'] = allData[i].receiveAddressMain;
         d['받는분 상세주소'] = allData[i].receiveAddressDetail;
-        d['물품명'] = allData[i].itemNm;
+        d['물품명'] = allData[i].itemNm + ',' + allData[i].optionNm;
         d['박스수량'] = allData[i].qty;
         d['송장번호'] = '';
         data.push(d);
@@ -193,7 +193,7 @@ function selectOrderListMainCallback(ret) {
             depositPersonNm += '<br><span class="confirm-deposit-btn text-underline-link" style="font-size: 11px;">입금확인</span>';
         }
 
-        let hasInvoiceNo = false;
+        let hasInvoiceNo = true;
         /**
         if (invoiceNo == null || invoiceNo == '') {
             invoiceNo = '<span class="write-invoice-no-btn text-underline-link">입력</span>';
