@@ -168,6 +168,7 @@ function purchaseDirect() {
     eachOrder.itemNm = $('#direct_item_nm').val();
     eachOrder.keepingMethod = $('#direct_keeping_method').val();
     eachOrder.optionNo = $('#direct_option_no').val();
+    eachOrder.optionNm = $('#direct_option_nm').val();
     html += '<div style="font-size: 11px;">';
     html += '<div class="mt-2 mb-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + $('#direct_image_path').val() + '" alt="" class="img-fluid z-depth-0"></div>';
     html += '<div class="mb-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
