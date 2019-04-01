@@ -219,22 +219,22 @@ function selectOrderListMainCallback(ret) {
         }
 
         let pt = '15px';
+        html += '<tr class="each-order" style="margin-bottom: 0px;">';
+        html += '<input type="hidden" id="order_seq" class="order-seq" value="' + orderSeq + '">';
+        html += '<input type="hidden" class="send-person-nm" value="' + sendPersonNm + '">';
+        html += '<input type="hidden" class="send-telno" value="' + sendTelno + '">';
+        html += '<input type="hidden" class="send-zip-no" value="' + sendZipNo + '">';
+        html += '<input type="hidden" class="send-address-main" value="' + sendAddressMain + '">';
+        html += '<input type="hidden" class="send-address-detail" value="' + sendAddressDetail + '">';
+        html += '<input type="hidden" class="receive-person-nm" value="' + receivePersonNm + '">';
+        html += '<input type="hidden" class="receive-telno" value="' + receiveTelno + '">';
+        html += '<input type="hidden" class="receive-zip-no" value="' + receiveZipNo + '">';
+        html += '<input type="hidden" class="receive-address-main" value="' + receiveAddressMain + '">';
+        html += '<input type="hidden" class="receive-address-detail" value="' + receiveAddressDetail + '">';
+        html += '<input type="hidden" class="order-remarks" value="' + orderRemarks + '">';
+        html += '<input type="hidden" class="deposit-remarks" value="' + depositRemarks + '">';
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
-            html += '<tr class="each-order" style="margin-bottom: 0px;">';
-            html += '<input type="hidden" class="order-seq" value="' + orderSeq + '">';
-            html += '<input type="hidden" class="send-person-nm" value="' + sendPersonNm + '">';
-            html += '<input type="hidden" class="send-telno" value="' + sendTelno + '">';
-            html += '<input type="hidden" class="send-zip-no" value="' + sendZipNo + '">';
-            html += '<input type="hidden" class="send-address-main" value="' + sendAddressMain + '">';
-            html += '<input type="hidden" class="send-address-detail" value="' + sendAddressDetail + '">';
-            html += '<input type="hidden" class="receive-person-nm" value="' + receivePersonNm + '">';
-            html += '<input type="hidden" class="receive-telno" value="' + receiveTelno + '">';
-            html += '<input type="hidden" class="receive-zip-no" value="' + receiveZipNo + '">';
-            html += '<input type="hidden" class="receive-address-main" value="' + receiveAddressMain + '">';
-            html += '<input type="hidden" class="receive-address-detail" value="' + receiveAddressDetail + '">';
-            html += '<input type="hidden" class="order-remarks" value="' + orderRemarks + '">';
-            html += '<input type="hidden" class="deposit-remarks" value="' + depositRemarks + '">';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             if (!dlvrConfirmDate) {
                 html += '<div class="ml-2 custom-control custom-checkbox">';
@@ -283,14 +283,13 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '</tr>';
         } else {
-            html += '<tr class="each-order">';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             if (!dlvrConfirmDate) {
                 html += '<div class="ml-2 custom-control custom-checkbox">';
                 if (!hasInvoiceNo) {
                     html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" disabled>';
                 } else {
-                    html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" checked>';
+                    html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '">';
                 }
                 html += '<label class="custom-control-label" for="select_order' + orderNo + '_' + orderSeq + '"></label>';
                 html += '</div>';
