@@ -13,8 +13,12 @@ function ajax(url, inputData, gubun, method) {
                 updateDepositConfirmDateCallback();
             } else if (gubun == 'updateDlvrConfirmDate') {
                 updateDlvrConfirmDateCallback();
-            } else if (gubun == 'updateInvoiceNo') {
-                updateInvoiceNoCallback();
+            } else if (gubun == 'insertInvoiceNo') {
+                insertInvoiceNoCallback();
+            } else if (gubun == 'selectInvoiceNo') {
+                selectInvoiceNoCallback(data.ret);
+            } else if (gubun == 'deleteInvoiceNo') {
+                deleteInvoiceNoCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -38,19 +42,78 @@ $(document).ready(function() {
     $('#export_excel').click(function() {
         exportExcel();
     });
+
     $('#start_dlvr').click(function() {
         updateDlvrConfirmDate();
-    });
-    $('#save_invoice_no').click(function() {
-        updateInvoiceNo();
     });
 
     $('#check_all').click(function() {
         checkAll();
     });
 
+    $('#save_invoice_no').click(function() {
+        insertInvoiceNo();
+    });
+
     selectOrderListMain();
 });
+
+function insertInvoiceNo() {
+    let orderNo = $('#modal_order_no').val();
+    let invoiceNo = $('#modal_invoice_no').val();
+    let inputData = {
+        orderNo: orderNo,
+        invoiceNo: invoiceNo
+    };
+    ajax(serverUrl + '/admin/order_list/insertInvoiceNo', inputData, 'insertInvoiceNo', 'POST');
+}
+
+function insertInvoiceNoCallback() {
+    alert('송장번호가 저장되었습니다.');
+    selectInvoiceNo();
+}
+
+function selectInvoiceNo() {
+    let orderNo = $('#modal_order_no').val();
+    let inputData = {
+        orderNo: orderNo
+    };
+    ajax(serverUrl + '/admin/order_list/selectInvoiceNo', inputData, 'selectInvoiceNo', 'POST');
+}
+
+function selectInvoiceNoCallback(ret) {
+    $('#invoice_list_tbody').empty();
+    let html = '';
+    for (let i = 0; i < ret.length; ++i) {
+        html += '<tr>';
+        html += '<td>' + ret[i].orderNo + '</td>';
+        html += '<td class="modal-invoice-no">' + ret[i].invoiceNo + '</td>';
+        html += '<td><span class="delete-invoice-no text-underline-link">삭제</span></td>';
+    }
+    $('#invoice_list_tbody').append(html);
+
+    $('.delete-invoice-no').unbind();
+    $('.delete-invoice-no').click(function() {
+        if (confirm('해당 송장번호를 삭제하시겠습니까?')) {
+            let invoiceNo = $(this).parent().parent().find('.modal-invoice-no').text();
+            deleteInvoiceNo(invoiceNo);
+        }
+    });
+}
+
+function deleteInvoiceNo(invoiceNo) {
+    let orderNo = $('#modal_order_no').val();
+    let inputData = {
+        orderNo: orderNo,
+        invoiceNo: invoiceNo
+    };
+    ajax(serverUrl + '/admin/order_list/deleteInvoiceNo', inputData, 'deleteInvoiceNo', 'POST');
+}
+
+function deleteInvoiceNoCallback() {
+    alert('송장번호가 삭제되었습니다.');
+    selectInvoiceNo();
+}
 
 function checkAll() {
     if ($('#check_all').is(':checked')) {
@@ -89,24 +152,6 @@ function updateDlvrConfirmDate() {
         };
         ajax(serverUrl + '/admin/order_list/updateDlvrConfirmDate', inputData, 'updateDlvrConfirmDate', 'POST');
     }
-}
-
-function updateInvoiceNo() {
-    let orderNo = $('#modal_order_no').val();
-    let orderSeq = $('#modal_order_seq').val();
-    let invoiceNo = $('#modal_invoice_no').val();
-    let inputData = {
-        orderNo: orderNo,
-        orderSeq: orderSeq,
-        invoiceNo: invoiceNo
-    };
-    ajax(serverUrl + '/admin/order_list/updateInvoiceNo', inputData, 'updateInvoiceNo', 'POST');
-}
-
-function updateInvoiceNoCallback() {
-    alert('저장되었습니다.');
-    $('#invoice_no_close_modal').click();
-    selectOrderListMain();
 }
 
 function exportExcel() {
@@ -281,6 +326,9 @@ function selectOrderListMainCallback(ret) {
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="cancel_date" class="cancel-date">' + cancelDate + '</div>';
             html += '</td>';
+            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<div id="write_invoice" class="write-invoice"><span class="text-underline-link">입력</span></div>';
+            html += '</td>';
             html += '</tr>';
         } else {
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
@@ -353,20 +401,19 @@ function selectOrderListMainCallback(ret) {
         let orderNo = $(this).parent().parent().parent().find('#order_no').text();
         updateDepositConfirmDate(orderNo);
     });
+
     $('.confirm-dlvr-btn').unbind();
     $('.confirm-dlvr-btn').click(function() {
         let orderNo = $(this).parent().parent().parent().find('#order_no').text();
         updateDlvrConfirmDate(orderNo);
     });
 
-    $('.write-invoice-no-btn').unbind();
-    $('.write-invoice-no-btn').click(function() {
+    $('.write-invoice').unbind();
+    $('.write-invoice').click(function() {
         let orderNo = $(this).parent().parent().parent().find('#order_no').text();
-        let orderSeq = $(this).parent().parent().parent().find('.order-seq').val();
-        $('#modal_invoice_no').val('');
         $('#modal_order_no').val(orderNo);
-        $('#modal_order_seq').val(orderSeq);
         $('#invoice_no_modal').modal();
+        selectInvoiceNo();
     });
 }
 

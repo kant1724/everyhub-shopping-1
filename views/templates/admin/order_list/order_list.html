@@ -64,6 +64,7 @@
                         <th>입금자명</th>
                         <th>배송일자</th>
                         <th>취소일자</th>
+                        <th>송장번호</th>
                     </tr>
                     </thead>
                     <tbody id="order_list_tbody"></tbody>
@@ -75,7 +76,6 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content text-center">
                 <input type="hidden" id="modal_order_no">
-                <input type="hidden" id="modal_order_seq">
                 <div class="modal-body" style="margin: 20px;">
                     <input type="text" class="form-control" id="modal_invoice_no" style="width: 200px; margin: auto;">
                     <label id="invoice_no_label" class="mt-2" for="modal_invoice_no">송장번호를 입력하세요.</label>
@@ -83,6 +83,19 @@
                 <div class="text-center pb-5">
                     <a id="save_invoice_no" class="common-button-1">저장</a>
                     <a id="invoice_no_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                </div>
+                <div class="container">
+                    <table id="invoice_list" class="table table-bordered text-center">
+                        <thead>
+                        <tr>
+                            <th>주문번호</th>
+                            <th>송장번호</th>
+                            <th>삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody id="invoice_list_tbody">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
