@@ -320,7 +320,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="cancel_date" class="cancel-date">' + cancelDate + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
-            html += '<div id="write_invoice" class="write-invoice"><span class="text-underline-link">입력</span></div>';
+            html += '<div id="write_invoice_no" class="write-invoice-no"><span class="text-underline-link">입력</span></div>';
             html += '</td>';
             html += '</tr>';
         } else {
@@ -401,9 +401,9 @@ function selectOrderListMainCallback(ret) {
         updateDlvrConfirmDate(orderNo);
     });
 
-    $('.write-invoice').unbind();
-    $('.write-invoice').click(function() {
-        let orderNo = $(this).parent().parent().parent().find('#order_no').text();
+    $('.write-invoice-no').unbind();
+    $('.write-invoice-no').click(function() {
+        let orderNo = $(this).parent().parent().find('#order_no').text();
         $('#modal_order_no').val(orderNo);
         $('#invoice_no_modal').modal();
         selectInvoiceNo();

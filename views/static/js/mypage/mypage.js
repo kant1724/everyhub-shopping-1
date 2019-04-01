@@ -189,7 +189,7 @@ function selectOrderListMainCallback(ret) {
 
     $('.read-invoice-no').unbind();
     $('.read-invoice-no').click(function() {
-        let orderNo = $(this).parent().parent().parent().find('#order_no').text();
+        let orderNo = $(this).parent().parent().find('#order_no').text();
         $('#modal_order_no').val(orderNo);
         $('#invoice_no_modal').modal();
         selectInvoiceNo();
