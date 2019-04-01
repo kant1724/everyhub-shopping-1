@@ -95,6 +95,54 @@ $(document).ready(function() {
         searchAddressApi.init();
     });
 
+    $('#order_telno_1').keyup(function(event) {
+        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
+        let val = $(this).val();
+        if (val.length >= 3) {
+            $('#order_telno_2').focus();
+        }
+    });
+
+    $('#order_telno_2').keyup(function(event) {
+        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
+        let val = $(this).val();
+        if (val.length >= 4) {
+            $('#order_telno_3').focus();
+        }
+    });
+
+    $('#send_telno_1').keyup(function(event) {
+        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
+        let val = $(this).val();
+        if (val.length >= 3) {
+            $('#send_telno_2').focus();
+        }
+    });
+
+    $('#send_telno_2').keyup(function(event) {
+        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
+        let val = $(this).val();
+        if (val.length >= 4) {
+            $('#send_telno_3').focus();
+        }
+    });
+
+    $('#receive_telno_1').keyup(function(event) {
+        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
+        let val = $(this).val();
+        if (val.length >= 3) {
+            $('#receive_telno_2').focus();
+        }
+    });
+
+    $('#receive_telno_2').keyup(function(event) {
+        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
+        let val = $(this).val();
+        if (val.length >= 4) {
+            $('#receive_telno_3').focus();
+        }
+    });
+
     selectUser();
 });
 

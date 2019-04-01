@@ -36,6 +36,22 @@ $(document).ready(function() {
     $('#check_dup').click(function() {
         checkDup();
     });
+
+    $('#telno_1').keyup(function(event) {
+        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
+        let val = $(this).val();
+        if (val.length >= 3) {
+            $('#telno_2').focus();
+        }
+    });
+
+    $('#telno_2').keyup(function(event) {
+        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
+        let val = $(this).val();
+        if (val.length >= 4) {
+            $('#telno_3').focus();
+        }
+    });
 });
 
 function searchAddress() {
@@ -128,6 +144,7 @@ function validationCheck() {
         alert('주소를 입력하세요.');
         return false;
     }
+
     return true;
 }
 
