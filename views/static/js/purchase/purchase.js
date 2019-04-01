@@ -255,7 +255,7 @@ function validationCheck() {
 }
 
 function insertOrderList() {
-    orderListMain.acno = '\n농협: 352-0590-1078-73\n예금주: 현병윤';
+    orderListMain.acno = '\n농협: 352-1450-4498-13\n예금주: 현병윤';
     orderListMain.orderPersonNm = $('#order_person_nm').val();
     orderListMain.orderTelno = $('#order_telno_1').val() + $('#order_telno_2').val() + $('#order_telno_3').val();
     orderListMain.sendPersonNm = '';
