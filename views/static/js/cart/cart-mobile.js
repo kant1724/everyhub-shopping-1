@@ -62,6 +62,8 @@ $(document).ready(function() {
             html += '<div style="overflow: hidden; display: inline-block; top: 10px; margin-left: 15px; position: relative;">';
             html += '<a id="item_nm" style="font-size: 14px; margin-left: 20px; font-weight: 700;">' + productArr[i].itemNm + '</a>';
             html += '<br>';
+            html += '<a id="option_nm" style="font-size: 14px; margin-left: 20px; font-weight: 700;">' + productArr[i].optionNm + '</a>';
+            html += '<br>';
             html += '<a id="item_price" style="margin-left: 20px; font-size: 12px;">단가: ' + productArr[i].itemPrice + '</a>';
             html += '<br>';
             html += '<a id="shipping_fee" style="margin-left: 20px; font-size: 12px;">배송비: ' + productArr[i].shippingFee + '</a>';
