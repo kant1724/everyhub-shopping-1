@@ -57,7 +57,7 @@ $(document).ready(function() {
             html += '<i class="fal fa-times remove-item" style="font-size: 25px; float: right; margin-right: 20px;"></i>';
             html += '</div>';
             html += '<div style="display: inline-block;">';
-            html += '<img style="top: -32px; position: relative; border-radius: 5px;" overflow: hidden; width="100px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0">';
+            html += '<img style="top: -50px; position: relative; border-radius: 5px;" overflow: hidden; width="100px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0">';
             html += '</div>';
             html += '<div style="overflow: hidden; display: inline-block; top: 10px; margin-left: 15px; position: relative;">';
             html += '<a id="item_nm" style="font-size: 14px; margin-left: 20px; font-weight: 700;">' + productArr[i].itemNm + '</a>';
