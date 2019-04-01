@@ -59,7 +59,8 @@ function selectItemOptionCallback(ret) {
         html += '<td class="text-center shipping-fee">' + ret[i].shippingFee + '</td>';
         html += '<td class="text-center use-yn">' + ret[i].useYn + '</td>';
         html += '<td class="text-center" style="width: 100px;"><span id="modify_option" class="modify-option text-underline-link">변경</span></td>';
-        html += '<td class="text-center" style="width: 100px;"><span id="delete_option" class="delete-option text-underline-link">삭제</span></td></tr>';
+        html += '<td class="text-center" style="width: 100px;"><span id="delete_option" class="delete-option text-underline-link">삭제</span></td>';
+        html += '<td class="text-center sort-order">' + (ret[i].sortOrder ? ret[i].sortOrder : 0) +'</td></tr>';
     }
     $('.option-table tbody').append(html);
 
@@ -70,12 +71,14 @@ function selectItemOptionCallback(ret) {
         let itemPrice = $(this).parent().parent().find('.item-price').text();
         let shippingFee = $(this).parent().parent().find('.shipping-fee').text();
         let useYn = $(this).parent().parent().find('.use-yn').text();
+        let sortOrder = $(this).parent().parent().find('.sort-order').text();
 
         $('#option_no').val(optionNo);
         $('#option_nm').val(optionNm);
         $('#item_price').val(itemPrice);
         $('#shipping_fee').val(shippingFee);
         $('#use_yn').val(useYn);
+        $('#sort_order').val(sortOrder);
         $('#option_modal').modal();
     });
 
@@ -94,13 +97,15 @@ function insertItemOption() {
     let itemPrice = $('#item_price').val() ? $('#item_price').val() : 0;
     let shippingFee = $('#shipping_fee').val() ? $('#shipping_fee').val() : 0;
     let useYn = $('#use_yn').val() ? $('#use_yn').val() : 'N';
+    let sortOrder = $('#sort_order').val() ? $('#sort_order').val() : 0;
 
     let inputData = {
         itemNo: itemNo,
         optionNm: optionNm,
         itemPrice: itemPrice,
         shippingFee: shippingFee,
-        useYn: useYn
+        useYn: useYn,
+        sortOrder: sortOrder
     };
     ajax(serverUrl + '/admin/item_manager/insertItemOption', inputData, 'insertItemOption', 'POST');
 }
@@ -118,6 +123,7 @@ function updateItemOption() {
     let itemPrice = $('#item_price').val() ? $('#item_price').val() : 0;
     let shippingFee = $('#shipping_fee').val() ? $('#shipping_fee').val() : 0;
     let useYn = $('#use_yn').val();
+    let sortOrder = $('#sort_order').val() ? $('#sort_order').val() : 0;
 
     let inputData = {
         optionNo: optionNo,
@@ -125,7 +131,8 @@ function updateItemOption() {
         optionNm: optionNm,
         itemPrice: itemPrice,
         shippingFee: shippingFee,
-        useYn: useYn
+        useYn: useYn,
+        sortOrder: sortOrder
     };
     ajax(serverUrl + '/admin/item_manager/updateItemOption', inputData, 'updateItemOption', 'POST');
 }
