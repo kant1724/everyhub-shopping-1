@@ -45,8 +45,20 @@ $(document).ready(function() {
         updateInvoiceNo();
     });
 
+    $('#check_all').click(function() {
+        checkAll();
+    });
+
     selectOrderListMain();
 });
+
+function checkAll() {
+    if ($('#check_all').is(':checked')) {
+        $('#order_list_tbody').find('.select-order').prop('checked', true);
+    } else {
+        $('#order_list_tbody').find('.select-order').prop('checked', false);
+    }
+}
 
 function updateDlvrConfirmDate() {
     let orderObj = $('#order_list_tbody').find('.each-order');
@@ -229,7 +241,7 @@ function selectOrderListMainCallback(ret) {
                 if (!hasInvoiceNo) {
                     html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" disabled>';
                 } else {
-                    html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" checked>';
+                    html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '">';
                 }
                 html += '<label class="custom-control-label" for="select_order' + orderNo + '_' + orderSeq + '"></label>';
                 html += '</div>';
