@@ -44,6 +44,96 @@ body {
     background-repeat: no-repeat;
 }
 
+
+
+.top-main-4 {
+    background-image: url('/static/res/전남1.png');
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.top-main-5 {
+    background-image: url('/static/res/전남2.png');
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.top-main-6 {
+    background-image: url('/static/res/전남3.png');
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.top-main-7 {
+    background-image: url('/static/res/1.jpg');
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.top-main-8 {
+    background-image: url('/static/res/2.jpg');
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.top-main-9 {
+    background-image: url('/static/res/3.jpg');
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.top-main-10 {
+    background-image: url('/static/res/4.jpg');
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.top-main-11 {
+    background-image: url('/static/res/5.jpg');
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.top-main-12 {
+    background-image: url('/static/res/6.jpg');
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.top-main-13 {
+    background-image: url('/static/res/7.jpg');
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
+
 .divide-vertical {
     display: inline-block;
     margin-left: 5%;
