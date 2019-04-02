@@ -134,6 +134,13 @@ function validationCheck() {
         alert('패스워드를 입력하세요.');
         return false;
     }
+
+    let passwordConfirm = $('#password_confirm').val();
+    if (password != passwordConfirm) {
+        alert('비밀번호 확인을 정확히 입력하세요.');
+        return false;
+    }
+
     let userNm = $('#user_nm').val();
     if (isNull(userNm)) {
         alert('이름을 입력하세요.');

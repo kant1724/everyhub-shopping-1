@@ -57,7 +57,10 @@ $(document).ready(function() {
     });
 
     $('#update_user').click(function() {
-         updateUser();
+        if (!validationCheck()) {
+            return;
+        }
+        updateUser();
     });
 
     $('#logout').click(function() {
@@ -119,10 +122,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="item_nm" class="item-nm">' + itemNm + '<div class="write-review" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">후기작성</span></div></div>';
-            html += '</td>';
-            html += '<td style="vertical-align: middle;">';
-            html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
+            html += '<div id="item_nm" class="item-nm">' + itemNm + '<br>' + optionNm + '<div class="write-review" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">후기작성</span></div></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="qty" class="qty">' + qty + '</div>';
@@ -146,10 +146,7 @@ function selectOrderListMainCallback(ret) {
             html += '<tr>';
             html += '<input id="item_no" type="hidden" value="' + itemNo + '">';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="item_nm" class="item-nm">' + itemNm + '<div class="write-review" style="margin-top: 10px; font-size: 10px; text-decoration: underline; color: gray;"><a>후기작성</a></div></div>';
-            html += '</td>';
-            html += '<td style="vertical-align: middle;">';
-            html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
+            html += '<div id="item_nm" class="item-nm">' + itemNm + '<br>' + optionNm + '<div class="write-review" style="margin-top: 10px; font-size: 10px; text-decoration: underline; color: gray;"><a>후기작성</a></div></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="qty" class="qty">' + qty + '</div>';
@@ -174,6 +171,56 @@ function selectOrderListMainCallback(ret) {
     });
 
     selectUser();
+}
+
+function validationCheck() {
+    let telno1 = $('#telno_1').val();
+    let telno2 = $('#telno_2').val();
+    let telno3 = $('#telno_3').val();
+    if (isNull(telno1) || isNull(telno2) || isNull(telno3)) {
+        alert('휴대폰 번호를 정확히 입력하세요.');
+        return false;
+    }
+    let password = $('#password').val();
+    if (isNull(password)) {
+        alert('패스워드를 입력하세요.');
+        return false;
+    }
+
+    let passwordConfirm = $('#password_confirm').val();
+    if (password != passwordConfirm) {
+        alert('비밀번호 확인을 정확히 입력하세요.');
+        return false;
+    }
+
+    let userNm = $('#user_nm').val();
+    if (isNull(userNm)) {
+        alert('이름을 입력하세요.');
+        return false;
+    }
+    if ($('#gender_male').is(':checked')) {
+    } else if ($('#gender_female').is(':checked')) {
+    } else {
+        alert('성별을 체크하세요.');
+        return false;
+    }
+    let addressMain = $('#address_main').text();
+    if (isNull(addressMain)) {
+        alert('주소를 입력하세요.');
+        return false;
+    }
+    let addressDetail = $('#address_detail').val();
+    if (isNull(addressDetail)) {
+        alert('상세주소를 입력하세요.');
+        return false;
+    }
+    let zipNo = $('#zip_no').text();
+    if (isNull(zipNo)) {
+        alert('주소를 입력하세요.');
+        return false;
+    }
+
+    return true;
 }
 
 function selectUser() {
