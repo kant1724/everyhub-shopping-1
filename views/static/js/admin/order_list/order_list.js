@@ -13,8 +13,12 @@ function ajax(url, inputData, gubun, method) {
                 updateDepositConfirmDateCallback();
             } else if (gubun == 'updateDlvrConfirmDate') {
                 updateDlvrConfirmDateCallback();
-            } else if (gubun == 'updateInvoiceNo') {
-                updateInvoiceNoCallback();
+            } else if (gubun == 'insertInvoiceNo') {
+                insertInvoiceNoCallback();
+            } else if (gubun == 'selectInvoiceNo') {
+                selectInvoiceNoCallback(data.ret);
+            } else if (gubun == 'deleteInvoiceNo') {
+                deleteInvoiceNoCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -38,15 +42,87 @@ $(document).ready(function() {
     $('#export_excel').click(function() {
         exportExcel();
     });
+
     $('#start_dlvr').click(function() {
         updateDlvrConfirmDate();
     });
+
+    $('#check_all').click(function() {
+        checkAll();
+    });
+
     $('#save_invoice_no').click(function() {
-        updateInvoiceNo();
+        insertInvoiceNo();
     });
 
     selectOrderListMain();
 });
+
+function insertInvoiceNo() {
+    let orderNo = $('#modal_order_no').val();
+    let invoiceNo = $('#modal_invoice_no').val();
+    let inputData = {
+        orderNo: orderNo,
+        invoiceNo: invoiceNo
+    };
+    ajax(serverUrl + '/admin/order_list/insertInvoiceNo', inputData, 'insertInvoiceNo', 'POST');
+}
+
+function insertInvoiceNoCallback() {
+    alert('송장번호가 저장되었습니다.');
+    selectInvoiceNo();
+}
+
+function selectInvoiceNo() {
+    let orderNo = $('#modal_order_no').val();
+    let inputData = {
+        orderNo: orderNo
+    };
+    ajax(serverUrl + '/admin/order_list/selectInvoiceNo', inputData, 'selectInvoiceNo', 'POST');
+}
+
+function selectInvoiceNoCallback(ret) {
+    $('#invoice_list_tbody').empty();
+    let html = '';
+    for (let i = 0; i < ret.length; ++i) {
+        html += '<tr>';
+        html += '<td>' + ret[i].orderNo + '</td>';
+        html += '<td class="modal-invoice-no">' + ret[i].invoiceNo + '</td>';
+        html += '<td><span class="delete-invoice-no text-underline-link">삭제</span></td>';
+        html += '</tr>';
+    }
+    $('#invoice_list_tbody').append(html);
+
+    $('.delete-invoice-no').unbind();
+    $('.delete-invoice-no').click(function() {
+        if (confirm('해당 송장번호를 삭제하시겠습니까?')) {
+            let invoiceNo = $(this).parent().parent().find('.modal-invoice-no').text();
+            deleteInvoiceNo(invoiceNo);
+        }
+    });
+}
+
+function deleteInvoiceNo(invoiceNo) {
+    let orderNo = $('#modal_order_no').val();
+    let inputData = {
+        orderNo: orderNo,
+        invoiceNo: invoiceNo
+    };
+    ajax(serverUrl + '/admin/order_list/deleteInvoiceNo', inputData, 'deleteInvoiceNo', 'POST');
+}
+
+function deleteInvoiceNoCallback() {
+    alert('송장번호가 삭제되었습니다.');
+    selectInvoiceNo();
+}
+
+function checkAll() {
+    if ($('#check_all').is(':checked')) {
+        $('#order_list_tbody').find('.select-order').prop('checked', true);
+    } else {
+        $('#order_list_tbody').find('.select-order').prop('checked', false);
+    }
+}
 
 function updateDlvrConfirmDate() {
     let orderObj = $('#order_list_tbody').find('.each-order');
@@ -77,24 +153,6 @@ function updateDlvrConfirmDate() {
         };
         ajax(serverUrl + '/admin/order_list/updateDlvrConfirmDate', inputData, 'updateDlvrConfirmDate', 'POST');
     }
-}
-
-function updateInvoiceNo() {
-    let orderNo = $('#modal_order_no').val();
-    let orderSeq = $('#modal_order_seq').val();
-    let invoiceNo = $('#modal_invoice_no').val();
-    let inputData = {
-        orderNo: orderNo,
-        orderSeq: orderSeq,
-        invoiceNo: invoiceNo
-    };
-    ajax(serverUrl + '/admin/order_list/updateInvoiceNo', inputData, 'updateInvoiceNo', 'POST');
-}
-
-function updateInvoiceNoCallback() {
-    alert('저장되었습니다.');
-    $('#invoice_no_close_modal').click();
-    selectOrderListMain();
 }
 
 function exportExcel() {
@@ -194,42 +252,34 @@ function selectOrderListMainCallback(ret) {
         }
 
         let hasInvoiceNo = true;
-        /**
-        if (invoiceNo == null || invoiceNo == '') {
-            invoiceNo = '<span class="write-invoice-no-btn text-underline-link">입력</span>';
-        } else {
-            hasInvoiceNo = true;
-            invoiceNo = '<div>' + invoiceNo + '</div><a class="write-invoice-no-btn" style="text-decoration: underline; color: gray; font-size: 12px;">변경</a>';
-        }
-        **/
         if(dlvrConfirmDate == null || dlvrConfirmDate == '') {
             dlvrConfirmDate = '';
         }
 
         let pt = '15px';
+        html += '<tr class="each-order" style="margin-bottom: 0px;">';
+        html += '<input type="hidden" id="order_seq" class="order-seq" value="' + orderSeq + '">';
+        html += '<input type="hidden" class="send-person-nm" value="' + sendPersonNm + '">';
+        html += '<input type="hidden" class="send-telno" value="' + sendTelno + '">';
+        html += '<input type="hidden" class="send-zip-no" value="' + sendZipNo + '">';
+        html += '<input type="hidden" class="send-address-main" value="' + sendAddressMain + '">';
+        html += '<input type="hidden" class="send-address-detail" value="' + sendAddressDetail + '">';
+        html += '<input type="hidden" class="receive-person-nm" value="' + receivePersonNm + '">';
+        html += '<input type="hidden" class="receive-telno" value="' + receiveTelno + '">';
+        html += '<input type="hidden" class="receive-zip-no" value="' + receiveZipNo + '">';
+        html += '<input type="hidden" class="receive-address-main" value="' + receiveAddressMain + '">';
+        html += '<input type="hidden" class="receive-address-detail" value="' + receiveAddressDetail + '">';
+        html += '<input type="hidden" class="order-remarks" value="' + orderRemarks + '">';
+        html += '<input type="hidden" class="deposit-remarks" value="' + depositRemarks + '">';
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
-            html += '<tr class="each-order" style="margin-bottom: 0px;">';
-            html += '<input type="hidden" class="order-seq" value="' + orderSeq + '">';
-            html += '<input type="hidden" class="send-person-nm" value="' + sendPersonNm + '">';
-            html += '<input type="hidden" class="send-telno" value="' + sendTelno + '">';
-            html += '<input type="hidden" class="send-zip-no" value="' + sendZipNo + '">';
-            html += '<input type="hidden" class="send-address-main" value="' + sendAddressMain + '">';
-            html += '<input type="hidden" class="send-address-detail" value="' + sendAddressDetail + '">';
-            html += '<input type="hidden" class="receive-person-nm" value="' + receivePersonNm + '">';
-            html += '<input type="hidden" class="receive-telno" value="' + receiveTelno + '">';
-            html += '<input type="hidden" class="receive-zip-no" value="' + receiveZipNo + '">';
-            html += '<input type="hidden" class="receive-address-main" value="' + receiveAddressMain + '">';
-            html += '<input type="hidden" class="receive-address-detail" value="' + receiveAddressDetail + '">';
-            html += '<input type="hidden" class="order-remarks" value="' + orderRemarks + '">';
-            html += '<input type="hidden" class="deposit-remarks" value="' + depositRemarks + '">';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             if (!dlvrConfirmDate) {
                 html += '<div class="ml-2 custom-control custom-checkbox">';
                 if (!hasInvoiceNo) {
                     html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" disabled>';
                 } else {
-                    html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" checked>';
+                    html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '">';
                 }
                 html += '<label class="custom-control-label" for="select_order' + orderNo + '_' + orderSeq + '"></label>';
                 html += '</div>';
@@ -269,16 +319,18 @@ function selectOrderListMainCallback(ret) {
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="cancel_date" class="cancel-date">' + cancelDate + '</div>';
             html += '</td>';
+            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<div id="write_invoice_no" class="write-invoice-no"><span class="text-underline-link">입력</span></div>';
+            html += '</td>';
             html += '</tr>';
         } else {
-            html += '<tr class="each-order">';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             if (!dlvrConfirmDate) {
                 html += '<div class="ml-2 custom-control custom-checkbox">';
                 if (!hasInvoiceNo) {
                     html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" disabled>';
                 } else {
-                    html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '" checked>';
+                    html += '<input type="checkbox" class="custom-control-input select-order" id="select_order' + orderNo + '_' + orderSeq + '">';
                 }
                 html += '<label class="custom-control-label" for="select_order' + orderNo + '_' + orderSeq + '"></label>';
                 html += '</div>';
@@ -342,20 +394,19 @@ function selectOrderListMainCallback(ret) {
         let orderNo = $(this).parent().parent().parent().find('#order_no').text();
         updateDepositConfirmDate(orderNo);
     });
+
     $('.confirm-dlvr-btn').unbind();
     $('.confirm-dlvr-btn').click(function() {
         let orderNo = $(this).parent().parent().parent().find('#order_no').text();
         updateDlvrConfirmDate(orderNo);
     });
 
-    $('.write-invoice-no-btn').unbind();
-    $('.write-invoice-no-btn').click(function() {
-        let orderNo = $(this).parent().parent().parent().find('#order_no').text();
-        let orderSeq = $(this).parent().parent().parent().find('.order-seq').val();
-        $('#modal_invoice_no').val('');
+    $('.write-invoice-no').unbind();
+    $('.write-invoice-no').click(function() {
+        let orderNo = $(this).parent().parent().find('#order_no').text();
         $('#modal_order_no').val(orderNo);
-        $('#modal_order_seq').val(orderSeq);
         $('#invoice_no_modal').modal();
+        selectInvoiceNo();
     });
 }
 

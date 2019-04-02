@@ -102,6 +102,7 @@ function registerNewItem() {
     let useYn = $('#use_yn').val();
     let shipYn = $('#ship_yn').val();
     let soldOutYn = $('#sold_out_yn').val();
+    let sortOrder = $('#sort_order').val();
 
     let inputData = {
         itemNo: itemNo,
@@ -117,6 +118,7 @@ function registerNewItem() {
         shipYn: shipYn,
         soldOutYn: soldOutYn,
         remoteUrl: remoteUrl,
+        sortOrder: sortOrder,
         imageChanged: imageChanged
     };
 

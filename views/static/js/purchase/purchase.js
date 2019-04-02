@@ -11,6 +11,8 @@ function ajax(url, inputData, gubun, method) {
                 insertOrderListCallback();
             } else if (gubun == 'selectUser') {
                 selectUserCallback(data.ret);
+            } else if (gubun == 'selectSellerInfo') {
+                selectSellerInfoCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -144,6 +146,7 @@ $(document).ready(function() {
     });
 
     selectUser();
+    selectSellerInfo();
 });
 
 function selectUser() {
@@ -304,7 +307,7 @@ function validationCheck() {
 }
 
 function insertOrderList() {
-    orderListMain.acno = '\n농협: 352-1450-4498-13\n예금주: 현병윤';
+    orderListMain.acno = '\n' + $('#seller_acno').val() + '\n' + $('#seller_deposit_person_nm').val();
     orderListMain.orderPersonNm = $('#order_person_nm').val();
     orderListMain.orderTelno = $('#order_telno_1').val() + $('#order_telno_2').val() + $('#order_telno_3').val();
     orderListMain.sendPersonNm = '';
@@ -354,4 +357,16 @@ function insertOrderListCallback() {
     }
 
     window.location.replace('/purchase/purchase_complete');
+}
+
+function selectSellerInfo() {
+    let inputData = {
+        sellerNo: 1
+    };
+    ajax(serverUrl + '/user/selectSellerInfo', inputData, 'selectSellerInfo', 'POST');
+}
+
+function selectSellerInfoCallback(ret) {
+    $('#seller_acno').val(ret[0].acno);
+    $('#seller_deposit_person_nm').val(ret[0].depositPersonNm);
 }
