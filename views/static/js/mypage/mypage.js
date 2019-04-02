@@ -19,6 +19,8 @@ function ajax(url, inputData, gubun, method) {
                 cancelOrderCallback();
             } else if (gubun == 'logout') {
                 logoutCallback();
+            } else if (gubun == 'selectInvoiceNo') {
+                selectInvoiceNoCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -77,6 +79,26 @@ function logout() {
 
 function logoutCallback() {
     location.href = '/user/logout';
+}
+
+function selectInvoiceNo() {
+    let orderNo = $('#modal_order_no').val();
+    let inputData = {
+        orderNo: orderNo
+    };
+    ajax(serverUrl + '/admin/order_list/selectInvoiceNo', inputData, 'selectInvoiceNo', 'POST');
+}
+
+function selectInvoiceNoCallback(ret) {
+    $('#invoice_list_tbody').empty();
+    let html = '';
+    for (let i = 0; i < ret.length; ++i) {
+        html += '<tr>';
+        html += '<td>' + ret[i].orderNo + '</td>';
+        html += '<td class="modal-invoice-no">' + ret[i].invoiceNo + '</td>';
+        html += '</tr>';
+    }
+    $('#invoice_list_tbody').append(html);
 }
 
 function selectOrderListMain() {
@@ -139,6 +161,9 @@ function selectOrderListMainCallback(ret) {
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="total_price" class="total-price">' + numberWithCommas(totalPrice) + '</div>';
             html += '</td>';
+            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<div id="read_invoice_no" class="read-invoice-no"><span class="text-underline-link">확인</span></div>';
+            html += '</td>';
             html += '<td rowspan="' + rs + '" style="width: 110px; vertical-align: middle; padding-top: ' + pt + '">';
             if (dlvrConfirmDate != null && dlvrConfirmDate != '') {
                 html += '취소불가';
@@ -183,6 +208,13 @@ function selectOrderListMainCallback(ret) {
         let itemNo = $(this).parent().parent().parent().find('#item_no').val();
         $('#item_no_modal').val(itemNo);
         $('#review_modal').modal();
+    });
+    $('.read-invoice-no').unbind();
+    $('.read-invoice-no').click(function() {
+        let orderNo = $(this).parent().parent().find('#order_no').text();
+        $('#modal_order_no').val(orderNo);
+        $('#invoice_no_modal').modal();
+        selectInvoiceNo();
     });
 
     selectUser();
