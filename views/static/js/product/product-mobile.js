@@ -219,9 +219,9 @@ function selectQnaReply(qnaNo) {
 function selectOneItemCallback(ret) {
     let itemNm = ret[0].itemNm;
     if (ret[0].shipYn == 'N') {
-        itemNm += '<span class="ml-2" style="color: #980000">(출하전)</span>'
+        itemNm += '<span class="ml-2" style="color: #980000">(출하전)</span>';
     } else if (ret[0].soldOutYn == 'Y') {
-        itemNm += '<span class="ml-2" style="color: #980000">(품절)</span>'
+        itemNm += '<span class="ml-2" style="color: #980000">(품절)</span>';
     } else {
         $('#order_now').prop('disabled', false);
         $('#add_cart').prop('disabled', false);
@@ -230,7 +230,7 @@ function selectOneItemCallback(ret) {
     let cnt = 0;
     for (let i = 1; i <= 5; ++i) {
         if (!isNull(ret[0]['imagePath' + i])) {
-            html += '<img class="swiper-slide" id="info_image_path_' + cnt + '" src="' + ret[0]['imagePath' + i] + '" width="400px;" class="img-fluid">';
+            html += '<img class="swiper-slide" id="info_image_path_' + cnt + '" src="' + ret[0]['imagePath' + i] + '">';
             cnt += 1;
         }
     }
