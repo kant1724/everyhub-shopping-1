@@ -55,7 +55,7 @@ $(document).ready(function() {
 
 });
 
-let remoteUrl = '14.63.168.58:5006';
+let remoteUrl = '14.63.174.25:5006';
 
 function checkValidation() {
     let isOk = true;
