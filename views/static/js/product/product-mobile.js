@@ -230,7 +230,9 @@ function selectOneItemCallback(ret) {
     let cnt = 0;
     for (let i = 1; i <= 5; ++i) {
         if (!isNull(ret[0]['imagePath' + i])) {
-            html += '<img class="swiper-slide" id="info_image_path_' + cnt + '" src="' + ret[0]['imagePath' + i] + '">';
+            html += '<div class="swiper-slide">';
+            html += '<img id="info_image_path_' + cnt + '" src="' + ret[0]['imagePath' + i] + '" width="400px">';
+            html += '</div>';
             cnt += 1;
         }
     }
@@ -247,7 +249,15 @@ function initSwiper() {
             delay: 5000,
         },
         slidesPerView: 1,
-        loop: false
+        loop: false,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+        navigation: {
+            prevEl: '.swiper-button-prev',
+            nextEl: '.swiper-button-next'
+        }
     });
 }
 
