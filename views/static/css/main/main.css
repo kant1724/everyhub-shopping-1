@@ -24,6 +24,32 @@ body {
     margin-top: 57px;
 }
 
+.top-main-a {
+    background-image: url('/static/res/전남1.png');
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.top-main-b {
+    background-image: url('/static/res/전남2.png');
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.top-main-c {
+    background-image: url('/static/res/전남3.png');
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .top-main-1 {
     background-image: url('/static/res/top_1.jpg');
     height: 500px;
@@ -48,84 +74,64 @@ body {
     background-repeat: no-repeat;
 }
 
-
 .top-main-4 {
-    background-image: url('/static/res/전남1.png');
+    background-image: url('/static/res/top_4.jpg');
     height: 500px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
-
-
 .top-main-5 {
-    background-image: url('/static/res/전남2.png');
+    background-image: url('/static/res/top_5.jpg');
     height: 500px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
-
-
 .top-main-6 {
-    background-image: url('/static/res/전남3.png');
+    background-image: url('/static/res/top_6.jpg');
     height: 500px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
-
 .top-main-7 {
-    background-image: url('/static/res/1.jpg');
+    background-image: url('/static/res/top_7.jpg');
     height: 500px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .top-main-8 {
-    background-image: url('/static/res/2.jpg');
+    background-image: url('/static/res/top_8.jpg');
     height: 500px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .top-main-9 {
-    background-image: url('/static/res/3.jpg');
+    background-image: url('/static/res/top_9.jpg');
     height: 500px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
+
 .top-main-10 {
-    background-image: url('/static/res/4.jpg');
+    background-image: url('/static/res/top_10.jpg');
     height: 500px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
+
 .top-main-11 {
-    background-image: url('/static/res/5.jpg');
+    background-image: url('/static/res/top_11.jpg');
     height: 500px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
-.top-main-12 {
-    background-image: url('/static/res/6.jpg');
-    height: 500px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.top-main-13 {
-    background-image: url('/static/res/7.jpg');
-    height: 500px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-
 
 .divide-vertical {
     display: inline-block;
