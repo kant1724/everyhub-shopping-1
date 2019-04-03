@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
     <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
+    <link href="/static/lib/swiper/swiper.css" rel="stylesheet">
     <link href="/static/css/common/review.css" rel="stylesheet">
     <link href="/static/css/common/common.css" rel="stylesheet">
     <link href="/static/css/product/product.css" rel="stylesheet">
@@ -25,7 +26,12 @@
                         <div class="row mx-5">
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active pb-5 product-image">
-                                    <img id="info_image_path" src="" width="400px;" class="img-fluid" style="border-radius: 5px;">
+                                    <div class="swiper-container">
+                                        <div class="swiper-wrapper"></div>
+                                        <div class="swiper-pagination"></div>
+                                        <div class="swiper-button-prev"><i class="far fa-angle-left"></i></div>
+                                        <div class="swiper-button-next"><i class="far fa-angle-right"></i></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -153,6 +159,7 @@
     <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/static/lib/swiper/swiper.js"></script>
     <script type="text/javascript" src="/static/js/common/properties.js"></script>
     <script type="text/javascript" src="/static/js/common/utils.js"></script>
     <script type="text/javascript" src="/static/js/component/review.js"></script>

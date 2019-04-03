@@ -45,7 +45,7 @@ function addCart() {
         optionNo: $('#info_option_no').val(),
         optionNm: $('#info_option_nm').val(),
         itemNo: $('#item_no').val(),
-        imagePath: $('#info_image_path').prop('src'),
+        imagePath: $('#info_image_path_1').prop('src'),
         itemNm: $('#info_item_nm').text(),
         keepingMethod: $('#keeping_method').val(),
         itemPrice: $('#info_item_price').text(),
@@ -82,7 +82,7 @@ $(document).ready(function() {
         let param = 'itemNo=' + encodeURIComponent($('#item_no').val());
         param += '&optionNo=' + encodeURIComponent($('#info_option_no').val());
         param += '&optionNm=' + encodeURIComponent($('#info_option_nm').val());
-        param += '&imagePath=' + encodeURIComponent($('#info_image_path').prop('src'));
+        param += '&imagePath=' + encodeURIComponent($('#info_image_path_1').prop('src'));
         param += '&itemNm=' + encodeURIComponent($('#info_item_nm').text());
         param += '&keepingMethod=' + encodeURIComponent($('#keeping_method').val());
         param += '&itemPrice=' + encodeURIComponent($('#info_item_price').text());
@@ -226,10 +226,37 @@ function selectOneItemCallback(ret) {
         $('#order_now').prop('disabled', false);
         $('#add_cart').prop('disabled', false);
     }
-    $('#info_image_path').prop('src', ret[0].imagePath1);
+    let html = '';
+    let cnt = 0;
+    for (let i = 1; i <= 5; ++i) {
+        if (!isNull(ret[0]['imagePath' + i])) {
+            html += '<img class="swiper-slide" id="info_image_path_' + cnt + '" src="' + ret[0]['imagePath' + i] + '" width="400px;" class="img-fluid" style="border-radius: 5px;">';
+            cnt += 1;
+        }
+    }
+    $('.swiper-wrapper').append(html);
+    initSwiper();
     $('#info_item_nm').html(itemNm);
     $('#info_item_desc').text(ret[0].itemDesc);
     $('#keeping_method').val(ret[0].keepingMethod);
+}
+
+function initSwiper() {
+    let swiper = new Swiper('.swiper-container', {
+        autoplay: {
+            delay: 5000,
+        },
+        slidesPerView: 1,
+        loop: false,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+        navigation: {
+            prevEl: '.swiper-button-prev',
+            nextEl: '.swiper-button-next'
+        }
+    });
 }
 
 function writeQna() {

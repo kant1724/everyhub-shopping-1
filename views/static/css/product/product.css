@@ -37,3 +37,31 @@ input[type=number] {
 .qty-plus-btn:hover, .qty-minus-btn:hover {
     cursor: pointer;
 }
+
+.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    color: #000;
+    opacity: 1;
+    background: rgba(0,0,0,0.2);
+}
+
+.swiper-pagination-bullet-active {
+    color: #fff;
+    background: #000;
+}
+
+.swiper-button-prev {
+    background-image: none;
+    font-size: 26px;
+    color: #333;
+}
+
+.swiper-button-next {
+    background-image: none;
+    font-size: 26px;
+    color: #333;
+}
