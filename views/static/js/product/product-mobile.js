@@ -247,15 +247,7 @@ function initSwiper() {
             delay: 5000,
         },
         slidesPerView: 1,
-        loop: false,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-        },
-        navigation: {
-            prevEl: '.swiper-button-prev',
-            nextEl: '.swiper-button-next'
-        }
+        loop: false
     });
 }
 
