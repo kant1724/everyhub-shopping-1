@@ -235,10 +235,10 @@ function selectOneItemCallback(ret) {
         }
     }
     $('.swiper-wrapper').append(html);
-    initSwiper();
     $('#info_item_nm').html(itemNm);
     $('#info_item_desc').text(ret[0].itemDesc);
     $('#keeping_method').val(ret[0].keepingMethod);
+    initSwiper();
 }
 
 function initSwiper() {
