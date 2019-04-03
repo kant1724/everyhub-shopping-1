@@ -129,7 +129,7 @@ function selectOrderListMainCallback(ret) {
         let itemNm = ret[i].itemNm;
         let optionNm = ret[i].optionNm;
         let qty = ret[i].qty ? ret[i].qty : '';
-        let imagePath = ret[i].imagePath;
+        let imagePath1 = ret[i].imagePath1;
         let totalPrice = ret[i].totalPrice;
         let depositConfirmDate = ret[i].depositConfirmDate;
         let dlvrConfirmDate = ret[i].dlvrConfirmDate;
@@ -147,7 +147,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="order_date" class="oreder-date"><div>' + orderDate + '</div><div class="write-review text-underline-link" style="margin-top: 10px;"><a>후기작성</a></div></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70" style="border-radius: 5px;"></div>';
+            html += '<div id="image_path" class="image-path"><img src="' + imagePath1 + '" width="70" style="border-radius: 5px;"></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="item_nm" class="item-nm">' + itemNm + '</div>';
@@ -180,7 +180,7 @@ function selectOrderListMainCallback(ret) {
             html += '<tr>';
             html += '<input id="item_no" type="hidden" value="' + itemNo + '">';
             html += '<td style="vertical-align: middle;">';
-            html += '<div id="image_path" class="image-path"><img src="' + imagePath + '" width="70" style="border-radius: 5px;"></div>';
+            html += '<div id="image_path" class="image-path"><img src="' + imagePath1 + '" width="70" style="border-radius: 5px;"></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="item_nm" class="item-nm">' + itemNm + '</div>';

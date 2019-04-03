@@ -237,7 +237,7 @@ function selectOneItemCallback(ret) {
         $('#add_cart').prop('disabled', false);
     }
     let html = '';
-    let cnt = 0;
+    let cnt = 1;
     for (let i = 1; i <= 5; ++i) {
         if (!isNull(ret[0]['imagePath' + i])) {
             html += '<img class="swiper-slide" id="info_image_path_' + cnt + '" src="' + ret[0]['imagePath' + i] + '" width="400px;" class="img-fluid" style="border-radius: 5px;">';

@@ -107,7 +107,7 @@ function selectOrderListMainCallback(ret) {
         let itemNm = ret[i].itemNm;
         let optionNm = ret[i].optionNm;
         let qty = ret[i].qty ? ret[i].qty : '';
-        let imagePath = ret[i].imagePath;
+        let imagePath1 = ret[i].imagePath1;
         let totalPrice = ret[i].totalPrice;
         let depositConfirmDate = ret[i].depositConfirmDate;
         let dlvrConfirmDate = ret[i].dlvrConfirmDate;
