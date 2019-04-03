@@ -230,12 +230,12 @@ function selectOneItemCallback(ret) {
     let cnt = 0;
     for (let i = 1; i <= 5; ++i) {
         if (!isNull(ret[0]['imagePath' + i])) {
-            html += '<img class="swiper-slide" id="info_image_path_' + cnt + '" src="' + ret[0]['imagePath' + i] + '">';
+            html += '<img class="" id="info_image_path_' + cnt + '" src="' + ret[0]['imagePath' + i] + '">';
             cnt += 1;
         }
     }
     $('.swiper-wrapper').append(html);
-    initSwiper();
+    //initSwiper();
     $('#info_item_nm').html(itemNm);
     $('#info_item_desc').text(ret[0].itemDesc);
     $('#keeping_method').val(ret[0].keepingMethod);
