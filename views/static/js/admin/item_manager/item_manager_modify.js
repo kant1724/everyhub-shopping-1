@@ -24,16 +24,19 @@ function fileUpload(url, inputData, gubun, method) {
         enctype: 'multipart/form-data',
         processData: false,
         contentType: false,
-        async: true,
+        async: false,
         success: function (data, status, xhr) {
-            if (gubun == 'uploadImage') {
-                uploadImageCallback();
-            }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
     });
 }
 
+let image1 = false;
+let image2 = false;
+let image3 = false;
+let image4 = false;
+let image5 = false;
+let image6 = false;
 $(document).ready(function() {
     $('select').material_select();
 
@@ -41,16 +44,82 @@ $(document).ready(function() {
         modifyItem();
     });
 
-    $('#item_image').change(function() {
+    $('#item_image_1').change(function() {
         let file = this.files[0];
         let reader = new FileReader();
         reader.onloadend = function () {
-            $('#image_div').css('background-image', 'url("' + reader.result + '")');
-        };
+            $('#image_div_1').css('background-image', 'url("' + reader.result + '")');
+        }
         if (file) {
             reader.readAsDataURL(file);
         } else {}
-        imageChanged = true;
+
+        image1 = true;
+    });
+
+    $('#item_image_2').change(function() {
+        let file = this.files[0];
+        let reader = new FileReader();
+        reader.onloadend = function () {
+            $('#image_div_2').css('background-image', 'url("' + reader.result + '")');
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {}
+
+        image2 = true;
+    });
+
+    $('#item_image_3').change(function() {
+        let file = this.files[0];
+        let reader = new FileReader();
+        reader.onloadend = function () {
+            $('#image_div_3').css('background-image', 'url("' + reader.result + '")');
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {}
+
+        image3 = true;
+    });
+
+    $('#item_image_4').change(function() {
+        let file = this.files[0];
+        let reader = new FileReader();
+        reader.onloadend = function () {
+            $('#image_div_4').css('background-image', 'url("' + reader.result + '")');
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {}
+
+        image4 = true;
+    });
+
+    $('#item_image_5').change(function() {
+        let file = this.files[0];
+        let reader = new FileReader();
+        reader.onloadend = function () {
+            $('#image_div_5').css('background-image', 'url("' + reader.result + '")');
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {}
+
+        image5 = true;
+    });
+
+    $('#item_image_6').change(function() {
+        let file = this.files[0];
+        let reader = new FileReader();
+        reader.onloadend = function () {
+            $('#image_div_6').css('background-image', 'url("' + reader.result + '")');
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {}
+
+        image6 = true;
     });
 
     selectOneItem();
@@ -125,15 +194,38 @@ function modifyItem() {
         soldOutYn: soldOutYn,
         remoteUrl: remoteUrl,
         sortOrder: sortOrder,
-        imageChanged: imageChanged
+        image1: image1,
+        image2: image2,
+        image3: image3,
+        image4: image4,
+        image5: image5,
+        image6: image6
     };
 
     ajax(serverUrl + '/admin/item_manager/modifyItem', inputData, 'modifyItem', 'POST');
 }
 
 function selectOneItemCallback(ret) {
-    let imagePath = ret[0].imagePath;
-    $('#image_div').css('background-image', 'url("' + imagePath + '")');
+    let imagePath1 = ret[0].imagePath1;
+    let imagePath2 = ret[0].imagePath2;
+    let imagePath3 = ret[0].imagePath3;
+    let imagePath4 = ret[0].imagePath4;
+    let imagePath5 = ret[0].imagePath5;
+    let imagePath6 = ret[0].imagePath6;
+    if (imagePath1 != '') image1 = true;
+    if (imagePath2 != '') image2 = true;
+    if (imagePath3 != '') image3 = true;
+    if (imagePath4 != '') image4 = true;
+    if (imagePath5 != '') image5 = true;
+    if (imagePath6 != '') image6 = true;
+
+    $('#image_div_1').css('background-image', 'url("' + imagePath1 + '")');
+    $('#image_div_2').css('background-image', 'url("' + imagePath2 + '")');
+    $('#image_div_3').css('background-image', 'url("' + imagePath3 + '")');
+    $('#image_div_4').css('background-image', 'url("' + imagePath4 + '")');
+    $('#image_div_5').css('background-image', 'url("' + imagePath5 + '")');
+    $('#image_div_6').css('background-image', 'url("' + imagePath6 + '")');
+
     $('#item_nm').focus();
     $('#item_nm').val(ret[0].itemNm);
     $('#item_main_ctgr_cd').val(ret[0].itemMainCtgrCd);
@@ -151,17 +243,37 @@ function selectOneItemCallback(ret) {
 }
 
 function modifyItemCallback(ret) {
-    if (imageChanged) {
+    if (image1) {
         let formData = new FormData();
-        formData.append(ret, $("#item_image")[0].files[0]);
+        formData.append(ret + '_1', $("#item_image_1")[0].files[0]);
         fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
-    } else {
-        alert('상품이 변경되었습니다.');
-        location.href = '/admin/item_manager/';
     }
-}
+    if (image2) {
+        let formData = new FormData();
+        formData.append(ret + '_2', $("#item_image_2")[0].files[0]);
+        fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
+    }
+    if (image3) {
+        let formData = new FormData();
+        formData.append(ret + '_3', $("#item_image_3")[0].files[0]);
+        fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
+    }
+    if (image4) {
+        let formData = new FormData();
+        formData.append(ret + '_4', $("#item_image_4")[0].files[0]);
+        fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
+    }
+    if (image5) {
+        let formData = new FormData();
+        formData.append(ret + '_5', $("#item_image_5")[0].files[0]);
+        fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
+    }
+    if (image6) {
+        let formData = new FormData();
+        formData.append(ret + '_6', $("#item_image_6")[0].files[0]);
+        fileUpload('http://' + remoteUrl + '/upload_image_from_shopping_1', formData, 'uploadImage', 'POST');
+    }
 
-function uploadImageCallback() {
     alert('상품이 변경되었습니다.');
     location.href = '/admin/item_manager/';
 }

@@ -96,7 +96,7 @@ function setRecommendProduct(ret) {
         html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="card-outer" style="background: #FFFFFF;">';
         html += '<div class="view overlay">';
-        html += '<img src="' + ret[i].imagePath + '"style="height: 300px; width: 100%; class="img-fluid">';
+        html += '<img src="' + ret[i].imagePath1 + '"style="height: 300px; width: 100%; class="img-fluid">';
         html += '<a>';
         html += '<div class="mask rgba-white-slight"></div>';
         html += '</a>';
@@ -136,7 +136,7 @@ function setAllProduct(ret) {
         html += '<div class="each-item col-lg-4 col-md-12 col-12 pt-2">';
         html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="row py-2 mb-4 hoverable align-items-center">';
-        html += '<div class="col-6"><a><img src="' + ret[i].imagePath + '" style="border-radius: 5px; height: 150px;" class="img-fluid"></a></div>';
+        html += '<div class="col-6"><a><img src="' + ret[i].imagePath1 + '" style="border-radius: 5px; height: 150px;" class="img-fluid"></a></div>';
         html += '<div class="col-6">';
         html += '<a class="pt-5" style="font-size: 16px; font-weight: 700;"><strong>' + ret[i].itemNm + '</strong></a><br>';
         html += '<a class="all-product-detail-text3">원산지: 국내산</a><br>';

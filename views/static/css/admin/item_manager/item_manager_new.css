@@ -39,8 +39,8 @@ body {
     padding: 10px;
 }
 
-#image_div {
-    width: 300px;
+.image-div {
+    width: auto;
     height: 200px;
     border: 1px solid gray;
     background-size: cover;

@@ -236,7 +236,7 @@ function selectOneItemCallback(ret) {
         $('#order_now').prop('disabled', false);
         $('#add_cart').prop('disabled', false);
     }
-    $('#info_image_path').prop('src', ret[0].imagePath);
+    $('#info_image_path').prop('src', ret[0].imagePath1);
     $('#info_item_nm').html(itemNm);
     $('#info_item_desc').text(ret[0].itemDesc);
     $('#keeping_method').val(ret[0].keepingMethod);
