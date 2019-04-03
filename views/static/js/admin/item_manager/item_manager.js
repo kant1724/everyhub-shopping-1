@@ -35,7 +35,7 @@ function selectItemListCallback(ret) {
     $('.item-table tbody').empty();
     for (let i = 0; i < ret.length; ++i) {
         html += '<tr><td class="text-center item-no">' + ret[i].itemNo +'</td>';
-        html += '<td class="text-center"><img src = "' + ret[i].imagePath+ '" alt="" width="80px" style="border-radius: 5px;" class="img-fluid z-depth-0"></td>';
+        html += '<td class="text-center"><img src = "' + ret[i].imagePath1 + '" alt="" width="80px" style="border-radius: 5px;" class="img-fluid z-depth-0"></td>';
         html += '<td class="text-center">' + ret[i].itemNm + '</td>';
         html += '<td class="text-center">' + ret[i].recommendYn + '</td>';
         html += '<td class="text-center">' + ret[i].useYn + '</td>';

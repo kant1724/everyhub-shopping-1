@@ -186,11 +186,11 @@ function registerNewItem() {
         remoteUrl: remoteUrl,
         sortOrder: sortOrder,
         image1: image1,
-        image1: image2,
-        image1: image3,
-        image1: image4,
-        image1: image5,
-        image1: image6
+        image2: image2,
+        image3: image3,
+        image4: image4,
+        image5: image5,
+        image6: image6
     };
 
     ajax(serverUrl + '/admin/item_manager/registerNewItem', inputData, 'registerNewItem', 'POST');
