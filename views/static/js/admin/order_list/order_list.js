@@ -88,6 +88,7 @@ function selectInvoiceNoCallback(ret) {
         html += '<tr>';
         html += '<td>' + ret[i].orderNo + '</td>';
         html += '<td class="modal-invoice-no">' + ret[i].invoiceNo + '</td>';
+        html += '<td class="modal-invoice-detail text-underline-link">조회</td>';
         html += '<td><span class="delete-invoice-no text-underline-link">삭제</span></td>';
         html += '</tr>';
     }
@@ -99,6 +100,12 @@ function selectInvoiceNoCallback(ret) {
             let invoiceNo = $(this).parent().parent().find('.modal-invoice-no').text();
             deleteInvoiceNo(invoiceNo);
         }
+    });
+
+    $('.modal-invoice-detail').unbind();
+    $('.modal-invoice-detail').click(function() {
+        let invoiceNo = $(this).parent().find('.modal-invoice-no').text();
+        window.open('https://www.doortodoor.co.kr/parcel/doortodoor.do?fsp_action=PARC_ACT_002&fsp_cmd=retrieveInvNoACT&invc_no=' + invoiceNo);
     });
 }
 
