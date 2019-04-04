@@ -47,3 +47,15 @@ body {
     background-position: top;
     background-repeat: no-repeat;
 }
+
+.remove-image {
+    display: none;
+    font-size: 25px;
+    float: right;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.remove-image:hover {
+    cursor: pointer;
+}
