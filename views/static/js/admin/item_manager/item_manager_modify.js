@@ -49,7 +49,7 @@ $(document).ready(function() {
         let reader = new FileReader();
         reader.onloadend = function () {
             $('#image_div_1').css('background-image', 'url("' + reader.result + '")');
-        }
+        };
         if (file) {
             reader.readAsDataURL(file);
         } else {}
@@ -62,7 +62,7 @@ $(document).ready(function() {
         let reader = new FileReader();
         reader.onloadend = function () {
             $('#image_div_2').css('background-image', 'url("' + reader.result + '")');
-        }
+        };
         if (file) {
             reader.readAsDataURL(file);
         } else {}
@@ -75,7 +75,7 @@ $(document).ready(function() {
         let reader = new FileReader();
         reader.onloadend = function () {
             $('#image_div_3').css('background-image', 'url("' + reader.result + '")');
-        }
+        };
         if (file) {
             reader.readAsDataURL(file);
         } else {}
@@ -88,7 +88,7 @@ $(document).ready(function() {
         let reader = new FileReader();
         reader.onloadend = function () {
             $('#image_div_4').css('background-image', 'url("' + reader.result + '")');
-        }
+        };
         if (file) {
             reader.readAsDataURL(file);
         } else {}
@@ -101,7 +101,7 @@ $(document).ready(function() {
         let reader = new FileReader();
         reader.onloadend = function () {
             $('#image_div_5').css('background-image', 'url("' + reader.result + '")');
-        }
+        };
         if (file) {
             reader.readAsDataURL(file);
         } else {}
@@ -114,7 +114,7 @@ $(document).ready(function() {
         let reader = new FileReader();
         reader.onloadend = function () {
             $('#image_div_6').css('background-image', 'url("' + reader.result + '")');
-        }
+        };
         if (file) {
             reader.readAsDataURL(file);
         } else {}
@@ -239,6 +239,8 @@ function selectOneItemCallback(ret) {
     $('#keeping_method').val(ret[0].keepingMethod);
     $('#sort_order').focus();
     $('#sort_order').val(ret[0].sortOrder);
+
+    $('body, html').animate({'scrollTop': 0}, 0);
 }
 
 function modifyItemCallback(ret) {

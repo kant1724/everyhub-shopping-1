@@ -157,15 +157,15 @@ function selectUser() {
 function selectUserCallback(ret) {
     if (ret.length > 0) {
         $('#order_person_nm').val(ret[0].userNm);
+        $('#order_person_nm').focus();
         $('#order_telno').val(ret[0].telno);
         $('#order_telno_1').val(ret[0].telno1);
         $('#order_telno_2').val(ret[0].telno2);
         $('#order_telno_3').val(ret[0].telno3);
-        $('#order_person_nm').focus();
-        $('#order_telno').focus();
         $('#order_zip_no').val(ret[0].zipNo);
         $('#order_address_main').val(ret[0].addressMain);
         $('#order_address_detail').val(ret[0].addressDetail);
+        $('body, html').animate({'scrollTop': 0}, 0);
     }
 }
 
