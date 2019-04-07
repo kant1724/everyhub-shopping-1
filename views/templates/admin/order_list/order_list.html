@@ -57,14 +57,14 @@
                         <th>주문일</th>
                         <th>주문자명</th>
                         <th>주문자 연락처</th>
-                        <th>상품명</th>
-                        <th>옵션명</th>
+                        <th>상품/옵션</th>
                         <th>수량</th>
                         <th>총금액</th>
                         <th>입금자명</th>
                         <th>배송일자</th>
                         <th>취소일자</th>
                         <th>송장번호</th>
+                        <th>기타정보</th>
                     </tr>
                     </thead>
                     <tbody id="order_list_tbody"></tbody>
@@ -97,6 +97,26 @@
                         <tbody id="invoice_list_tbody">
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="additional_info_modal" tabindex="-1" role="dialog" aria-labelledby="additional_info_modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content text-center">
+                <input type="hidden" id="modal_order_no_2">
+                <div class="modal-body" style="margin: 20px;">
+                    <input type="text" class="form-control" id="modal_basic_fares" style="width: 200px; margin: auto;">
+                    <label class="mt-2" for="modal_basic_fares">기본운임을 입력하세요.</label>
+                    <input type="text" class="form-control" id="modal_box_type" style="width: 200px; margin: auto;">
+                    <label class="mt-2" for="modal_box_type">박스타입을 입력하세요.</label>
+                    <input type="text" class="form-control" id="modal_fare_type" style="width: 200px; margin: auto;">
+                    <label class="mt-2" for="modal_fare_type">운임구분을 입력하세요.</label>
+
+                </div>
+                <div class="text-center pb-5">
+                    <a id="save_additional_info" class="common-button-1">저장</a>
+                    <a id="additional_info_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
                 </div>
             </div>
         </div>

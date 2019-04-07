@@ -19,6 +19,8 @@ function ajax(url, inputData, gubun, method) {
                 selectInvoiceNoCallback(data.ret);
             } else if (gubun == 'deleteInvoiceNo') {
                 deleteInvoiceNoCallback();
+            } else if (gubun == 'updateAdditionalInfo') {
+                updateAdditionalInfoCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -55,6 +57,10 @@ $(document).ready(function() {
         insertInvoiceNo();
     });
 
+    $('#save_additional_info').click(function() {
+        updateAdditionalInfo();
+    });
+
     selectOrderListMain();
 });
 
@@ -71,6 +77,25 @@ function insertInvoiceNo() {
 function insertInvoiceNoCallback() {
     alert('송장번호가 저장되었습니다.');
     selectInvoiceNo();
+}
+
+function updateAdditionalInfo() {
+    let orderNo = $('#modal_order_no_2').val();
+    let basicFares = $('#modal_basic_fares').val();
+    let boxType = $('#modal_box_type').val();
+    let fareType = $('#modal_fare_type').val();
+    let inputData = {
+        orderNo: orderNo,
+        basicFares: basicFares,
+        boxType: boxType,
+        fareType: fareType
+    };
+    ajax(serverUrl + '/admin/order_list/updateAdditionalInfo', inputData, 'updateAdditionalInfo', 'POST');
+}
+
+function updateAdditionalInfoCallback() {
+    alert('기타정보가 저장되었습니다.');
+    selectOrderListMain();
 }
 
 function selectInvoiceNo() {
@@ -190,7 +215,10 @@ function exportExcel() {
         d['받는분 전화'] = allData[i].receiveTelno;
         d['받는분 주소'] = allData[i].receiveAddressMain;
         d['받는분 상세주소'] = allData[i].receiveAddressDetail;
-        d['물품명'] = allData[i].itemNm + ',' + allData[i].optionNm;
+        d['기본운임'] = allData[i].basicFares;
+        d['박스타입'] = allData[i].boxType;
+        d['운임구분'] = allData[i].fareType;
+        d['품목명'] = allData[i].itemNm + ',' + allData[i].optionNm;
         d['박스수량'] = allData[i].qty;
         d['송장번호'] = '';
         data.push(d);
@@ -253,6 +281,10 @@ function selectOrderListMainCallback(ret) {
         let depositPersonNm = ret[i].depositPersonNm;
         let depositRemarks = ret[i].depositRemarks;
         let cancelDate = ret[i].cancelDate ? ret[i].cancelDate : '';
+        let basicFares = ret[i].basicFares ? ret[i].basicFares : '';
+        let boxType = ret[i].boxType ? ret[i].boxType : '';
+        let fareType = ret[i].fareType ? ret[i].fareType : '';
+        let invoiceCnt = ret[i].invoiceCnt;
 
         if (depositConfirmDate == null || depositConfirmDate == '') {
             depositPersonNm += '<br><span class="confirm-deposit-btn text-underline-link" style="font-size: 11px;">입금확인</span>';
@@ -278,6 +310,9 @@ function selectOrderListMainCallback(ret) {
         html += '<input type="hidden" class="receive-address-detail" value="' + receiveAddressDetail + '">';
         html += '<input type="hidden" class="order-remarks" value="' + orderRemarks + '">';
         html += '<input type="hidden" class="deposit-remarks" value="' + depositRemarks + '">';
+        html += '<input type="hidden" class="basic-fares" value="' + basicFares + '">';
+        html += '<input type="hidden" class="box-type" value="' + boxType + '">';
+        html += '<input type="hidden" class="fare-type" value="' + fareType + '">';
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
@@ -306,10 +341,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="order_telno" class="order-telno">' + orderTelno + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="item_nm" class="item-nm">' + itemNm + '</div>';
-            html += '</td>';
-            html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
+            html += '<div id="item_nm" class="item-nm">' + itemNm + '<br>' + optionNm + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="qty" class="qty">' + qty + '</div>';
@@ -327,7 +359,10 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="cancel_date" class="cancel-date">' + cancelDate + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
-            html += '<div id="write_invoice_no" class="write-invoice-no"><span class="text-underline-link">입력</span></div>';
+            html += '<div id="write_invoice_no" class="write-invoice-no">' + invoiceCnt + '건<br><span class="text-underline-link">입력</span></div>';
+            html += '</td>';
+            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<div id="write_additional_info" class="write-additional-info"><span class="text-underline-link">입력</span></div>';
             html += '</td>';
             html += '</tr>';
         } else {
@@ -348,10 +383,7 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '<input type="hidden" id="order_seq" value="' + orderSeq + '">';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="item_nm" class="item-nm">' + itemNm + '</div>';
-            html += '</td>';
-            html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
-            html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
+            html += '<div id="item_nm" class="item-nm">' + itemNm + '<br>' + optionNm + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="qty" class="qty">' + qty + '</div>';
@@ -414,6 +446,19 @@ function selectOrderListMainCallback(ret) {
         $('#modal_order_no').val(orderNo);
         $('#invoice_no_modal').modal();
         selectInvoiceNo();
+    });
+
+    $('.write-additional-info').unbind();
+    $('.write-additional-info').click(function() {
+        let orderNo = $(this).parent().parent().find('#order_no').text();
+        let basicFares = $(this).parent().parent().find('.basic-fares').val();
+        let boxType = $(this).parent().parent().find('.box-type').val();
+        let fareType = $(this).parent().parent().find('.fare-type').val();
+        $('#modal_order_no_2').val(orderNo);
+        $('#modal_basic_fares').val(basicFares);
+        $('#modal_box_type').val(boxType);
+        $('#modal_fare_type').val(fareType);
+        $('#additional_info_modal').modal();
     });
 }
 
