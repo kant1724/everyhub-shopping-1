@@ -21,6 +21,8 @@ function ajax(url, inputData, gubun, method) {
                 deleteInvoiceNoCallback();
             } else if (gubun == 'updateAdditionalInfo') {
                 updateAdditionalInfoCallback();
+            } else if (gubun == 'cancelOrder') {
+                cancelOrderCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -282,18 +284,24 @@ function selectOrderListMainCallback(ret) {
         let orderRemarks = ret[i].orderRemarks;
         let depositPersonNm = ret[i].depositPersonNm;
         let depositRemarks = ret[i].depositRemarks;
-        let cancelDate = ret[i].cancelDate ? ret[i].cancelDate : '';
+        let cancelDate = '';
         let basicFares = ret[i].basicFares ? ret[i].basicFares : '';
         let boxType = ret[i].boxType ? ret[i].boxType : '';
         let fareType = ret[i].fareType ? ret[i].fareType : '';
         let invoiceCnt = ret[i].invoiceCnt;
 
-        if (depositConfirmDate == null || depositConfirmDate == '') {
+        if (isNull(ret[i].cancelDate) && isNull(dlvrConfirmDate)) {
+            cancelDate = '<div id="cancel_order" class="cancel-order"><span class="text-underline-link">주문취소</span></div>';
+        } else {
+            cancelDate = ret[i].cancelDate ? ret[i].cancelDate : '';
+        }
+
+        if (isNull(depositConfirmDate)) {
             depositPersonNm += '<br><span class="confirm-deposit-btn text-underline-link" style="font-size: 11px;">입금확인</span>';
         }
 
         let hasInvoiceNo = true;
-        if(dlvrConfirmDate == null || dlvrConfirmDate == '') {
+        if(isNull(dlvrConfirmDate)) {
             dlvrConfirmDate = '';
         }
 
@@ -462,6 +470,14 @@ function selectOrderListMainCallback(ret) {
         $('#modal_fare_type').val(fareType);
         $('#additional_info_modal').modal();
     });
+
+    $('.cancel-order').unbind();
+    $('.cancel-order').click(function() {
+        if (confirm('해당 주문을 취소하시겠습니까?')) {
+            let orderNo = $(this).parent().parent().parent().find('#order_no').text();
+            cancelOrder(orderNo);
+        }
+    });
 }
 
 function updateDepositConfirmDate(orderNo) {
@@ -478,5 +494,17 @@ function updateDepositConfirmDateCallback() {
 
 function updateDlvrConfirmDateCallback() {
     alert('배송시작 처리되었습니다.');
+    selectOrderListMain();
+}
+
+function cancelOrder(orderNo) {
+    let inputData = {
+        orderNo: orderNo
+    };
+    ajax(serverUrl + '/mypage/cancelOrder', inputData, 'cancelOrder', 'POST');
+}
+
+function cancelOrderCallback() {
+    alert('주문이 취소되었습니다.');
     selectOrderListMain();
 }
