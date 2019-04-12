@@ -214,6 +214,7 @@ function modifyItem() {
     let shipYn = $('#ship_yn').val();
     let soldOutYn = $('#sold_out_yn').val();
     let sortOrder = $('#sort_order').val() ? $('#sort_order').val() : 0;
+    let damageRemarks = $('#damage_remarks').val();
 
     let inputData = {
         itemNo: itemNo,
@@ -230,6 +231,7 @@ function modifyItem() {
         soldOutYn: soldOutYn,
         remoteUrl: remoteUrl,
         sortOrder: sortOrder,
+        damageRemarks: damageRemarks,
         image1: image1,
         image2: image2,
         image3: image3,
@@ -251,27 +253,21 @@ function selectOneItemCallback(ret) {
 
     if (!isNull(imagePath1)) {
         $('#remove_image_1').css('display', 'block');
-        image1 = true;
     }
     if (!isNull(imagePath2)) {
         $('#remove_image_2').css('display', 'block');
-        image2 = true;
     }
     if (!isNull(imagePath3)) {
         $('#remove_image_3').css('display', 'block');
-        image3 = true;
     }
     if (!isNull(imagePath4)) {
         $('#remove_image_4').css('display', 'block');
-        image4 = true;
     }
     if (!isNull(imagePath5)) {
         $('#remove_image_5').css('display', 'block');
-        image5 = true;
     }
     if (!isNull(imagePath6)) {
         $('#remove_image_6').css('display', 'block');
-        image6 = true;
     }
 
     $('#image_div_1').css('background-image', 'url("' + imagePath1 + '")');
@@ -295,6 +291,7 @@ function selectOneItemCallback(ret) {
     $('#keeping_method').val(ret[0].keepingMethod);
     $('#sort_order').focus();
     $('#sort_order').val(ret[0].sortOrder);
+    $('#damage_remarks').val(ret[0].damageRemarks);
 
     $('body, html').animate({'scrollTop': 0}, 0);
 }

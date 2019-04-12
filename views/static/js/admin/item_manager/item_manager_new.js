@@ -206,6 +206,7 @@ function registerNewItem() {
     let shipYn = $('#ship_yn').val();
     let soldOutYn = $('#sold_out_yn').val();
     let sortOrder = $('#sort_order').val() ? $('#sort_order').val() : 0;
+    let damageRemarks = $('#damage_remarks').val();
 
     let inputData = {
         itemNo: itemNo,
@@ -222,6 +223,7 @@ function registerNewItem() {
         soldOutYn: soldOutYn,
         remoteUrl: remoteUrl,
         sortOrder: sortOrder,
+        damageRemarks: damageRemarks,
         image1: image1,
         image2: image2,
         image3: image3,

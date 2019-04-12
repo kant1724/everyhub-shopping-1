@@ -39,6 +39,11 @@ body {
     padding: 10px;
 }
 
+#damage_remarks {
+    height: 100px;
+    padding: 10px;
+}
+
 .image-div {
     width: 300px;
     height: 200px;
