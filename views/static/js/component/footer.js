@@ -26,7 +26,7 @@ function selectSellerInfo() {
 function selectSellerInfoCallback(ret) {
 	let footerHtml = '<div class="container py-2 mt-5 mb-4 text-center">';
 	footerHtml += '<div class="mt-3">';
-	footerHtml += '<p>신선한 과일만을 취급하는 간드락농원 입니다.</p>';
+	footerHtml += '<p>숙기가 꽉찬 신선한 과일을 취급하는 간드락농원 입니다.</p>';
 	footerHtml += '</div>';
 	footerHtml += '<div class="mt-3">';
 	footerHtml += '<div style="text-decoration: underline;" class="d-inline-block">이용약관</div>';
