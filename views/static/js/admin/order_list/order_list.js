@@ -190,37 +190,39 @@ function updateDlvrConfirmDate() {
 function exportExcel() {
     let wb = XLSX.utils.book_new();
     let header = {
-        header: ['보내는분',
-            '보내는분 전화',
-            '보내는분 주소',
-            '보내는분 상세주소',
-            '받는분',
-            '받는분 전화',
-            '받는분 주소',
-            '받는분 상세주소',
+        header: ['보내는성명',
+            '보내는분전화번호',
+            '보내는분기타연락처',
+            '보내는분주소(전체, 분할)',
+            '받는분성명',
+            '받는분전화번호',
+            '받는분기타연락처',
+            '받는분주소(전체, 분할)',
             '기본운임',
             '박스타입',
             '운임구분',
             '품목명',
             '박스수량',
+            '배송메세지1'
         ]
     };
     let data = [];
     for (let i = 0; i < allData.length; ++i) {
         let d = {};
-        d['보내는분'] = allData[i].sendPersonNm;
-        d['보내는분 전화'] = allData[i].sendTelno;
-        d['보내는분 주소'] = allData[i].sendAddressMain;
-        d['보내는분 상세주소'] = allData[i].sendAddressDetail;
-        d['받는분'] = allData[i].receivePersonNm;
-        d['받는분 전화'] = allData[i].receiveTelno;
-        d['받는분 주소'] = allData[i].receiveAddressMain;
-        d['받는분 상세주소'] = allData[i].receiveAddressDetail;
+        d['보내는성명'] = allData[i].sendPersonNm;
+        d['보내는분전화번호'] = allData[i].sendTelno;
+        d['보내는분기타연락처'] = allData[i].sendTelno;
+        d['보내는분주소(전체, 분할)'] = allData[i].sendAddressMain + ' ' + allData[i].sendAddressDetail;
+        d['받는분성명'] = allData[i].receivePersonNm;
+        d['받는분전화번호'] = allData[i].receiveTelno;
+        d['받는분기타연락처'] = allData[i].receiveTelno;
+        d['받는분주소(전체, 분할)'] = allData[i].receiveAddressMain + ' ' + allData[i].receiveAddressDetail;
         d['기본운임'] = allData[i].basicFares;
         d['박스타입'] = allData[i].boxType;
         d['운임구분'] = allData[i].fareType;
         d['품목명'] = allData[i].itemNm + ',' + allData[i].optionNm;
         d['박스수량'] = allData[i].qty;
+        d['배송메세지1'] = '';
         data.push(d);
     }
     let ws = XLSX.utils.json_to_sheet(data, header);
