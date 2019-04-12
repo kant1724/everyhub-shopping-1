@@ -13,6 +13,8 @@ function ajax(url, inputData, gubun, method) {
                 selectUserCallback(data.ret);
             } else if (gubun == 'selectSellerInfo') {
                 selectSellerInfoCallback(data.ret);
+            } else if (gubun == 'selectOneItem') {
+                selectOneItemCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -212,19 +214,33 @@ function setReceiveInfoSameWithOrderInfo(focus) {
 }
 
 function purchaseDirect() {
+    selectOneItem();
+}
+
+function selectOneItem() {
+    let itemNo = $('#direct_item_no').val();
+    let inputData  = {
+        itemNo: itemNo
+    };
+    ajax(serverUrl + '/admin/item_manager/selectOneItem', inputData , 'selectOneItem', 'POST');
+}
+
+function selectOneItemCallback(ret) {
     let html = '';
     let eachOrder = {};
     eachOrder.qty = $('#direct_qty').val();
     eachOrder.itemNo = $('#direct_item_no').val();
     eachOrder.itemNm = $('#direct_item_nm').val();
-    eachOrder.keepingMethod = $('#direct_keeping_method').val();
     eachOrder.optionNo = $('#direct_option_no').val();
     eachOrder.optionNm = $('#direct_option_nm').val();
+    eachOrder.keepingMethod = ret[0].keepingMethod;
+    eachOrder.damageRemarks = ret[0].damageRemarks;
+
     html += '<div style="font-size: 11px;">';
     html += '<div class="mt-2 mb-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + $('#direct_image_path').val() + '" alt="" class="img-fluid z-depth-0"></div>';
     html += '<div class="mb-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
     html += '<div class="mb-2">상품명: ' + $('#direct_item_nm').val() + '</div>';
-    html += '<div class="mb-2">옵션: ' + $('#direct_option_nm').val() + '</div>';
+    html += '<div class="mb-2">옵션: ' + $('#direct_option_no').val() + '</div>';
     html += '<div class="mb-2">단가: ' + $('#direct_item_price').val() + '</div>';
     html += '<div class="mb-2">배송비: ' + $('#direct_shipping_fee').val() + '</div>';
     html += '<div class="mb-2">수량: ' + $('#direct_qty').val() + '</div>';
@@ -254,8 +270,10 @@ function purchaseFromCart() {
                 eachOrder.itemNo = productArr[j].itemNo;
                 eachOrder.itemNm = productArr[j].itemNm;
                 eachOrder.keepingMethod = productArr[j].keepingMethod;
+                eachOrder.damageRemarks = productArr[j].damageRemarks;
                 eachOrder.optionNo = productArr[j].optionNo;
                 eachOrder.optionNm = productArr[j].optionNm;
+
                 html += '<div style="font-size: 20px; font-weight: 700; color: gray;"><i class="far fa-list"></i>&nbsp;&nbsp;주문' + cnt + '</div>';
                 html += '<hr>';
                 html += '<div style="font-size: 11px;">';

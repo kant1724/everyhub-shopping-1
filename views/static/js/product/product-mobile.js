@@ -48,6 +48,7 @@ function addCart() {
         imagePath: $('#info_image_path_1').prop('src'),
         itemNm: $('#info_item_nm').text(),
         keepingMethod: $('#keeping_method').val(),
+        damageRemarks: $('#damage_remarks').val(),
         itemPrice: $('#info_item_price').text(),
         shippingFee: $('#info_shipping_fee').text(),
         itemPriceNum: $('#info_item_price_num').val(),
@@ -241,6 +242,7 @@ function selectOneItemCallback(ret) {
     $('#info_item_nm').html(itemNm);
     $('#info_item_desc').text(ret[0].itemDesc);
     $('#keeping_method').val(ret[0].keepingMethod);
+    $('#damage_remarks').val(ret[0].damageRemarks);
 }
 
 function initSwiper() {
