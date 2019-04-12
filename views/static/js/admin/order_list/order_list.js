@@ -198,15 +198,16 @@ function exportExcel() {
             '받는분 전화',
             '받는분 주소',
             '받는분 상세주소',
-            '물품명',
+            '기본운임',
+            '박스타입',
+            '운임구분',
+            '품목명',
             '박스수량',
-            '송장번호'
         ]
     };
     let data = [];
     for (let i = 0; i < allData.length; ++i) {
         let d = {};
-        d['주문번호'] = allData[i].orderNo;
         d['보내는분'] = allData[i].sendPersonNm;
         d['보내는분 전화'] = allData[i].sendTelno;
         d['보내는분 주소'] = allData[i].sendAddressMain;
@@ -220,7 +221,6 @@ function exportExcel() {
         d['운임구분'] = allData[i].fareType;
         d['품목명'] = allData[i].itemNm + ',' + allData[i].optionNm;
         d['박스수량'] = allData[i].qty;
-        d['송장번호'] = '';
         data.push(d);
     }
     let ws = XLSX.utils.json_to_sheet(data, header);
