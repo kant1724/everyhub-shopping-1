@@ -24,32 +24,6 @@ body {
     margin-top: 57px;
 }
 
-.top-main-a {
-    background-image: url('/static/res/전남1.png');
-    height: 500px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-
-.top-main-b {
-    background-image: url('/static/res/전남2.png');
-    height: 500px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-
-.top-main-c {
-    background-image: url('/static/res/전남3.png');
-    height: 500px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
 .top-main-1 {
     background-image: url('/static/res/top_1.jpg');
     height: 500px;
