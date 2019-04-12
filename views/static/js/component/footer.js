@@ -44,7 +44,7 @@ function selectSellerInfoCallback(ret) {
 	footerHtml += '</div>';
 	footerHtml += '<div class="footer-copyright py-3 text-center">';
 	footerHtml += '<div class="container-fluid">';
-	footerHtml += '© 2019 Copyright: 간드락 농원</a>';
+	footerHtml += '© 2019 Copyright: Everyhub</a>';
 	footerHtml += '</div>';
 	footerHtml += '</div>';
 
