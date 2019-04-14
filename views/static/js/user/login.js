@@ -37,6 +37,10 @@ $(document).ready(function() {
             login();
         }
     });
+
+    $('#get_password').click(function() {
+        location.href = '/user/get_password'
+    });
 });
 
 function sign_up() {
@@ -49,7 +53,7 @@ function login() {
     let inputData = {
         telno: telno,
         password: password
-    }
+    };
     ajax(serverUrl + '/user/login', inputData, 'login', 'POST');
 }
 
