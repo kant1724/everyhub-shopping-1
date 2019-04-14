@@ -1,0 +1,15 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    overflow-x: hidden;
+}
+
+#owner_image {
+    width: auto;
+    height: 200px;
+    border-radius: 50%;
+}
+
+#intro_text {
+    margin-top: 50px;
+    vertical-align: top;
+}

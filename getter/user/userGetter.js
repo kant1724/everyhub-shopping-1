@@ -26,7 +26,6 @@ router.get('/sign_up', function(req, res, next) {
 });
 
 router.get('/get_password', function(req, res, next) {
-    let md = new MobileDetect(req.headers['user-agent']);
     let userNo = auth.getUserNo(req);
     let adminYn = auth.getAdminYn(req);
     res.render('templates/user/get_password', {userNo: userNo, adminYn: adminYn});

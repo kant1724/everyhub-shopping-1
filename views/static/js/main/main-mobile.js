@@ -91,7 +91,7 @@ function setRecommendProduct(ret) {
     let html = '';
     for (let i = 0; i < ret.length; ++i) {
         if (ret[i].recommendYn == 'N') continue;
-        let shipYn = ret[i].shipYn == 'Y' ? '판매중' : '출하전'
+        let shipYn = ret[i].shipYn == 'Y' ? '판매중' : '출하전';
         html += '<div class="swiper-slide each-recommend mb-5">';
         html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="card-outer" style="background: #FFFFFF;">';
@@ -132,7 +132,7 @@ function setRecommendProduct(ret) {
 function setAllProduct(ret) {
     let html = '';
     for (let i = 0; i < ret.length; ++i) {
-        let shipYn = ret[i].shipYn == 'Y' ? '판매중' : '출하전'
+        let shipYn = ret[i].shipYn == 'Y' ? '판매중' : '출하전';
         html += '<div class="each-item col-lg-4 col-md-6 col-6 pt-2">';
         html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
         html += '<div class="row py-2 mb-4 align-items-center">';

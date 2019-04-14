@@ -14,6 +14,18 @@ router.get('/', function(req, res, next) {
     }
 });
 
+router.get('/introduction', function(req, res, next) {
+    let query = req.query.query;
+    let md = new MobileDetect(req.headers['user-agent']);
+    let userNo = auth.getUserNo(req);
+    let adminYn = auth.getAdminYn(req);
+    if (md.mobile()) {
+        res.render('templates/main/introduction-mobile', {query: query, userNo: userNo, adminYn: adminYn});
+    } else {
+        res.render('templates/main/introduction', {query: query, userNo: userNo, adminYn: adminYn});
+    }
+});
+
 router.get('/search_result', function(req, res, next) {
     let query = req.query.query;
     let md = new MobileDetect(req.headers['user-agent']);
