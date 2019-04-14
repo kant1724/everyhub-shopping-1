@@ -23,6 +23,8 @@ function ajax(url, inputData, gubun, method) {
                 updateAdditionalInfoCallback();
             } else if (gubun == 'cancelOrder') {
                 cancelOrderCallback();
+            } else if (gubun == 'sendSMS') {
+                sendSMSCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -61,6 +63,10 @@ $(document).ready(function() {
 
     $('#save_additional_info').click(function() {
         updateAdditionalInfo();
+    });
+
+    $('#send_sms').click(function() {
+        sendSMS();
     });
 
     selectOrderListMain();
@@ -372,7 +378,7 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="write_invoice_no" class="write-invoice-no">' + invoiceCnt + '건<br><span class="text-underline-link">입력</span></div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
-            html += '<div id="write_additional_info" class="write-additional-info"><span class="text-underline-link">입력</span></div>';
+            html += '<div id="sms" class="sms"><span class="text-underline-link">문자입력</span></div>';
             html += '</td>';
             html += '</tr>';
         } else {
@@ -471,6 +477,13 @@ function selectOrderListMainCallback(ret) {
         $('#additional_info_modal').modal();
     });
 
+    $('.sms').unbind();
+    $('.sms').click(function() {
+        let orderTelno = $(this).parent().parent().find('.order-telno').text();
+        $('#smsTelno').val(orderTelno);
+        $('#send_sms_modal').modal();
+    });
+
     $('.cancel-order').unbind();
     $('.cancel-order').click(function() {
         if (confirm('해당 주문을 취소하시겠습니까?')) {
@@ -478,6 +491,26 @@ function selectOrderListMainCallback(ret) {
             cancelOrder(orderNo);
         }
     });
+}
+
+function sendSMS() {
+    if (!confirm('문자메세지를 전송하시겠습니까?')) {
+        return;
+    }
+    let smsSubject = $('#sms_subject').val();
+    let smsContent = $('#sms_content').val();
+    let smsTelno = $('#smsTelno').val();
+    let inputData = {
+        smsSubject: smsSubject,
+        smsContent: smsContent,
+        smsTelno: smsTelno
+    };
+    ajax(serverUrl + '/admin/order_list/sendSMS', inputData, 'sendSMS', 'POST');
+}
+
+function sendSMSCallback() {
+    alert('메세지가 전송되었습니다.');
+    $('#send_sms_close_modal').click();
 }
 
 function updateDepositConfirmDate(orderNo) {

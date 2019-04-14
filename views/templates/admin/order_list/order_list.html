@@ -64,7 +64,7 @@
                         <th>배송일자</th>
                         <th>취소일자</th>
                         <th>송장번호</th>
-                        <th>기타정보</th>
+                        <th>문자전송</th>
                     </tr>
                     </thead>
                     <tbody id="order_list_tbody"></tbody>
@@ -140,6 +140,26 @@
                 </div>
                 <div class="text-center pb-5">
                     <a id="order_detail_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="send_sms_modal" tabindex="-1" role="dialog" aria-labelledby="send_sms_modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <input id="smsTelno" type="hidden">
+                <div class="mt-4" style="width: 80%; margin: auto;">제목</div>
+                <div class="text-center mt-1">
+                    <input type="text" id="sms_subject" placeholder="문자메세지 제목을 입력하세요" style="padding: 5px; width: 80%;">
+                </div>
+                <hr>
+                <div style="width: 80%; margin: auto;">내용</div>
+                <div class="text-center mt-1 mb-3">
+                    <textarea id="sms_content" placeholder="문자메세지 내용을 입력하세요" style="padding: 5px; width: 80%; height: 300px;"></textarea>
+                </div>
+                <div class="text-center pb-5">
+                    <a id="send_sms" class="common-button-1 mr-1" data-dismiss="modal">문자전송</a>
+                    <a id="send_sms_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
                 </div>
             </div>
         </div>
