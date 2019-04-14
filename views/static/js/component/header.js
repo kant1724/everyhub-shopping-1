@@ -1,3 +1,29 @@
+function logoutCallback() {
+    location.href = '/user/logout';
+}
+
+function logoutTrans(url, inputData, gubun, method) {
+    $.ajax(url, {
+        type: method,
+        data: inputData,
+        async: false,
+        xhrFields: { withCredentials: true },
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: 'json',
+        success: function (data, status, xhr) {
+            if (gubun == 'logout') {
+                logoutCallback();
+            }
+        },
+        error: function (jqXhr, textStatus, errorMessage) {}
+    });
+}
+
+function logout() {
+    let inputData = {};
+    logoutTrans(serverUrl + '/user/logout', inputData, 'logout', 'POST');
+}
+
 let headerHtml = '<nav class="top-nav navbar fixed-top navbar-expand-lg navbar-light white">';
 headerHtml += '<div class="container">';
 headerHtml += '<a class="logo-title navbar-brand font-weight-bold" href="/">';
@@ -31,6 +57,11 @@ if ($('#user_no').val() == 0) {
     headerHtml += '<i class="far fa-user"></i>&nbsp;&nbsp;마이페이지';
     headerHtml += '</a>';
     headerHtml += '</li>';
+    headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
+    headerHtml += '<a id="logout" class="nav-link waves-effect waves-light">';
+    headerHtml += '<i class="far fa-sign-out-alt"></i>&nbsp;&nbsp;로그아웃';
+    headerHtml += '</a>';
+    headerHtml += '</li>';
 }
 if ($('#admin_yn').val() == 'Y') {
     headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
@@ -55,3 +86,7 @@ headerHtml += '</div>';
 headerHtml += '</nav>';
 
 $('header').append(headerHtml);
+
+$('#logout').click(function() {
+   logout();
+});

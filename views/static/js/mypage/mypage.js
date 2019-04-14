@@ -17,8 +17,6 @@ function ajax(url, inputData, gubun, method) {
                 updateUserCallback();
             } else if (gubun == 'cancelOrder') {
                 cancelOrderCallback();
-            } else if (gubun == 'logout') {
-                logoutCallback();
             } else if (gubun == 'selectInvoiceNo') {
                 selectInvoiceNoCallback(data.ret);
             }
@@ -65,21 +63,8 @@ $(document).ready(function() {
         updateUser();
     });
 
-    $('#logout').click(function() {
-        logout();
-    });
-
     selectOrderListMain();
 });
-
-function logout() {
-    let inputData = {};
-    ajax(serverUrl + '/user/logout', inputData, 'logout', 'POST');
-}
-
-function logoutCallback() {
-    location.href = '/user/logout';
-}
 
 function selectInvoiceNo() {
     let orderNo = $('#modal_order_no').val();
