@@ -30,9 +30,11 @@ function sendPassword() {
 }
 
 function sendPasswordCallback(ret) {
-    if (ret != 'not ok') {
+    if (ret == 'ok') {
         alert('비밀번호가 정상적으로 전송되었습니다.');
         location.href = '/user';
+    } else if (ret == 'already') {
+        alert('하루에 2회이상 비밀번호 전송을 할 수 없습니다.');
     } else {
         alert('해당 휴대폰 번호로 가입된 정보가 없습니다.');
     }
