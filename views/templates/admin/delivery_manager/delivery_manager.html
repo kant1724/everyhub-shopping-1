@@ -21,7 +21,7 @@
             <div class="classic-tabs pt-3" style="margin: auto;">
                 <div class="mb-3 mt-5 d-inline-block" style="width: 150px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">배송료목록</div>
                 <div class="mb-3 mt-5  d-inline-block" style="float: right; margin-right: 40px;">
-                    <button type="button" class="btn btn-sm deep-orange btn-rounded new-item-btn">배송료등록
+                    <button type="button" class="btn btn-sm deep-orange btn-rounded new-shipping-info-btn">배송정보등록
                     </button>
                 </div>
                 <hr>
@@ -59,6 +59,60 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="shipping_info_modal" tabindex="-1" role="dialog" aria-labelledby="shipping_info_modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body" style="margin: 20px;">
+                    <input type="hidden" id="modal_shipping_info_no">
+                    <div>
+                        <div style="position: relative; font-size: 13px;">
+                            시/군
+                        </div>
+                        <div>
+                            <input type="text" id="modal_addr_1" style="width: 200px;">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div style="position: relative; font-size: 13px;">
+                            동/읍/면
+                        </div>
+                        <div>
+                            <input type="text" id="modal_addr_2" style="width: 200px;">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div style="position: relative; font-size: 13px;">
+                            리/도
+                        </div>
+                        <div>
+                            <input type="text" id="modal_addr_3" style="width: 200px;">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div style="position: relative; font-size: 13px;">
+                            우편번호
+                        </div>
+                        <div>
+                            <input type="text" id="modal_zip_no" style="width: 200px;">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div style="position: relative; font-size: 13px;">
+                            배송비
+                        </div>
+                        <div>
+                            <input type="number" id="modal_shipping_fee" style="width: 200px;">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center pb-5">
+                    <a id="save_shipping_info" class="common-button-1">저장</a>
+                    <a id="shipping_info_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
     <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0">
@@ -68,6 +122,7 @@
     <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
     <script type="text/javascript" src="/static/js/common/properties.js"></script>
+    <script type="text/javascript" src="/static/js/common/utils.js"></script>
     <script type="text/javascript" src="/static/js/component/shipping_info.js"></script>
     <script type="text/javascript" src="/static/js/component/header.js"></script>
     <script type="text/javascript" src="/static/js/component/footer.js"></script>
