@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>배송정보</title>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
+    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
+    <link href="/static/css/common/common.css" rel="stylesheet">
+    <link href="/static/css/admin/delivery_manager/delivery_manager.css" rel="stylesheet">
+</head>
+
+<body>
+    <header></header>
+    <div class="container pt-5">
+        <div class="container">
+            <div class="classic-tabs pt-3" style="margin: auto;">
+                <div class="mb-3 mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;"배송료목록</div>
+                <div class="mb-3 mt-5  d-inline-block" style="float: right; margin-right: 40px;">
+                    <button type="button" class="btn btn-sm deep-orange btn-rounded new-item-btn">배송료등록
+                    </button>
+                </div>
+                <hr>
+                 <section class="section mt-3 mb-5 pb-5">
+                    <div class="table-responsive">
+                        <table class="table item-table">
+                            <thead>
+                                <tr>
+                                    <th class="font-weight-bold text-center">
+                                        <strong>번호</strong>
+                                    </th>
+                                    <th class="font-weight-bold text-center">
+                                        <strong>시/군</strong>
+                                    </th>
+                                    <th class="font-weight-bold text-center">
+                                        <strong>동/읍/면</strong>
+                                    </th>
+                                    <th class="font-weight-bold text-center">
+                                        <strong>리/도</strong>
+                                    </th>
+                                    <th class="font-weight-bold text-center">
+                                        <strong>배송료</strong>
+                                    </th>
+                                    <th class="font-weight-bold text-center">
+                                        <strong>우편번호</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="user_no" value="{{userNo}}">
+    <input type="hidden" id="admin_yn" value="{{adminYn}}">
+    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0">
+    </footer>
+    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/static/js/common/properties.js"></script>
+    <script type="text/javascript" src="/static/js/component/header.js"></script>
+    <script type="text/javascript" src="/static/js/component/footer.js"></script>
+    <script type="text/javascript" src="/static/js/admin/delivery_manager/delivery_manager.js"></script>
+</body>
+
+</html>
