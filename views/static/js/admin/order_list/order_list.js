@@ -39,8 +39,8 @@ $(document).ready(function() {
     });
     let start = moment().subtract(1, 'months').format('YYYY-MM-DD');
     let end = moment().format('YYYY-MM-DD');
-    $('#startingDate').val(start);
-    $('#endingDate').val(end);
+    $('#starting_date').val(start);
+    $('#ending_date').val(end);
 
     $('#search').click(function() {
         selectOrderListMain();
@@ -240,8 +240,9 @@ function exportExcel() {
 
 function selectOrderListMain() {
     let inputData = {
-        startOrderDate: $('#startingDate').val(),
-        endOrderDate: $('#endingDate').val()
+        startOrderDate: $('#starting_date').val(),
+        endOrderDate: $('#ending_date').val(),
+        userNm: $('#user_nm').val()
     };
     ajax(serverUrl + '/admin/order_list/selectOrderListMain', inputData, 'selectOrderListMain', 'POST');
 }
