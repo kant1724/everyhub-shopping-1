@@ -35,7 +35,7 @@ function selectSellerInfoCallback(ret) {
 	footerHtml += '<div class="mt-3">';
 	footerHtml += '<div class="mt-2"><span id="seller_address">' + ret[0].address + '</span></div>';
 	footerHtml += '<div class="mt-2"><i class="fa fa-envelope mr-3"></i><span id="seller_email">' + ret[0].email + '</span></div>';
-	footerHtml += '<div class="mt-2"><i class="fa fa-phone mr-3"></i><span id="seller_telno">' + ret[0].telno + '</span></div>';
+	footerHtml += '<div class="mt-2"><i class="fa fa-phone mr-3"></i><a href="tel:' + ret[0].telno + '" id="seller_telno">' + ret[0].telno + '</a></div>';
 	footerHtml += '<div class="mt-2"><span id="seller_acno"></span>' + ret[0].acno + '</div>';
 	footerHtml += '<div class="mt-2"><span id="seller_deposit_person_nm">' + ret[0].depositPersonNm + '</span></div>';
 	footerHtml += '<div class="ml-2 mt-2">통신판매업: <span id="mailOrderNo">' + ret[0].mailOrderNo + '</span></div>';
