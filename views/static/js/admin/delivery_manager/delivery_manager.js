@@ -22,7 +22,11 @@ $(document).ready(function() {
 });
 
 function selectShippingInfoList() {
-    let inputData = {};
+    let inputData = {
+        lastShippingInfoNo: constructShippingInfo.lastShippingInfoNo,
+        limit: constructShippingInfo.idPerPage * constructShippingInfo.pageLength
+    };
+
     ajax(serverUrl + '/admin/delivery_manager/selectShippingInfoList', inputData, 'selectShippingInfoList', 'POST');
 }
 
