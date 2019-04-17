@@ -79,6 +79,11 @@ if ($('#admin_yn').val() == 'Y') {
     headerHtml += '<i class="far fa-users"></i>&nbsp;&nbsp;회원관리';
     headerHtml += '</a>';
     headerHtml += '</li>';
+    headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
+    headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/delivery_manager">';
+    headerHtml += '<i class="far fa-truck"></i>&nbsp;&nbsp;배송관리';
+    headerHtml += '</a>';
+    headerHtml += '</li>';
 }
 headerHtml += '</ul>';
 headerHtml += '</div>';
