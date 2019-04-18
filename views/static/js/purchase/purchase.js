@@ -411,7 +411,7 @@ function selectShippingInfoByZipNoCallback(ret) {
             }
         }
         orderListMain.additionalShippingFee = Number(ret[0].shippingFee) * orderListMain.totalQty;
-        $('#additional_shipping_fee_text').text('해당지역은 추가배송료가 있습니다. +' + orderListMain.additionalShippingFee + '원');
+        $('#additional_shipping_fee_text').text('해당지역은 추가배송료가 있습니다. +' + numberWithCommas(orderListMain.additionalShippingFee) + '원');
         $('#additional_shipping_fee_text').show();
         $('#total_price_text').text('총 결제금액: ' + numberWithCommas(orderListMain.totalPrice + orderListMain.additionalShippingFee) + '원');
     }
