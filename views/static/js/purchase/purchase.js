@@ -15,6 +15,8 @@ function ajax(url, inputData, gubun, method) {
                 selectSellerInfoCallback(data.ret);
             } else if (gubun == 'selectOneItem') {
                 selectOneItemCallback(data.ret);
+            } else if (gubun == 'selectShippingInfoByZipNo') {
+                selectShippingInfoByZipNoCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -247,13 +249,13 @@ function selectOneItemCallback(ret) {
     html += '<div>가격: ' + numberWithCommas((Number($('#direct_item_price_num').val()) + Number($('#direct_shipping_fee_num').val())) * Number($('#direct_qty').val())) + '원</div>';
     html += '</div>';
     html += '</div>';
-    html += '<hr>';
     orderListDetail.push(eachOrder);
     let sum = (Number($('#direct_item_price_num').val()) + Number($('#direct_shipping_fee_num').val())) * Number($('#direct_qty').val());
-    html += '<div style="font-size: 16px; font-weight: 700; color: red;"><i class="far fa-won-sign"></i>&nbsp;&nbsp;총금액: ' + numberWithCommas(sum) + '원</div>';
+    $('#total_price_text').text('총 결제금액: ' + numberWithCommas(sum) + '원');
     $('#order_list').append(html);
 
     orderListMain.totalPrice = sum;
+    orderListMain.totalQty =  Number($('#direct_qty').val());
 }
 
 function purchaseFromCart() {
@@ -262,6 +264,7 @@ function purchaseFromCart() {
     let html = '';
     let cnt = 1;
     let sum = 0;
+    orderListMain.totalQty = 0;
     for (let i = 0; i < itemArr.length; ++i) {
         for (let j = 0; j < productArr.length; ++j) {
             if (productArr[j].id == itemArr[i]) {
@@ -287,14 +290,14 @@ function purchaseFromCart() {
                 html += '<div>가격: ' + numberWithCommas((Number(productArr[j].itemPriceNum) + Number(productArr[j].shippingFeeNum)) * productArr[j].qty) + '원</div>';
                 html += '</div>';
                 html += '</div>';
-                html += '<hr>';
                 orderListDetail.push(eachOrder);
                 cnt += 1;
                 sum += (Number(productArr[j].itemPriceNum) + Number(productArr[j].shippingFeeNum)) * productArr[j].qty;
+                orderListMain.totalQty +=  Number(productArr[j].qty);
             }
         }
     }
-    html += '<div style="font-size: 22px; font-weight: 700; color: red;"><i class="far fa-won-sign"></i>&nbsp;&nbsp;총금액: ' + numberWithCommas(sum) + '원</div>';
+    $('#total_price_text').text('총 결제금액: ' + numberWithCommas(sum) + '원');
     $('#order_list').append(html);
 
     orderListMain.totalPrice = sum;
@@ -348,6 +351,7 @@ function insertOrderList() {
     orderListMain.orderRemarks = $('#order_remarks').val();
     orderListMain.depositPersonNm = $('#deposit_person_nm').val();
     orderListMain.depositRemarks = $('#deposit_remarks').val();
+    orderListMain.totalPrice += orderListMain.additionalShippingFee;
     orderListMain.sellerNo = 1;
 
     let inputData = {
@@ -387,4 +391,23 @@ function selectSellerInfo() {
 function selectSellerInfoCallback(ret) {
     $('#seller_acno').val(ret[0].acno);
     $('#seller_deposit_person_nm').val(ret[0].depositPersonNm);
+}
+
+function selectShippingInfoByZipNo(zipNo) {
+    let inputData = {
+        zipNo: zipNo
+    };
+    ajax(serverUrl + '/admin/delivery_manager/selectShippingInfoByZipNo', inputData, 'selectShippingInfoByZipNo', 'POST');
+}
+
+function selectShippingInfoByZipNoCallback(ret) {
+    orderListMain.additionalShippingFee = 0;
+    $('#additional_shipping_fee_text').hide();
+    $('#total_price_text').text('총 결제금액: ' + numberWithCommas(orderListMain.totalPrice) + '원');
+    if (ret.length > 0) {
+        orderListMain.additionalShippingFee = Number(ret[0].shippingFee) * orderListMain.totalQty;
+        $('#additional_shipping_fee_text').text('해당지역은 추가배송료가 있습니다. +' + orderListMain.additionalShippingFee + '원');
+        $('#additional_shipping_fee_text').show();
+        $('#total_price_text').text('총 결제금액: ' + numberWithCommas(orderListMain.totalPrice + orderListMain.additionalShippingFee) + '원');
+    }
 }

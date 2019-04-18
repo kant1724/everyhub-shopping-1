@@ -115,6 +115,11 @@ let searchAddressApi = {
 			$('#' + $('#zip_no_id').val()).css('color', 'black');
 			$('#' + $('#address_main_id').val()).text($(this).find('#address_main').text());
 			$('#' + $('#address_main_id').val()).css('color', 'black');
+
+			if ($('#address_main_id').val() == 'receive_address_main') {
+				selectShippingInfoByZipNo($(this).find('#zip_no').text());
+			}
+
 			$('#address_close_modal').click();
 		});
 	}
