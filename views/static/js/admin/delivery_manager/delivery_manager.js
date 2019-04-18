@@ -47,7 +47,7 @@ function insertShippingInfo() {
         addr3: $('#modal_addr_3').val(),
         zipNo: $('#modal_zip_no').val(),
         shippingFee: $('#modal_shipping_fee').val(),
-        exceptKeyword: $('#modal_except_keyword').val()
+        includingKeyword: $('#modal_including_keyword').val()
     };
 
     ajax(serverUrl + '/admin/delivery_manager/insertShippingInfo', inputData, 'insertShippingInfo', 'POST');
@@ -68,7 +68,7 @@ function updateShippingInfo() {
         addr3: $('#modal_addr_3').val(),
         zipNo: $('#modal_zip_no').val(),
         shippingFee: $('#modal_shipping_fee').val(),
-        exceptKeyword: $('#modal_except_keyword').val()
+        includingKeyword: $('#modal_including_keyword').val()
     };
 
     ajax(serverUrl + '/admin/delivery_manager/updateShippingInfo', inputData, 'updateShippingInfo', 'POST');

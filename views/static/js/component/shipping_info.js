@@ -34,7 +34,7 @@ let constructShippingInfo =  {
 			let addr3 = this.allData[i].addr3;
 			let zipNo = this.allData[i].zipNo;
 			let shippingFee = this.allData[i].shippingFee;
-			let exceptKeyword = this.allData[i].exceptKeyword;
+			let includingKeyword = this.allData[i].includingKeyword;
 			html += '<tr class="text-center each-shipping-info" style="margin-bottom: 0px;">';
 			if (shippingInfoNo == 'del') {
 				html += '<td rowspan="8">삭제된 데이터입니다.</td>';
@@ -56,7 +56,7 @@ let constructShippingInfo =  {
 				html += '<div id="zip_no" class="zip-no">' + zipNo + '</div>';
 				html += '</td>';
 				html += '<td>';
-				html += '<div id="except_keyword" class="except-keyword">' + exceptKeyword + '</div>';
+				html += '<div id="including_keyword" class="including-keyword">' + includingKeyword + '</div>';
 				html += '</td>';
 				html += '<td>';
 				html += '<div id="shipping_fee" class="shipping-fee">' + shippingFee + '</div>';
@@ -81,14 +81,14 @@ let constructShippingInfo =  {
 			let addr3 = $(this).parent().parent().find('#addr_3').text();
 			let zipNo = $(this).parent().parent().find('#zip_no').text();
 			let shippingFee = $(this).parent().parent().find('#shipping_fee').text();
-			let exceptKeyword = $(this).parent().parent().find('#except_keyword').text();
+			let includingKeyword = $(this).parent().parent().find('#including_keyword').text();
 			$('#modal_shipping_info_no').val(shippingInfoNo);
 			$('#modal_addr_1').val(addr1);
 			$('#modal_addr_2').val(addr2);
 			$('#modal_addr_3').val(addr3);
 			$('#modal_zip_no').val(zipNo);
 			$('#modal_shipping_fee').val(shippingFee);
-			$('#modal_except_keyword').val(exceptKeyword);
+			$('#modal_including_keyword').val(includingKeyword);
 
 			$('#shipping_info_modal').modal();
 		});
