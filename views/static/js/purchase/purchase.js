@@ -406,7 +406,7 @@ function selectShippingInfoByZipNoCallback(ret) {
     $('#total_price_text').text('총 결제금액: ' + numberWithCommas(orderListMain.totalPrice) + '원');
     if (ret.length > 0) {
         let exceptKeyword = ret[0].exceptKeyword;
-        if ($('#receive_address_main').text().indexOf(exceptKeyword) != -1) {
+        if (exceptKeyword != '' && $('#receive_address_main').text().indexOf(exceptKeyword) != -1) {
             return;
         }
         orderListMain.additionalShippingFee = Number(ret[0].shippingFee) * orderListMain.totalQty;
