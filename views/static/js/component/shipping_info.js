@@ -6,8 +6,9 @@ let constructShippingInfo =  {
 	pageLength: 10,
 	allData: [],
 	selectFunction: null,
+	deleteFunction: null,
 
-	init: function(selectFunc) {
+	init: function(selectFunc, deleteFunc) {
 		this.cur = -1;
 		this.max = 0;
 		this.lastShippingInfoNo = 99999999;
@@ -15,6 +16,7 @@ let constructShippingInfo =  {
 		this.pageLength = 10;
 		this.allData = [];
 		this.selectFunction = selectFunc;
+		this.deleteFunction = deleteFunc;
 	},
 
 	constructShippingInfoList: function(page) {
@@ -32,27 +34,53 @@ let constructShippingInfo =  {
 			let addr3 = this.allData[i].addr3;
 			let zipNo = this.allData[i].zipNo;
 			let shippingFee = this.allData[i].shippingFee;
-			html += '<tr class="each-shipping-info" style="margin-bottom: 0px;">';
-			html += '<input type="hidden" id="shipping_info_no" class="qna-no" value="' + shippingInfoNo + '">';
-			html += '<td>';
-			html += '<div id="addr_1" class="addr-1">' + addr1 + '</div>';
-			html += '</td>';
-			html += '<td>';
-			html += '<div id="addr_2" class="addr-2">' + addr2 + '</div>';
-			html += '</td>';
-			html += '<td>';
-			html += '<div id="addr_3" class="addr-3">' + addr3 + '</div>';
-			html += '</td>';
-			html += '<td>';
-			html += '<div id="zip_no" class="zip-no">' + zipNo + '</div>';
-			html += '</td>';
-			html += '<td>';
-			html += '<div id="shipping_fee" class="shipping-fee">' + shippingFee + '</div>';
-			html += '</td>';
+			let exceptKeyword = this.allData[i].exceptKeyword;
+			html += '<tr class="text-center each-shipping-info" style="margin-bottom: 0px;">';
+			if (shippingInfoNo == 'del') {
+				html += '<td colspan="8">삭제된 데이터입니다.</td>';
+			} else {
+				html += '<input type="hidden" id="shipping_info_no" class="shipping-info-no" value="' + shippingInfoNo + '">';
+				html += '<td>';
+				html += '<div>' + shippingInfoNo + '</div>';
+				html += '</td>';
+				html += '<td>';
+				html += '<div id="addr_1" class="addr-1">' + addr1 + '</div>';
+				html += '</td>';
+				html += '<td>';
+				html += '<div id="addr_2" class="addr-2">' + addr2 + '</div>';
+				html += '</td>';
+				html += '<td>';
+				html += '<div id="addr_3" class="addr-3">' + addr3 + '</div>';
+				html += '</td>';
+				html += '<td>';
+				html += '<div id="zip_no" class="zip-no">' + zipNo + '</div>';
+				html += '</td>';
+				html += '<td>';
+				html += '<div id="shipping_fee" class="shipping-fee">' + shippingFee + '</div>';
+				html += '</td>';
+				html += '<td>';
+				html += '<div id="except_keyword" class="except-keyword">' + exceptKeyword + '</div>';
+				html += '</td>';
+				html += '<td>';
+				html += '<div class="delete-shipping-info text-underline-link">삭제</div>';
+				html += '</td>';
+			}
 			html += '</tr>';
 		}
 		this.lastShippingInfoNo = this.allData[this.allData.length - 1].shippingInfoNo;
 		$('#shipping_info_list_tbody').append(html);
+
+		$('.delete-shipping-info').unbind();
+		$('.delete-shipping-info').click(function() {
+			let shippingInfoNo = $(this).parent().parent().find('#shipping_info_no').val();
+			$(this).parent().parent().empty().append('<td colspan="8">삭제된 데이터입니다.</td>');
+			for (let i = 0; i < constructShippingInfo.allData.length; ++i) {
+				if (constructShippingInfo.allData[i].shippingInfoNo == shippingInfoNo) {
+					constructShippingInfo.allData[i].shippingInfoNo = 'del';
+				}
+			}
+			constructShippingInfo.deleteFunction(shippingInfoNo);
+		});
 	},
 
 	constructPagination: function() {
@@ -106,5 +134,5 @@ let constructShippingInfo =  {
 			this.constructShippingInfoList(this.cur * this.pageLength);
 			this.max = Math.max(this.max, this.cur);
 		}
-	},
+	}
 };
