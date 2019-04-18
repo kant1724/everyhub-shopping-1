@@ -65,6 +65,33 @@
     background-color: #ddd;
 }
 
+.shipping-info-pagination {
+    display: inline-block;
+}
+
+.shipping-info-pagination a {
+    color: #000000;
+    float: left;
+    padding: 4px 8px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+}
+
+.shipping-info-pagination a.active {
+    background-color: #333;
+    color: #FFFFFF;
+    border: 1px solid #333;
+}
+
+.shipping-info-pagination a.active:hover {
+    color: #FFFFFF;
+}
+
+.shipping-info-pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
 .user-list-pagination {
     display: inline-block;
 }

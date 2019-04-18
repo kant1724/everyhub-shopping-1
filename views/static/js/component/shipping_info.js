@@ -37,7 +37,7 @@ let constructShippingInfo =  {
 			let exceptKeyword = this.allData[i].exceptKeyword;
 			html += '<tr class="text-center each-shipping-info" style="margin-bottom: 0px;">';
 			if (shippingInfoNo == 'del') {
-				html += '<td colspan="8">삭제된 데이터입니다.</td>';
+				html += '<td rowspan="8">삭제된 데이터입니다.</td>';
 			} else {
 				html += '<input type="hidden" id="shipping_info_no" class="shipping-info-no" value="' + shippingInfoNo + '">';
 				html += '<td>';
@@ -56,10 +56,13 @@ let constructShippingInfo =  {
 				html += '<div id="zip_no" class="zip-no">' + zipNo + '</div>';
 				html += '</td>';
 				html += '<td>';
+				html += '<div id="except_keyword" class="except-keyword">' + exceptKeyword + '</div>';
+				html += '</td>';
+				html += '<td>';
 				html += '<div id="shipping_fee" class="shipping-fee">' + shippingFee + '</div>';
 				html += '</td>';
 				html += '<td>';
-				html += '<div id="except_keyword" class="except-keyword">' + exceptKeyword + '</div>';
+				html += '<div class="update-shipping-info text-underline-link">변경</div>';
 				html += '</td>';
 				html += '<td>';
 				html += '<div class="delete-shipping-info text-underline-link">삭제</div>';
@@ -70,10 +73,30 @@ let constructShippingInfo =  {
 		this.lastShippingInfoNo = this.allData[this.allData.length - 1].shippingInfoNo;
 		$('#shipping_info_list_tbody').append(html);
 
+		$('.update-shipping-info').unbind();
+		$('.update-shipping-info').click(function() {
+			let shippingInfoNo = $(this).parent().parent().find('#shipping_info_no').val();
+			let addr1 = $(this).parent().parent().find('#addr_1').text();
+			let addr2 = $(this).parent().parent().find('#addr_2').text();
+			let addr3 = $(this).parent().parent().find('#addr_3').text();
+			let zipNo = $(this).parent().parent().find('#zip_no').text();
+			let shippingFee = $(this).parent().parent().find('#shipping_fee').text();
+			let exceptKeyword = $(this).parent().parent().find('#except_keyword').text();
+			$('#modal_shipping_info_no').val(shippingInfoNo);
+			$('#modal_addr_1').val(addr1);
+			$('#modal_addr_2').val(addr2);
+			$('#modal_addr_3').val(addr3);
+			$('#modal_zip_no').val(zipNo);
+			$('#modal_shipping_fee').val(shippingFee);
+			$('#modal_except_keyword').val(exceptKeyword);
+
+			$('#shipping_info_modal').modal();
+		});
+
 		$('.delete-shipping-info').unbind();
 		$('.delete-shipping-info').click(function() {
 			let shippingInfoNo = $(this).parent().parent().find('#shipping_info_no').val();
-			$(this).parent().parent().empty().append('<td colspan="8">삭제된 데이터입니다.</td>');
+			$(this).parent().parent().empty().append('<td>삭제된 데이터입니다.</td>');
 			for (let i = 0; i < constructShippingInfo.allData.length; ++i) {
 				if (constructShippingInfo.allData[i].shippingInfoNo == shippingInfoNo) {
 					constructShippingInfo.allData[i].shippingInfoNo = 'del';
@@ -86,7 +109,7 @@ let constructShippingInfo =  {
 	constructPagination: function() {
 		$('.shipping-info-pagination').empty();
 		let html = '<a id="shipping_info_prev_page">&laquo;</a>';
-		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
+		for (let i = this.cur * this.pageLength + 1; i <= (this.cur + 1) * this.pageLength; ++i) {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}

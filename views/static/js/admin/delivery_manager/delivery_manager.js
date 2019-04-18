@@ -23,7 +23,7 @@ function ajax(url, inputData, gubun, method) {
 
 $(document).ready(function() {
     $('.new-shipping-info-btn').click(function() {
-        $('#modal_shiping_info_no').val('');
+        $('#modal_shipping_info_no').val('');
         $('#shipping_info_modal').modal();
     });
 
@@ -55,6 +55,7 @@ function insertShippingInfo() {
 
 function insertShippingInfoCallback() {
     alert('배송정보가 등록되었습니다.');
+    constructShippingInfo.init(selectShippingInfoList, deleteShippingInfo);
     selectShippingInfoList();
     $('#shipping_info_close_modal').click();
 }
@@ -75,6 +76,8 @@ function updateShippingInfo() {
 
 function updateShippingInfoCallback() {
     alert('배송정보가 변경되었습니다.');
+    constructShippingInfo.init(selectShippingInfoList, deleteShippingInfo);
+    selectShippingInfoList();
     $('#shipping_info_close_modal').click();
 }
 
@@ -88,7 +91,6 @@ function deleteShippingInfo(shippingInfoNo) {
 
 function deleteShippingInfoCallback() {
     alert('배송정보가 삭제되었습니다.');
-    refreshShippingInfoList();
 }
 
 function selectShippingInfoList() {

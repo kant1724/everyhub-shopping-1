@@ -72,7 +72,7 @@ let constructReview =  {
 	constructPagination: function() {
 		$('.review-pagination').empty();
 		let html = '<a id="review_prev_page">&laquo;</a>';
-		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
+		for (let i = this.cur * this.pageLength + 1; i <= (this.cur + 1) * this.pageLength; ++i) {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
@@ -198,7 +198,7 @@ let constructReviewMobile =  {
 	constructPagination: function() {
 		$('.review-pagination').empty();
 		let html = '<a id="review_prev_page">&laquo;</a>';
-		for (let i = this.cur * this.pageLength + 1; i < (this.cur + 1) * this.pageLength; ++i) {
+		for (let i = this.cur * this.pageLength + 1; i <= (this.cur + 1) * this.pageLength; ++i) {
 			if (i > Math.floor((this.allData.length - 1) / this.idPerPage) + 1) {
 				break;
 			}
