@@ -221,6 +221,18 @@ function exportExcel() {
         d['보내는분전화번호'] = allData[i].sendTelno;
         d['보내는분기타연락처'] = allData[i].sendTelno;
         d['보내는분주소(전체, 분할)'] = allData[i].sendAddressMain + ' ' + allData[i].sendAddressDetail;
+        if (d['보내는성명'] == '') {
+            d['보내는성명'] = sellerInfo.sellerNm;
+        }
+        if (d['보내는분전화번호'] == '') {
+            d['보내는분전화번호'] = sellerInfo.telno;
+        }
+        if (d['보내는분기타연락처'] == '') {
+            d['보내는분기타연락처'] = sellerInfo.telno;
+        }
+        if (d['보내는분주소(전체, 분할)'] == ' ') {
+            d['보내는분주소(전체, 분할)'] = sellerInfo.sendAddress;
+        }
         d['받는분성명'] = allData[i].receivePersonNm;
         d['받는분전화번호'] = allData[i].receiveTelno;
         d['받는분기타연락처'] = allData[i].receiveTelno;

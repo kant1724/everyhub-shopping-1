@@ -1,3 +1,4 @@
+let sellerInfo = {};
 function ajax(url, inputData, gubun, method) {
 	$.ajax(url, {
 		type: method,
@@ -24,6 +25,7 @@ function selectSellerInfo() {
 }
 
 function selectSellerInfoCallback(ret) {
+	sellerInfo = ret[0];
 	let footerHtml = '<div class="container py-2 mt-5 mb-4 text-center">';
 	footerHtml += '<div class="mt-3">';
 	footerHtml += '<p>숙기가 꽉찬 신선한 과일을 취급하는 간드락농원 입니다.</p>';
@@ -50,6 +52,3 @@ function selectSellerInfoCallback(ret) {
 
 	$('footer').append(footerHtml);
 }
-
-
-
