@@ -7,8 +7,8 @@ function ajax(url, inputData, gubun, method) {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         success: function (data, status, xhr) {
-            if (gubun == 'sendPassword') {
-                sendPasswordCallback(data.ret);
+            if (gubun == 'getCertificationCode') {
+                getCertificationCodeCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -16,20 +16,20 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
-    $('#send_password').click(function() {
-        sendPassword();
+    $('#get_certification_code').click(function() {
+        getCertificationCode();
     });
 });
 
-function sendPassword() {
+function getCertificationCode() {
     let telno = $('#telno').val();
     let inputData = {
         telno: telno
     };
-    ajax(serverUrl + '/user/sendPassword', inputData, 'sendPassword', 'POST');
+    ajax(serverUrl + '/user/getCertificationCode', inputData, 'getCertificationCode', 'POST');
 }
 
-function sendPasswordCallback(ret) {
+function getCertificationCodeCallback(ret) {
     if (ret == 'ok') {
         alert('비밀번호가 정상적으로 전송되었습니다.');
         location.href = '/user';
