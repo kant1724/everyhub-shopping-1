@@ -270,7 +270,6 @@ function selectUser() {
 function selectUserCallback(ret) {
     if (ret.length > 0) {
         $('#user_nm').val(ret[0].userNm);
-        $('#password').val(ret[0].password);
         $('#telno_1').val(ret[0].telno1);
         $('#telno_2').val(ret[0].telno2);
         $('#telno_3').val(ret[0].telno3);
@@ -312,7 +311,7 @@ function updateUser() {
     }
     let inputData = {
         userNm: $('#user_nm').val(),
-        password: $('#password').val(),
+        password: sha256($('#password').val()),
         telno: $('#telno_1').val() + $('#telno_2').val() + $('#telno_3').val(),
         telno1: $('#telno_1').val(),
         telno2: $('#telno_2').val(),

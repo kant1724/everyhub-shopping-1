@@ -107,7 +107,7 @@ function goSigningUp() {
         telno1: telno1,
         telno2: telno2,
         telno3: telno3,
-        password: password,
+        password: sha256(password),
         userNm: userNm,
         gender: gender,
         dateOfBirth: dateOfBirth,

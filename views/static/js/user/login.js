@@ -52,7 +52,7 @@ function login() {
     let password = $('#password').val();
     let inputData = {
         telno: telno,
-        password: password
+        password: sha256(password)
     };
     ajax(serverUrl + '/user/login', inputData, 'login', 'POST');
 }
