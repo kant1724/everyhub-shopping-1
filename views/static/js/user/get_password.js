@@ -84,7 +84,6 @@ function modify_password() {
         alert('패스워드와 패스워드 확인이 다릅니다. 다시 확인해 주세요.');
         return;
     }
-    alert(sha256(password));
     let inputData = {
         telno: telno,
         certificationCode: certificationCode,
