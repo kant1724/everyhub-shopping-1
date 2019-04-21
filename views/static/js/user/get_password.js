@@ -46,6 +46,7 @@ function getCertificationCodeCallback(ret) {
         alert('인증번호가 정상적으로 전송되었습니다.');
         $('#get_certification_code').hide();
         $('#confirm_certification_code').show();
+        $('#certification_code').show();
     } else {
         alert('해당 휴대폰 번호로 가입된 정보가 없습니다.');
     }
