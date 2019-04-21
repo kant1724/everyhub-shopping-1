@@ -44,6 +44,8 @@ function getCertificationCode() {
 function getCertificationCodeCallback(ret) {
     if (ret == 'ok') {
         alert('인증번호가 정상적으로 전송되었습니다.');
+        $('#get_certification_code').hide();
+        $('#confirm_certification_code').show();
     } else {
         alert('해당 휴대폰 번호로 가입된 정보가 없습니다.');
     }
@@ -69,22 +71,6 @@ function confirmCertificationCodeCallback(ret) {
         $('#password_confirm').show();
     } else {
         alert('인증번호가 잘못되었습니다. 다시 입력해 주세요.');
-    }
-}
-
-function getCertificationCode() {
-    let telno = $('#telno').val();
-    let inputData = {
-        telno: telno
-    };
-    ajax(serverUrl + '/user/getCertificationCode', inputData, 'getCertificationCode', 'POST');
-}
-
-function getCertificationCodeCallback(ret) {
-    if (ret == 'ok') {
-        alert('인증번호가 정상적으로 전송되었습니다.');
-    } else {
-        alert('해당 휴대폰 번호로 가입된 정보가 없습니다.');
     }
 }
 
