@@ -117,7 +117,7 @@ $(document).ready(function() {
         $('#write_qna').show();
         $('#review_pagination').hide();
         $('#qna_pagination').show();
-        $('#menu_selected').css('margin-left', '207px');
+        $('#menu_selected').css('margin-left', '206px');
     });
 
     $('#write_qna').click(function() {
