@@ -108,7 +108,7 @@ $(document).ready(function() {
         $('#review_list').show();
         $('#review_pagination').show();
         $('#qna_pagination').hide();
-        $('#menu_selected').css('margin-left', '41px');
+        $('#menu_selected').css('margin-left', '43px');
     });
 
     $('#qna').click(function() {
@@ -117,7 +117,7 @@ $(document).ready(function() {
         $('#write_qna').show();
         $('#review_pagination').hide();
         $('#qna_pagination').show();
-        $('#menu_selected').css('margin-left', '206px');
+        $('#menu_selected').css('margin-left', '208px');
     });
 
     $('#write_qna').click(function() {
