@@ -64,3 +64,12 @@ input[type=number] {
     font-size: 26px;
     color: #333;
 }
+
+#menu_selected {
+    height: .25rem;
+    width: 65px;
+    margin-left: 41px;
+    background: #333;
+    border: none;
+    transition: .3s ease-in-out;
+}

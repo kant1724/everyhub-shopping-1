@@ -108,8 +108,7 @@ $(document).ready(function() {
         $('#review_list').show();
         $('#review_pagination').show();
         $('#qna_pagination').hide();
-        $('#product_review').css('border-bottom', '3px solid #333');
-        $('#qna').css('border-bottom', '0px solid #333');
+        $('#menu_selected').css('margin-left', '41px');
     });
 
     $('#qna').click(function() {
@@ -118,8 +117,7 @@ $(document).ready(function() {
         $('#write_qna').show();
         $('#review_pagination').hide();
         $('#qna_pagination').show();
-        $('#qna').css('border-bottom', '3px solid #333');
-        $('#product_review').css('border-bottom', '0px solid #333');
+        $('#menu_selected').css('margin-left', '207px');
     });
 
     $('#write_qna').click(function() {
