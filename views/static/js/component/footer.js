@@ -31,8 +31,7 @@ function selectSellerInfoCallback(ret) {
 	footerHtml += '<p>숙기가 꽉찬 신선한 과일을 취급하는 간드락농원 입니다.</p>';
 	footerHtml += '</div>';
 	footerHtml += '<div class="mt-3">';
-	footerHtml += '<div style="text-decoration: underline;" class="d-inline-block">이용약관</div>';
-	footerHtml += '<div style="text-decoration: underline;" class="ml-2 d-inline-block">개인정보처리방침</div>';
+	footerHtml += '<div style="text-decoration: underline;" class="ml-2 d-inline-block"><a href="/personal_information_policy">개인정보처리방침</a></div>';
 	footerHtml += '</div>';
 	footerHtml += '<div class="mt-3">';
 	footerHtml += '<div class="mt-2"><span id="seller_address">' + ret[0].address + '</span></div>';

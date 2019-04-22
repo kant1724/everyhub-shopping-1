@@ -167,6 +167,10 @@ function validationCheck() {
         alert('주소를 입력하세요.');
         return false;
     }
+    if (!$('#agree_policy').is(':checked')) {
+        alert('개인정보처리방침에 동의해야 가입가능합니다.');
+        return false;
+    }
 
     return true;
 }
