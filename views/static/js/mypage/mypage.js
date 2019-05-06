@@ -163,7 +163,8 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_detail" class="oreder-detail text-underline-link" style="margin-bottom: 10px;">상세정보</div>';
-            html += '<div id="order_date" class="oreder-date"><div>' + orderDate + '</div><div class="write-review text-underline-link" style="margin-top: 10px;"><a>후기작성</a></div></div>';
+            html += '<div id="order_date" class="oreder-date"><div>' + orderDate;
+            html += '</div><div class="write-review text-underline-link" style="margin-top: 10px;"><a>후기작성</a></div></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="image_path" class="image-path"><img src="' + imagePath1 + '" width="70" style="border-radius: 5px;"></div>';
@@ -173,6 +174,9 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="option_nm" class="option-nm">' + optionNm + '</div>';
+            html += '</td>';
+            html += '<td style="vertical-align: middle;">';
+            html += '<div>' + receivePersonNm + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="qty" class="qty">' + qty + '</div>';

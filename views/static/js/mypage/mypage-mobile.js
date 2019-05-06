@@ -163,7 +163,9 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="order_detail" class="oreder-detail text-underline-link" style="margin-bottom: 10px; font-size: 11px;">상세정보</div>';
-            html += '<div id="item_nm" class="item-nm">' + itemNm + '<br>' + optionNm + '<div class="write-review" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">후기작성</span></div></div>';
+            html += '<div id="item_nm" class="item-nm">' + itemNm + '<br>' + optionNm;
+            html += '<div>받는자: ' + receivePersonNm + '</div>';
+            html += '<div class="write-review" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">후기작성</span></div></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="qty" class="qty">' + qty + '</div>';
