@@ -351,9 +351,11 @@ function insertOrderList() {
     orderListMain.orderRemarks = $('#order_remarks').val();
     orderListMain.depositPersonNm = $('#deposit_person_nm').val();
     orderListMain.depositRemarks = $('#deposit_remarks').val();
+    if (orderListMain.additionalShippingFee == null) {
+        orderListMain.additionalShippingFee = 0;
+    }
     orderListMain.totalPrice += orderListMain.additionalShippingFee;
     orderListMain.sellerNo = 1;
-
     let inputData = {
         data: JSON.stringify(
             {
