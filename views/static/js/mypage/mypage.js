@@ -116,6 +116,7 @@ function selectOrderListMainCallback(ret) {
     let prevOrderNo = -1;
     for (let i = 0; i < ret.length; ++i) {
         let orderNo = ret[i].orderNo;
+        let orderSeq = ret[i].orderSeq;
         let orderDate = ret[i].orderDate;
         let itemNo = ret[i].itemNo;
         let itemNm = ret[i].itemNm;
@@ -124,18 +125,44 @@ function selectOrderListMainCallback(ret) {
         let imagePath1 = ret[i].imagePath1;
         let totalPrice = ret[i].totalPrice;
         let depositConfirmDate = ret[i].depositConfirmDate;
+        let sendPersonNm = ret[i].sendPersonNm;
+        let sendTelno = ret[i].sendTelno;
+        let sendZipNo = ret[i].sendZipNo;
+        let sendAddressMain = ret[i].sendAddressMain;
+        let sendAddressDetail = ret[i].sendAddressDetail;
+        let receivePersonNm = ret[i].receivePersonNm;
+        let receiveTelno = ret[i].receiveTelno;
+        let receiveZipNo = ret[i].receiveZipNo;
+        let receiveAddressMain = ret[i].receiveAddressMain;
+        let receiveAddressDetail = ret[i].receiveAddressDetail;
+        let orderRemarks = ret[i].orderRemarks;
+        let depositPersonNm = ret[i].depositPersonNm;
+        let depositRemarks = ret[i].depositRemarks;
         let dlvrConfirmDate = ret[i].dlvrConfirmDate;
         let cancelDate = ret[i].cancelDate;
-
+        html += '<tr>';
+        html += '<input type="hidden" id="order_seq" class="order-seq" value="' + orderSeq + '">';
+        html += '<input type="hidden" class="send-person-nm" value="' + sendPersonNm + '">';
+        html += '<input type="hidden" class="send-telno" value="' + sendTelno + '">';
+        html += '<input type="hidden" class="send-zip-no" value="' + sendZipNo + '">';
+        html += '<input type="hidden" class="send-address-main" value="' + sendAddressMain + '">';
+        html += '<input type="hidden" class="send-address-detail" value="' + sendAddressDetail + '">';
+        html += '<input type="hidden" class="receive-person-nm" value="' + receivePersonNm + '">';
+        html += '<input type="hidden" class="receive-telno" value="' + receiveTelno + '">';
+        html += '<input type="hidden" class="receive-zip-no" value="' + receiveZipNo + '">';
+        html += '<input type="hidden" class="receive-address-main" value="' + receiveAddressMain + '">';
+        html += '<input type="hidden" class="receive-address-detail" value="' + receiveAddressDetail + '">';
+        html += '<input type="hidden" class="order-remarks" value="' + orderRemarks + '">';
+        html += '<input type="hidden" class="deposit-remarks" value="' + depositRemarks + '">';
         if (orderNo != prevOrderNo) {
             let rs = rowspan[orderNo];
-            html += '<tr style="margin-bottom: 0px;">';
             let pt = '15px';
             html += '<input id="item_no" type="hidden" value="' + itemNo + '">';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<div id="order_detail" class="oreder-detail text-underline-link" style="margin-bottom: 10px;">상세정보</div>';
             html += '<div id="order_date" class="oreder-date"><div>' + orderDate + '</div><div class="write-review text-underline-link" style="margin-top: 10px;"><a>후기작성</a></div></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
@@ -169,7 +196,6 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '</tr>';
         } else {
-            html += '<tr>';
             html += '<input id="item_no" type="hidden" value="' + itemNo + '">';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="image_path" class="image-path"><img src="' + imagePath1 + '" width="70" style="border-radius: 5px;"></div>';
@@ -207,6 +233,38 @@ function selectOrderListMainCallback(ret) {
         $('#modal_order_no').val(orderNo);
         $('#invoice_no_modal').modal();
         selectInvoiceNo();
+    });
+
+    $('.oreder-detail').unbind();
+    $('.oreder-detail').click(function() {
+        let orderNo = $(this).parent().parent().find('#order_no').text();
+        let sendPersonNm = $(this).parent().parent().find('.send-person-nm').val();
+        let sendTelno = $(this).parent().parent().find('.send-telno').val();
+        let sendZipNo = $(this).parent().parent().find('.send-zip-no').val();
+        let sendAddressMain = $(this).parent().parent().find('.send-address-main').val();
+        let sendAddressDetail = $(this).parent().parent().find('.send-address-detail').val();
+        let receivePersonNm = $(this).parent().parent().find('.receive-person-nm').val();
+        let receiveTelno = $(this).parent().parent().find('.receive-telno').val();
+        let receiveZipNo = $(this).parent().parent().find('.receive-zip-no').val();
+        let receiveAddressMain = $(this).parent().parent().find('.receive-address-main').val();
+        let receiveAddressDetail = $(this).parent().parent().find('.receive-address-detail').val();
+        let orderRemarks = $(this).parent().parent().find('.order-remarks').val();
+        let depositRemarks = $(this).parent().parent().find('.deposit-remarks').val();
+
+        $('#modal_send_person_nm').text(sendPersonNm);
+        $('#modal_send_telno').text(sendTelno);
+        $('#modal_send_zip_no').text(sendZipNo);
+        $('#modal_send_address_main').text(sendAddressMain);
+        $('#modal_send_address_detail').text(sendAddressDetail);
+        $('#modal_receive_person_nm').text(receivePersonNm);
+        $('#modal_receive_telno').text(receiveTelno);
+        $('#modal_receive_zip_no').text(receiveZipNo);
+        $('#modal_receive_address_main').text(receiveAddressMain);
+        $('#modal_receive_address_detail').text(receiveAddressDetail);
+        $('#modal_order_remarks').text(orderRemarks);
+        $('#modal_deposit_remarks').text(depositRemarks);
+
+        $('#order_detail_modal').modal();
     });
 
     selectUser();

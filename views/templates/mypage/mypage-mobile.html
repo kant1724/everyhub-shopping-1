@@ -266,6 +266,29 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="order_detail_modal" tabindex="-1" role="dialog" aria-labelledby="order_detail_modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body" style="margin: 20px; font-size: 13px;">
+                    <div><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자명</div><div class="d-inline-block" id="modal_send_person_nm"></div></div>
+                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자연락처</div><div class="d-inline-block" id="modal_send_telno"></div></div>
+                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자 우편번호</div><div class="d-inline-block" id="modal_send_zip_no"></div></div>
+                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자 주소</div><div class="d-inline-block" id="modal_send_address_main"></div></div>
+                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자 상세주소</div><div class="d-inline-block" id="modal_send_address_detail"></div></div>
+                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자명</div><div class="d-inline-block" id="modal_receive_person_nm"></div></div>
+                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 연락처</div><div class="d-inline-block" id="modal_receive_telno"></div></div>
+                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 우편번호</div><div class="d-inline-block" id="modal_receive_zip_no"></div></div>
+                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 주소</div><div class="d-inline-block" id="modal_receive_address_main"></div></div>
+                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 상세주소</div><div class="d-inline-block" id="modal_receive_address_detail"></div></div>
+                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">주문메모</div><div class="d-inline-block" id="modal_order_remarks"></div></div>
+                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">입금메모</div><div class="d-inline-block" id="modal_deposit_remarks"></div></div>
+                </div>
+                <div class="text-center pb-5">
+                    <a id="order_detail_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
     <input type="hidden" id="info_item_price_num">
     <input type="hidden" id="item_no" value="{{itemNo}}">
