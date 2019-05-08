@@ -140,6 +140,11 @@ function selectOrderListMainCallback(ret) {
         let depositRemarks = ret[i].depositRemarks;
         let dlvrConfirmDate = ret[i].dlvrConfirmDate;
         let cancelDate = ret[i].cancelDate;
+
+        if (!isNull(ret[i].cancelDate)) {
+            orderDate = '<span style="color: #980000; font-weight: 700;">취소된 주문입니다.<span>';
+        }
+
         html += '<tr>';
         html += '<input type="hidden" id="order_seq" class="order-seq" value="' + orderSeq + '">';
         html += '<input type="hidden" class="send-person-nm" value="' + sendPersonNm + '">';

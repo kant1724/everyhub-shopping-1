@@ -279,9 +279,6 @@ function selectOrderListMainCallback(ret) {
         let orderNo = ret[i].orderNo;
         let orderSeq = ret[i].orderSeq;
         let orderDate = ret[i].orderDate;
-        if (orderDate == today) {
-            orderDate = '<span class="today-icon">오늘</span>' + orderDate;
-        }
         let orderPersonNm = ret[i].orderPersonNm;
         let orderTelno = ret[i].orderTelno;
         let itemNm = ret[i].itemNm;
@@ -309,10 +306,15 @@ function selectOrderListMainCallback(ret) {
         let fareType = ret[i].fareType ? ret[i].fareType : '';
         let invoiceCnt = ret[i].invoiceCnt;
 
+        if (orderDate == today) {
+            orderDate = '<span class="today-icon">오늘</span>' + orderDate;
+        }
+
         if (isNull(ret[i].cancelDate) && isNull(dlvrConfirmDate)) {
             cancelDate = '<div id="cancel_order" class="cancel-order"><span class="text-underline-link">주문취소</span></div>';
         } else {
             cancelDate = ret[i].cancelDate ? ret[i].cancelDate : '';
+            orderDate = '<span style="color: #980000; font-weight: 700;">취소된 주문입니다.<span>';
         }
 
         if (isNull(depositConfirmDate)) {

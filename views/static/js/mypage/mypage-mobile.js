@@ -140,6 +140,7 @@ function selectOrderListMainCallback(ret) {
         let depositRemarks = ret[i].depositRemarks;
         let dlvrConfirmDate = ret[i].dlvrConfirmDate;
         let cancelDate = ret[i].cancelDate;
+
         html += '<tr>';
         html += '<input type="hidden" id="order_seq" class="order-seq" value="' + orderSeq + '">';
         html += '<input type="hidden" class="send-person-nm" value="' + sendPersonNm + '">';
@@ -181,7 +182,7 @@ function selectOrderListMainCallback(ret) {
                 html += '취소불가';
             } else {
                 if (cancelDate != null && cancelDate != '') {
-                    html += '취소완료';
+                    html += '<span style="color: #980000; font-weight: 700;">취소완료<span>';
                 } else {
                     html += '<div id="cancel_order" class="cancel-order"><span class="text-underline-link" style="font-size: 11px;">주문취소</span></div>';
                 }
