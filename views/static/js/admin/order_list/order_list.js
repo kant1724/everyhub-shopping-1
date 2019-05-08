@@ -216,6 +216,9 @@ function exportExcel() {
     };
     let data = [];
     for (let i = 0; i < allData.length; ++i) {
+        if (!isNull(allData[i].cancelDate))  {
+            continue;
+        }
         let d = {};
         d['보내는성명'] = allData[i].sendPersonNm;
         d['보내는분전화번호'] = allData[i].sendTelno;
