@@ -165,7 +165,9 @@ function selectOrderListMainCallback(ret) {
             html += '<input id="item_no" type="hidden" value="' + itemNo + '">';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
-            html += '<div id="modify_order" class="modify-order" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">정보수정</span></div>';
+            if (orderDate == moment().format('YYYY-MM-DD')) {
+                html += '<div id="modify_order" class="modify-order" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">정보수정</span></div>';
+            }
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_detail" class="oreder-detail text-underline-link" style="margin-bottom: 10px;">상세정보</div>';
