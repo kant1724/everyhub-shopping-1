@@ -31,7 +31,7 @@ $(document).ready(function() {
         language: 'ko-KR',
         autoHide: true
     });
-    let start = moment().subtract(1, 'months').format('YYYY-MM-DD');
+    let start = moment().subtract(7, 'days').format('YYYY-MM-DD');
     let end = moment().format('YYYY-MM-DD');
     $('#startingDate').val(start);
     $('#endingDate').val(end);
