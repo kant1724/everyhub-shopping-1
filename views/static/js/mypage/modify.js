@@ -158,6 +158,10 @@ function selectOrderListMainCallback(ret) {
         $('#order_address_main').text(ret[0].orderAddressMain);
         $('#order_address_detail').val(ret[0].orderAddressDetail);
 
+        if (!isNull(ret[0].sendPersonNm)) {
+            $('#has_sender').click();
+        }
+
         $('#send_person_nm').val(ret[0].sendPersonNm);
         $('#send_person_nm').focus();
         $('#send_telno').val(ret[0].sendTelno);
@@ -167,7 +171,7 @@ function selectOrderListMainCallback(ret) {
         $('#send_zip_no').text(ret[0].sendZipNo);
         $('#send_address_main').text(ret[0].sendAddressMain);
         $('#send_address_detail').val(ret[0].sendAddressDetail);
-
+        $('#send_address_detail').focus();
 
         $('#receive_person_nm').val(ret[0].receivePersonNm);
         $('#receive_person_nm').focus();
@@ -259,6 +263,7 @@ function validationCheck() {
 }
 
 function updateOrderList() {
+    orderListMain.orderNo = $('#order_no').val();
     orderListMain.orderPersonNm = $('#order_person_nm').val();
     orderListMain.orderTelno = $('#order_telno_1').val() + $('#order_telno_2').val() + $('#order_telno_3').val();
     orderListMain.orderTelno1 = $('#order_telno_1').val();
@@ -301,5 +306,13 @@ function updateOrderList() {
 }
 
 function updateOrderListCallback() {
+    alert('내용이 수정되었습니다.');
+    location.href = '/mypage/';
+}
 
+function selectShippingInfoByZipNo(zipNo) {
+    let inputData = {
+        zipNo: zipNo
+    };
+    ajax(serverUrl + '/admin/delivery_manager/selectShippingInfoByZipNo', inputData, 'selectShippingInfoByZipNo', 'POST');
 }
