@@ -103,18 +103,31 @@ let searchAddressApi = {
 		$('#address_tbody').empty();
 		let juso = ret.results.juso;
 		let html = '';
+		let jibunAddrArr = [];
 		for (let i = 0; i < juso.length; ++i) {
-			html += '<tr class="each-address">';
 			let roadAddrPart1 = juso[i].roadAddrPart1;
 			let jibunAddr = juso[i].jibunAddr;
 			let zipNo = juso[i].zipNo;
 			if (this.gubun == 1) {
-				html += '<td id="address_main" style="padding: 3px;">' + jibunAddr + '</td>';
+				let has = false;
+				for (let j = 0; j < jibunAddrArr.length; ++j) {
+					if (jibunAddrArr[j] == jibunAddr) {
+						has = true;
+					}
+				}
+				if (!has) {
+					html += '<tr class="each-address">';
+					html += '<td id="address_main" style="padding: 3px;">' + jibunAddr + '</td>';
+					html += '<td id="zip_no" style="padding: 3px;">' + zipNo + '</td>';
+					html += '</tr>';
+					jibunAddrArr.push(jibunAddr);
+				}
 			} else {
+				html += '<tr class="each-address">';
 				html += '<td id="address_main" style="padding: 3px;">' + roadAddrPart1 + '</td>';
+				html += '<td id="zip_no" style="padding: 3px;">' + zipNo + '</td>';
+				html += '</tr>';
 			}
-			html += '<td id="zip_no" style="padding: 3px;">' + zipNo + '</td>';
-			html += '</tr>';
 		}
 		searchAddressApi.totalCount = ret.results.common.totalCount;
 		if (gubun == 1) {
