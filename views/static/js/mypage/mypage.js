@@ -165,7 +165,7 @@ function selectOrderListMainCallback(ret) {
             html += '<input id="item_no" type="hidden" value="' + itemNo + '">';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
-            if (orderDate == moment().format('YYYY-MM-DD')) {
+            if (orderDate == moment().format('YYYY-MM-DD') && isNull(dlvrConfirmDate)) {
                 html += '<div id="modify_order" class="modify-order" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">정보수정</span></div>';
             }
             html += '</td>';
