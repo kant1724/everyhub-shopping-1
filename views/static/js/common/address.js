@@ -5,10 +5,17 @@ let searchAddressApi = {
 	curPageGroup: 1,
 	countPerPageGroup: 5,
 	curKeyword: '',
+	gubun: 1,
 
 	init: function() {
-		$('#search_address_modal').click(function() {
+		$('#search_address_modal_jibun').click(function() {
 			let keyword = $('#address_subject').val();
+			searchAddressApi.gubun = 1;
+			searchAddressApi.searchAddress(1, keyword);
+		});
+		$('#search_address_modal_road').click(function() {
+			let keyword = $('#address_subject').val();
+			searchAddressApi.gubun = 2;
 			searchAddressApi.searchAddress(1, keyword);
 		});
 
@@ -99,8 +106,13 @@ let searchAddressApi = {
 		for (let i = 0; i < juso.length; ++i) {
 			html += '<tr class="each-address">';
 			let roadAddrPart1 = juso[i].roadAddrPart1;
+			let jibunAddr = juso[i].jibunAddr;
 			let zipNo = juso[i].zipNo;
-			html += '<td id="address_main" style="padding: 3px;">' + roadAddrPart1 + '</td>';
+			if (this.gubun == 1) {
+				html += '<td id="address_main" style="padding: 3px;">' + jibunAddr + '</td>';
+			} else {
+				html += '<td id="address_main" style="padding: 3px;">' + roadAddrPart1 + '</td>';
+			}
 			html += '<td id="zip_no" style="padding: 3px;">' + zipNo + '</td>';
 			html += '</tr>';
 		}
