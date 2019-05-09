@@ -161,6 +161,7 @@ function selectOrderListMainCallback(ret) {
             html += '<input id="item_no" type="hidden" value="' + itemNo + '">';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
+            html += '<div id="modify_order" class="modify-order" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">정보수정</span></div>';
             html += '</td>';
             html += '<td style="vertical-align: middle;">';
             html += '<div id="order_detail" class="oreder-detail text-underline-link" style="margin-bottom: 10px; font-size: 11px;">상세정보</div>';
@@ -253,6 +254,12 @@ function selectOrderListMainCallback(ret) {
         $('#modal_deposit_remarks').text(depositRemarks);
 
         $('#order_detail_modal').modal();
+    });
+
+    $('.modify-order').unbind();
+    $('.modify-order').click(function() {
+        let orderNo = $(this).parent().parent().find('#order_no').text();
+        location.href = '/mypage/modify?orderNo=' + orderNo;
     });
 
     selectUser();

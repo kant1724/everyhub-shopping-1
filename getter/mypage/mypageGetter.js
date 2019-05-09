@@ -22,11 +22,16 @@ router.get('/', function(req, res, next) {
     }
 });
 
-router.get('/search_result', function(req, res, next) {
-    let query = req.query.query;
+router.get('/modify', function(req, res, next) {
+    let md = new MobileDetect(req.headers['user-agent']);
     let userNo = auth.getUserNo(req);
     let adminYn = auth.getAdminYn(req);
-    res.render('templates/main/search_result', {query: query, userNo: userNo, adminYn: adminYn});
+    let orderNo = req.query.orderNo;
+    if (md.mobile()) {
+        res.render('templates/mypage/modify-mobile', {userNo: userNo, adminYn: adminYn, orderNo: orderNo});
+    } else {
+        res.render('templates/mypage/modify', {userNo: userNo, adminYn: adminYn, orderNo: orderNo});
+    }
 });
 
 module.exports = router;

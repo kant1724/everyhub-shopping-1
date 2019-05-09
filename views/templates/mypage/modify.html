@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>상품정보</title>
+    <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
+    <link href="/static/css/common/common.css" rel="stylesheet">
+    <link href="/static/css/common/address.css" rel="stylesheet">
+    <link href="/static/css/mypage/modify.css" rel="stylesheet">
+</head>
+
+<body>
+    <header></header>
+    <div class="container mt-5 pt-3">
+        <div style="width: 80%; margin: auto;">
+            <div class="mb-3 mt-4" style="width: 150px; font-size:20px; border-left: 5px solid #333; padding-left: 10px;">주문내역 수정</div>
+            <hr>
+            <div class="order-info pl-4">
+                <div style="font-size: 16px; font-weight: 700; color: gray;"><i class="far fa-info-square"></i>&nbsp;&nbsp;주문정보</div>
+                <hr>
+                <div class="order-info-title-text" style="font-size: 16px;">주문자 정보</div>
+                <div>
+                    <div class="ml-2">
+                        <div class="md-form">
+                            <i class="far fa-user prefix" style="font-size: 25px;"></i>
+                            <input type="text" class="form-control" id="order_person_nm" style="font-size: 13px; width: 200px;">
+                            <label id="order_person_nm_label" for="order_person_nm" style="font-size: 13px;">주문자명</label>
+                        </div>
+                    </div>
+                    <div class="ml-2">
+                        <div style="position: relative; font-size: 13px;">
+                            주문자 전화번호
+                        </div>
+                        <div class="mt-2">
+                            <input type="number" class="text-center padding-input" id="order_telno_1" style="width: 50px;">
+                            -
+                            <input type="number" class="text-center padding-input" id="order_telno_2" style="width: 50px;">
+                            -
+                            <input type="number" class="text-center padding-input" id="order_telno_3" style="width: 50px;">
+                        </div>
+                    </div>
+                    <div class="mt-3 ml-2">
+                        <div id="order_remarks_label" class="mb-1" style="color: gray;">주문메모</div>
+                        <textarea style="padding: 5px; width: 80%; height: 100px; outline: none;" id="order_remarks"></textarea>
+                    </div>
+                    <input type="hidden" id="order_zip_no">
+                    <input type="hidden" id="order_address_main">
+                    <input type="hidden" id="order_address_detail">
+                </div>
+                <div class="form-check mt-3" style="padding-left: 10px;">
+                    <input type="checkbox"  class="form-check-input" id="has_sender">
+                    <label class="form-check-label" for="has_sender">보내는자 입력</label>
+                </div>
+                <div class="sender-input order-info-title-text" style="font-size: 16px;">보내는자 정보</div>
+                <div class="sender-input">
+                    <div class="form-check mt-3" style="padding-left: 10px;">
+                        <input type="checkbox"  class="form-check-input" id="sender_same_with_order_info">
+                        <label class="form-check-label" for="sender_same_with_order_info">주문자 정보와 동일</label>
+                    </div>
+                    <div class="ml-2">
+                        <div class="md-form">
+                            <i class="fas fa-user prefix" style="font-size: 25px;"></i>
+                            <input type="text" class="form-control" id="send_person_nm"  style="font-size: 13px; width: 200px;">
+                            <label id="send_person_nm_label" for="send_person_nm" style="font-size: 13px;">보내는자명</label>
+                        </div>
+                    </div>
+                    <div class="ml-2">
+                        <div style="position: relative; font-size: 13px;">
+                            보내는자 전화번호
+                        </div>
+                        <div class="mt-2">
+                            <input type="number" class="text-center padding-input" id="send_telno_1" style="width: 50px;">
+                            -
+                            <input type="number" class="text-center padding-input" id="send_telno_2" style="width: 50px;">
+                            -
+                            <input type="number" class="text-center padding-input" id="send_telno_3" style="width: 50px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="sender-input">
+                    <div class="d-inline-block ml-2 mt-5">
+                        <a id="search_send_address" class="common-button-1">주소검색</a>
+                        <div class="mt-3" style="font-weight: 700;">보내는자 우편번호:</div>
+                        <div id="send_zip_no" class="mt-2 mb-3" style="border-bottom: 1px solid #ddd; color: gray;"></div>
+                        <div class="mt-3" style="font-weight: 700;">보내는자 기본주소:</div>
+                        <div id="send_address_main" class="mt-2 mb-3" style="border-bottom: 1px solid #ddd; color: gray;"></div>
+                        <div class="md-form">
+                            <label for="send_address_detail" style="font-size: 13px; width: 200px;">보내는자 상세주소</label>
+                            <input type="text" style="font-size: 13px; width: 250px;" class="form-control" id="send_address_detail">
+                        </div>
+                    </div>
+                </div>
+                <div class="order-info-title-text" style="font-size: 16px;">받는자 정보</div>
+                <div>
+                    <div class="form-check mt-3" style="padding-left: 10px;">
+                        <input type="checkbox"  class="form-check-input" id="receiver_same_with_order_info">
+                        <label class="form-check-label" for="receiver_same_with_order_info">주문자 정보와 동일</label>
+                    </div>
+                    <div class="ml-2">
+                        <div class="md-form">
+                            <i class="fas fa-user prefix" style="font-size: 25px;"></i>
+                            <input type="text" class="form-control" id="receive_person_nm"  style="font-size: 13px; width: 200px;">
+                            <label id="receive_person_nm_label" for="receive_person_nm" style="font-size: 13px;">받는자명</label>
+                        </div>
+                    </div>
+                    <div class="ml-2">
+                        <div style="position: relative; font-size: 13px;">
+                            받는자 전화번호
+                        </div>
+                        <div class="mt-2">
+                            <input type="number" class="text-center padding-input" id="receive_telno_1" style="width: 50px;">
+                            -
+                            <input type="number" class="text-center padding-input" id="receive_telno_2" style="width: 50px;">
+                            -
+                            <input type="number" class="text-center padding-input" id="receive_telno_3" style="width: 50px;">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-inline-block ml-2 mt-5">
+                        <a id="search_receive_address" class="common-button-1">주소검색</a>
+                        <div class="mt-3" style="font-weight: 700;">받는자 우편번호:</div>
+                        <div id="receive_zip_no" class="mt-2 mb-3" style="border-bottom: 1px solid #ddd; color: gray;"></div>
+                        <div class="mt-3" style="font-weight: 700;">받는자 기본주소:</div>
+                        <div id="receive_address_main" class="mt-2 mb-3" style="border-bottom: 1px solid #ddd; color: gray;"></div>
+                        <div class="md-form">
+                            <label for="receive_address_detail" style="font-size: 13px; width: 200px;">받는자 상세주소</label>
+                            <input type="text" style="font-size: 13px; width: 250px;" class="form-control" id="receive_address_detail">
+                        </div>
+                        <div id="additional_shipping_fee_text" class="mb-3" style="color: red; display: none;"></div>
+                    </div>
+                </div>
+                <div class="order-info-title-text" style="font-size: 16px;">입금 정보</div>
+                <div class="mt-3 d-inline-block ml-2" style="font-size: 13px; font-weight: 700;">입금자 : &nbsp;&nbsp;&nbsp;</div>
+                <div class="d-inline-block">
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="order_radio" name="radio">
+                        <label class="form-check-label" for="order_radio">주문자</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="send_radio" name="radio">
+                        <label class="form-check-label" for="send_radio">보내는자</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="receive_radio" name="radio">
+                        <label class="form-check-label" for="receive_radio">받는자</label>
+                    </div>
+                </div>
+                <div class="mt-3 ml-2">
+                    <div class="md-form">
+                        <i class="fas fa-user prefix" style="font-size: 25px;"></i>
+                        <input type="text" class="form-control" id="deposit_person_nm"  style="font-size: 13px; width: 200px;">
+                        <label id="deposit_person_nm_label" for="deposit_person_nm" style="font-size: 13px;">입금자명</label>
+                    </div>
+                </div>
+                <div class="mt-3 ml-2">
+                    <div id="deposit_remarks_label" class="mb-1" style="color: gray;">입금메모</div>
+                    <textarea style="padding: 5px; width: 80%; height: 100px; outline: none;" id="deposit_remarks"></textarea>
+                </div>
+            </div>
+            <div>
+                <div class="mt-3 mb-5 text-center">
+                    <button type="button" class="btn btn-sm deep-orange btn-rounded modify-btn">수정
+                        <i class="fa fa-angle-right right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <input id="items" type="hidden" value="{{items}}">
+        <input id="direct_item_no" type="hidden" value="{{itemNo}}">
+        <input id="direct_image_path" type="hidden" value="{{imagePath}}">
+        <input id="direct_item_nm" type="hidden" value="{{itemNm}}">
+        <input id="direct_keeping_method" type="hidden" value="{{keepingMethod}}">
+        <input id="direct_option_no" type="hidden" value="{{optionNo}}">
+        <input id="direct_option_nm" type="hidden" value="{{optionNm}}">
+        <input id="direct_qty" type="hidden" value="{{qty}}">
+        <input id="direct_item_price" type="hidden" value="{{itemPrice}}">
+        <input id="direct_shipping_fee" type="hidden" value="{{shippingFee}}">
+        <input id="direct_item_price_num" type="hidden" value="{{itemPriceNum}}">
+        <input id="direct_shipping_fee_num" type="hidden" value="{{shippingFeeNum}}">
+    </div>
+    <div class="modal fade" id="address_modal" tabindex="-1" role="dialog" aria-labelledby="address_modal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <input type="hidden" id="zip_no_id">
+                <input type="hidden" id="address_main_id">
+                <div class="modal-body">
+                    <div style="border-bottom: 1px solid #333; font-weight: 700;">
+                        <span>주소검색</span>
+                    </div>
+                    <div class="md-form mt-3">
+                        <label id="address_subject_label" for="address_subject" style="font-size: 13px; width: 200px;">여기에 주소를 입력하세요</label>
+                        <input id="address_subject" class="mt-2" type="text" style="width: 100%; outline: none; padding: 3px;">
+                    </div>
+                    <div class="mt-2"><a id="search_address_modal_jibun" class="common-button-1">조회(지번)</a><a id="search_address_modal_road" class="ml-2 common-button-1">조회(도로명)</a></div>
+                    <hr>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th style="padding: 3px;">주소</th>
+                            <th style="padding: 3px;">우편번호</th>
+                        </tr>
+                        </thead>
+                        <tbody id="address_tbody">
+                        </tbody>
+                    </table>
+                    <div id="pagination" style="word-wrap: break-word;"></div>
+                </div>
+                <div class="modal-footer">
+                    <a id="address_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="user_no" value="{{userNo}}">
+    <input type="hidden" id="admin_yn" value="{{adminYn}}">
+    <input type="hidden" id="order_no" value="{{orderNo}}">
+    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
+    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/static/js/common/properties.js"></script>
+    <script type="text/javascript" src="/static/js/common/utils.js"></script>
+    <script type="text/javascript" src="/static/js/common/address.js"></script>
+    <script type="text/javascript" src="/static/js/component/header.js"></script>
+    <script type="text/javascript" src="/static/js/component/footer.js"></script>
+    <script type="text/javascript" src="/static/js/mypage/modify.js"></script>
+</body>
+
+</html>
