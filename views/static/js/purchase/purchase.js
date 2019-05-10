@@ -8,7 +8,7 @@ function ajax(url, inputData, gubun, method) {
         dataType: 'json',
         success: function (data, status, xhr) {
             if (gubun == 'insertOrderList') {
-                insertOrderListCallback();
+                insertOrderListCallback(data.ret);
             } else if (gubun == 'selectUser') {
                 selectUserCallback(data.ret);
             } else if (gubun == 'selectSellerInfo') {
@@ -381,7 +381,11 @@ function insertOrderList() {
     ajax(serverUrl + '/purchase/insertOrderList', inputData, 'insertOrderList', 'POST');
 }
 
-function insertOrderListCallback() {
+function insertOrderListCallback(ret) {
+    if (ret == 'not ok') {
+        alert('주문 오류가 발생하였습니다. 지속적으로 문제발생 시 크롬 브라우저를 이용하여 주문하시기 바랍니다.');
+        return;
+    }
     let itemArr = $('#items').val().split(';');
     if (itemArr != null && itemArr != '') {
         let productArr = JSON.parse(localStorage.getItem('product'));
