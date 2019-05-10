@@ -339,6 +339,9 @@ function insertOrderList() {
     orderListMain.orderTelno3 = $('#order_telno_3').val();
     orderListMain.sendPersonNm = '';
     orderListMain.sendTelno = '';
+    orderListMain.sendTelno1 = '';
+    orderListMain.sendTelno2 = '';
+    orderListMain.sendTelno3 = '';
     orderListMain.sendZipNo = '';
     orderListMain.sendAddressMain = '';
     orderListMain.sendAddressDetail = '';
