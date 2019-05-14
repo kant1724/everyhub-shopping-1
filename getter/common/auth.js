@@ -49,15 +49,24 @@ exports.getInfo = (req) => {
 exports.getUserNo = (req) => {
 	let token = req.cookies.jwt;
 	if (!token) return 0;
-	let decoded = jwt.verify(token, req.app.get('jwt-secret'));
-
+	let decoded;
+	try {
+		decoded = jwt.verify(token, req.app.get('jwt-secret'));
+	} catch (exception) {
+		return 0;
+	}
 	return decoded.userNo ? decoded.userNo : 0;
 };
 
 exports.getAdminYn = (req) => {
 	let token = req.cookies.jwt;
 	if (!token) return 'N';
-	let decoded = jwt.verify(token, req.app.get('jwt-secret'));
+	let decoded;
+	try {
+		decoded = jwt.verify(token, req.app.get('jwt-secret'));
+	} catch (exception) {
+		return 'N';
+	}
 
 	return decoded.adminYn ? decoded.adminYn : 'N';
 };
