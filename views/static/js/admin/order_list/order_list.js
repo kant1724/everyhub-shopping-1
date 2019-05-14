@@ -315,7 +315,7 @@ function selectOrderListMainCallback(ret) {
 
         if (isNull(ret[i].cancelDate) && isNull(dlvrConfirmDate)) {
             cancelDate = '<div id="cancel_order" class="cancel-order"><span class="text-underline-link">주문취소</span></div>';
-        } else {
+        } else if (!isNull(ret[i].cancelDate)) {
             cancelDate = ret[i].cancelDate ? ret[i].cancelDate : '';
             orderDate = '<span style="color: #980000; font-weight: 700;">취소된 주문입니다.<span>';
         }
