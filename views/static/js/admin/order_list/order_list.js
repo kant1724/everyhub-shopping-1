@@ -69,6 +69,12 @@ $(document).ready(function() {
         sendSMS();
     });
 
+    $('#user_nm').keydown(function(key) {
+        if (key.keyCode == 13) {
+            selectOrderListMain();
+        }
+    });
+
     selectOrderListMain();
 });
 
@@ -277,6 +283,7 @@ function selectOrderListMainCallback(ret) {
         }
     }
     let prevOrderNo = -1;
+    let totalCnt = 0;
     for (let i = 0; i < ret.length; ++i) {
         let today = moment().format('YYYY-MM-DD');
         let orderNo = ret[i].orderNo;
@@ -348,6 +355,7 @@ function selectOrderListMainCallback(ret) {
         html += '<input type="hidden" class="box-type" value="' + boxType + '">';
         html += '<input type="hidden" class="fare-type" value="' + fareType + '">';
         if (orderNo != prevOrderNo) {
+            totalCnt += 1;
             let rs = rowspan[orderNo];
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             if (!dlvrConfirmDate) {
@@ -370,6 +378,9 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="order_person_nm" class="order-person-nm">' + orderPersonNm + '</div>';
+            html += '</td>';
+            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<div id="receive_person_nm" class="order-person-nm">' + receivePersonNm + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="order_telno" class="order-telno">' + orderTelno + '</div>';
@@ -509,6 +520,8 @@ function selectOrderListMainCallback(ret) {
             cancelOrder(orderNo);
         }
     });
+
+    $('#total_cnt').text('총 ' + totalCnt + '건');
 }
 
 function sendSMS() {
