@@ -143,7 +143,7 @@ function selectOrderListMain() {
     let inputData = {
         orderNo: $('#order_no').val()
     };
-    ajax(serverUrl + '/admin/order_list/selectOrderListMainByOrderNo', inputData, 'selectOrderListMain', 'POST');
+    ajax('/admin/order_list/selectOrderListMainByOrderNo', inputData, 'selectOrderListMain', 'POST');
 }
 
 function selectOrderListMainCallback(ret) {
@@ -305,7 +305,7 @@ function updateOrderList() {
                 orderListMain: orderListMain
             })
     };
-    ajax(serverUrl + '/mypage/updateOrderList', inputData, 'updateOrderList', 'POST');
+    ajax('/mypage/updateOrderList', inputData, 'updateOrderList', 'POST');
 }
 
 function updateOrderListCallback() {
@@ -317,5 +317,5 @@ function selectShippingInfoByZipNo(zipNo) {
     let inputData = {
         zipNo: zipNo
     };
-    ajax(serverUrl + '/admin/delivery_manager/selectShippingInfoByZipNo', inputData, 'selectShippingInfoByZipNo', 'POST');
+    ajax( '/admin/delivery_manager/selectShippingInfoByZipNo', inputData, 'selectShippingInfoByZipNo', 'POST');
 }

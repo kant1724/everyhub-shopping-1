@@ -71,7 +71,7 @@ function selectInvoiceNo() {
     let inputData = {
         orderNo: orderNo
     };
-    ajax(serverUrl + '/admin/order_list/selectInvoiceNo', inputData, 'selectInvoiceNo', 'POST');
+    ajax('/admin/order_list/selectInvoiceNo', inputData, 'selectInvoiceNo', 'POST');
 }
 
 function selectInvoiceNoCallback(ret) {
@@ -98,7 +98,7 @@ function selectOrderListMain() {
         startOrderDate: $('#startingDate').val(),
         endOrderDate: $('#endingDate').val()
     };
-    ajax(serverUrl + '/admin/order_list/selectOrderListMain', inputData, 'selectOrderListMain', 'POST');
+    ajax('/admin/order_list/selectOrderListMain', inputData, 'selectOrderListMain', 'POST');
 }
 
 function selectOrderListMainCallback(ret) {
@@ -323,7 +323,7 @@ function validationCheck() {
 
 function selectUser() {
     let inputData  = {};
-    ajax(serverUrl + '/user/selectUser', inputData , 'selectUser', 'POST');
+    ajax('/user/selectUser', inputData , 'selectUser', 'POST');
 }
 
 function selectUserCallback(ret) {
@@ -358,12 +358,12 @@ function writeReview() {
         star: starValue,
         itemNo: itemNo
     };
-    ajax(serverUrl + '/mypage/writeReview', inputData, 'writeReview', 'POST');
+    ajax('/mypage/writeReview', inputData, 'writeReview', 'POST');
 }
 
 function updateUser() {
     let gender = '';
-    if ($('#gender_male').is('checked')) {
+    if ($('#gender_male').is(':checked')) {
         gender = 'M';
     } else {
         gender = 'F';
@@ -384,14 +384,14 @@ function updateUser() {
         addressMain: $('#address_main').text(),
         addressDetail: $('#address_detail').val()
     };
-    ajax(serverUrl + '/mypage/updateUser', inputData, 'updateUser', 'POST');
+    ajax('/mypage/updateUser', inputData, 'updateUser', 'POST');
 }
 
 function cancelOrder(orderNo) {
     let inputData = {
         orderNo: orderNo
     };
-    ajax(serverUrl + '/mypage/cancelOrder', inputData, 'cancelOrder', 'POST');
+    ajax('/mypage/cancelOrder', inputData, 'cancelOrder', 'POST');
 }
 
 function cancelOrderCallback() {

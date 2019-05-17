@@ -27,7 +27,7 @@ function selectSellerInfo() {
     let inputData = {
         sellerNo: 1
     };
-    ajax(serverUrl + '/user/selectSellerInfo', inputData, 'selectSellerInfo', 'POST');
+    ajax( '/user/selectSellerInfo', inputData, 'selectSellerInfo', 'POST');
 }
 
 function selectSellerInfoCallback(ret) {

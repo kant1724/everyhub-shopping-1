@@ -5,10 +5,13 @@ let auth = require('../common/auth');
 
 router.get('/', function(req, res, next) {
     let param = req.query;
-    let userNo = auth.getUserNo(req);
-    let adminYn = auth.getAdminYn(req);
-    param.userNo = auth.getUserNo(req);
-    param.adminYn = auth.getAdminYn(req);
+    //let userNo = auth.getUserNo(req);
+    //let adminYn = auth.getAdminYn(req);
+    //param.userNo = auth.getUserNo(req);
+    //param.adminYn = auth.getAdminYn(req);
+    let userNo = param.userNo;
+    let adminYn = param.adminYn;
+
     let md = new MobileDetect(req.headers['user-agent']);
     if (userNo == 0) {
         param = JSON.stringify(param);
@@ -28,8 +31,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/purchase_complete', function(req, res, next) {
     let param = req.query;
-    param.userNo = auth.getUserNo(req);
-    param.adminYn = auth.getAdminYn(req);
+    //param.userNo = auth.getUserNo(req);
+    //param.adminYn = auth.getAdminYn(req);
     res.render('templates/purchase/purchase_complete', param);
 });
 

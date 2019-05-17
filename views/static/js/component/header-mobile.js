@@ -1,27 +1,5 @@
-function logoutCallback() {
-    location.href = '/user/logout';
-}
-
-function logoutTrans(url, inputData, gubun, method) {
-    $.ajax(url, {
-        type: method,
-        data: inputData,
-        async: false,
-        xhrFields: { withCredentials: true },
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: 'json',
-        success: function (data, status, xhr) {
-            if (gubun == 'logout') {
-                logoutCallback();
-            }
-        },
-        error: function (jqXhr, textStatus, errorMessage) {}
-    });
-}
-
 function logout() {
-    let inputData = {};
-    logoutTrans(serverUrl + '/user/logout', inputData, 'logout', 'POST');
+    location.href = '/user/logout';
 }
 
 let headerHtml = '<nav class="top-nav navbar fixed-top navbar-expand-lg navbar-light white">';

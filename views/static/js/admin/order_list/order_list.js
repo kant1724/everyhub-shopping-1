@@ -85,7 +85,7 @@ function insertInvoiceNo() {
         orderNo: orderNo,
         invoiceNo: invoiceNo
     };
-    ajax(serverUrl + '/admin/order_list/insertInvoiceNo', inputData, 'insertInvoiceNo', 'POST');
+    ajax('/admin/order_list/insertInvoiceNo', inputData, 'insertInvoiceNo', 'POST');
 }
 
 function insertInvoiceNoCallback() {
@@ -104,7 +104,7 @@ function updateAdditionalInfo() {
         boxType: boxType,
         fareType: fareType
     };
-    ajax(serverUrl + '/admin/order_list/updateAdditionalInfo', inputData, 'updateAdditionalInfo', 'POST');
+    ajax('/admin/order_list/updateAdditionalInfo', inputData, 'updateAdditionalInfo', 'POST');
 }
 
 function updateAdditionalInfoCallback() {
@@ -117,7 +117,7 @@ function selectInvoiceNo() {
     let inputData = {
         orderNo: orderNo
     };
-    ajax(serverUrl + '/admin/order_list/selectInvoiceNo', inputData, 'selectInvoiceNo', 'POST');
+    ajax('/admin/order_list/selectInvoiceNo', inputData, 'selectInvoiceNo', 'POST');
 }
 
 function selectInvoiceNoCallback(ret) {
@@ -154,7 +154,7 @@ function deleteInvoiceNo(invoiceNo) {
         orderNo: orderNo,
         invoiceNo: invoiceNo
     };
-    ajax(serverUrl + '/admin/order_list/deleteInvoiceNo', inputData, 'deleteInvoiceNo', 'POST');
+    ajax('/admin/order_list/deleteInvoiceNo', inputData, 'deleteInvoiceNo', 'POST');
 }
 
 function deleteInvoiceNoCallback() {
@@ -197,7 +197,7 @@ function updateDlvrConfirmDate() {
                     orderListDetail: orderListDetail
                 })
         };
-        ajax(serverUrl + '/admin/order_list/updateDlvrConfirmDate', inputData, 'updateDlvrConfirmDate', 'POST');
+        ajax('/admin/order_list/updateDlvrConfirmDate', inputData, 'updateDlvrConfirmDate', 'POST');
     }
 }
 
@@ -265,7 +265,7 @@ function selectOrderListMain() {
         endOrderDate: $('#ending_date').val(),
         userNm: $('#user_nm').val()
     };
-    ajax(serverUrl + '/admin/order_list/selectOrderListMain', inputData, 'selectOrderListMain', 'POST');
+    ajax('/admin/order_list/selectOrderListMain', inputData, 'selectOrderListMain', 'POST');
 }
 
 let allData = [];
@@ -536,7 +536,7 @@ function sendSMS() {
         smsContent: smsContent,
         smsTelno: smsTelno
     };
-    ajax(serverUrl + '/admin/order_list/sendSMS', inputData, 'sendSMS', 'POST');
+    ajax('/admin/order_list/sendSMS', inputData, 'sendSMS', 'POST');
 }
 
 function sendSMSCallback() {
@@ -548,7 +548,7 @@ function updateDepositConfirmDate(orderNo) {
     let inputData = {
         orderNo: orderNo
     };
-    ajax(serverUrl + '/admin/order_list/updateDepositConfirmDate', inputData, 'updateDepositConfirmDate', 'POST');
+    ajax('/admin/order_list/updateDepositConfirmDate', inputData, 'updateDepositConfirmDate', 'POST');
 }
 
 function updateDepositConfirmDateCallback() {
@@ -565,7 +565,7 @@ function cancelOrder(orderNo) {
     let inputData = {
         orderNo: orderNo
     };
-    ajax(serverUrl + '/mypage/cancelOrder', inputData, 'cancelOrder', 'POST');
+    ajax('/mypage/cancelOrder', inputData, 'cancelOrder', 'POST');
 }
 
 function cancelOrderCallback() {

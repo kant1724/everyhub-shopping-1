@@ -232,7 +232,7 @@ function registerNewItem() {
         image6: image6
     };
 
-    ajax(serverUrl + '/admin/item_manager/registerNewItem', inputData, 'registerNewItem', 'POST');
+    ajax('/admin/item_manager/registerNewItem', inputData, 'registerNewItem', 'POST');
 }
 
 function registerNewItemCallback(ret) {

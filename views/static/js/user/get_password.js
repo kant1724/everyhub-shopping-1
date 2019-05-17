@@ -38,7 +38,7 @@ function getCertificationCode() {
     let inputData = {
         telno: telno
     };
-    ajax(serverUrl + '/user/getCertificationCode', inputData, 'getCertificationCode', 'POST');
+    ajax('/user/getCertificationCode', inputData, 'getCertificationCode', 'POST');
 }
 
 function getCertificationCodeCallback(ret) {
@@ -59,7 +59,7 @@ function confirmCertificationCode() {
         telno: telno,
         certificationCode: certificationCode
     };
-    ajax(serverUrl + '/user/confirmCertificationCode', inputData, 'confirmCertificationCode', 'POST');
+    ajax('/user/confirmCertificationCode', inputData, 'confirmCertificationCode', 'POST');
 }
 
 function confirmCertificationCodeCallback(ret) {
@@ -89,7 +89,7 @@ function modify_password() {
         certificationCode: certificationCode,
         password: sha256(password)
     };
-    ajax(serverUrl + '/user/modifyPassword', inputData, 'modifyPassword', 'POST');
+    ajax('/user/modifyPassword', inputData, 'modifyPassword', 'POST');
 }
 
 function modifyPasswordCallback(ret) {

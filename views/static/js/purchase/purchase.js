@@ -212,7 +212,7 @@ $(document).ready(function() {
 
 function selectUser() {
     let inputData  = {};
-    ajax(serverUrl + '/user/selectUser', inputData , 'selectUser', 'POST');
+    ajax('/user/selectUser', inputData , 'selectUser', 'POST');
 }
 
 function selectUserCallback(ret) {
@@ -281,7 +281,7 @@ function selectOneItem() {
     let inputData  = {
         itemNo: itemNo
     };
-    ajax(serverUrl + '/admin/item_manager/selectOneItem', inputData , 'selectOneItem', 'POST');
+    ajax('/admin/item_manager/selectOneItem', inputData , 'selectOneItem', 'POST');
 }
 
 function selectOneItemCallback(ret) {
@@ -299,7 +299,7 @@ function selectOneItemCallback(ret) {
     html += '<div class="mt-2 mb-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + $('#direct_image_path').val() + '" alt="" class="img-fluid z-depth-0"></div>';
     html += '<div class="mb-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
     html += '<div class="mb-2">상품명: ' + $('#direct_item_nm').val() + '</div>';
-    html += '<div class="mb-2">옵션: ' + $('#direct_option_no').val() + '</div>';
+    html += '<div class="mb-2">옵션: ' + $('#direct_option_nm').val() + '</div>';
     html += '<div class="mb-2">단가: ' + $('#direct_item_price').val() + '</div>';
     html += '<div class="mb-2">배송비: ' + $('#direct_shipping_fee').val() + '</div>';
     html += '<div class="mb-2">수량: ' + $('#direct_qty').val() + '</div>';
@@ -435,7 +435,7 @@ function insertOrderList() {
                 orderListDetail: orderListDetail
             })
     };
-    ajax(serverUrl + '/purchase/insertOrderList', inputData, 'insertOrderList', 'POST');
+    ajax('/purchase/insertOrderList', inputData, 'insertOrderList', 'POST');
 }
 
 function insertOrderListCallback(ret) {
@@ -463,7 +463,7 @@ function selectSellerInfo() {
     let inputData = {
         sellerNo: 1
     };
-    ajax(serverUrl + '/user/selectSellerInfo', inputData, 'selectSellerInfo', 'POST');
+    ajax('/user/selectSellerInfo', inputData, 'selectSellerInfo', 'POST');
 }
 
 function selectSellerInfoCallback(ret) {
@@ -475,7 +475,7 @@ function selectShippingInfoByZipNo(zipNo) {
     let inputData = {
         zipNo: zipNo
     };
-    ajax(serverUrl + '/admin/delivery_manager/selectShippingInfoByZipNo', inputData, 'selectShippingInfoByZipNo', 'POST');
+    ajax('/admin/delivery_manager/selectShippingInfoByZipNo', inputData, 'selectShippingInfoByZipNo', 'POST');
 }
 
 function selectShippingInfoByZipNoCallback(ret) {
@@ -499,7 +499,7 @@ function selectRecentReceiver() {
     let inputData = {
         telno: $('#telno_subject').val()
     };
-    ajax(serverUrl + '/admin/order_list/selectRecentReceiver', inputData, 'selectRecentReceiver', 'POST');
+    ajax('/admin/order_list/selectRecentReceiver', inputData, 'selectRecentReceiver', 'POST');
 }
 
 let recentReceiverData = [];

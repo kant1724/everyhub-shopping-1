@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userSQL">
+    <insert id="insertUser">
+        INSERT INTO USERS
+        (
+          USER_NM
+        , PASSWORD
+        , TELNO
+        , TELNO_1
+        , TELNO_2
+        , TELNO_3
+        , GENDER
+        , DATE_OF_BIRTH
+        , DATE_OF_BIRTH_Y
+        , DATE_OF_BIRTH_M
+        , DATE_OF_BIRTH_D
+        , ZIP_NO
+        , ADDRESS_MAIN
+        , ADDRESS_DETAIL
+        , SELLER_NO
+        , MANAGER_NO
+        )
+        VALUES
+        (
+          #{userNm}
+        , #{password}
+        , #{telno}
+        , #{telno1}
+        , #{telno2}
+        , #{telno3}
+        , #{gender}
+        , REPLACE(#{dateOfBirth}, '-', '')
+        , #{dateOfBirthY}
+        , #{dateOfBirthM}
+        , #{dateOfBirthD}
+        , #{zipNo}
+        , #{addressMain}
+        , #{addressDetail}
+        , 1
+        , 1
+        )
+    </insert>
+
+    <select id="getTelno">
+      SELECT TELNO AS telno
+        FROM USERS
+       WHERE TELNO = ${telno}
+    </select>
+
+    <select id="getPassword">
+      SELECT USER_NO AS userNo
+            , PASSWORD AS password
+            , ADMIN_YN AS adminYn
+            , TELNO AS telno
+            , DATE_FORMAT(LAST_PWD_SEND_DATE, '%Y%m%d') AS lastPwdSendDate
+        FROM USERS
+       WHERE TELNO = ${telno}
+    </select>
+
+    <select id="selectUser">
+      SELECT USER_NO AS userNo
+            , USER_NM AS userNm
+            , PASSWORD AS password
+            , ADMIN_YN AS adminYn
+            , TELNO AS telno
+            , TELNO_1 AS telno1
+            , TELNO_2 AS telno2
+            , TELNO_3 AS telno3
+            , GENDER AS gender
+            , DATE_OF_BIRTH AS dateOfBirth
+            , DATE_OF_BIRTH_Y AS dateOfBirthY
+            , DATE_OF_BIRTH_M AS dateOfBirthM
+            , DATE_OF_BIRTH_D AS dateOfBirthD
+            , ZIP_NO AS zipNo
+            , ADDRESS_MAIN AS addressMain
+            , ADDRESS_DETAIL AS addressDetail
+            , SELLER_NO AS sellerNo
+            , MANAGER_NO AS managerNo
+            , DATE_FORMAT(LAST_PWD_SEND_DATE, '%Y%m%d') AS lastPwdSendDate
+        FROM USERS
+       WHERE USER_NO = ${userNo}
+      ORDER BY USER_NO DESC
+    </select>
+
+    <select id="selectAllUser">
+      SELECT A.USER_NO AS userNo
+            , A.USER_NM AS userNm
+            , A.PASSWORD AS password
+            , A.ADMIN_YN AS adminYn
+            , A.TELNO AS telno
+            , A.TELNO_1 AS telno1
+            , A.TELNO_2 AS telno2
+            , A.TELNO_3 AS telno3
+            , A.GENDER AS gender
+            , A.DATE_OF_BIRTH AS dateOfBirth
+            , A.DATE_OF_BIRTH_Y AS dateOfBirthY
+            , A.DATE_OF_BIRTH_M AS dateOfBirthM
+            , A.DATE_OF_BIRTH_D AS dateOfBirthD
+            , A.ZIP_NO AS zipNo
+            , A.ADDRESS_MAIN AS addressMain
+            , A.ADDRESS_DETAIL AS addressDetail
+            , A.SELLER_NO AS sellerNo
+            , A.MANAGER_NO AS managerNo
+            , B.USER_NM AS managerNm
+            , B.TELNO AS managerTelno
+        FROM USERS A LEFT OUTER JOIN USERS B
+          ON A.MANAGER_NO = B.USER_NO
+       WHERE A.USER_NO <![CDATA[<]]> ${lastUserNo}
+       ORDER BY A.USER_NO DESC
+        LIMIT ${limit}
+    </select>
+
+    <select id="selectSellerInfo">
+        SELECT SELLER_NM AS sellerNm
+              , SEND_ADDRESS AS sendAddress
+              , ACNO AS acno
+              , DEPOSIT_PERSON_NM AS depositPersonNm
+              , TELNO AS telno
+              , TELNO_2 AS telno2
+              , FAX_NO AS faxNo
+              , EMAIL AS email
+              , ADDRESS AS address
+              , MAIL_ORDER_NO AS mailOrderNo
+              , COMPANY_REGISTRATION_NO AS companyRegistrationNo
+          FROM SELLER
+         WHERE SELLER_NO = ${sellerNo}
+    </select>
+
+    <update id="updateCertificationCode">
+        UPDATE USERS
+           SET CERTIFICATION_CODE = #{certificationCode}
+         WHERE TELNO = #{telno}
+    </update>
+
+    <select id="getCertificationCode">
+        SELECT CERTIFICATION_CODE AS certificationCode
+          FROM USERS
+         WHERE TELNO = ${telno}
+    </select>
+
+    <update id="modifyPassword">
+        UPDATE USERS
+           SET PASSWORD = #{password}
+         WHERE TELNO = ${telno}
+           AND CERTIFICATION_CODE = #{certificationCode}
+    </update>
+
+</mapper>

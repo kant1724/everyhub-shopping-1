@@ -44,7 +44,7 @@ function selectItemList() {
     let inputData = {
         useYn: 'Y'
     };
-    ajax(serverUrl + '/admin/item_manager/selectItemList', inputData, 'selectItemList', 'POST');
+    ajax('/admin/item_manager/selectItemList', inputData, 'selectItemList', 'POST');
 }
 
 function selectItemListCallback(ret) {

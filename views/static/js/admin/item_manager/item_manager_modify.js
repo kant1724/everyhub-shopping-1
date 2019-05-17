@@ -165,7 +165,7 @@ $(document).ready(function() {
 let remoteUrl = '14.63.174.25:5006';
 function selectOneItem() {
     let inputData = {'itemNo' : $('#item_no').val()};
-    ajax(serverUrl + '/admin/item_manager/selectOneItem', inputData, 'selectOneItem', 'POST');
+    ajax('/admin/item_manager/selectOneItem', inputData, 'selectOneItem', 'POST');
 }
 
 function checkValidation() {
@@ -240,7 +240,7 @@ function modifyItem() {
         image6: image6
     };
 
-    ajax(serverUrl + '/admin/item_manager/modifyItem', inputData, 'modifyItem', 'POST');
+    ajax('/admin/item_manager/modifyItem', inputData, 'modifyItem', 'POST');
 }
 
 function selectOneItemCallback(ret) {

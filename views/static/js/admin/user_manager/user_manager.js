@@ -32,7 +32,7 @@ function selectAllUser() {
         lastUserNo: constructUserList.lastUserNo,
         limit: constructUserList.idPerPage * constructUserList.pageLength
     };
-    ajax(serverUrl + '/user/selectAllUser', inputData, 'selectAllUser', 'POST');
+    ajax('/user/selectAllUser', inputData, 'selectAllUser', 'POST');
 }
 
 function selectAllUserCallback(ret) {
@@ -44,7 +44,7 @@ function updateManagerNo() {
         userNo: $('#modal_user_no').val(),
         managerTelno: $('#modal_manager_telno').val()
     };
-    ajax(serverUrl + '/admin/user_manager/updateManagerNo', inputData, 'updateManagerNo', 'POST');
+    ajax( '/admin/user_manager/updateManagerNo', inputData, 'updateManagerNo', 'POST');
 }
 
 function updateManagerNoCallback(ret) {

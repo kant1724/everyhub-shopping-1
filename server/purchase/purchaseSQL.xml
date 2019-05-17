@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="purchaseSQL">
+    <insert id="insertOrderListMain">
+        INSERT INTO ORDER_LIST_MAIN
+        (
+          TOTAL_PRICE
+        , ORDER_DATE
+        , ORDER_PERSON_NM
+        , ORDER_TELNO
+        , ORDER_TELNO_1
+        , ORDER_TELNO_2
+        , ORDER_TELNO_3
+        , SEND_PERSON_NM
+        , SEND_TELNO
+        , SEND_TELNO_1
+        , SEND_TELNO_2
+        , SEND_TELNO_3
+        , SEND_ZIP_NO
+        , SEND_ADDRESS_MAIN
+        , SEND_ADDRESS_DETAIL
+        , RECEIVE_PERSON_NM
+        , RECEIVE_TELNO
+        , RECEIVE_TELNO_1
+        , RECEIVE_TELNO_2
+        , RECEIVE_TELNO_3
+        , RECEIVE_ZIP_NO
+        , RECEIVE_ADDRESS_MAIN
+        , RECEIVE_ADDRESS_DETAIL
+        , ORDER_REMARKS
+        , DEPOSIT_PERSON_NM
+        , DEPOSIT_REMARKS
+        , SELLER_NO
+        , USER_NO
+        )
+        VALUES
+        (
+          ${totalPrice}
+        , CURRENT_TIMESTAMP
+        , #{orderPersonNm}
+        , #{orderTelno}
+        , #{orderTelno1}
+        , #{orderTelno2}
+        , #{orderTelno3}
+        , #{sendPersonNm}
+        , #{sendTelno}
+        , #{sendTelno1}
+        , #{sendTelno2}
+        , #{sendTelno3}
+        , #{sendZipNo}
+        , #{sendAddressMain}
+        , #{sendAddressDetail}
+        , #{receivePersonNm}
+        , #{receiveTelno}
+        , #{receiveTelno1}
+        , #{receiveTelno2}
+        , #{receiveTelno3}
+        , #{receiveZipNo}
+        , #{receiveAddressMain}
+        , #{receiveAddressDetail}
+        , #{orderRemarks}
+        , #{depositPersonNm}
+        , #{depositRemarks}
+        , ${sellerNo}
+        , ${userNo}
+        )
+    </insert>
+
+    <insert id="insertOrderListDetail">
+        INSERT INTO ORDER_LIST_DETAIL
+        (
+          ORDER_NO
+        , ORDER_SEQ
+        , ITEM_NO
+        , OPTION_NO
+        , QTY
+        )
+        VALUES
+        <foreach collection="orderListDetail" item="order"  separator=",">
+        (
+          ${order.orderNo}
+        , ${order.orderSeq}
+        , ${order.itemNo}
+        , ${order.optionNo}
+        , ${order.qty}
+        )
+        </foreach>
+    </insert>
+
+</mapper>

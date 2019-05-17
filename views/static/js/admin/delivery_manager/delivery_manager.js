@@ -50,7 +50,7 @@ function insertShippingInfo() {
         includingKeyword: $('#modal_including_keyword').val()
     };
 
-    ajax(serverUrl + '/admin/delivery_manager/insertShippingInfo', inputData, 'insertShippingInfo', 'POST');
+    ajax('/admin/delivery_manager/insertShippingInfo', inputData, 'insertShippingInfo', 'POST');
 }
 
 function insertShippingInfoCallback() {
@@ -71,7 +71,7 @@ function updateShippingInfo() {
         includingKeyword: $('#modal_including_keyword').val()
     };
 
-    ajax(serverUrl + '/admin/delivery_manager/updateShippingInfo', inputData, 'updateShippingInfo', 'POST');
+    ajax('/admin/delivery_manager/updateShippingInfo', inputData, 'updateShippingInfo', 'POST');
 }
 
 function updateShippingInfoCallback() {
@@ -86,7 +86,7 @@ function deleteShippingInfo(shippingInfoNo) {
         shippingInfoNo: shippingInfoNo
     };
 
-    ajax(serverUrl + '/admin/delivery_manager/deleteShippingInfo', inputData, 'deleteShippingInfo', 'POST');
+    ajax('/admin/delivery_manager/deleteShippingInfo', inputData, 'deleteShippingInfo', 'POST');
 }
 
 function deleteShippingInfoCallback() {
@@ -98,7 +98,7 @@ function selectShippingInfoList() {
         lastShippingInfoNo: constructShippingInfo.lastShippingInfoNo,
         limit: constructShippingInfo.idPerPage * constructShippingInfo.pageLength
     };
-    ajax(serverUrl + '/admin/delivery_manager/selectShippingInfoList', inputData, 'selectShippingInfoList', 'POST');
+    ajax('/admin/delivery_manager/selectShippingInfoList', inputData, 'selectShippingInfoList', 'POST');
 }
 
 function selectShippingInfoListCallback(ret) {

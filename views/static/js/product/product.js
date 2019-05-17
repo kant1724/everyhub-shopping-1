@@ -169,7 +169,7 @@ function selectOneItem() {
     let inputData  = {
         itemNo: itemNo
     };
-    ajax(serverUrl + '/admin/item_manager/selectOneItem', inputData , 'selectOneItem', 'POST');
+    ajax('/admin/item_manager/selectOneItem', inputData , 'selectOneItem', 'POST');
 }
 
 function selectItemOption() {
@@ -177,7 +177,7 @@ function selectItemOption() {
     let inputData = {
         itemNo: itemNo
     };
-    ajax(serverUrl + '/admin/item_manager/selectItemOption', inputData, 'selectItemOption', 'POST');
+    ajax('/admin/item_manager/selectItemOption', inputData, 'selectItemOption', 'POST');
 }
 
 let optionData = [];
@@ -205,7 +205,7 @@ function selectProductReviews() {
         lastReviewNo: constructReview.lastReviewNo,
         limit: constructReview.idPerPage * constructReview.pageLength
     };
-    ajax(serverUrl + '/product/selectProductReviews', inputData , 'selectProductReviews', 'POST');
+    ajax('/product/selectProductReviews', inputData , 'selectProductReviews', 'POST');
 }
 
 function selectQna() {
@@ -215,14 +215,14 @@ function selectQna() {
         lastQnaNo: constructQna.lastQnaNo,
         limit: constructQna.idPerPage * constructQna.pageLength
     };
-    ajax(serverUrl + '/product/selectQna', inputData , 'selectQna', 'POST');
+    ajax('/product/selectQna', inputData , 'selectQna', 'POST');
 }
 
 function selectQnaReply(qnaNo) {
     let inputData  = {
         qnaNo: qnaNo
     };
-    ajax(serverUrl + '/product/selectQnaReply', inputData , 'selectQnaReply', 'POST');
+    ajax('/product/selectQnaReply', inputData , 'selectQnaReply', 'POST');
 }
 
 function selectOneItemCallback(ret) {
@@ -279,7 +279,7 @@ function writeQna() {
         content: $('#qna_content_modal').val(),
         itemNo: itemNo
     };
-    ajax(serverUrl + '/product/writeQna', inputData, 'writeQna', 'POST');
+    ajax('/product/writeQna', inputData, 'writeQna', 'POST');
 }
 
 function writeQnaReply(qnaNo, content) {
@@ -287,7 +287,7 @@ function writeQnaReply(qnaNo, content) {
         qnaNo: qnaNo,
         content: content
     };
-    ajax(serverUrl + '/product/writeQnaReply', inputData, 'writeQnaReply', 'POST');
+    ajax('/product/writeQnaReply', inputData, 'writeQnaReply', 'POST');
 }
 
 function selectProductReviewsCallback(ret) {

@@ -118,7 +118,7 @@ function goSigningUp() {
         addressMain: addressMain,
         addressDetail: addressDetail
     };
-    ajax(serverUrl + '/user/goSigningUp', inputData, 'goSigningUp', 'POST');
+    ajax('/user/goSigningUp', inputData, 'goSigningUp', 'POST');
 }
 
 function validationCheck() {
@@ -193,7 +193,7 @@ function checkDup() {
     let inputData = {
         telno: telno
     };
-    ajax(serverUrl + '/user/checkDup', inputData, 'checkDup', 'POST');
+    ajax('/user/checkDup', inputData, 'checkDup', 'POST');
 }
 
 let isDup = true;

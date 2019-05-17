@@ -46,7 +46,7 @@ function selectItemOption() {
     let inputData = {
         itemNo: itemNo
     };
-    ajax(serverUrl + '/admin/item_manager/selectItemOption', inputData, 'selectItemOption', 'POST');
+    ajax('/admin/item_manager/selectItemOption', inputData, 'selectItemOption', 'POST');
 }
 
 function selectItemOptionCallback(ret) {
@@ -107,7 +107,7 @@ function insertItemOption() {
         useYn: useYn,
         sortOrder: sortOrder
     };
-    ajax(serverUrl + '/admin/item_manager/insertItemOption', inputData, 'insertItemOption', 'POST');
+    ajax('/admin/item_manager/insertItemOption', inputData, 'insertItemOption', 'POST');
 }
 
 function insertItemOptionCallback() {
@@ -134,7 +134,7 @@ function updateItemOption() {
         useYn: useYn,
         sortOrder: sortOrder
     };
-    ajax(serverUrl + '/admin/item_manager/updateItemOption', inputData, 'updateItemOption', 'POST');
+    ajax('/admin/item_manager/updateItemOption', inputData, 'updateItemOption', 'POST');
 }
 
 function updateItemOptionCallback() {
@@ -149,7 +149,7 @@ function deleteItemOption(optionNo) {
         optionNo: optionNo,
         itemNo: itemNo
     };
-    ajax(serverUrl + '/admin/item_manager/deleteItemOption', inputData, 'deleteItemOption', 'POST');
+    ajax('/admin/item_manager/deleteItemOption', inputData, 'deleteItemOption', 'POST');
 }
 
 function deleteItemOptionCallback() {

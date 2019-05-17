@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="deliveryManagerSQL">
+    <select id="selectShippingInfoList">
+        SELECT SHIPPING_INFO_NO AS shippingInfoNo
+              , ADDR_1 AS addr1
+              , ADDR_2 AS addr2
+              , ADDR_3 AS addr3
+              , ZIP_NO AS zipNo
+              , SHIPPING_FEE AS shippingFee
+              , INCLUDING_KEYWORD AS includingKeyword
+          FROM SHIPPING_INFO
+         WHERE SHIPPING_INFO_NO <![CDATA[<]]> ${lastShippingInfoNo}
+         ORDER BY SHIPPING_INFO_NO DESC
+          LIMIT ${limit}
+    </select>
+
+    <select id="selectShippingInfoByZipNo">
+        SELECT SHIPPING_INFO_NO AS shippingInfoNo
+              , ADDR_1 AS addr1
+              , ADDR_2 AS addr2
+              , ADDR_3 AS addr3
+              , ZIP_NO AS zipNo
+              , SHIPPING_FEE AS shippingFee
+              , INCLUDING_KEYWORD AS includingKeyword
+          FROM SHIPPING_INFO
+         WHERE ZIP_NO = #{zipNo}
+    </select>
+
+    <insert id="insertShippingInfo">
+        INSERT INTO SHIPPING_INFO
+        (
+          ADDR_1
+        , ADDR_2
+        , ADDR_3
+        , ZIP_NO
+        , SHIPPING_FEE
+        , INCLUDING_KEYWORD
+        )
+        VALUES
+        (
+          #{addr1}
+        , #{addr2}
+        , #{addr3}
+        , #{zipNo}
+        , #{shippingFee}
+        , #{includingKeyword}
+        )
+    </insert>
+
+    <update id="updateShippingInfo">
+        UPDATE SHIPPING_INFO
+           SET ADDR_1 = #{addr1}
+              , ADDR_2 = #{addr2}
+              , ADDR_3 = #{addr3}
+              , ZIP_NO = #{zipNo}
+              , SHIPPING_FEE = #{shippingFee}
+              , INCLUDING_KEYWORD = #{includingKeyword}
+         WHERE SHIPPING_INFO_NO = ${shippingInfoNo}
+    </update>
+
+    <delete id="deleteShippingInfo">
+        DELETE FROM SHIPPING_INFO
+         WHERE SHIPPING_INFO_NO = ${shippingInfoNo}
+    </delete>
+
+</mapper>

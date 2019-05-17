@@ -27,7 +27,7 @@ $(document).ready(function() {
 
 function selectItemList() {
     let inputData = {};
-    ajax(serverUrl + '/admin/item_manager/selectItemList', inputData, 'selectItemList', 'POST');
+    ajax('/admin/item_manager/selectItemList', inputData, 'selectItemList', 'POST');
 }
 
 function selectItemListCallback(ret) {
@@ -60,7 +60,7 @@ function selectItemListCallback(ret) {
             let inputData = {
                 itemNo: itemNo
             };
-            ajax(serverUrl + '/admin/item_manager/deleteItem', inputData, 'deleteItem', 'POST');
+            ajax('/admin/item_manager/deleteItem', inputData, 'deleteItem', 'POST');
         }
     });
 

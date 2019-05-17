@@ -9,8 +9,6 @@ function ajax(url, inputData, gubun, method) {
         success: function (data, status, xhr) {
             if (gubun == 'login') {
                 loginCallback(data.ret);
-            } else if (gubun == 'setToken') {
-                setTokenCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -54,21 +52,14 @@ function login() {
         telno: telno,
         password: sha256(password)
     };
-    ajax(serverUrl + '/user/login', inputData, 'login', 'POST');
+    ajax('/user/login', inputData, 'login', 'POST');
 }
 
 function loginCallback(ret) {
-    if (ret != 'not ok') {
-        let inputData = {
-            token: ret
-        };
-        ajax('/user/setToken', inputData, 'setToken', 'POST');
-    } else {
+    if (ret == 'not ok') {
         alert('로그인 정보가 정확하지 않습니다.');
+        return;
     }
-}
-
-function setTokenCallback(ret) {
     let gubun = $('#gubun').val();
     if (gubun == 'purchase') {
         let p = JSON.parse($('#param').val());

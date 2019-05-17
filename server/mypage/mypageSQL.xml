@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypageSQL">
+    <insert id="insertReview">
+        INSERT INTO PRODUCT_REVIEWS
+        (
+          SUBJECT
+        , CONTENT
+        , STAR
+        , REVIEW_DATE
+        , ITEM_NO
+        , USER_NO
+        )
+        VALUES
+        (
+          #{subject}
+        , #{content}
+        , ${star}
+        , CURRENT_TIMESTAMP
+        , ${itemNo}
+        , ${userNo}
+        )
+    </insert>
+
+    <update id="updateUser">
+        UPDATE USERS
+           SET USER_NM = #{userNm}
+             , PASSWORD = #{password}
+             , TELNO = #{telno}
+             , TELNO_1 = #{telno1}
+             , TELNO_2 = #{telno2}
+             , TELNO_3 = #{telno3}
+             , GENDER = #{gender}
+             , DATE_OF_BIRTH = REPLACE(#{dateOfBirth}, '-', '')
+             , DATE_OF_BIRTH_Y = #{dateOfBirthY}
+             , DATE_OF_BIRTH_M = #{dateOfBirthM}
+             , DATE_OF_BIRTH_D = #{dateOfBirthD}
+             , ZIP_NO = #{zipNo}
+             , ADDRESS_MAIN = #{addressMain}
+             , ADDRESS_DETAIL = #{addressDetail}
+        WHERE USER_NO = ${userNo}
+    </update>
+
+    <update id="updateOrderList">
+        UPDATE ORDER_LIST_MAIN
+           SET ORDER_PERSON_NM = #{orderPersonNm}
+             , ORDER_TELNO = #{orderTelno}
+             , ORDER_TELNO_1 = #{orderTelno1}
+             , ORDER_TELNO_2= #{orderTelno2}
+             , ORDER_TELNO_3 = #{orderTelno3}
+             , SEND_PERSON_NM = #{sendPersonNm}
+             , SEND_TELNO = #{sendTelno}
+             , SEND_TELNO_1 = #{sendTelno1}
+             , SEND_TELNO_2 = #{sendTelno2}
+             , SEND_TELNO_3 = #{sendTelno3}
+             , SEND_ZIP_NO = #{sendZipNo}
+             , SEND_ADDRESS_MAIN = #{sendAddressMain}
+             , SEND_ADDRESS_DETAIL = #{sendAddressDetail}
+             , RECEIVE_PERSON_NM = #{receivePersonNm}
+             , RECEIVE_TELNO = #{receiveTelno}
+             , RECEIVE_TELNO_1 = #{receiveTelno1}
+             , RECEIVE_TELNO_2 = #{receiveTelno2}
+             , RECEIVE_TELNO_3 = #{receiveTelno3}
+             , RECEIVE_ZIP_NO = #{receiveZipNo}
+             , RECEIVE_ADDRESS_MAIN = #{receiveAddressMain}
+             , RECEIVE_ADDRESS_DETAIL = #{receiveAddressDetail}
+             , ORDER_REMARKS = #{orderRemarks}
+             , DEPOSIT_PERSON_NM = #{depositPersonNm}
+             , DEPOSIT_REMARKS = #{depositRemarks}
+        WHERE ORDER_NO = ${orderNo}
+        <if test="userNo != null and userNo != ''">
+            AND A.USER_NO = ${userNo}
+        </if>
+    </update>
+
+    <update id="cancelOrder">
+        UPDATE ORDER_LIST_MAIN
+           SET CANCEL_DATE = CURRENT_TIMESTAMP
+        WHERE ORDER_NO = ${orderNo}
+    </update>
+</mapper>

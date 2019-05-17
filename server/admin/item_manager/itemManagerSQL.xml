@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="itemManagerSQL">
+    <select id="selectItemList">
+        SELECT ITEM_NO AS itemNo
+              , ITEM_NM AS itemNm
+              , ITEM_MAIN_CTGR_CD AS itemMainCtgrCd
+              , ITEM_MID_CTGR_CD AS itemMidCtgrCd
+              , ORIGIN_CD AS originCd
+              , IMAGE_PATH_1 AS imagePath1
+              , IMAGE_PATH_2 AS imagePath2
+              , IMAGE_PATH_3 AS imagePath3
+              , IMAGE_PATH_4 AS imagePath4
+              , IMAGE_PATH_5 AS imagePath5
+              , IMAGE_PATH_6 AS imagePath6
+              , ITEM_DESC AS itemDesc
+              , NOTICE AS notice
+              , SHIP_YN AS shipYn
+              , SOLD_OUT_YN AS soldOutYn
+              , USE_YN AS useYn
+              , RECOMMEND_YN AS recommendYn
+              , SORT_ORDER AS sortOrder
+          FROM ITEMS
+         WHERE 1=1
+           AND DEL_YN = 'N'
+        <if test="itemNm != null and itemNm != ''">
+           AND ITEM_NM LIKE CONCAT('%', #{itemNm}, '%')
+        </if>
+        <if test="useYn != null">
+           AND USE_YN = #{useYn}
+        </if>
+         ORDER BY SORT_ORDER ASC
+    </select>
+
+    <select id="selectOneItem">
+        SELECT ITEM_NO AS itemNo
+              , ITEM_NM AS itemNm
+              , ITEM_MAIN_CTGR_CD AS itemMainCtgrCd
+              , ITEM_MID_CTGR_CD AS itemMidCtgrCd
+              , ORIGIN_CD AS originCd
+              , IMAGE_PATH_1 AS imagePath1
+              , IMAGE_PATH_2 AS imagePath2
+              , IMAGE_PATH_3 AS imagePath3
+              , IMAGE_PATH_4 AS imagePath4
+              , IMAGE_PATH_5 AS imagePath5
+              , IMAGE_PATH_6 AS imagePath6
+              , ITEM_DESC AS itemDesc
+              , NOTICE AS notice
+              , KEEPING_METHOD AS keepingMethod
+              , SHIP_YN AS shipYn
+              , SOLD_OUT_YN AS soldOutYn
+              , USE_YN AS useYn
+              , RECOMMEND_YN AS recommendYn
+              , SORT_ORDER AS sortOrder
+              , DAMAGE_REMARKS AS damageRemarks
+          FROM ITEMS
+         WHERE ITEM_NO = ${itemNo}
+    </select>
+
+    <insert id="registerNewItem">
+        INSERT INTO ITEMS
+        (
+          ITEM_NM
+        , ITEM_MAIN_CTGR_CD
+        , ITEM_MID_CTGR_CD
+        , ORIGIN_CD
+        , ITEM_DESC
+        , NOTICE
+        , KEEPING_METHOD
+        , RECOMMEND_YN
+        , USE_YN
+        , SHIP_YN
+        , SOLD_OUT_YN
+        , DEL_YN
+        , SORT_ORDER
+        , DAMAGE_REMARKS
+        )
+        VALUES
+        (
+          #{itemNm}
+        , #{itemMainCtgrCd}
+        , #{itemMidCtgrCd}
+        , #{originCd}
+        , #{itemDesc}
+        , #{notice}
+        , #{keepingMethod}
+        , #{recommendYn}
+        , #{useYn}
+        , #{shipYn}
+        , #{soldOutYn}
+        , 'N'
+        , ${sortOrder}
+        , #{damageRemarks}
+        )
+    </insert>
+
+    <update id="updateImagePath">
+        UPDATE ITEMS
+           SET IMAGE_PATH_1 = CASE WHEN #{imagePath1} != '' THEN  #{imagePath1} ELSE IMAGE_PATH_1 END
+             , IMAGE_PATH_2 = CASE WHEN #{imagePath2} != '' THEN  #{imagePath2} ELSE IMAGE_PATH_2 END
+             , IMAGE_PATH_3 = CASE WHEN #{imagePath3} != '' THEN  #{imagePath3} ELSE IMAGE_PATH_3 END
+             , IMAGE_PATH_4 = CASE WHEN #{imagePath4} != '' THEN  #{imagePath4} ELSE IMAGE_PATH_4 END
+             , IMAGE_PATH_5 = CASE WHEN #{imagePath5} != '' THEN  #{imagePath5} ELSE IMAGE_PATH_5 END
+             , IMAGE_PATH_6 = CASE WHEN #{imagePath6} != '' THEN  #{imagePath6} ELSE IMAGE_PATH_6 END
+         WHERE ITEM_NO = ${itemNo}
+    </update>
+
+    <update id="modifyItem">
+        UPDATE ITEMS
+           SET ITEM_NM = #{itemNm}
+              , ITEM_MAIN_CTGR_CD = #{itemMainCtgrCd}
+              , ITEM_MID_CTGR_CD = #{itemMidCtgrCd}
+              , ORIGIN_CD = #{originCd}
+              , ITEM_DESC = #{itemDesc}
+              , NOTICE = #{notice}
+              , KEEPING_METHOD = #{keepingMethod}
+              , RECOMMEND_YN = #{recommendYn}
+              , USE_YN = #{useYn}
+              , SHIP_YN = #{shipYn}
+              , SOLD_OUT_YN = #{soldOutYn}
+              , SORT_ORDER = #{sortOrder}
+              , DAMAGE_REMARKS = #{damageRemarks}
+         WHERE ITEM_NO = ${itemNo}
+    </update>
+
+    <update id="deleteItem">
+        UPDATE ITEMS
+           SET DEL_YN = 'Y'
+         WHERE ITEM_NO = ${itemNo}
+    </update>
+
+    <select id="selectItemOption">
+        SELECT ITEM_NO AS itemNo
+              , OPTION_NO AS optionNo
+              , OPTION_NM AS optionNm
+              , ITEM_PRICE AS itemPrice
+              , SHIPPING_FEE AS shippingFee
+              , USE_YN AS useYn
+              , SORT_ORDER AS sortOrder
+          FROM ITEM_OPTION
+         WHERE ITEM_NO = ${itemNo}
+           AND DEL_YN = 'N'
+         ORDER BY SORT_ORDER ASC
+    </select>
+
+    <insert id="insertItemOption">
+        INSERT INTO ITEM_OPTION
+        (
+          ITEM_NO
+        , OPTION_NM
+        , ITEM_PRICE
+        , SHIPPING_FEE
+        , USE_YN
+        , DEL_YN
+        , SORT_ORDER
+        )
+        VALUES
+        (
+          ${itemNo}
+        , #{optionNm}
+        , ${itemPrice}
+        , ${shippingFee}
+        , #{useYn}
+        , 'N'
+        , ${sortOrder}
+        )
+    </insert>
+
+    <update id="updateItemOption">
+        UPDATE ITEM_OPTION
+           SET OPTION_NM = #{optionNm}
+              , ITEM_PRICE = ${itemPrice}
+              , SHIPPING_FEE = ${shippingFee}
+              , USE_YN = #{useYn}
+              , SORT_ORDER = ${sortOrder}
+         WHERE ITEM_NO = ${itemNo}
+           AND OPTION_NO = ${optionNo}
+    </update>
+
+    <delete id="deleteItemOption">
+        UPDATE ITEM_OPTION
+           SET DEL_YN = 'Y'
+         WHERE ITEM_NO = ${itemNo}
+           AND OPTION_NO = ${optionNo}
+    </delete>
+
+</mapper>

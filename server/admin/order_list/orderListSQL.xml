@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orderListSQL">
+    <select id="selectOrderListMain">
+        SELECT A.ORDER_NO AS orderNo
+              , B.ORDER_SEQ AS orderSeq
+              , A.TOTAL_PRICE AS totalPrice
+              , DATE_FORMAT(A.ORDER_DATE, '%Y-%m-%d') AS orderDate
+              , A.ORDER_PERSON_NM AS orderPersonNm
+              , A.ORDER_TELNO AS orderTelno
+              , A.ORDER_TELNO_1 AS orderTelno1
+              , A.ORDER_TELNO_2 AS orderTelno2
+              , A.ORDER_TELNO_3 AS orderTelno3
+              , A.SEND_PERSON_NM AS sendPersonNm
+              , A.SEND_TELNO AS sendTelno
+              , A.SEND_TELNO_1 AS sendTelno1
+              , A.SEND_TELNO_2 AS sendTelno2
+              , A.SEND_TELNO_3 AS sendTelno3
+              , A.SEND_ZIP_NO sendZipNo
+              , A.SEND_ADDRESS_MAIN sendAddressMain
+              , A.SEND_ADDRESS_DETAIL sendAddressDetail
+              , A.RECEIVE_PERSON_NM AS receivePersonNm
+              , A.RECEIVE_TELNO AS receiveTelno
+              , A.RECEIVE_TELNO_1 AS receiveTelno1
+              , A.RECEIVE_TELNO_2 AS receiveTelno2
+              , A.RECEIVE_TELNO_3 AS receiveTelno3
+              , A.RECEIVE_ZIP_NO receiveZipNo
+              , A.RECEIVE_ADDRESS_MAIN receiveAddressMain
+              , A.RECEIVE_ADDRESS_DETAIL receiveAddressDetail
+              , A.ORDER_REMARKS AS orderRemarks
+              , A.DEPOSIT_PERSON_NM AS depositPersonNm
+              , A.DEPOSIT_REMARKS AS depositRemarks
+              , DATE_FORMAT(A.DEPOSIT_CONFIRM_DATE, '%Y-%m-%d  %H:%i:%s') AS depositConfirmDate
+              , DATE_FORMAT(B.DLVR_CONFIRM_DATE, '%Y-%m-%d') AS dlvrConfirmDate
+              , DATE_FORMAT(A.CANCEL_DATE, '%Y-%m-%d') AS cancelDate
+              , A.BASIC_FARES AS basicFares
+              , A.BOX_TYPE AS boxType
+              , A.FARE_TYPE AS fareType
+              , B.QTY AS qty
+              , A.SELLER_NO AS sellerNo
+              , C.ITEM_NO AS itemNo
+              , C.KEEPING_METHOD AS keepingMethod
+              , D.OPTION_NO AS optionNo
+              , D.OPTION_NM AS optionNm
+              , D.ITEM_PRICE AS itemPrice
+              , D.SHIPPING_FEE AS shippingFee
+              , C.ITEM_NM AS itemNm
+              , C.IMAGE_PATH_1 AS imagePath1
+              , (SELECT COUNT(INVOICE_NO) FROM INVOICE WHERE ORDER_NO = A.ORDER_NO) AS invoiceCnt
+          FROM ORDER_LIST_MAIN A, ORDER_LIST_DETAIL B, ITEMS C, ITEM_OPTION D, USERS E
+         WHERE A.ORDER_DATE BETWEEN STR_TO_DATE(#{startOrderDate}, '%Y-%m-%d') AND DATE_ADD(STR_TO_DATE(#{endOrderDate}, '%Y-%m-%d'), INTERVAL 1 DAY)
+           AND A.ORDER_NO = B.ORDER_NO
+           AND B.ITEM_NO = C.ITEM_NO
+           AND B.OPTION_NO = D.OPTION_NO
+           AND A.USER_NO = E.USER_NO
+        <if test="userNo != null and userNo != ''">
+           AND A.USER_NO = ${userNo}
+        </if>
+        <if test="userNm != null and userNm != ''">
+           AND A.RECEIVE_PERSON_NM LIKE CONCAT('%', #{userNm}, '%')
+        </if>
+         ORDER BY A.ORDER_NO DESC
+    </select>
+
+    <select id="selectOrderListMainByOrderNo">
+        SELECT A.ORDER_NO AS orderNo
+        , B.ORDER_SEQ AS orderSeq
+        , A.TOTAL_PRICE AS totalPrice
+        , DATE_FORMAT(A.ORDER_DATE, '%Y-%m-%d') AS orderDate
+        , A.ORDER_PERSON_NM AS orderPersonNm
+        , A.ORDER_TELNO AS orderTelno
+        , A.ORDER_TELNO_1 AS orderTelno1
+        , A.ORDER_TELNO_2 AS orderTelno2
+        , A.ORDER_TELNO_3 AS orderTelno3
+        , A.SEND_PERSON_NM AS sendPersonNm
+        , A.SEND_TELNO AS sendTelno
+        , A.SEND_TELNO_1 AS sendTelno1
+        , A.SEND_TELNO_2 AS sendTelno2
+        , A.SEND_TELNO_3 AS sendTelno3
+        , A.SEND_ZIP_NO sendZipNo
+        , A.SEND_ADDRESS_MAIN sendAddressMain
+        , A.SEND_ADDRESS_DETAIL sendAddressDetail
+        , A.RECEIVE_PERSON_NM AS receivePersonNm
+        , A.RECEIVE_TELNO AS receiveTelno
+        , A.RECEIVE_TELNO_1 AS receiveTelno1
+        , A.RECEIVE_TELNO_2 AS receiveTelno2
+        , A.RECEIVE_TELNO_3 AS receiveTelno3
+        , A.RECEIVE_ZIP_NO receiveZipNo
+        , A.RECEIVE_ADDRESS_MAIN receiveAddressMain
+        , A.RECEIVE_ADDRESS_DETAIL receiveAddressDetail
+        , A.ORDER_REMARKS AS orderRemarks
+        , A.DEPOSIT_PERSON_NM AS depositPersonNm
+        , A.DEPOSIT_REMARKS AS depositRemarks
+        , DATE_FORMAT(A.DEPOSIT_CONFIRM_DATE, '%Y-%m-%d  %H:%i:%s') AS depositConfirmDate
+        , DATE_FORMAT(B.DLVR_CONFIRM_DATE, '%Y-%m-%d') AS dlvrConfirmDate
+        , DATE_FORMAT(A.CANCEL_DATE, '%Y-%m-%d') AS cancelDate
+        , A.BASIC_FARES AS basicFares
+        , A.BOX_TYPE AS boxType
+        , A.FARE_TYPE AS fareType
+        , B.QTY AS qty
+        , A.SELLER_NO AS sellerNo
+        , C.ITEM_NO AS itemNo
+        , C.KEEPING_METHOD AS keepingMethod
+        , D.OPTION_NO AS optionNo
+        , D.OPTION_NM AS optionNm
+        , D.ITEM_PRICE AS itemPrice
+        , D.SHIPPING_FEE AS shippingFee
+        , C.ITEM_NM AS itemNm
+        , C.IMAGE_PATH_1 AS imagePath1
+        , (SELECT COUNT(INVOICE_NO) FROM INVOICE WHERE ORDER_NO = A.ORDER_NO) AS invoiceCnt
+        FROM ORDER_LIST_MAIN A, ORDER_LIST_DETAIL B, ITEMS C, ITEM_OPTION D, USERS E
+        WHERE 1=1
+        AND A.ORDER_NO = B.ORDER_NO
+        AND B.ITEM_NO = C.ITEM_NO
+        AND B.OPTION_NO = D.OPTION_NO
+        AND A.USER_NO = E.USER_NO
+        AND A.ORDER_NO = ${orderNo}
+        ORDER BY A.ORDER_NO DESC
+    </select>
+
+    <update id="updateDepositConfirmDate">
+        UPDATE ORDER_LIST_MAIN
+           SET DEPOSIT_CONFIRM_DATE = CURRENT_TIMESTAMP
+         WHERE ORDER_NO = ${orderNo}
+    </update>
+
+    <update id="updateDlvrConfirmDate">
+        UPDATE ORDER_LIST_DETAIL
+           SET DLVR_CONFIRM_DATE = CURRENT_TIMESTAMP
+         WHERE ORDER_NO = ${orderNo}
+           AND ORDER_SEQ = ${orderSeq}
+    </update>
+
+    <update id="updateInvoiceNo">
+        UPDATE ORDER_LIST_DETAIL
+           SET INVOICE_NO = #{invoiceNo}
+         WHERE ORDER_NO = ${orderNo}
+           AND ORDER_SEQ = ${orderSeq}
+    </update>
+
+    <insert id="insertInvoiceNo">
+        INSERT INTO INVOICE
+        (
+          ORDER_NO
+        , INVOICE_NO
+        ) VALUES (
+          ${orderNo}
+        , ${invoiceNo}
+        )
+    </insert>
+
+    <delete id="deleteInvoiceNo">
+        DELETE FROM INVOICE
+         WHERE ORDER_NO = ${orderNo}
+           AND INVOICE_NO = ${invoiceNo}
+    </delete>
+
+    <select id="selectInvoiceNo">
+        SELECT ORDER_NO AS orderNo
+              , INVOICE_NO AS invoiceNo
+          FROM INVOICE
+         WHERE ORDER_NO = ${orderNo}
+    </select>
+
+    <update id="updateAdditionalInfo">
+        UPDATE ORDER_LIST_MAIN
+           SET BASIC_FARES = #{basicFares}
+              , BOX_TYPE = #{boxType}
+              , FARE_TYPE = #{fareType}
+         WHERE ORDER_NO = ${orderNo}
+    </update>
+
+    <select id="selectRecentReceiver">
+        SELECT DISTINCT A.RECEIVE_PERSON_NM AS receivePersonNm
+              , A.RECEIVE_TELNO AS receiveTelno
+              , A.RECEIVE_TELNO_1 AS receiveTelno1
+              , A.RECEIVE_TELNO_2 AS receiveTelno2
+              , A.RECEIVE_TELNO_3 AS receiveTelno3
+              , A.RECEIVE_ZIP_NO AS receiveZipNo
+              , A.RECEIVE_ADDRESS_MAIN AS receiveAddressMain
+              , A.RECEIVE_ADDRESS_DETAIL AS receiveAddressDetail
+          FROM ORDER_LIST_MAIN A
+         WHERE A.RECEIVE_TELNO = #{telno}
+         ORDER BY A.ORDER_NO DESC
+    </select>
+
+</mapper>
