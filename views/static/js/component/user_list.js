@@ -11,7 +11,7 @@ let constructUserList =  {
 		this.cur = -1;
 		this.max = 0;
 		this.lastUserNo = 99999999;
-		this.idPerPage = 15;
+		this.idPerPage = 300;
 		this.pageLength = 10;
 		this.allData = [];
 		this.selectFunction = func;
@@ -32,6 +32,10 @@ let constructUserList =  {
 			let managerNm = this.allData[i].managerNm ? this.allData[i].managerNm : '';
 			let managerTelno = this.allData[i].managerTelno ? this.allData[i].managerTelno : '';
 			html += '<tr class="each-user" style="margin-bottom: 0px;">';
+			html += '<td style="vertical-align: middle;">';
+			html += '<div class="ml-2 custom-control custom-checkbox"><input type="checkbox" class="custom-control-input select-user" id="' + telno + '">';
+			html += '<label class="custom-control-label" for="' + telno + '"></label>';
+			html += '</div></td>';
 			html += '<input type="hidden" id="user_no" value="' + userNo + '">';
 			html += '<td>' + userNm + '</td>';
 			html += '<td>' + telno + '</td>';

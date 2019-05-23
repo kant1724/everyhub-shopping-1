@@ -1,6 +1,6 @@
 let express = require('express');
 let router = express.Router();
-let orderListBiz = require('./userManagerBiz');
+let userManagerBiz = require('./userManagerBiz');
 let auth = require('../../common/auth');
 
 router.get('/', function(req, res, next) {
@@ -14,9 +14,20 @@ router.post('/updateManagerNo', function(req, res) {
     if (req.session.adminYn == 'N') {
         param.userNo = req.session.userNo;
     }
-    orderListBiz.updateManagerNo(param, (ret) => {
+    userManagerBiz.updateManagerNo(param, (ret) => {
         res.status(200).send({ret: ret});
     });
+});
+
+router.post('/sendSMS', function(req, res) {
+    if (req.session.adminYn == 'N') {
+        res.status(500).send();
+    } else {
+        let param = req.body;
+        userManagerBiz.sendSMS(param, (ret) => {
+            res.status(200).send({ret: ret});
+        });
+    }
 });
 
 module.exports = router;
