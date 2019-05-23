@@ -11,6 +11,8 @@ function ajax(url, inputData, gubun, method) {
                 selectAllUserCallback(data.ret);
             } else if (gubun == 'updateManagerNo') {
                 updateManagerNoCallback(data.ret);
+            } else if (gubun == 'sendSMS') {
+                sendSMSCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -116,4 +118,9 @@ function sendSMS() {
         smsTelno: smsTelno
     };
     ajax('/admin/user_manager/sendSMS', inputData, 'sendSMS', 'POST');
+}
+
+function sendSMSCallback() {
+    alert('문자가 정상적으로 발송되었습니다.');
+    $('#send_sms_close_modal').click();
 }
