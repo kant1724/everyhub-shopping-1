@@ -21,10 +21,13 @@
         <div class="ml-3 mr-3">
             <div class="mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">회원목록</div>
             <hr>
+            <button type="button" id="send_sms_btn" class="btn btn-sm btn-secondary btn-rounded send-sms-btn">문자메세지 전송
+            </button>
             <section class="section mt-3 mb-3 pb-3">
                 <table id="user_list" class="table table-bordered text-center">
                     <thead>
                     <tr>
+                        <th><div class="ml-2 custom-control custom-checkbox"><input type="checkbox" class="custom-control-input select-order" id="check_all"><label class="custom-control-label" for="check_all"></label></div></th>
                         <th>회원명</th>
                         <th>휴대폰번호</th>
                         <th>매니저명</th>
@@ -51,6 +54,26 @@
                 <div class="text-center pb-5">
                     <a id="update_manager_no" class="common-button-1">저장</a>
                     <a id="manager_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="send_sms_modal" tabindex="-1" role="dialog" aria-labelledby="send_sms_modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <input id="smsTelno" type="hidden">
+                <div class="mt-4" style="width: 80%; margin: auto;">제목</div>
+                <div class="text-center mt-1">
+                    <input type="text" id="sms_subject" placeholder="문자메세지 제목을 입력하세요" style="padding: 5px; width: 80%;">
+                </div>
+                <hr>
+                <div style="width: 80%; margin: auto;">내용</div>
+                <div class="text-center mt-1 mb-3">
+                    <textarea id="sms_content" placeholder="문자메세지 내용을 입력하세요" style="padding: 5px; width: 80%; height: 300px;"></textarea>
+                </div>
+                <div class="text-center pb-5">
+                    <a id="send_sms" class="common-button-1 mr-1">문자전송</a>
+                    <a id="send_sms_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
                 </div>
             </div>
         </div>

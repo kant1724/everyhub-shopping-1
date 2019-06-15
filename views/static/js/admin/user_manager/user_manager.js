@@ -11,6 +11,8 @@ function ajax(url, inputData, gubun, method) {
                 selectAllUserCallback(data.ret);
             } else if (gubun == 'updateManagerNo') {
                 updateManagerNoCallback(data.ret);
+            } else if (gubun == 'sendSMS') {
+                sendSMSCallback();
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -22,10 +24,49 @@ $(document).ready(function() {
         updateManagerNo();
     });
 
+    $('#check_all').click(function() {
+        checkAll();
+    });
+
+    $('#send_sms_btn').click(function() {
+        let list = $('#user_list_tbody').find('.select-user');
+        let cnt = 0;
+        for (let i = 0; i < list.length; ++i) {
+            if ($(list[i]).prop('checked')) {
+                cnt += 1;
+            }
+        }
+        if (cnt == 0) {
+            alert('한건이상 선택해 주세요.');
+            return;
+        }
+        $('#send_sms_modal').modal();
+    });
+
+    $('#send_sms').click(function() {
+        if (isNull($('#sms_subject').val())) {
+            alert('제목을 입력하세요.');
+            return;
+        }
+        if (isNull($('#sms_content').val())) {
+            alert('내용을 입력하세요.');
+            return;
+        }
+        sendSMS();
+    });
+
     constructUserList.init(selectAllUser);
 
     selectAllUser();
 });
+
+function checkAll() {
+    if ($('#check_all').is(':checked')) {
+        $('#user_list_tbody').find('.select-user').prop('checked', true);
+    } else {
+        $('#user_list_tbody').find('.select-user').prop('checked', false);
+    }
+}
 
 function selectAllUser() {
     let inputData = {
@@ -55,4 +96,31 @@ function updateManagerNoCallback(ret) {
         selectAllUser();
         $('#manager_close_modal').click();
     }
+}
+
+function sendSMS() {
+    if (!confirm('문자메세지를 전송하시겠습니까?')) {
+        return;
+    }
+    let smsSubject = $('#sms_subject').val();
+    let smsContent = $('#sms_content').val();
+    let smsTelno = '';
+    let list = $('#user_list_tbody').find('.select-user');
+    for (let i = 0; i < list.length; ++i) {
+        if ($(list[i]).prop('checked')) {
+            smsTelno += $(list[i]).prop('id') + ';';
+        }
+    }
+    smsTelno = smsTelno.substring(0, smsTelno.length - 1);
+    let inputData = {
+        smsSubject: smsSubject,
+        smsContent: smsContent,
+        smsTelno: smsTelno
+    };
+    ajax('/admin/user_manager/sendSMS', inputData, 'sendSMS', 'POST');
+}
+
+function sendSMSCallback() {
+    alert('문자가 정상적으로 발송되었습니다.');
+    $('#send_sms_close_modal').click();
 }
