@@ -31,6 +31,10 @@ if ($('#user_no').val() == 0) {
     headerHtml += '</li>';
 } else {
     headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
+    headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/introduction_manager">';
+    headerHtml += '<i class="far fa-user"></i>&nbsp;&nbsp;농장소개등록';
+    headerHtml += '</a>';
+    headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
     headerHtml += '<a class="nav-link waves-effect waves-light" href="/mypage">';
     headerHtml += '<i class="far fa-user"></i>&nbsp;&nbsp;마이페이지';
     headerHtml += '</a>';
