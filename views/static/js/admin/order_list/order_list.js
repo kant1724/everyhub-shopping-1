@@ -221,8 +221,21 @@ function exportExcel() {
         ]
     };
     let data = [];
+    let orderObj = $('#order_list_tbody').find('.each-order');
     for (let i = 0; i < allData.length; ++i) {
         if (!isNull(allData[i].cancelDate))  {
+            continue;
+        }
+        let idx = 0;
+        for (let j = 0; j < orderObj.length; ++j) {
+            let orderNo = $(orderObj[j]).find('#order_no').text();
+            if (allData[i].orderNo == orderNo) {
+                idx = j;
+                break;
+            }
+        }
+        let checked = $(orderObj[idx]).find('.select-order').is(':checked');
+        if (!checked) {
             continue;
         }
         let d = {};
@@ -253,6 +266,10 @@ function exportExcel() {
         d['박스수량'] = allData[i].qty;
         d['배송메세지1'] = '';
         data.push(d);
+    }
+    if (data.length == 0) {
+        alert('체크박스로 엑셀다운할 리스트를 선택해 주세요.');
+        return;
     }
     let ws = XLSX.utils.json_to_sheet(data, header);
     XLSX.utils.book_append_sheet(wb, ws, '주문내역');
