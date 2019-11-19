@@ -23,7 +23,7 @@ module.exports = {
             let msg = '주문번호 ' + orderNo + '번의 배송이 시작되었습니다.\n';
             msg += '상품명: ' + itemNm + '\n';
             msg += '옵션명: ' + optionNm + '\n';
-            sms.sendSMS('배송이 시작되었습니다.', msg, orderTelno);
+            //sms.sendSMS('배송이 시작되었습니다.', msg, orderTelno);
         }
         orderListDao.updateDlvrConfirmDate(param, callback);
     },

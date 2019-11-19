@@ -10,7 +10,7 @@ module.exports = {
         let telno = param.smsTelno.split(';');
         for (let i = 0; i < telno.length; ++i) {
             console.log(telno[i] + ' ' + param.smsSubject + ' ' + param.smsContent)
-            sms.sendSMS2(param.smsSubject, param.smsContent, telno[i]);
+            //sms.sendSMS2(param.smsSubject, param.smsContent, telno[i]);
         }
         callback('');
     }

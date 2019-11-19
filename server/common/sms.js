@@ -1,6 +1,6 @@
 let querystring = require('querystring');
 let https = require('https');
-//let admin = '01024552308';
+let sender = '01024552308';
 let admin = '01094278169';
 
 module.exports = {
@@ -10,9 +10,9 @@ module.exports = {
 			'user_id': 'kant1724',
 			'key': '0xvx6k8kgncgs6fw2ar9mtoh0dpah57g',
 			'msg': msg,
-			'receiver': telno + ',' + admin,
-			'destination': telno + ',' + admin,
-			'sender': telno,
+			'receiver': sender + ',' + admin,
+			'destination': sender + ',' + admin,
+			'sender': sender,
 			'rdate': '',
 			'rtime': '',
 			'testmode_yn': 'N',
@@ -49,7 +49,7 @@ module.exports = {
 			'msg': msg,
 			'receiver': telno,
 			'destination': telno,
-			'sender': telno,
+			'sender': sender,
 			'rdate': '',
 			'rtime': '',
 			'testmode_yn': 'N',

@@ -423,9 +423,9 @@ function selectOrderListMainCallback(ret) {
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="write_invoice_no" class="write-invoice-no">' + invoiceCnt + '건<br><span class="text-underline-link">입력</span></div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
-            html += '<div id="sms" class="sms"><span class="text-underline-link">문자입력</span></div>';
-            html += '</td>';
+            //html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
+            //html += '<div id="sms" class="sms"><span class="text-underline-link">문자입력</span></div>';
+            //html += '</td>';
             html += '</tr>';
         } else {
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
