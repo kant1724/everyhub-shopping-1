@@ -280,7 +280,8 @@ function selectOrderListMain() {
     let inputData = {
         startOrderDate: $('#starting_date').val(),
         endOrderDate: $('#ending_date').val(),
-        userNm: $('#user_nm').val()
+        userNm: $('#user_nm').val(),
+        userNo: ''
     };
     ajax('/admin/order_list/selectOrderListMain', inputData, 'selectOrderListMain', 'POST');
 }
