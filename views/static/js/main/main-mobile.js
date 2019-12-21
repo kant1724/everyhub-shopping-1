@@ -108,7 +108,7 @@ function setRecommendProduct(ret) {
         html += '<a class="all-product-detail-text3">원산지: 국내산</a><br>';
         html += '<a style="color: #980000; font-size: 13px;">' + shipYn + '</a><br>';
         html += '<hr>';
-        html += '<a class="all-product-detail-text3">' + ret[i].itemDesc +'</a>';
+        html += '<a class="all-product-detail-text3">' + ret[i].itemDesc.replace(/\n/gi, '<br>') +'</a>';
         html += '<div class="row mb-0 mt-3">';
         html += '<a class="ml-3 mb-0 pb-0 mt-1 font-weight-bold" style="font-size: 16px;">';
         html += '<span class="red-text">';

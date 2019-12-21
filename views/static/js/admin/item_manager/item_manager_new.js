@@ -176,8 +176,8 @@ function checkValidation() {
         $('#item_desc_label').css('color', 'red');
         isOk = false;
     } else {
-        if ($('#item_desc').val().length > 60) {
-            $('#item_desc_label').text('상품설명은 60자를 초과할 수 없습니다.');
+        if ($('#item_desc').val().length > 100) {
+            $('#item_desc_label').text('상품설명은 100자를 초과할 수 없습니다.');
             $('#item_desc_label').css('color', 'red');
             isOk = false;
         } else {

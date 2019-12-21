@@ -238,7 +238,7 @@ function selectOneItemCallback(ret) {
     $('.swiper-wrapper').append(html);
     initSwiper();
     $('#info_item_nm').html(itemNm);
-    $('#info_item_desc').text(ret[0].itemDesc);
+    $('#info_item_desc').html(ret[0].itemDesc.replace(/\n/gi, '<br>'));
     $('#keeping_method').val(ret[0].keepingMethod);
     $('#damage_remarks').val(ret[0].damageRemarks);
 }

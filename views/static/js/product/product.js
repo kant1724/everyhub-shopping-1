@@ -249,7 +249,7 @@ function selectOneItemCallback(ret) {
     initSwiper();
     $('#info_image_path').prop('src', ret[0].imagePath1);
     $('#info_item_nm').html(itemNm);
-    $('#info_item_desc').text(ret[0].itemDesc);
+    $('#info_item_desc').html(ret[0].itemDesc.replace(/\n/gi, '<br>'));
     $('#keeping_method').val(ret[0].keepingMethod);
     $('#damage_remarks').val(ret[0].damageRemarks);
 }
