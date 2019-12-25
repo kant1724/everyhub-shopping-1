@@ -54,7 +54,7 @@
            AND B.OPTION_NO = D.OPTION_NO
            AND A.USER_NO = E.USER_NO
         <if test="userNo != null and userNo != ''">
-           AND A.USER_NO = ${userNo}
+           AND A.USER_NO = #{userNo}
         </if>
         <if test="userNm != null and userNm != ''">
            AND A.RECEIVE_PERSON_NM LIKE CONCAT('%', #{userNm}, '%')

@@ -13,6 +13,8 @@ router.post('/selectOrderListMain', function(req, res) {
     let param = req.body;
     if (req.session.adminYn == 'N') {
         param.userNo = req.session.userNo;
+    } else {
+        param.userNo = null
     }
     orderListBiz.selectOrderListMain(param, (ret) => {
         res.status(200).send({ret: ret});
