@@ -96,7 +96,8 @@ function selectInvoiceNoCallback(ret) {
 function selectOrderListMain() {
     let inputData = {
         startOrderDate: $('#startingDate').val(),
-        endOrderDate: $('#endingDate').val()
+        endOrderDate: $('#endingDate').val(),
+        userNo: $('#user_no').val()
     };
     ajax('/admin/order_list/selectOrderListMain', inputData, 'selectOrderListMain', 'POST');
 }
