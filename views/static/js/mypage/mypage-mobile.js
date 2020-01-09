@@ -322,7 +322,9 @@ function validationCheck() {
 }
 
 function selectUser() {
-    let inputData  = {};
+    let inputData  = {
+        userNo: $('#user_no').val()
+    };
     ajax('/user/selectUser', inputData , 'selectUser', 'POST');
 }
 
