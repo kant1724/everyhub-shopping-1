@@ -71,7 +71,7 @@ router.post('/login', function(req, res) {
 
 router.post('/selectUser', function(req, res) {
     let param = req.body;
-    param.userNo = req.session.userNo;
+    //param.userNo = req.session.userNo;
     userBiz.selectUser(param, (ret) => {
         res.status(200).send({ret: ret});
     });
