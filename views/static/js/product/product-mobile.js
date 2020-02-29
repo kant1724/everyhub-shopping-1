@@ -180,12 +180,19 @@ function selectItemOptionCallback(ret) {
         if (useYn == 'N') continue;
         $('#item_option').append('<option value="' + optionNo + '">' + optionNm + '</option>');
     }
-    $('#info_item_price').text(numberWithCommas(optionData[0].itemPrice) + '원');
-    $('#info_shipping_fee').text(numberWithCommas(optionData[0].shippingFee) + '원');
-    $('#info_item_price_num').val(optionData[0].itemPrice);
-    $('#info_shipping_fee_num').val(optionData[0].shippingFee);
-    $('#info_option_no').val(optionData[0].optionNo);
-    $('#info_option_nm').val(optionData[0].optionNm);
+    let start = 0
+    for (let i = 0; i < optionData.length; ++i) {
+        if (optionData[i].useYn == 'Y') {
+            start = i;
+            break;
+        }
+    }
+    $('#info_item_price').text(numberWithCommas(optionData[start].itemPrice) + '원');
+    $('#info_shipping_fee').text(numberWithCommas(optionData[start].shippingFee) + '원');
+    $('#info_item_price_num').val(optionData[start].itemPrice);
+    $('#info_shipping_fee_num').val(optionData[start].shippingFee);
+    $('#info_option_no').val(optionData[start].optionNo);
+    $('#info_option_nm').val(optionData[start].optionNm);
 }
 
 function selectProductReviews() {
