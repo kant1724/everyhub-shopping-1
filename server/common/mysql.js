@@ -3,11 +3,11 @@ module.exports = {
         const mysql = require('mysql');
         const connection = mysql.createConnection({
             multipleStatements: true,
-            host: '14.63.225.138',
-            port: '11001',
-            user: 'everyhub',
-            password: 'everyhub',
-            database: 'everyhubshopping'
+            host: '211.253.9.176',
+            port: '11000',
+            user: 'gandeurak',
+            password: 'gandeurak',
+            database: 'gandeurak'
         });
 
         return connection;
