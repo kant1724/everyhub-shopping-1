@@ -162,7 +162,7 @@ $(document).ready(function() {
     selectOneItem();
 });
 
-let remoteUrl = '14.63.174.25:5006';
+let remoteUrl = '211.253.9.176:5006';
 function selectOneItem() {
     let inputData = {'itemNo' : $('#item_no').val()};
     ajax('/admin/item_manager/selectOneItem', inputData, 'selectOneItem', 'POST');

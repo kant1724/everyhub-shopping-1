@@ -158,7 +158,7 @@ $(document).ready(function() {
     });
 });
 
-let remoteUrl = '14.63.174.25:5006';
+let remoteUrl = '211.253.9.176:5006';
 
 function checkValidation() {
     let isOk = true;
