@@ -31,6 +31,11 @@ module.exports = {
 
     sendSms: function(param) {
         let p = param.orderListMain;
+
+        if (p.orderTelno == '01091006870' || p.orderTelno == '01094278169') {
+            return;
+        }
+
         let msg = '주문이 신청되었습니다.\n';
         msg += '주문번호: ' + p.orderNo + '\n';
         msg += '주문자: ' + p.orderPersonNm + '\n';
@@ -50,9 +55,11 @@ module.exports = {
         }
         msg += '주문내역: ' + productNm;
         sms.sendSMS('주문이 완료되었습니다.', msg, p.orderTelno);
+        /**
         for (let n in d) {
             let damageRemarks = d[n];
             sms.sendSMS('파손시 조치내용', n + ' 파손시 조치내용:\n' + damageRemarks, p.orderTelno);
         }
+        **/
     }
 };
