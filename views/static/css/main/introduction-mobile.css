@@ -3,6 +3,16 @@ body {
     overflow-x: hidden;
 }
 
+#introduction_text {
+    font-family: 'Gamja Flower', cursive;
+    overflow-x: hidden;
+}
+
+#introduction_title {
+    font-family: 'Gamja Flower', cursive;
+    overflow-x: hidden;
+}
+
 #owner_image {
     width: 100%;
     height: 100%;

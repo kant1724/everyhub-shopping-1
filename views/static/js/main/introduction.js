@@ -25,5 +25,8 @@ function selectIntroduction() {
 }
 
 function selectIntroductionCallback(ret) {
-    $('#introduction_text').text(ret[0].introductionText);
+    let text = ret[0].introductionText;
+    text = text.replace(/\n/gi, '<br>');
+
+    $('#introduction_text').html(text);
 }

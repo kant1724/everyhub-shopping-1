@@ -43,6 +43,11 @@ if ($('#user_no').val() == 0) {
 }
 if ($('#admin_yn').val() == 'Y') {
     headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
+    headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/introduction_manager">';
+    headerHtml += '<i class="fal fa-address-book"></i>&nbsp;&nbsp;소개글관리';
+    headerHtml += '</a>';
+    headerHtml += '</li>';
+    headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
     headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/item_manager">';
     headerHtml += '<i class="fab fa-product-hunt"></i>&nbsp;&nbsp;상품관리';
     headerHtml += '</a>';
