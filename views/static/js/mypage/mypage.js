@@ -422,6 +422,7 @@ function cancelOrderCallback() {
 
 function writeReviewCallback() {
     alert('후기가 작성되었습니다.');
+    $('#review_close_modal').click();
 }
 
 function updateUserCallback() {
