@@ -89,7 +89,8 @@ function selectInvoiceNoCallback(ret) {
     $('.modal-invoice-detail').unbind();
     $('.modal-invoice-detail').click(function() {
         let invoiceNo = $(this).parent().find('.modal-invoice-no').text();
-        window.open('https://www.doortodoor.co.kr/parcel/doortodoor.do?fsp_action=PARC_ACT_002&fsp_cmd=retrieveInvNoACT&invc_no=' + invoiceNo);
+        window.open('http://www.deliverytracking.kr/?dummy=one&deliverytype=hanjin&keyword=' + invoiceNo);
+        //window.open('https://www.doortodoor.co.kr/parcel/doortodoor.do?fsp_action=PARC_ACT_002&fsp_cmd=retrieveInvNoACT&invc_no=' + invoiceNo);
     });
 }
 
