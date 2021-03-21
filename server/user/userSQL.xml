@@ -113,6 +113,7 @@
 
     <select id="selectSellerInfo">
         SELECT SELLER_NM AS sellerNm
+              , SEND_ZIP_NO AS sendZipNo
               , SEND_ADDRESS AS sendAddress
               , ACNO AS acno
               , DEPOSIT_PERSON_NM AS depositPersonNm

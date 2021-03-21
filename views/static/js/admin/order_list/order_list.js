@@ -45,8 +45,13 @@ $(document).ready(function() {
     $('#search').click(function() {
         selectOrderListMain();
     });
-    $('#export_excel').click(function() {
-        exportExcel();
+
+    $('#export_excel_cj').click(function() {
+        exportExcelCj();
+    });
+
+    $('#export_excel_hanjin').click(function() {
+        exportExcelHanjin();
     });
 
     $('#start_dlvr').click(function() {
@@ -201,7 +206,7 @@ function updateDlvrConfirmDate() {
     }
 }
 
-function exportExcel() {
+function exportExcelCj() {
     let wb = XLSX.utils.book_new();
     let header = {
         header: ['보내는성명',
@@ -265,6 +270,87 @@ function exportExcel() {
         d['품목명'] = allData[i].itemNm + ',' + allData[i].optionNm;
         d['박스수량'] = allData[i].qty;
         d['배송메세지1'] = '';
+        data.push(d);
+    }
+    if (data.length == 0) {
+        alert('체크박스로 엑셀다운할 리스트를 선택해 주세요.');
+        return;
+    }
+    let ws = XLSX.utils.json_to_sheet(data, header);
+    XLSX.utils.book_append_sheet(wb, ws, '주문내역');
+    XLSX.writeFile(wb, "order_list.xlsx");
+}
+
+function exportExcelHanjin() {
+    let wb = XLSX.utils.book_new();
+    let header = {
+        header: ['보내는분',
+            '보내는분 연락처',
+            '보내는 담당자',
+            '보내는분전화번호',
+            '보내는분우편번호',
+            '보내는분주소',
+            '받는분성함',
+            '받는분 연락처',
+            '받는분 담당자',
+            '받는분 핸드폰',
+            '받는분 우편번호',
+            '받는분주소',
+            '수량',
+            '품목명',
+            '운임type',
+            '지불조건',
+            '출고번호',
+            '특기사항',
+        ]
+    };
+    let data = [];
+    let orderObj = $('#order_list_tbody').find('.each-order');
+    for (let i = 0; i < allData.length; ++i) {
+        if (!isNull(allData[i].cancelDate))  {
+            continue;
+        }
+        let idx = 0;
+        for (let j = 0; j < orderObj.length; ++j) {
+            let orderNo = $(orderObj[j]).find('#order_no').text();
+            if (allData[i].orderNo == orderNo) {
+                idx = j;
+                break;
+            }
+        }
+        let checked = $(orderObj[idx]).find('.select-order').is(':checked');
+        if (!checked) {
+            continue;
+        }
+        let d = {};
+        d['보내는분'] = allData[i].sendPersonNm;
+        d['보내는분 연락처'] = allData[i].sendTelno;
+        d['보내는분전화번호'] = allData[i].sendTelno;
+        d['보내는분우편번호'] = allData[i].sendZipNo;
+        d['보내는분주소'] = allData[i].sendAddressMain + ' ' + allData[i].sendAddressDetail;
+        if (d['보내는분'] == '') {
+            d['보내는분'] = sellerInfo.sellerNm;
+        }
+        if (d['보내는분 연락처'] == '') {
+            d['보내는분 연락처'] = sellerInfo.telno;
+        }
+        if (d['보내는분전화번호'] == '') {
+            d['보내는분전화번호'] = sellerInfo.telno;
+        }
+        if (d['보내는분우편번호'] == '') {
+            d['보내는분우편번호'] = sellerInfo.sendZipNo;
+        }
+        if (d['보내는분주소'] == ' ') {
+            d['보내는분주소'] = sellerInfo.sendAddress;
+        }
+        d['받는분성함'] = allData[i].receivePersonNm;
+        d['받는분 연락처'] = allData[i].receiveTelno;
+        d['받는분 핸드폰'] = allData[i].receiveTelno;
+        d['받는분 우편번호'] = allData[i].receiveZipNo;
+        d['받는분주소'] = allData[i].receiveAddressMain + ' ' + allData[i].receiveAddressDetail;
+        d['수량'] = allData[i].qty;
+        d['품목명'] = allData[i].itemNm + ',' + allData[i].optionNm;
+        d['운임type'] = allData[i].fareType;
         data.push(d);
     }
     if (data.length == 0) {
