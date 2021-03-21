@@ -351,7 +351,8 @@ function exportExcelHanjin() {
         d['받는분주소'] = allData[i].receiveAddressMain + ' ' + allData[i].receiveAddressDetail;
         d['수량'] = allData[i].qty;
         d['품목명'] = allData[i].itemNm + ',' + allData[i].optionNm;
-        d['운임type'] = allData[i].fareType;
+        d['운임type'] = 'B';
+        d['지불조건'] = '선불';
         data.push(d);
     }
     if (data.length == 0) {
