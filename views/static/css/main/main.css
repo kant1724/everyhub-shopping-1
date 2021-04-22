@@ -301,3 +301,30 @@ body {
     font-size: 26px;
     color: #333;
 }
+
+.gallery-slide {
+    background-image: url('/static/res/top_10.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.gallery-top {
+    height: 600px;
+    width: 100%;
+}
+
+.gallery-thumbs {
+    height: 200px;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+
+.gallery-thumbs .swiper-slide {
+    height: 200px;
+    opacity: 0.4;
+}
+
+.gallery-thumbs .swiper-slide-thumb-active {
+    opacity: 1;
+}

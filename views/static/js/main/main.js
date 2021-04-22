@@ -37,7 +37,9 @@ $(document).ready(function() {
     });
 
     initSwiper1();
+    initSwiper3();
     selectItemList();
+
 });
 
 function selectItemList() {
@@ -83,6 +85,30 @@ function initSwiper2() {
             prevEl: '.swiper-button-prev.rcm-swiper',
             nextEl: '.swiper-button-next.rcm-swiper'
         }
+    });
+}
+
+function initSwiper3() {
+    var galleryThumbs = new Swiper('.swiper-container.gallery-thumbs', {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        loop: true,
+        freeMode: true,
+        loopedSlides: 5, //looped slides should be the same
+        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
+    });
+    var galleryTop = new Swiper('.swiper-container.gallery-top', {
+        spaceBetween: 10,
+        loop: true,
+        loopedSlides: 5, //looped slides should be the same
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        thumbs: {
+            swiper: galleryThumbs,
+        },
     });
 }
 
