@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="galleryManagerSQL">
+    <select id="selectGalleryList">
+        SELECT ITEM_NO AS itemNo
+              , ITEM_NM AS itemNm
+              , ITEM_MAIN_CTGR_CD AS itemMainCtgrCd
+              , ITEM_MID_CTGR_CD AS itemMidCtgrCd
+              , ORIGIN_CD AS originCd
+              , IMAGE_PATH_1 AS imagePath1
+              , IMAGE_PATH_2 AS imagePath2
+              , IMAGE_PATH_3 AS imagePath3
+              , IMAGE_PATH_4 AS imagePath4
+              , IMAGE_PATH_5 AS imagePath5
+              , IMAGE_PATH_6 AS imagePath6
+              , ITEM_DESC AS itemDesc
+              , NOTICE AS notice
+              , SHIP_YN AS shipYn
+              , SOLD_OUT_YN AS soldOutYn
+              , USE_YN AS useYn
+              , RECOMMEND_YN AS recommendYn
+              , SORT_ORDER AS sortOrder
+          FROM ITEMS
+         WHERE 1=1
+           AND DEL_YN = 'N'
+        <if test="itemNm != null and itemNm != ''">
+           AND ITEM_NM LIKE CONCAT('%', #{itemNm}, '%')
+        </if>
+        <if test="useYn != null">
+           AND USE_YN = #{useYn}
+        </if>
+         ORDER BY SORT_ORDER ASC
+    </select>
+
+    <update id="modifyGallery">
+        UPDATE ITEMS
+           SET ITEM_NM = #{itemNm}
+              , ITEM_MAIN_CTGR_CD = #{itemMainCtgrCd}
+              , ITEM_MID_CTGR_CD = #{itemMidCtgrCd}
+              , ORIGIN_CD = #{originCd}
+              , ITEM_DESC = #{itemDesc}
+              , NOTICE = #{notice}
+              , KEEPING_METHOD = #{keepingMethod}
+              , RECOMMEND_YN = #{recommendYn}
+              , USE_YN = #{useYn}
+              , SHIP_YN = #{shipYn}
+              , SOLD_OUT_YN = #{soldOutYn}
+              , SORT_ORDER = #{sortOrder}
+              , DAMAGE_REMARKS = #{damageRemarks}
+         WHERE ITEM_NO = ${itemNo}
+    </update>
+
+</mapper>

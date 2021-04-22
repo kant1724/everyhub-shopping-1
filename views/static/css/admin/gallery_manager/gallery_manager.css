@@ -1,0 +1,66 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.top {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background: #333;
+}
+
+.top i {
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+.top i:hover {
+    cursor: pointer;
+}
+
+.file-upload-wrapper {
+    position: relative;
+    width: 300px;
+}
+
+#item_desc {
+    height: 100px;
+    padding: 10px;
+}
+
+#notice {
+    height: 100px;
+    padding: 10px;
+}
+
+#keeping_method {
+    height: 100px;
+    padding: 10px;
+}
+
+#damage_remarks {
+    height: 100px;
+    padding: 10px;
+}
+
+.image-div {
+    width: 300px;
+    height: 200px;
+    border: 1px solid gray;
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.remove-image {
+    display: none;
+    font-size: 25px;
+    float: right;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.remove-image:hover {
+    cursor: pointer;
+}

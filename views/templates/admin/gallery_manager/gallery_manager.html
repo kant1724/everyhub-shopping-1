@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>상품등록</title>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
+    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
+    <link href="/static/css/common/common.css" rel="stylesheet">
+    <link href="/static/lib/mdb/css/addons/mdb-file-upload.css" rel="stylesheet">
+    <link href="/static/css/admin/gallery_manager/gallery_manager.css" rel="stylesheet">
+</head>
+
+<body>
+    <header></header>
+    <div class="container">
+        <div class="container mt-5 pt-5">
+            <div class="mt-2">
+                <div style="border: 1px solid #ccc;">
+                    <div class="text-center" style="border-bottom: 1px solid #ccc; background: #EAEAEA;">1</div>
+                    <div class="ml-4 mt-2 mb-3">
+                        <div class="mb-1" style="font-size: 20px;"><i class="fas fa-image"></i>&nbsp;&nbsp;<a style="color: gray;">이미지</a></div>
+                        <div class="d-inline-block">
+                            <div id="image_div_1" class="image-div">
+                                <i id="remove_image_1" class="fal fa-times remove-image"></i>
+                            </div>
+                            <form class="md-form file-upload-wrapper">
+                                <div class="file-field">
+                                    <div class="btn btn-primary btn-sm float-left">
+                                        <span>파일선택</span>
+                                        <input type="file" id="item_image_1">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload your file">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="d-inline-block">
+                            <div id="image_div_2" class="image-div">
+                                <i id="remove_image_2" class="fal fa-times remove-image"></i>
+                            </div>
+                            <form class="md-form file-upload-wrapper">
+                                <div class="file-field">
+                                    <div class="btn btn-primary btn-sm float-left">
+                                        <span>파일선택</span>
+                                        <input type="file" id="item_image_2">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload your file">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="d-inline-block">
+                            <div id="image_div_3" class="image-div">
+                                <i id="remove_image_3" class="fal fa-times remove-image"></i>
+                            </div>
+                            <form class="md-form file-upload-wrapper">
+                                <div class="file-field">
+                                    <div class="btn btn-primary btn-sm float-left">
+                                        <span>파일선택</span>
+                                        <input type="file" id="item_image_3">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload your file">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="d-inline-block">
+                            <div id="image_div_4" class="image-div">
+                                <i id="remove_image_4" class="fal fa-times remove-image"></i>
+                            </div>
+                            <form class="md-form file-upload-wrapper">
+                                <div class="file-field">
+                                    <div class="btn btn-primary btn-sm float-left">
+                                        <span>파일선택</span>
+                                        <input type="file" id="item_image_4">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload your file">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="d-inline-block">
+                            <div id="image_div_5" class="image-div">
+                                <i id="remove_image_5" class="fal fa-times remove-image"></i>
+                            </div>
+                            <form class="md-form file-upload-wrapper">
+                                <div class="file-field">
+                                    <div class="btn btn-primary btn-sm float-left">
+                                        <span>파일선택</span>
+                                        <input type="file" id="item_image_5">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload your file">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="d-inline-block">
+                            <div id="image_div_6" class="image-div">
+                                <i id="remove_image_6" class="fal fa-times remove-image"></i>
+                            </div>
+                            <form class="md-form file-upload-wrapper">
+                                <div class="file-field">
+                                    <div class="btn btn-primary btn-sm float-left">
+                                        <span>파일선택</span>
+                                        <input type="file" id="item_image_6">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload your file">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="user_no" value="{{userNo}}">
+    <input type="hidden" id="admin_yn" value="{{adminYn}}">
+    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0">
+    </footer>
+    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+    <script type="text/javascript" src="/static/lib/mdb/js/addons/mdb-file-upload.js"></script>
+    <script type="text/javascript" src="/static/js/common/properties.js"></script>
+    <script type="text/javascript" src="/static/js/component/header.js"></script>
+    <script type="text/javascript" src="/static/js/component/footer.js"></script>
+    <script type="text/javascript" src="/static/js/admin/gallery_manager/gallery_manager.js"></script>
+</body>
+
+</html>
