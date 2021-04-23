@@ -9,6 +9,8 @@ function ajax(url, inputData, gubun, method) {
         success: function (data, status, xhr) {
             if (gubun == 'selectItemList') {
                 selectItemListCallback(data.ret);
+            } else if (gubun == 'selectGalleryList') {
+                selectGalleryListCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -40,8 +42,8 @@ $(document).ready(function() {
     });
 
     initSwiper1();
-    initSwiper3()
     selectItemList();
+    selectGalleryList();
 });
 
 function initSwiper1() {
@@ -76,18 +78,18 @@ function initSwiper2() {
 }
 
 function initSwiper3() {
-    var galleryThumbs = new Swiper('.swiper-container.gallery-thumbs', {
+    let galleryThumbs = new Swiper('.swiper-container.gallery-thumbs', {
         spaceBetween: 10,
         slidesPerView: 2,
-        loop: true,
+        loop: false,
         freeMode: true,
         loopedSlides: 5, //looped slides should be the same
         watchSlidesVisibility: true,
         watchSlidesProgress: true,
     });
-    var galleryTop = new Swiper('.swiper-container.gallery-top', {
+    let galleryTop = new Swiper('.swiper-container.gallery-top', {
         spaceBetween: 10,
-        loop: true,
+        loop: false,
         loopedSlides: 5, //looped slides should be the same
         navigation: {
             nextEl: '.swiper-button-next',
@@ -109,6 +111,28 @@ function selectItemList() {
 function selectItemListCallback(ret) {
     setRecommendProduct(ret);
     setAllProduct(ret);
+}
+
+function selectGalleryList() {
+    let inputData = {};
+    ajax('/admin/gallery_manager/selectGalleryList', inputData, 'selectGalleryList', 'POST');
+}
+
+function selectGalleryListCallback(ret) {
+    let html = '';
+    $('.gallery-top-wrapper').empty();
+    $('.gallery-thumbs-wrapper').empty();
+    for (key in ret[0]) {
+        let url = ret[0][key];
+        if (url != '') {
+            html += '<div class="swiper-slide gallery-slide" style="padding-top: 100px; padding-bottom: 100px; margin: auto;';
+            html += 'background-image: url(\'' + url + '\');"></div>';
+        }
+    }
+    $('.gallery-top-wrapper').append(html);
+    $('.gallery-thumbs-wrapper').append(html);
+
+    initSwiper3()
 }
 
 function setRecommendProduct(ret) {

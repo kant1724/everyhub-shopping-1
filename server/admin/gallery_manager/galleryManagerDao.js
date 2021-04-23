@@ -17,14 +17,14 @@ module.exports = {
     modifyGallery: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
         let imagePath1 = param.image1 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_1.jpg' : '';
-        let imagePath2 = param.image2 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/gallery/gallery_2.jpg' : '';
-        let imagePath3 = param.image3 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/gallery/gallery_3.jpg' : '';
-        let imagePath4 = param.image4 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/gallery/gallery_4.jpg' : '';
-        let imagePath5 = param.image5 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/gallery/gallery_5.jpg' : '';
-        let imagePath6 = param.image6 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/gallery/gallery_6.jpg' : '';
-        let imagePath7 = param.image7 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/gallery/gallery_7.jpg' : '';
-        let imagePath8 = param.image8 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/gallery/gallery_8.jpg' : '';
-        let imagePath9 = param.image9 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/gallery/gallery_9.jpg' : '';
+        let imagePath2 = param.image2 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_2.jpg' : '';
+        let imagePath3 = param.image3 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_3.jpg' : '';
+        let imagePath4 = param.image4 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_4.jpg' : '';
+        let imagePath5 = param.image5 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_5.jpg' : '';
+        let imagePath6 = param.image6 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_6.jpg' : '';
+        let imagePath7 = param.image7 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_7.jpg' : '';
+        let imagePath8 = param.image8 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_8.jpg' : '';
+        let imagePath9 = param.image9 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_9.jpg' : '';
         let param2 = {
             imagePath1: imagePath1,
             imagePath2: imagePath2,

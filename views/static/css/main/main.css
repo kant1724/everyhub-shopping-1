@@ -303,7 +303,6 @@ body {
 }
 
 .gallery-slide {
-    background-image: url('/static/res/top_10.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
