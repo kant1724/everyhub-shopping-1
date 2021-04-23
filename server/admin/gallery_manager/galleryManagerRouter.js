@@ -19,8 +19,8 @@ router.post('/modifyGallery', function(req, res) {
         res.status(500).send();
     } else {
         let param = req.body;
-        galleryManagerBiz .modifyGallery(param, (ret) => {
-            res.status(200).send({ret: ret});
+        galleryManagerBiz .modifyGallery(param, () => {
+            res.status(200).send({});
         });
     }
 });
