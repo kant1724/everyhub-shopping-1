@@ -259,30 +259,39 @@ function selectGalleryListCallback(ret) {
 
     if (!isNull(imagePath1)) {
         $('#remove_image_1').css('display', 'block');
+        image1 = true;
     }
     if (!isNull(imagePath2)) {
         $('#remove_image_2').css('display', 'block');
+        image2 = true;
     }
     if (!isNull(imagePath3)) {
         $('#remove_image_3').css('display', 'block');
+        image3 = true;
     }
     if (!isNull(imagePath4)) {
         $('#remove_image_4').css('display', 'block');
+        image4 = true;
     }
     if (!isNull(imagePath5)) {
         $('#remove_image_5').css('display', 'block');
+        image5 = true;
     }
     if (!isNull(imagePath6)) {
         $('#remove_image_6').css('display', 'block');
+        image6 = true;
     }
     if (!isNull(imagePath7)) {
         $('#remove_image_7').css('display', 'block');
+        image7 = true;
     }
     if (!isNull(imagePath8)) {
         $('#remove_image_8').css('display', 'block');
+        image8 = true;
     }
     if (!isNull(imagePath9)) {
         $('#remove_image_9').css('display', 'block');
+        image9 = true;
     }
 
     $('#image_div_1').css('background-image', 'url("' + imagePath1 + '")');

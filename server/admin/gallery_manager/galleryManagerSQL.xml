@@ -18,15 +18,15 @@
 
     <update id="updateImagePath">
         UPDATE GALLERY
-           SET IMAGE_PATH_1 = CASE WHEN #{imagePath1} != '' THEN  #{imagePath1} ELSE IMAGE_PATH_1 END
-             , IMAGE_PATH_2 = CASE WHEN #{imagePath2} != '' THEN  #{imagePath2} ELSE IMAGE_PATH_2 END
-             , IMAGE_PATH_3 = CASE WHEN #{imagePath3} != '' THEN  #{imagePath3} ELSE IMAGE_PATH_3 END
-             , IMAGE_PATH_4 = CASE WHEN #{imagePath4} != '' THEN  #{imagePath4} ELSE IMAGE_PATH_4 END
-             , IMAGE_PATH_5 = CASE WHEN #{imagePath5} != '' THEN  #{imagePath5} ELSE IMAGE_PATH_5 END
-             , IMAGE_PATH_6 = CASE WHEN #{imagePath6} != '' THEN  #{imagePath6} ELSE IMAGE_PATH_6 END
-             , IMAGE_PATH_7 = CASE WHEN #{imagePath7} != '' THEN  #{imagePath7} ELSE IMAGE_PATH_7 END
-             , IMAGE_PATH_8 = CASE WHEN #{imagePath8} != '' THEN  #{imagePath8} ELSE IMAGE_PATH_8 END
-             , IMAGE_PATH_9 = CASE WHEN #{imagePath9} != '' THEN  #{imagePath9} ELSE IMAGE_PATH_9 END
+           SET IMAGE_PATH_1 = #{imagePath1}
+             , IMAGE_PATH_2 = #{imagePath2}
+             , IMAGE_PATH_3 = #{imagePath3}
+             , IMAGE_PATH_4 = #{imagePath4}
+             , IMAGE_PATH_5 = #{imagePath5}
+             , IMAGE_PATH_6 = #{imagePath6}
+             , IMAGE_PATH_7 = #{imagePath7}
+             , IMAGE_PATH_8 = #{imagePath8}
+             , IMAGE_PATH_9 = #{imagePath9}
         WHERE GALLERY_NO = 1
     </update>
 
