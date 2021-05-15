@@ -34,7 +34,16 @@ module.exports = {
             imagePath6: imagePath6,
             imagePath7: imagePath7,
             imagePath8: imagePath8,
-            imagePath9: imagePath9
+            imagePath9: imagePath9,
+            imageDesc1: param.imageDesc1,
+            imageDesc2: param.imageDesc2,
+            imageDesc3: param.imageDesc3,
+            imageDesc4: param.imageDesc4,
+            imageDesc5: param.imageDesc5,
+            imageDesc6: param.imageDesc6,
+            imageDesc7: param.imageDesc7,
+            imageDesc8: param.imageDesc8,
+            imageDesc9: param.imageDesc9
         };
         let query = mybatisMapper.getStatement('galleryManagerSQL', 'updateImagePath', param2, format);
         conn.beginTransaction(() => {

@@ -11,6 +11,15 @@
               , IMAGE_PATH_7 AS imagePath7
               , IMAGE_PATH_8 AS imagePath8
               , IMAGE_PATH_9 AS imagePath9
+              , IMAGE_DESC_1 AS imageDesc1
+              , IMAGE_DESC_2 AS imageDesc2
+              , IMAGE_DESC_3 AS imageDesc3
+              , IMAGE_DESC_4 AS imageDesc4
+              , IMAGE_DESC_5 AS imageDesc5
+              , IMAGE_DESC_6 AS imageDesc6
+              , IMAGE_DESC_7 AS imageDesc7
+              , IMAGE_DESC_8 AS imageDesc8
+              , IMAGE_DESC_9 AS imageDesc9
           FROM GALLERY
          WHERE 1=1
            AND GALLERY_NO = 1
@@ -27,6 +36,15 @@
              , IMAGE_PATH_7 = #{imagePath7}
              , IMAGE_PATH_8 = #{imagePath8}
              , IMAGE_PATH_9 = #{imagePath9}
+             , IMAGE_DESC_1 = #{imageDesc1}
+             , IMAGE_DESC_2 = #{imageDesc2}
+             , IMAGE_DESC_3 = #{imageDesc3}
+             , IMAGE_DESC_4 = #{imageDesc4}
+             , IMAGE_DESC_5 = #{imageDesc5}
+             , IMAGE_DESC_6 = #{imageDesc6}
+             , IMAGE_DESC_7 = #{imageDesc7}
+             , IMAGE_DESC_8 = #{imageDesc8}
+             , IMAGE_DESC_9 = #{imageDesc9}
         WHERE GALLERY_NO = 1
     </update>
 

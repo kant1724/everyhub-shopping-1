@@ -240,7 +240,16 @@ function modifyGallery() {
         image6: image6,
         image7: image7,
         image8: image8,
-        image9: image9
+        image9: image9,
+        imageDesc1: $('#image_desc_1').val(),
+        imageDesc2: $('#image_desc_2').val(),
+        imageDesc3: $('#image_desc_3').val(),
+        imageDesc4: $('#image_desc_4').val(),
+        imageDesc5: $('#image_desc_5').val(),
+        imageDesc6: $('#image_desc_6').val(),
+        imageDesc7: $('#image_desc_7').val(),
+        imageDesc8: $('#image_desc_8').val(),
+        imageDesc9: $('#image_desc_9').val()
     };
 
     ajax('/admin/gallery_manager/modifyGallery', inputData, 'modifyGallery', 'POST');
@@ -256,6 +265,17 @@ function selectGalleryListCallback(ret) {
     let imagePath7 = ret[0].imagePath7;
     let imagePath8 = ret[0].imagePath8;
     let imagePath9 = ret[0].imagePath9;
+
+    let imageDesc1 = ret[0].imageDesc1;
+    let imageDesc2 = ret[0].imageDesc2;
+    let imageDesc3 = ret[0].imageDesc3;
+    let imageDesc4 = ret[0].imageDesc4;
+    let imageDesc5 = ret[0].imageDesc5;
+    let imageDesc6 = ret[0].imageDesc6;
+    let imageDesc7 = ret[0].imageDesc7;
+    let imageDesc8 = ret[0].imageDesc8;
+    let imageDesc9 = ret[0].imageDesc9;
+
 
     if (!isNull(imagePath1)) {
         $('#remove_image_1').css('display', 'block');
@@ -303,6 +323,16 @@ function selectGalleryListCallback(ret) {
     $('#image_div_7').css('background-image', 'url("' + imagePath7 + '")');
     $('#image_div_8').css('background-image', 'url("' + imagePath8 + '")');
     $('#image_div_9').css('background-image', 'url("' + imagePath9 + '")');
+
+    $('#image_desc_1').val(imageDesc1);
+    $('#image_desc_2').val(imageDesc2);
+    $('#image_desc_3').val(imageDesc3);
+    $('#image_desc_4').val(imageDesc4);
+    $('#image_desc_5').val(imageDesc5);
+    $('#image_desc_6').val(imageDesc6);
+    $('#image_desc_7').val(imageDesc7);
+    $('#image_desc_8').val(imageDesc8);
+    $('#image_desc_9').val(imageDesc9);
 }
 
 function modifyGalleryCallback() {
