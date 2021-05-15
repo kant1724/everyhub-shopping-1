@@ -77,6 +77,7 @@ function initSwiper2() {
     });
 }
 
+let galleryTop;
 function initSwiper3() {
     let galleryThumbs = new Swiper('.swiper-container.gallery-thumbs', {
         spaceBetween: 10,
@@ -87,7 +88,7 @@ function initSwiper3() {
         watchSlidesVisibility: true,
         watchSlidesProgress: true,
     });
-    let galleryTop = new Swiper('.swiper-container.gallery-top', {
+    galleryTop = new Swiper('.swiper-container.gallery-top', {
         spaceBetween: 10,
         loop: false,
         loopedSlides: 5, //looped slides should be the same
@@ -132,7 +133,11 @@ function selectGalleryListCallback(ret) {
     $('.gallery-top-wrapper').append(html);
     $('.gallery-thumbs-wrapper').append(html);
 
-    initSwiper3()
+    initSwiper3();
+
+    galleryTop.on('slideChange', function () {
+        console.log(galleryTop.activeIndex);
+    });
 }
 
 function setRecommendProduct(ret) {
