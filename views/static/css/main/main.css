@@ -327,3 +327,8 @@ body {
 .gallery-thumbs .swiper-slide-thumb-active {
     opacity: 1;
 }
+
+#image_desc {
+    font-family: 'Gamja Flower', cursive;
+    overflow-x: hidden;
+}

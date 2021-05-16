@@ -119,7 +119,9 @@ function selectGalleryList() {
     ajax('/admin/gallery_manager/selectGalleryList', inputData, 'selectGalleryList', 'POST');
 }
 
+let galleryRet;
 function selectGalleryListCallback(ret) {
+    galleryRet = ret;
     let html = '';
     $('.gallery-top-wrapper').empty();
     $('.gallery-thumbs-wrapper').empty();
@@ -135,8 +137,13 @@ function selectGalleryListCallback(ret) {
 
     initSwiper3();
 
+    let text = galleryRet[0]['imageDesc1'];
+    $('#image_desc').text(text);
+
     galleryTop.on('slideChange', function () {
-        console.log(galleryTop.activeIndex);
+        let imageDesc = 'imageDesc' + (galleryTop.activeIndex + 1);
+        let text = galleryRet[0][imageDesc];
+        $('#image_desc').text(text);
     });
 }
 
