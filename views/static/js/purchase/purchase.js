@@ -125,9 +125,10 @@ $(document).ready(function() {
         setReceiveInfoSameWithOrderInfo(false);
     });
 
+    /**
     $('#has_sender').click(function() {
         setSenderInput();
-    });
+    });**/
 
     $('#search_send_address').click(function() {
         $('#zip_no_id').val('send_zip_no');
