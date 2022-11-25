@@ -56,6 +56,9 @@
         <if test="userNo != null and userNo != ''">
            AND A.USER_NO = #{userNo}
         </if>
+        <if test="orderUserNm != null and orderUserNm != ''">
+           AND A.ORDER_PERSON_NM LIKE CONCAT('%', #{orderUserNm}, '%')
+        </if>
         <if test="userNm != null and userNm != ''">
            AND A.RECEIVE_PERSON_NM LIKE CONCAT('%', #{userNm}, '%')
         </if>

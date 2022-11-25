@@ -368,6 +368,7 @@ function selectOrderListMain() {
     let inputData = {
         startOrderDate: $('#starting_date').val(),
         endOrderDate: $('#ending_date').val(),
+        orderUserNm: $('#order_user_nm').val(),
         userNm: $('#user_nm').val(),
         userNo: ''
     };
