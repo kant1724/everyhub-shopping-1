@@ -459,7 +459,11 @@ function insertOrderListCallback(ret) {
         localStorage.setItem('product', JSON.stringify(productArr));
     }
 
-    window.location.replace('/purchase/purchase_complete');
+    if (confirm('주문이 완료되었습니다. 동일 품목 및 수량으로 추가 주문 하시겠습니까?')) {
+        location.reload();
+    } else {
+        window.location.replace('/purchase/purchase_complete');
+    }
 }
 
 function selectSellerInfo() {
