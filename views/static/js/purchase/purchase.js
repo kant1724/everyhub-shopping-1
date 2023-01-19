@@ -209,6 +209,7 @@ $(document).ready(function() {
 
     selectUser();
     selectSellerInfo();
+    setOrderUser();
 });
 
 function selectUser() {
@@ -458,9 +459,27 @@ function insertOrderListCallback(ret) {
     }
 
     if (confirm('주문이 완료되었습니다. 동일 품목 및 수량으로 추가 주문 하시겠습니까?')) {
-        location.reload();
+        let url = new URL(window.location.href);
+        url.searchParams.set('orderPersonNm', $('#order_person_nm').val());
+        url.searchParams.set('orderTelno1', $('#order_telno_1').val());
+        url.searchParams.set('orderTelno2', $('#order_telno_2').val());
+        url.searchParams.set('orderTelno3', $('#order_telno_3').val());
+        url.searchParams.set('orderRemarks', $('#order_remarks').val());
+
+        window.location.href = url.href;
     } else {
         window.location.replace('/purchase/purchase_complete');
+    }
+}
+
+function setOrderUser() {
+    let params = new URLSearchParams(location.search);
+    if (params.get('orderPersonNm') != null) {
+        $('#order_person_nm').val(params.get('orderPersonNm'));
+        $('#order_telno_1').val(params.get('orderTelno1'));
+        $('#order_telno_2').val(params.get('orderTelno2'));
+        $('#order_telno_3').val(params.get('orderTelno3'));
+        $('#order_remarks').val(params.get('orderRemarks'));
     }
 }
 
