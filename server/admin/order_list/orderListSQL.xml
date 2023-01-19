@@ -187,4 +187,10 @@
          ORDER BY A.ORDER_NO DESC
     </select>
 
+    <select id="selectDepositPersonList">
+        SELECT DISTINCT A.DEPOSIT_PERSON_NM AS depositPersonNm
+          FROM ORDER_LIST_MAIN A
+         WHERE A.USER_NO = #{userNo}
+         ORDER BY A.DEPOSIT_PERSON_NM ASC
+    </select>
 </mapper>

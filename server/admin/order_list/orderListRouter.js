@@ -128,4 +128,14 @@ router.post('/selectRecentReceiver', function(req, res) {
     });
 });
 
+
+router.post('/selectDepositPersonList', function(req, res) {
+    let param = req.body;
+    //param.userNo = auth.getUserNo(req);
+    param.userNo = 18
+    orderListBiz.selectDepositPersonList(param, (ret) => {
+        res.status(200).send({ret: ret});
+    });
+});
+
 module.exports = router;

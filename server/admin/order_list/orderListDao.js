@@ -129,5 +129,17 @@ module.exports = {
                 conn.end();
             });
         });
+    },
+
+    selectDepositPersonList: function(param, callback) {
+        let conn = require('../../common/mysql.js').getDBConnection();
+        conn.beginTransaction(() => {
+            let query = mybatisMapper.getStatement('orderListSQL', 'selectDepositPersonList', param, format);
+            console.log(query);
+            conn.query(query, (err, rows, fields) => {
+                callback(rows);
+                conn.end();
+            });
+        });
     }
 };

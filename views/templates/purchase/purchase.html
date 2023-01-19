@@ -166,6 +166,7 @@
                         <label class="form-check-label" for="receive_radio">받는자</label>
                     </div>
                 </div>
+                <a id="search_deposit_person_list" class="common-button-1 ml-2">과거 입금자명 목록</a>
                 <div class="mt-3 ml-2">
                     <div class="md-form">
                         <i class="fas fa-user prefix" style="font-size: 25px;"></i>
@@ -254,6 +255,24 @@
                 </div>
                 <div class="modal-footer">
                     <a id="recent_receiver_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deposit_person_list_modal" tabindex="-1" role="dialog" aria-labelledby="recent_receiver_modal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="border-bottom: 1px solid #333; font-weight: 700;">
+                        <span>과거 입금자명 목록</span>
+                    </div>
+                    <div class="mt-2"><a id="search_deposit_person_list_modal" class="common-button-1">조회</a></div>
+                    <hr>
+                    <div id="deposit_person_list_modal_container"></div>
+                </div>
+                <div class="modal-footer">
+                    <a id="deposit_person_list_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
                 </div>
             </div>
         </div>

@@ -19,6 +19,8 @@ function ajax(url, inputData, gubun, method) {
                 selectShippingInfoByZipNoCallback(data.ret);
             } else if (gubun == 'selectRecentReceiver') {
                 selectRecentReceiverCallback(data.ret);
+            } else if (gubun == 'selectDepositPersonList') {
+                selectDepositPersonListCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}
@@ -28,6 +30,7 @@ function ajax(url, inputData, gubun, method) {
 let orderListDetail = [];
 let orderListMain = {};
 let recentReceiver = [];
+let depositPersonList = [];
 let rowNo;
 $(document).ready(function() {
     $('.mdb-select').materialSelect();
@@ -65,6 +68,36 @@ $(document).ready(function() {
                     $('#receive_address_detail').val(recentReceiverData[i].receiveAddressDetail);
                     $('#receive_address_detail').focus();
                     $('#recent_receiver_close_modal').click();
+                }
+            }
+        }
+    });
+
+    $("#deposit_person_list_modal_container").jsGrid({
+        width: "100%",
+        height: "300px",
+        filtering: false,
+        editing: false,
+        inserting: false,
+        sorting: false,
+        paging: true,
+        autoload: true,
+        pageSize: 150,
+        pageButtonCount: 10,
+        data: depositPersonList,
+        fields: [
+            { name: "주문자명", type: "text", width: 250 },
+        ],
+        rowClick: function(args) {
+            let $row = this.rowByItem(args.item);
+            $row.children('.jsgrid-cell').css('background-color', '#B2CCFF');
+            $row.children('.jsgrid-cell').css('border-color', '#B2CCFF');
+            rowNo = args.item['번호'];
+            for (let i = 0; i < depositPersonListData.length; ++i) {
+                if (depositPersonListData[i].num == rowNo) {
+                    $('#deposit_person_nm').val(depositPersonListData[i].depositPersonNm);
+                    $('#deposit_person_nm').focus();
+                    $('#deposit_person_list_close_modal').click();
                 }
             }
         }
@@ -157,6 +190,14 @@ $(document).ready(function() {
 
     $('#search_recent_receiver_modal').click(function() {
         selectRecentReceiver();
+    });
+
+    $('#search_deposit_person_list').click(function() {
+        $('#deposit_person_list_modal').modal();
+    });
+
+    $('#search_deposit_person_list_modal').click(function() {
+        selectDepositPersonList();
     });
 
     $('#order_telno_1').keyup(function(event) {
@@ -551,4 +592,29 @@ function selectRecentReceiverCallback(ret) {
     }
 
     $("#container").jsGrid("option", "data", recentReceiver);
+}
+
+function selectDepositPersonList() {
+    let inputData = {};
+    ajax('/admin/order_list/selectDepositPersonList', inputData, 'selectDepositPersonList', 'POST');
+}
+
+let depositPersonListData = [];
+function selectDepositPersonListCallback(ret) {
+    depositPersonList = [];
+    depositPersonListData = [];
+    for (let i = 0; i < ret.length; ++i) {
+        let a = {};
+        a['번호'] = i;
+        a['주문자명'] = ret[i].depositPersonNm;
+        depositPersonList.push(a);
+
+        let b = {};
+        b.num = i;
+        b.depositPersonNm = ret[i].depositPersonNm;
+
+        depositPersonListData.push(b);
+    }
+
+    $("#deposit_person_list_modal_container").jsGrid("option", "data", depositPersonList);
 }

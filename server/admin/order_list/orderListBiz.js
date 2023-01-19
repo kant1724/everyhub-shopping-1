@@ -55,5 +55,9 @@ module.exports = {
 
     selectRecentReceiver: function(param, callback) {
         orderListDao.selectRecentReceiver(param, callback);
+    },
+
+    selectDepositPersonList: function(param, callback) {
+        orderListDao.selectDepositPersonList(param, callback);
     }
 };
