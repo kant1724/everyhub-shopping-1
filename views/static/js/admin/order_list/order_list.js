@@ -54,6 +54,10 @@ $(document).ready(function() {
         exportExcelHanjin();
     });
 
+    $('#export_excel_order_list').click(function() {
+        exportExcelOrderList();
+    });
+
     $('#start_dlvr').click(function() {
         updateDlvrConfirmDate();
     });
@@ -205,6 +209,40 @@ function updateDlvrConfirmDate() {
         };
         ajax('/admin/order_list/updateDlvrConfirmDate', inputData, 'updateDlvrConfirmDate', 'POST');
     }
+}
+
+function exportExcelOrderList() {
+    let wb = XLSX.utils.book_new();
+    let header = {
+        header: ['주문번호',
+            '주문일',
+            '주문자명',
+            '받는자명',
+            '주문자연락처',
+            '상품/옵션',
+            '수량',
+            '총금액',
+            '입금자명',
+            '배송일자',
+            '취소일자'
+        ]
+    };
+    let data = [];
+    let orderObj = $('#order_list_tbody').find('.each-order');
+
+    for (let i = 0; i < orderObj.length; ++i) {
+        let d = {};
+        d['주문번호'] = $(orderObj[i]).find('#order_no').text();
+        d['주문일'] = $(orderObj[i]).find('#order_date').text();
+        d['주문자명'] = $(orderObj[i]).find('#order_person_nm').text();
+        d['받는자명'] = $(orderObj[i]).find('#receive_person_nm').text();
+
+
+        data.push(d)
+    }
+    let ws = XLSX.utils.json_to_sheet(data, header);
+    XLSX.utils.book_append_sheet(wb, ws, '주문내역');
+    XLSX.writeFile(wb, "order_list.xlsx");
 }
 
 function exportExcelCj() {
