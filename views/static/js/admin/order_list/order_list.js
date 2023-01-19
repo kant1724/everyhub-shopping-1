@@ -236,7 +236,13 @@ function exportExcelOrderList() {
         d['주문일'] = $(orderObj[i]).find('#order_date').text();
         d['주문자명'] = $(orderObj[i]).find('#order_person_nm').text();
         d['받는자명'] = $(orderObj[i]).find('#receive_person_nm').text();
-
+        d['주문자연락처'] = $(orderObj[i]).find('#order_telno').text();
+        d['상품/옵션'] = $(orderObj[i]).find('#item_nm').text();
+        d['수량'] = $(orderObj[i]).find('#qty').text();
+        d['총금액'] = $(orderObj[i]).find('#total_price').text();
+        d['입금자명'] = $(orderObj[i]).find('#deposit_person_nm').text().replace('입금확인', '');
+        d['배송일자'] = $(orderObj[i]).find('#dlvr_confirm_date').text();
+        d['취소일자'] = $(orderObj[i]).find('#cancel_date').text().replace('주문취소', '');
 
         data.push(d)
     }
