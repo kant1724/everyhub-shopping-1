@@ -508,8 +508,13 @@ function insertOrderListCallback(ret) {
         url.searchParams.set('orderTelno3', $('#order_telno_3').val());
         url.searchParams.set('orderRemarks', $('#order_remarks').val());
 
-
-
+        url.searchParams.set('sendPersonNm', $('#send_person_nm').val());
+        url.searchParams.set('sendTelno1', $('#send_telno_1').val());
+        url.searchParams.set('sendTelno2', $('#send_telno_2').val());
+        url.searchParams.set('sendTelno3', $('#send_telno_3').val());
+        url.searchParams.set('sendZipNo', $('#send_zip_no').text());
+        url.searchParams.set('sendAddressMain', $('#send_address_main').text());
+        url.searchParams.set('sendAddressDetail', $('#send_address_detail').val());
 
         window.location.href = url.href;
     } else {
@@ -530,12 +535,19 @@ function setOrderUser() {
 
 function setSenderUser() {
     let params = new URLSearchParams(location.search);
-    if (params.get('orderPersonNm') != null) {
-        $('#order_person_nm').val(params.get('orderPersonNm'));
-        $('#order_telno_1').val(params.get('orderTelno1'));
-        $('#order_telno_2').val(params.get('orderTelno2'));
-        $('#order_telno_3').val(params.get('orderTelno3'));
-        $('#order_remarks').val(params.get('orderRemarks'));
+    if (params.get('sendPersonNm') != null) {
+        $('#send_person_nm').val(params.get('sendPersonNm'));
+        $('#send_telno_1').val(params.get('sendTelno1'));
+        $('#send_telno_2').val(params.get('sendTelno2'));
+        $('#send_telno_3').val(params.get('sendTelno3'));
+        $('#send_zip_no').text(params.get('sendZipNo'));
+        $('#send_address_main').text(params.get('sendAddressMain'));
+        $('#send_address_detail').val(params.get('sendAddressDetail'));
+
+        $('#send_person_nm').focus();
+        $('#send_zip_no').focus();
+        $('#send_address_main').focus();
+        $('#send_address_detail').focus();
     }
 }
 
