@@ -62,6 +62,9 @@
         <if test="userNm != null and userNm != ''">
            AND A.RECEIVE_PERSON_NM LIKE CONCAT('%', #{userNm}, '%')
         </if>
+        <if test="depositPersonNm != null and depositPersonNm != ''">
+            AND A.DEPOSIT_PERSON_NM LIKE CONCAT('%', #{depositPersonNm}, '%')
+        </if>
          ORDER BY A.ORDER_NO DESC
     </select>
 

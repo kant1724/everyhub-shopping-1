@@ -414,6 +414,7 @@ function selectOrderListMain() {
         endOrderDate: $('#ending_date').val(),
         orderUserNm: $('#order_user_nm').val(),
         userNm: $('#user_nm').val(),
+        depositPersonNm: $('#deposit_person_nm').val(),
         userNo: ''
     };
     ajax('/admin/order_list/selectOrderListMain', inputData, 'selectOrderListMain', 'POST');
