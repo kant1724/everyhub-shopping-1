@@ -539,10 +539,10 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="order_telno" class="order-telno">' + orderTelno + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
-            if (orderRemarks == '' || orderRemarks == null) {
-                html += '<div id="order_remark_yn" class="order-remark-yn">N</div>';
-            } else {
+            if (orderRemarks != '' || depositRemarks != '') {
                 html += '<div id="order_remark_yn" class="order-remark-yn" style="color: red;">Y</div>';
+            } else {
+                html += '<div id="order_remark_yn" class="order-remark-yn">N</div>';
             }
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
