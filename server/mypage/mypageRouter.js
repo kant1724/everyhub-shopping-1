@@ -74,4 +74,17 @@ router.post('/updateOrderList', function(req, res) {
     });
 });
 
+
+router.post('/updateOrderListByAdmin', function(req, res) {
+    let json = req.body.data;
+    let param = JSON.parse(json);
+    if (req.session.adminYn == 'N') {
+        param.orderListMain.userNo = req.session.userNo;
+        param.orderListMain.telno = req.session.telno;
+    }
+    mypageBiz.updateOrderListByAdmin(param, (ret) => {
+        res.status(200).send({ret: ret});
+    });
+});
+
 module.exports = router;

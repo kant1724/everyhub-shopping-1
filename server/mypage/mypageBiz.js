@@ -20,5 +20,9 @@ module.exports = {
 
     updateOrderList: function(param, callback) {
         mypageDao.updateOrderList(param, callback);
+    },
+
+    updateOrderListByAdmin: function(param, callback) {
+        mypageDao.updateOrderListByAdmin(param, callback);
     }
 };

@@ -305,7 +305,11 @@ function updateOrderList() {
                 orderListMain: orderListMain
             })
     };
-    ajax('/mypage/updateOrderList', inputData, 'updateOrderList', 'POST');
+    if ($('#gubun').val() == 'order_list') {
+        ajax('/mypage/updateOrderListByAdmin', inputData, 'updateOrderList', 'POST');
+    } else {
+        ajax('/mypage/updateOrderList', inputData, 'updateOrderList', 'POST');
+    }
 }
 
 function updateOrderListCallback() {

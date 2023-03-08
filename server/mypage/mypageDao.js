@@ -53,5 +53,21 @@ module.exports = {
                 });
             });
         });
+    },
+
+    updateOrderListByAdmin: function(param, callback) {
+        let conn = require('../common/mysql.js').getDBConnection();
+        conn.beginTransaction(() => {
+            let query = mybatisMapper.getStatement('mypageSQL', 'updateOrderList', param.orderListMain, format);
+            conn.query(query, (err, rows, fields) => {
+                let query2 = mybatisMapper.getStatement('mypageSQL', 'updateDlvrConfirmDate', param.orderListMain, format);
+                conn.query(query2, (err, rows, fields) => {
+                    conn.commit(() => {
+                        callback(rows);
+                        conn.end();
+                    });
+                });
+            });
+        });
     }
 };

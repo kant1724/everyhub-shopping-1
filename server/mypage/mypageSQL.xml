@@ -78,4 +78,11 @@
            SET CANCEL_DATE = CURRENT_TIMESTAMP
         WHERE ORDER_NO = ${orderNo}
     </update>
+
+    <update id="updateDlvrConfirmDate">
+        UPDATE ORDER_LIST_DETAIL
+            SET DLVR_CONFIRM_DATE = NULL
+          WHERE ORDER_NO = ${orderNo}
+    </update>
+
 </mapper>
