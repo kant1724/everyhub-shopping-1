@@ -31,7 +31,8 @@ router.get('/modify', function(req, res, next) {
         if (md.mobile()) {
             res.render('templates/mypage/modify-mobile', {userNo: userNo, adminYn: adminYn, orderNo: orderNo});
         } else {
-            res.render('templates/mypage/modify', {userNo: userNo, adminYn: adminYn, orderNo: orderNo});
+            let gubun = req.query.gubun;
+            res.render('templates/mypage/modify', {userNo: userNo, adminYn: adminYn, orderNo: orderNo, gubun: gubun});
         }
     }
 });

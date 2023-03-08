@@ -310,7 +310,12 @@ function updateOrderList() {
 
 function updateOrderListCallback() {
     alert('내용이 수정되었습니다.');
-    location.href = '/mypage/';
+
+    if ($('#gubun').val() == 'order_list') {
+        location.href = '/admin/order_list/';
+    } else {
+        location.href = '/mypage/';
+    }
 }
 
 function selectShippingInfoByZipNo(zipNo) {

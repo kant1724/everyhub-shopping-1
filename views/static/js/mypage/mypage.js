@@ -284,7 +284,7 @@ function selectOrderListMainCallback(ret) {
     $('.modify-order').unbind();
     $('.modify-order').click(function() {
         let orderNo = $(this).parent().parent().find('#order_no').text();
-        location.href = '/mypage/modify?orderNo=' + orderNo;
+        location.href = '/mypage/modify?orderNo=' + orderNo + '&gubun=mypage';
     });
 
     selectUser();

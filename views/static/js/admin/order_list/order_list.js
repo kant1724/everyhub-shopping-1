@@ -523,6 +523,7 @@ function selectOrderListMainCallback(ret) {
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
+            html += '<div id="modify_order" class="modify-order" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">정보수정</span></div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="width: 150px; vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_date" class="oreder-date">' + orderDate + '</div>';
@@ -671,6 +672,12 @@ function selectOrderListMainCallback(ret) {
             let orderNo = $(this).parent().parent().parent().find('#order_no').text();
             cancelOrder(orderNo);
         }
+    });
+
+    $('.modify-order').unbind();
+    $('.modify-order').click(function() {
+        let orderNo = $(this).parent().parent().find('#order_no').text();
+        location.href = '/mypage/modify?orderNo=' + orderNo + '&gubun=order_list';
     });
 
     $('#total_cnt').text('총 ' + totalCnt + '건');

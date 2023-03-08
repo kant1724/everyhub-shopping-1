@@ -41,9 +41,10 @@ router.post('/insertOrderList', function(req, res) {
     if (param.orderListMain.userNo == 0) {
         res.status(200).send({ret: 'not ok'});
     } else {
-        purchaseBiz.insertOrderList(param, (ret) => {
-            res.status(200).send({ret: ret});
-        });
+        //purchaseBiz.insertOrderList(param, (ret) => {
+        //    res.status(200).send({ret: ret});
+        //});
+        res.status(200).send({ret: ''});
     }
 });
 
