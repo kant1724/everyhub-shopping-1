@@ -96,12 +96,12 @@
 
     <update id="updateImagePath">
         UPDATE ITEMS
-           SET IMAGE_PATH_1 = CASE WHEN #{imagePath1} != '' THEN  #{imagePath1} ELSE IMAGE_PATH_1 END
-             , IMAGE_PATH_2 = CASE WHEN #{imagePath2} != '' THEN  #{imagePath2} ELSE IMAGE_PATH_2 END
-             , IMAGE_PATH_3 = CASE WHEN #{imagePath3} != '' THEN  #{imagePath3} ELSE IMAGE_PATH_3 END
-             , IMAGE_PATH_4 = CASE WHEN #{imagePath4} != '' THEN  #{imagePath4} ELSE IMAGE_PATH_4 END
-             , IMAGE_PATH_5 = CASE WHEN #{imagePath5} != '' THEN  #{imagePath5} ELSE IMAGE_PATH_5 END
-             , IMAGE_PATH_6 = CASE WHEN #{imagePath6} != '' THEN  #{imagePath6} ELSE IMAGE_PATH_6 END
+           SET IMAGE_PATH_1 = CASE WHEN #{imagePath1} != '' THEN  #{imagePath1} WHEN #{remove1} = 'true' THEN '' ELSE IMAGE_PATH_1 END
+             , IMAGE_PATH_2 = CASE WHEN #{imagePath2} != '' THEN  #{imagePath2} WHEN #{remove2} = 'true' THEN '' ELSE IMAGE_PATH_2 END
+             , IMAGE_PATH_3 = CASE WHEN #{imagePath3} != '' THEN  #{imagePath3} WHEN #{remove3} = 'true' THEN '' ELSE IMAGE_PATH_3 END
+             , IMAGE_PATH_4 = CASE WHEN #{imagePath4} != '' THEN  #{imagePath4} WHEN #{remove4} = 'true' THEN '' ELSE IMAGE_PATH_4 END
+             , IMAGE_PATH_5 = CASE WHEN #{imagePath5} != '' THEN  #{imagePath5} WHEN #{remove5} = 'true' THEN '' ELSE IMAGE_PATH_5 END
+             , IMAGE_PATH_6 = CASE WHEN #{imagePath6} != '' THEN  #{imagePath6} WHEN #{remove6} = 'true' THEN '' ELSE IMAGE_PATH_6 END
          WHERE ITEM_NO = ${itemNo}
     </update>
 

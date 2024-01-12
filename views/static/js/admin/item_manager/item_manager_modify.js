@@ -37,6 +37,14 @@ let image3 = false;
 let image4 = false;
 let image5 = false;
 let image6 = false;
+
+let remove1 = false;
+let remove2 = false;
+let remove3 = false;
+let remove4 = false;
+let remove5 = false;
+let remove6 = false;
+
 $(document).ready(function() {
     $('select').material_select();
 
@@ -56,6 +64,7 @@ $(document).ready(function() {
 
         $('#remove_image_1').css('display', 'block');
         image1 = true;
+        remove1 = false;
     });
 
     $('#item_image_2').change(function() {
@@ -70,6 +79,7 @@ $(document).ready(function() {
 
         $('#remove_image_2').css('display', 'block');
         image2 = true;
+        remove2 = false;
     });
 
     $('#item_image_3').change(function() {
@@ -84,6 +94,7 @@ $(document).ready(function() {
 
         $('#remove_image_3').css('display', 'block');
         image3 = true;
+        remove3 = false;
     });
 
     $('#item_image_4').change(function() {
@@ -98,6 +109,7 @@ $(document).ready(function() {
 
         $('#remove_image_4').css('display', 'block');
         image4 = true;
+        remove4 = false;
     });
 
     $('#item_image_5').change(function() {
@@ -112,6 +124,7 @@ $(document).ready(function() {
 
         $('#remove_image_5').css('display', 'block');
         image5 = true;
+        remove5 = false;
     });
 
     $('#item_image_6').change(function() {
@@ -126,37 +139,44 @@ $(document).ready(function() {
 
         $('#remove_image_6').css('display', 'block');
         image6 = true;
+        remove6 = false;
     });
 
     $('#remove_image_1').click(function() {
         $('#image_div_1').css('background-image', '');
         $('#remove_image_1').css('display', 'none');
         image1 = false;
+        remove1 = true;
     });
     $('#remove_image_2').click(function() {
         $('#image_div_2').css('background-image', '');
         $('#remove_image_2').css('display', 'none');
         image2 = false;
+        remove2 = true;
     });
     $('#remove_image_3').click(function() {
         $('#image_div_3').css('background-image', '');
         $('#remove_image_3').css('display', 'none');
         image3 = false;
+        remove3 = true;
     });
     $('#remove_image_4').click(function() {
         $('#image_div_4').css('background-image', '');
         $('#remove_image_4').css('display', 'none');
         image4 = false;
+        remove4 = true;
     });
     $('#remove_image_5').click(function() {
         $('#image_div_5').css('background-image', '');
         $('#remove_image_5').css('display', 'none');
         image5 = false;
+        remove5 = true;
     });
     $('#remove_image_6').click(function() {
         $('#image_div_6').css('background-image', '');
         $('#remove_image_6').css('display', 'none');
         image6 = false;
+        remove6 = true;
     });
 
     selectOneItem();
@@ -237,7 +257,13 @@ function modifyItem() {
         image3: image3,
         image4: image4,
         image5: image5,
-        image6: image6
+        image6: image6,
+        remove1: remove1,
+        remove2: remove2,
+        remove3: remove3,
+        remove4: remove4,
+        remove5: remove5,
+        remove6: remove6
     };
 
     ajax('/admin/item_manager/modifyItem', inputData, 'modifyItem', 'POST');

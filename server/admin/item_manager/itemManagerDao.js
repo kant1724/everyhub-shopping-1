@@ -75,7 +75,13 @@ module.exports = {
                     imagePath3: imagePath3,
                     imagePath4: imagePath4,
                     imagePath5: imagePath5,
-                    imagePath6: imagePath6
+                    imagePath6: imagePath6,
+                    remove1: param.remove1,
+                    remove2: param.remove2,
+                    remove3: param.remove3,
+                    remove4: param.remove4,
+                    remove5: param.remove5,
+                    remove6: param.remove6
                 };
                 let query = mybatisMapper.getStatement('itemManagerSQL', 'updateImagePath', param2, format);
                 conn.query(query, (err, rows, fields) => {
