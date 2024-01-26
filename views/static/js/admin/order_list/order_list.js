@@ -397,6 +397,7 @@ function exportExcelHanjin() {
         d['품목명'] = allData[i].itemNm + ',' + allData[i].optionNm;
         d['운임type'] = 'B';
         d['지불조건'] = '선불';
+        d['특기사항'] = allData[i].orderRemarks;
         data.push(d);
     }
     if (data.length == 0) {
