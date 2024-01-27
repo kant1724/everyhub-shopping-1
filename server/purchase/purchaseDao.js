@@ -8,21 +8,46 @@ module.exports = {
     insertOrderList: function(param, callback) {
         let conn = require('../common/mysql.js').getDBConnection();
         conn.beginTransaction(() => {
-            let query = mybatisMapper.getStatement('purchaseSQL', 'insertOrderListMain', param.orderListMain, format);
+            let query = mybatisMapper.getStatement('purchaseSQL', 'selectItems', param, format);
             conn.query(query, (err, rows, fields) => {
-                let orderNo = rows.insertId;
-                let orderListDetail = param.orderListDetail;
-                param.orderListMain.orderNo = orderNo;
-                this.sendSms(param);
-                for (let i = 0; i < orderListDetail.length; ++i) {
-                    orderListDetail[i].orderNo = orderNo;
-                    orderListDetail[i].orderSeq = i + 1;
-                }
-                query = mybatisMapper.getStatement('purchaseSQL', 'insertOrderListDetail', param, format);
-                conn.query(query, (err, rows, fields) => {
-                    conn.commit(() => {
-                        callback(rows);
+                for (let i = 0; i < param.orderListDetail.length; ++i) {
+                    let orderItemNo = param.orderListDetail[i].itemNo;
+                    let orderOptionNo = param.orderListDetail[i].optionNo;
+                    let orderOptionNm = param.orderListDetail[i].optionNm;
+                    let orderItemPrice = param.orderListDetail[i].itemPriceNum;
+                    let has = false;
+                    for (let j = 0; j < rows.length; ++j) {
+                        if (orderItemNo == rows[j].itemNo && orderOptionNo ==  rows[j].optionNo) {
+                            has = true;
+                            if (orderOptionNm != rows[j].optionNm || orderItemPrice != rows[j].itemPrice) {
+                                callback('diff item');
+                                conn.end();
+                                return;
+                            }
+                        }
+                    }
+                    if (!has) {
+                        callback('diff item');
                         conn.end();
+                        return;
+                    }
+                }
+                query = mybatisMapper.getStatement('purchaseSQL', 'insertOrderListMain', param.orderListMain, format);
+                conn.query(query, (err, rows, fields) => {
+                    let orderNo = rows.insertId;
+                    let orderListDetail = param.orderListDetail;
+                    param.orderListMain.orderNo = orderNo;
+                    this.sendSms(param);
+                    for (let i = 0; i < orderListDetail.length; ++i) {
+                        orderListDetail[i].orderNo = orderNo;
+                        orderListDetail[i].orderSeq = i + 1;
+                    }
+                    query = mybatisMapper.getStatement('purchaseSQL', 'insertOrderListDetail', param, format);
+                    conn.query(query, (err, rows, fields) => {
+                        conn.commit(() => {
+                            callback(rows);
+                            conn.end();
+                        });
                     });
                 });
             });

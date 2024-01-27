@@ -340,6 +340,7 @@ function selectOneItemCallback(ret) {
     eachOrder.optionNm = $('#direct_option_nm').val();
     eachOrder.keepingMethod = ret[0].keepingMethod;
     eachOrder.damageRemarks = ret[0].damageRemarks;
+    eachOrder.itemPriceNum = $('#direct_item_price_num').val();
 
     html += '<div style="font-size: 11px;">';
     html += '<div class="mt-2 mb-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + $('#direct_image_path').val() + '" alt="" class="img-fluid z-depth-0"></div>';
@@ -379,6 +380,7 @@ function purchaseFromCart() {
                 eachOrder.damageRemarks = productArr[j].damageRemarks;
                 eachOrder.optionNo = productArr[j].optionNo;
                 eachOrder.optionNm = productArr[j].optionNm;
+                eachOrder.itemPriceNum = productArr[j].itemPriceNum;
 
                 html += '<div style="font-size: 20px; font-weight: 700; color: gray;"><i class="far fa-list"></i>&nbsp;&nbsp;주문' + cnt + '</div>';
                 html += '<hr>';
@@ -487,6 +489,12 @@ function insertOrderListCallback(ret) {
         alert('주문 오류가 발생하였습니다. 지속적으로 문제발생 시 크롬 브라우저를 이용하여 주문하시기 바랍니다.');
         return;
     }
+
+    if (ret == 'diff item') {
+        alert('존재하지 않는 상품이 있습니다. 장바구니를 비우고 다시 주문하시길 바랍니다.');
+        return;
+    }
+
     let itemArr = $('#items').val().split(';');
     if (itemArr != null && itemArr != '') {
         let productArr = JSON.parse(localStorage.getItem('product'));

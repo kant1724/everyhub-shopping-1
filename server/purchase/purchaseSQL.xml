@@ -87,4 +87,18 @@
         </foreach>
     </insert>
 
+    <select id="selectItems">
+        SELECT ITEM_NO AS itemNo
+              , OPTION_NO AS optionNo
+              , OPTION_NM AS optionNm
+              , ITEM_PRICE AS itemPrice
+          FROM ITEM_OPTION
+         WHERE ITEM_NO IN (
+        <foreach collection="orderListDetail" item="order" separator=",">
+            ${order.itemNo}
+        </foreach>
+                           )
+            AND USE_YN = 'Y'
+            AND DEL_YN = 'N'
+    </select>
 </mapper>
