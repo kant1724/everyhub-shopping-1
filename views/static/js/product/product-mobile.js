@@ -224,9 +224,9 @@ function selectQnaReply(qnaNo) {
 
 function selectOneItemCallback(ret) {
     let itemNm = ret[0].itemNm;
-    if (ret[0].shipYn == 'N') {
+    if (ret[0].shipYn == 'N' && $('#admin_yn').val() != 'Y') {
         itemNm += '<span class="ml-2" style="color: #980000">(출하전)</span>';
-    } else if (ret[0].soldOutYn == 'Y') {
+    } else if (ret[0].soldOutYn == 'Y' && $('#admin_yn').val() != 'Y') {
         itemNm += '<span class="ml-2" style="color: #980000">(품절)</span>';
     } else {
         $('#order_now').prop('disabled', false);
