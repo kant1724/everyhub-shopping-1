@@ -86,14 +86,10 @@ router.post('/deleteInvoiceNo', function(req, res) {
 });
 
 router.post('/selectInvoiceNo', function(req, res) {
-    if (req.session.adminYn == 'N') {
-        res.status(500).send();
-    } else {
-        let param = req.body;
-        orderListBiz.selectInvoiceNo(param, (ret) => {
-            res.status(200).send({ret: ret});
-        });
-    }
+   let param = req.body;
+   orderListBiz.selectInvoiceNo(param, (ret) => {
+       res.status(200).send({ret: ret});
+   });
 });
 
 router.post('/updateAdditionalInfo', function(req, res) {
