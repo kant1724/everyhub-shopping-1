@@ -54,7 +54,7 @@
            AND B.OPTION_NO = D.OPTION_NO
            AND A.USER_NO = E.USER_NO
         <if test="userNo != null and userNo != ''">
-           AND A.USER_NO = #{userNo}
+           AND (A.USER_NO = #{userNo} or A.RECEIVE_TELNO = #{userNo})
         </if>
         <if test="orderUserNm != null and orderUserNm != ''">
            AND A.ORDER_PERSON_NM LIKE CONCAT('%', #{orderUserNm}, '%')
