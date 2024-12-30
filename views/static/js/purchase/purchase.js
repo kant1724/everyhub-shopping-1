@@ -111,6 +111,7 @@ $(document).ready(function() {
         }
     });
 
+    setItem();
     if ($('#items').val() != '') {
         purchaseFromCart();
     } else {
@@ -157,11 +158,6 @@ $(document).ready(function() {
         setSendInfoSameWithOrderInfo(false);
         setReceiveInfoSameWithOrderInfo(false);
     });
-
-    /**
-    $('#has_sender').click(function() {
-        setSenderInput();
-    });**/
 
     $('#search_send_address').click(function() {
         $('#zip_no_id').val('send_zip_no');
@@ -250,6 +246,7 @@ $(document).ready(function() {
 
     selectUser();
     selectSellerInfo();
+
     setOrderUser();
     setSenderUser();
 });
@@ -333,13 +330,18 @@ function selectOneItem() {
 function selectOneItemCallback(ret) {
     let html = '';
     let eachOrder = {};
+
+    if (ret != null && ret.length > 0) {
+        eachOrder.keepingMethod = ret[0].keepingMethod;
+        eachOrder.damageRemarks = ret[0].damageRemarks;
+
+    }
+
     eachOrder.qty = $('#direct_qty').val();
     eachOrder.itemNo = $('#direct_item_no').val();
     eachOrder.itemNm = $('#direct_item_nm').val();
     eachOrder.optionNo = $('#direct_option_no').val();
     eachOrder.optionNm = $('#direct_option_nm').val();
-    eachOrder.keepingMethod = ret[0].keepingMethod;
-    eachOrder.damageRemarks = ret[0].damageRemarks;
     eachOrder.itemPriceNum = $('#direct_item_price_num').val();
 
     html += '<div style="font-size: 11px;">';
@@ -495,38 +497,56 @@ function insertOrderListCallback(ret) {
         return;
     }
 
-    let itemArr = $('#items').val().split(';');
-    if (itemArr != null && itemArr != '') {
-        let productArr = JSON.parse(localStorage.getItem('product'));
-        for (let i = 0; i < itemArr.length; ++i) {
-            for (let j = 0; j < productArr.length; ++j) {
-                if (productArr[j].id == itemArr[i]) {
-                    productArr.splice(j, 1);
-                }
-            }
-        }
-        localStorage.setItem('product', JSON.stringify(productArr));
+    let url = new URL(window.location.origin + '/purchase/purchase_complete');
+
+    url.searchParams.set('directItemNo', $('#direct_item_no').val());
+    url.searchParams.set('directItemNm', $('#direct_item_nm').val());
+    url.searchParams.set('directItemPrice', $('#direct_item_price').val());
+    url.searchParams.set('directItemPriceNum', $('#direct_item_price_num').val());
+    url.searchParams.set('directQty', $('#direct_qty').val());
+    url.searchParams.set('directOptionNo', $('#direct_option_no').val());
+    url.searchParams.set('directOptionNm', $('#direct_option_nm').val());
+    url.searchParams.set('directImagePath', $('#direct_image_path').val());
+    url.searchParams.set('directShippingFee', $('#direct_shipping_fee').val());
+    url.searchParams.set('directShippingFeeNum', $('#direct_shipping_fee_num').val());
+    url.searchParams.set('directKeepingMethod', $('#direct_keeping_method').val());
+
+    url.searchParams.set('items', $('#items').val());
+
+    url.searchParams.set('orderPersonNm', $('#order_person_nm').val());
+    url.searchParams.set('orderTelno1', $('#order_telno_1').val());
+    url.searchParams.set('orderTelno2', $('#order_telno_2').val());
+    url.searchParams.set('orderTelno3', $('#order_telno_3').val());
+    url.searchParams.set('orderRemarks', $('#order_remarks').val());
+
+    url.searchParams.set('sendPersonNm', $('#send_person_nm').val());
+    url.searchParams.set('sendTelno1', $('#send_telno_1').val());
+    url.searchParams.set('sendTelno2', $('#send_telno_2').val());
+    url.searchParams.set('sendTelno3', $('#send_telno_3').val());
+    url.searchParams.set('sendZipNo', $('#send_zip_no').text());
+    url.searchParams.set('sendAddressMain', $('#send_address_main').text());
+    url.searchParams.set('sendAddressDetail', $('#send_address_detail').val());
+
+    window.location.href = url.href;
+}
+
+function setItem() {
+    let params = new URLSearchParams(location.search);
+    if (params.get('directItemNo') != null && params.get('directItemNo') != '') {
+        $('#direct_item_no').val(params.get('directItemNo'));
+        $('#direct_item_nm').val(params.get('directItemNm'));
+        $('#direct_item_price').val(params.get('directItemPrice'));
+        $('#direct_item_price_num').val(params.get('directItemPriceNum'));
+        $('#direct_qty').val(params.get('directQty'));
+        $('#direct_option_no').val(params.get('directOptionNo'));
+        $('#direct_option_nm').val(params.get('directOptionNm'));
+        $('#direct_image_path').val(params.get('directImagePath'));
+        $('#direct_shipping_fee').val(params.get('directShippingFee'));
+        $('#direct_shipping_fee_num').val(params.get('directShippingFeeNum'));
+        $('#direct_keeping_method').val(params.get('directKeepingMethod'));
     }
-
-    if (confirm('주문이 완료되었습니다. 동일 품목 및 수량으로 추가 주문 하시겠습니까?')) {
-        let url = new URL(window.location.href);
-        url.searchParams.set('orderPersonNm', $('#order_person_nm').val());
-        url.searchParams.set('orderTelno1', $('#order_telno_1').val());
-        url.searchParams.set('orderTelno2', $('#order_telno_2').val());
-        url.searchParams.set('orderTelno3', $('#order_telno_3').val());
-        url.searchParams.set('orderRemarks', $('#order_remarks').val());
-
-        url.searchParams.set('sendPersonNm', $('#send_person_nm').val());
-        url.searchParams.set('sendTelno1', $('#send_telno_1').val());
-        url.searchParams.set('sendTelno2', $('#send_telno_2').val());
-        url.searchParams.set('sendTelno3', $('#send_telno_3').val());
-        url.searchParams.set('sendZipNo', $('#send_zip_no').text());
-        url.searchParams.set('sendAddressMain', $('#send_address_main').text());
-        url.searchParams.set('sendAddressDetail', $('#send_address_detail').val());
-
-        window.location.href = url.href;
-    } else {
-        window.location.replace('/purchase/purchase_complete');
+    if (params.get('items') != null && params.get('items') != '') {
+        $('#items').val(params.get('items'));
     }
 }
 

@@ -18,6 +18,26 @@ function ajax(url, inputData, gubun, method) {
 $(document).ready(function() {
     $('.go-main').click(function() {
         location.href = '/';
+        let searchParams = new URLSearchParams(location.search);
+        $('#items').val(searchParams.get('items'));
+        let itemArr = $('#items').val().split(';');
+        if (itemArr != null && itemArr != '') {
+            let productArr = JSON.parse(localStorage.getItem('product'));
+            for (let i = 0; i < itemArr.length; ++i) {
+                for (let j = 0; j < productArr.length; ++j) {
+                    if (productArr[j].id == itemArr[i]) {
+                        productArr.splice(j, 1);
+                    }
+                }
+            }
+            localStorage.setItem('product', JSON.stringify(productArr));
+        }
+    });
+    $('.re-order').click(function() {
+        let searchParams = new URLSearchParams(location.search);
+        let url = new URL(window.location.origin + '/purchase');
+        url.search = searchParams;
+        window.location.href = url.href;
     });
 
     selectSellerInfo();
