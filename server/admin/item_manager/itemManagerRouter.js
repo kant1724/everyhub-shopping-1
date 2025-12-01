@@ -18,7 +18,11 @@ router.get('/item_modify', function(req, res, next) {
     let itemNo = req.query.itemNo;
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;
-    res.render('templates/admin/item_manager/item_manager_modify', {itemNo : itemNo, userNo: userNo, adminYn: adminYn});
+    if (adminYn == 'N') {
+        res.status(500).send();
+    } else {
+        res.render('templates/admin/item_manager/item_manager_modify', {itemNo : itemNo, userNo: userNo, adminYn: adminYn});
+    }
 });
 
 router.get('/item_option', function(req, res, next) {
@@ -82,17 +86,31 @@ router.post('/selectItemOption', function(req, res) {
 });
 
 router.post('/insertItemOption', function(req, res) {
-    let param = req.body;
-    itemManagerBiz.insertItemOption(param, () => {
-        res.status(200).send({});
-    });
+    let itemNo = req.query.itemNo;
+    let userNo = req.session.userNo;
+    let adminYn = req.session.adminYn;
+    if (adminYn == 'N') {
+        res.status(500).send();
+    } else {
+        let param = req.body;
+        itemManagerBiz.insertItemOption(param, () => {
+            res.status(200).send({});
+        });
+    }
 });
 
 router.post('/updateItemOption', function(req, res) {
-    let param = req.body;
-    itemManagerBiz.updateItemOption(param, () => {
-        res.status(200).send({});
-    });
+    let itemNo = req.query.itemNo;
+    let userNo = req.session.userNo;
+    let adminYn = req.session.adminYn;
+    if (adminYn == 'N') {
+        res.status(500).send();
+    } else {
+        let param = req.body;
+        itemManagerBiz.updateItemOption(param, () => {
+            res.status(200).send({});
+        });
+    }
 });
 
 router.post('/deleteItemOption', function(req, res) {
