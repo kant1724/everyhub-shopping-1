@@ -1,14 +1,14 @@
 let querystring = require('querystring');
 let https = require('https');
-let sender = '01024552308';
+let sender = '01094278169';
 let admin = '01094278169';
 
 module.exports = {
 	sendSMS: function (title, msg, telno) {
 		/******************** 전송정보 ********************/
 		let post_data = querystring.stringify({
-			'user_id': 'kant1724',
-			'key': '0xvx6k8kgncgs6fw2ar9mtoh0dpah57g',
+			'user_id': 'gandeurak',
+			'key': '2ooosa44ffzsiqlzz7157p0qlnid82mp,
 			'msg': msg,
 			'receiver': admin,
 			'destination': admin,
@@ -44,8 +44,8 @@ module.exports = {
 	sendSMS2: function (title, msg, telno) {
 		/******************** 전송정보 ********************/
 		let post_data = querystring.stringify({
-			'user_id': 'kant1724',
-			'key': '0xvx6k8kgncgs6fw2ar9mtoh0dpah57g',
+			'user_id': 'gandeurak',
+			'key': '2ooosa44ffzsiqlzz7157p0qlnid82mp',
 			'msg': msg,
 			'receiver': telno,
 			'destination': telno,
