@@ -8,7 +8,7 @@ module.exports = {
 		/******************** 전송정보 ********************/
 		let post_data = querystring.stringify({
 			'user_id': 'gandeurak',
-			'key': '2ooosa44ffzsiqlzz7157p0qlnid82mp,
+			'key': '2ooosa44ffzsiqlzz7157p0qlnid82mp',
 			'msg': msg,
 			'receiver': admin,
 			'destination': admin,
