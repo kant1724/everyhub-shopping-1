@@ -16,6 +16,10 @@ function ajax(url, inputData, gubun, method) {
 }
 
 $(document).ready(function() {
+    $('#go_main_btn').click(function() {
+        goMain();
+    });
+
     selectNoticeDetail();
 });
 
@@ -29,4 +33,8 @@ function selectNoticeDetail() {
 function selectNoticeDetailCallback(ret) {
     $('#notice_title').text(ret[0].noticeTitle);
     $('#notice_content').text(ret[0].noticeContent);
+}
+
+function goMain() {
+    location.href = '/'
 }
