@@ -34,7 +34,6 @@ function selectNoticeListCallback(ret) {
     $('#notice_list_tbody').empty();
 
     for (let i = 0; i < ret.length; ++i) {
-        let today = moment().format('YYYY-MM-DD');
         let noticeNo = ret[i].noticeNo;
         let noticeTitle = ret[i].noticeTitle;
         let noticeDate = ret[i].noticeDate;
@@ -52,7 +51,6 @@ function selectNoticeListCallback(ret) {
         html += '</td>';
         html += '</tr>';
     }
-    console.log(html);
     $('#notice_list_tbody').append(html);
 }
 

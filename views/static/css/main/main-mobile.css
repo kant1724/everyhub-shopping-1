@@ -294,6 +294,10 @@ body {
     color: #333;
 }
 
+.notice-title:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
 
 .gallery-slide {
     background-size: cover;

@@ -9,6 +9,13 @@ router.get('/', function(req, res, next) {
     res.render('templates/board/notice/notice_list', {userNo: userNo, adminYn: adminYn});
 });
 
+router.get('/notice_detail', function(req, res, next) {
+    let noticeNo = req.query.noticeNo;
+    let userNo = req.session.userNo;
+    let adminYn = req.session.adminYn;
+    res.render('templates/board/notice/notice_detail', {userNo: userNo, adminYn: adminYn, noticeNo: noticeNo});
+});
+
 router.get('/notice_regist', function(req, res, next) {
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;

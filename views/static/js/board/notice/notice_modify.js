@@ -7,10 +7,10 @@ function ajax(url, inputData, gubun, method) {
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: 'json',
         success: function (data, status, xhr) {
-            if (gubun == 'updateNotice') {
-                updateNoticeCallback(data.ret);
-            } else if (gubun == 'selectNoticeDetail') {
+            if (gubun == 'selectNoticeDetail') {
                 selectNoticeDetailCallback(data.ret);
+            } else if (gubun == 'updateNotice') {
+                updateNoticeCallback(data.ret);
             }
         },
         error: function (jqXhr, textStatus, errorMessage) {}

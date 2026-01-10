@@ -9,7 +9,9 @@ function ajax(url, inputData, gubun, method) {
         success: function (data, status, xhr) {
             if (gubun == 'selectItemList') {
                 selectItemListCallback(data.ret);
-            } else if (gubun == 'selectGalleryList') {
+            } else if (gubun == 'selectNoticeList') {
+                selectNoticeListCallback(data.ret);
+            }  else if (gubun == 'selectGalleryList') {
                 selectGalleryListCallback(data.ret);
             }
         },
@@ -43,6 +45,7 @@ $(document).ready(function() {
 
     initSwiper1();
     selectItemList();
+    selectNoticeList();
     selectGalleryList();
 });
 
@@ -112,6 +115,33 @@ function selectItemList() {
 function selectItemListCallback(ret) {
     setRecommendProduct(ret);
     setAllProduct(ret);
+}
+
+function selectNoticeList() {
+    let inputData = {};
+    ajax('/board/notice/selectNoticeList', inputData, 'selectNoticeList', 'POST');
+}
+
+function selectNoticeListCallback(ret) {
+    let html = '';
+    $('#notice_list_tbody').empty();
+
+    for (let i = 0; i < ret.length; ++i) {
+        let noticeNo = ret[i].noticeNo;
+        let noticeTitle = ret[i].noticeTitle;
+        let noticeDate = ret[i].noticeDate;
+
+        let pt = '15px';
+        html += '<tr style="margin-bottom: 0px;">';
+        html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
+        html += '<div id="notice_title" class="notice-title" onclick="noticeDetail(' + noticeNo + ')">' + noticeTitle + '</div>';
+        html += '</td>';
+        html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
+        html += '<div id="notice_date" class="notice-date">' + noticeDate + '</div>';
+        html += '</td>';
+        html += '</tr>';
+    }
+    $('#notice_list_tbody').append(html);
 }
 
 function selectGalleryList() {
@@ -210,4 +240,8 @@ function setAllProduct(ret) {
         let itemNo = $(this).find('#item_no').val();
         location.href = '/product?itemNo=' + itemNo;
     });
+}
+
+function noticeDetail(noticeNo) {
+    location.href = '/board/notice/notice_detail?noticeNo=' + noticeNo;
 }

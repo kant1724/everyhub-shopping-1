@@ -5,208 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>주문내역</title>
+    <title>알림마당</title>
     <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
     <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/lib/datepicker/datepicker.css" rel="stylesheet">
     <link href="/static/css/common/common.css" rel="stylesheet">
-    <link href="/static/css/admin/order_list/order_list.css" rel="stylesheet">
 </head>
 
 <body>
-    <header></header>
-    <div class="mt-5" style="width: 90%; margin: auto;">
-        <div class="ml-3 mr-3">
-            <div class="mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">주문목록</div>
-            <div class="mt-5  d-inline-block" style="float: right; margin-right: 40px;">
-                <button type="button" id="export_excel_cj" class="btn btn-sm deep-orange btn-rounded export-excel">엑셀다운(CJ)
-                </button>
-                <button type="button" id="export_excel_hanjin" class="btn btn-sm btn-primary btn-rounded export-excel">엑셀다운(한진)
-                </button>
-                <button type="button" id="start_dlvr" class="btn btn-sm btn-secondary btn-rounded export-excel">배송시작
-                </button>
-                <button type="button" id="export_excel_order_list" class="btn btn-sm btn-cyan btn-rounded export-excel">엑셀다운(주문목록)
-                </button>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="mt-4 ml-3 mr-3" style="font-size: 15px; color: gray;">
-                    주문일
-                </div>
-                <div class="col-md-1 mr-5">
-                    <span style="font-size: 13px;">시작일</span>
-                    <div class="md-form" style="margin-top: 5px;">
-                        <input id="starting_date" data-toggle="datepicker" style="width: 120px; padding: 5px;" readonly>
-                    </div>
-                </div>
-                <div class="col-md-1 ml-2 mr-5">
-                    <span style="font-size: 13px;">종료일</span>
-                    <div class="md-form" style="margin-top: 5px;">
-                        <input id="ending_date" data-toggle="datepicker" style="width: 120px; padding: 5px;" readonly>
-                    </div>
-                </div>
-                <div class="mt-4 ml-4 mr-2" style="font-size: 15px; color: gray;">
-                    주문자
-                </div>
-                <div class="col-md-1 ml-2 mr-5">
-                    <span style="font-size: 13px;">주문자명</span>
-                    <div class="md-form" style="margin-top: 5px;">
-                        <input id="order_user_nm" style="width: 120px; padding: 5px;">
-                    </div>
-                </div>
-                <div class="col-md-1 ml-2 mr-5">
-                    <span style="font-size: 13px;">받는자명</span>
-                    <div class="md-form" style="margin-top: 5px;">
-                        <input id="user_nm" style="width: 120px; padding: 5px;">
-                    </div>
-                </div>
-                <div class="col-md-1 ml-2 mr-5">
-                    <span style="font-size: 13px;">입금자명</span>
-                    <div class="md-form" style="margin-top: 5px;">
-                        <input id="deposit_person_nm" style="width: 120px; padding: 5px;">
-                    </div>
-                </div>
-                <div class="col-md-2 ml-2" style="margin-top: 35px;">
-                    <a id="search" class="common-button-1">조회</a>
-                </div>
-            </div>
-            <hr>
-            <div id="total_cnt" style="margin-bottom: 5px; margin-right: 5px; float: right; font-size: 13px;"></div>
-            <section class="section mt-3 mb-5 pb-5">
-                <table id="order_list" class="table table-bordered text-center">
-                    <thead>
-                    <tr>
-                        <th><div class="ml-2 custom-control custom-checkbox"><input type="checkbox" class="custom-control-input select-order" id="check_all"><label class="custom-control-label" for="check_all"></label></div></th>
-                        <th>주문번호</th>
-                        <th>주문일</th>
-                        <th>주문자명</th>
-                        <th>받는자명</th>
-                        <th>주문자 연락처</th>
-                        <th>메모여부</th>
-                        <th>상품/옵션</th>
-                        <th>수량</th>
-                        <th>총금액</th>
-                        <th>입금자명</th>
-                        <th>배송일자</th>
-                        <th>취소일자</th>
-                        <th>송장번호</th>
-                    </tr>
-                    </thead>
-                    <tbody id="order_list_tbody"></tbody>
-                </table>
-            </section>
+<header></header>
+<div class="container pt-5">
+    <div class="container">
+        <div class="mb-3 mt-5 d-inline-block" style="width: 200px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">알림마당</div>
+        <hr>
+        <div class="mt-3" >
+            <div class="mb-1" style="color: gray;">제목</div>
+            <div id="notice_title" type="text" style="width: 100%; outline: none;"></div>
+        </div>
+        <hr>
+        <div class="mt-3" >
+            <div class="mb-1" style="color: gray;">내용</div>
+            <div id="notice_content" style="width: 100%; height: 500px; outline: none;"></div>
         </div>
     </div>
-    <div class="modal fade" id="invoice_no_modal" tabindex="-1" role="dialog" aria-labelledby="invoice_no_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content text-center">
-                <input type="hidden" id="modal_order_no">
-                <div class="modal-body" style="margin: 20px;">
-                    <input type="text" class="form-control" id="modal_invoice_no" style="width: 200px; margin: auto;">
-                    <label id="invoice_no_label" class="mt-2" for="modal_invoice_no">송장번호를 입력하세요.</label>
-                </div>
-                <div class="text-center pb-5">
-                    <a id="save_invoice_no" class="common-button-1">저장</a>
-                    <a id="invoice_no_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
-                </div>
-                <div class="container">
-                    <table id="invoice_list" class="table table-bordered text-center">
-                        <thead>
-                        <tr>
-                            <th>주문번호</th>
-                            <th>송장번호</th>
-                            <th>상세</th>
-                            <th>삭제</th>
-                        </tr>
-                        </thead>
-                        <tbody id="invoice_list_tbody">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="additional_info_modal" tabindex="-1" role="dialog" aria-labelledby="additional_info_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content text-center">
-                <input type="hidden" id="modal_order_no_2">
-                <div class="modal-body" style="margin: 20px;">
-                    <input type="text" class="form-control" id="modal_basic_fares" style="width: 200px; margin: auto;">
-                    <label class="mt-2" for="modal_basic_fares">기본운임을 입력하세요.</label>
-                    <input type="text" class="form-control" id="modal_box_type" style="width: 200px; margin: auto;">
-                    <label class="mt-2" for="modal_box_type">박스타입을 입력하세요.</label>
-                    <input type="text" class="form-control" id="modal_fare_type" style="width: 200px; margin: auto;">
-                    <label class="mt-2" for="modal_fare_type">운임구분을 입력하세요.</label>
-                </div>
-                <div class="text-center pb-5">
-                    <a id="save_additional_info" class="common-button-1">저장</a>
-                    <a id="additional_info_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="order_detail_modal" tabindex="-1" role="dialog" aria-labelledby="order_detail_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="margin: 20px; font-size: 13px;">
-                    <div><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자명</div><div class="d-inline-block" id="modal_send_person_nm"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자연락처</div><div class="d-inline-block" id="modal_send_telno"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자 우편번호</div><div class="d-inline-block" id="modal_send_zip_no"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자 주소</div><div class="d-inline-block" id="modal_send_address_main"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자 상세주소</div><div class="d-inline-block" id="modal_send_address_detail"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자명</div><div class="d-inline-block" id="modal_receive_person_nm"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 연락처</div><div class="d-inline-block" id="modal_receive_telno"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 우편번호</div><div class="d-inline-block" id="modal_receive_zip_no"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 주소</div><div class="d-inline-block" id="modal_receive_address_main"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 상세주소</div><div class="d-inline-block" id="modal_receive_address_detail"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">주문메모</div><div class="d-inline-block" id="modal_order_remarks"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">입금메모</div><div class="d-inline-block" id="modal_deposit_remarks"></div></div>
-                </div>
-                <div class="text-center pb-5">
-                    <a id="order_detail_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="send_sms_modal" tabindex="-1" role="dialog" aria-labelledby="send_sms_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <input id="smsTelno" type="hidden">
-                <div class="mt-4" style="width: 80%; margin: auto;">제목</div>
-                <div class="text-center mt-1">
-                    <input type="text" id="sms_subject" placeholder="문자메세지 제목을 입력하세요" style="padding: 5px; width: 80%;">
-                </div>
-                <hr>
-                <div style="width: 80%; margin: auto;">내용</div>
-                <div class="text-center mt-1 mb-3">
-                    <textarea id="sms_content" placeholder="문자메세지 내용을 입력하세요" style="padding: 5px; width: 80%; height: 300px;"></textarea>
-                </div>
-                <div class="text-center pb-5">
-                    <a id="send_sms" class="common-button-1 mr-1" data-dismiss="modal">문자전송</a>
-                    <a id="send_sms_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <input type="hidden" id="user_no" value="{{userNo}}">
-    <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0">
-    </footer>
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/lib/datepicker/datepicker.js"></script>
-    <script type="text/javascript" src="/static/lib/datepicker/datepicker.ko-KR.js"></script>
-    <script type="text/javascript" src="/static/lib/moment/moment.min.js"></script>
-    <script type="text/javascript" src="/static/lib/js-xlsx/xlsx.full.min.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/component/header.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/admin/order_list/order_list.js"></script>
+</div>
+<input type="hidden" id="user_no" value="{{userNo}}">
+<input type="hidden" id="admin_yn" value="{{adminYn}}">
+<input type="hidden" id="notice_no" value="{{noticeNo}}">
+<footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0">
+</footer>
+<script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
+<script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+<script type="text/javascript" src="/static/js/common/properties.js"></script>
+<script type="text/javascript" src="/static/js/component/header.js"></script>
+<script type="text/javascript" src="/static/js/component/footer.js"></script>
+<script type="text/javascript" src="/static/js/board/notice/notice_detail.js"></script>
 </body>
 
 </html>
