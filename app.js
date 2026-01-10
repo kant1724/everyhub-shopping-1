@@ -36,6 +36,7 @@ app.use('/admin/introduction_manager', require('./server/admin/introduction_mana
 app.use('/admin/order_list', require('./server/admin/order_list/orderListRouter'));
 app.use('/admin/user_manager', require('./server/admin/user_manager/userManagerRouter'));
 app.use('/admin/delivery_manager', require('./server/admin/delivery_manager/deliveryManagerRouter'));
+app.use('/board/notice', require('./server/board/notice/noticeRouter'));
 app.use('/user', require('./server/user/userRouter'));
 
 module.exports = app;

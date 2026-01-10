@@ -48,6 +48,11 @@ if ($('#admin_yn').val() == 'Y') {
     headerHtml += '</a>';
     headerHtml += '</li>';
     headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
+    headerHtml += '<a class="nav-link waves-effect waves-light" href="/board/notice">';
+    headerHtml += '<i class="far fa-user-plus"></i>&nbsp;&nbsp;알림마당';
+    headerHtml += '</a>';
+    headerHtml += '</li>';
+    headerHtml += '<li class="nav-item" style="margin-left: 0px;">';
     headerHtml += '<a class="nav-link waves-effect waves-light" href="/admin/gallery_manager">';
     headerHtml += '<i class="far fa-images"></i>&nbsp;&nbsp;갤러리관리';
     headerHtml += '</a>';

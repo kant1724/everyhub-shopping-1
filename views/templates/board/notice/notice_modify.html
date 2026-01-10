@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>상품정보</title>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
+    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
+    <link href="/static/css/common/common.css" rel="stylesheet">
+</head>
+
+<body>
+<header></header>
+<div class="container pt-5">
+    <div class="container">
+        <div class="mb-3 mt-5 d-inline-block" style="width: 200px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">공지사항 수정</div>
+        <hr>
+        <div class="mt-3" >
+            <div class="mb-1" style="color: gray;">제목</div>
+            <input id="notice_title" type="text" style="width: 100%; outline: none;"></input>
+        </div>
+        <hr>
+        <div class="mt-3" >
+            <div class="mb-1" style="color: gray;">내용</div>
+            <textarea id="notice_content" style="width: 100%; height: 500px; outline: none;"></textarea>
+        </div>
+    </div>
+    <div>
+        <button id="save_notice_btn" type="button" class="btn btn-sm deep-orange btn-rounded">저장
+            <i class="fa fa-angle-right right"></i>
+        </button>
+    </div>
+</div>
+<input type="hidden" id="user_no" value="{{userNo}}">
+<input type="hidden" id="admin_yn" value="{{adminYn}}">
+<input type="hidden" id="notice_no" value="{{noticeNo}}">
+<footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0">
+</footer>
+<script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
+<script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
+<script type="text/javascript" src="/static/js/common/properties.js"></script>
+<script type="text/javascript" src="/static/js/component/header.js"></script>
+<script type="text/javascript" src="/static/js/component/footer.js"></script>
+<script type="text/javascript" src="/static/js/board/notice/notice_modify.js"></script>
+</body>
+
+</html>

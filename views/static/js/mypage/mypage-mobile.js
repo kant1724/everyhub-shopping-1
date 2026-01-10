@@ -89,8 +89,7 @@ function selectInvoiceNoCallback(ret) {
     $('.modal-invoice-detail').unbind();
     $('.modal-invoice-detail').click(function() {
         let invoiceNo = $(this).parent().find('.modal-invoice-no').text();
-        window.open('https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=' + invoiceNo);
-        //window.open('https://www.doortodoor.co.kr/parcel/doortodoor.do?fsp_action=PARC_ACT_002&fsp_cmd=retrieveInvNoACT&invc_no=' + invoiceNo);
+        window.open('https://trace.cjlogistics.com/next/tracking.html?wblNo=' + invoiceNo);
     });
 }
 
