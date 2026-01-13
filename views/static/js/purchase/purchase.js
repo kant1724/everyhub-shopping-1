@@ -455,7 +455,7 @@ function insertOrderList() {
     orderListMain.sendTelno3 = '';
     orderListMain.sendZipNo = '63246';
     orderListMain.sendAddressMain = '제주특별자치도 제주시 간월동로 54';
-    orderListMain.sendAddressDetail = '제주품은간드락';
+    orderListMain.sendAddressDetail = '제주품은 간드락';
     if (!$('#send_person_nm').val()) {
         orderListMain.sendPersonNm = '현병윤';
     } else {
