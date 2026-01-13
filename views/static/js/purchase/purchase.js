@@ -456,11 +456,22 @@ function insertOrderList() {
     orderListMain.sendZipNo = '63245';
     orderListMain.sendAddressMain = '제주특별자치도 제주시 간월동로5길 43';
     orderListMain.sendAddressDetail = '';
-    orderListMain.sendPersonNm = $('#send_person_nm').val();
-    orderListMain.sendTelno = $('#send_telno_1').val() + $('#send_telno_2').val() + $('#send_telno_3').val();
-    orderListMain.sendTelno1 = $('#send_telno_1').val();
-    orderListMain.sendTelno2 = $('#send_telno_2').val();
-    orderListMain.sendTelno3 = $('#send_telno_3').val();
+    if (!$('#send_person_nm').val()) {
+        orderListMain.sendPersonNm = '현병윤';
+    } else {
+        orderListMain.sendPersonNm = $('#send_person_nm').val();
+    }
+    if (!$('#send_telno_1').val()) {
+        orderListMain.sendTelno = '01094278169';
+        orderListMain.sendTelno1 = '010';
+        orderListMain.sendTelno2 = '9427';
+        orderListMain.sendTelno3 = '8169';
+    } else {
+        orderListMain.sendTelno = $('#send_telno_1').val() + $('#send_telno_2').val() + $('#send_telno_3').val();
+        orderListMain.sendTelno1 = $('#send_telno_1').val();
+        orderListMain.sendTelno2 = $('#send_telno_2').val();
+        orderListMain.sendTelno3 = $('#send_telno_3').val();
+    }
     //orderListMain.sendZipNo = $('#send_zip_no').text();
     //orderListMain.sendAddressMain = $('#send_address_main').text();
     //orderListMain.sendAddressDetail = $('#send_address_detail').val();
