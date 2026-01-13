@@ -313,7 +313,7 @@ function exportExcelCj() {
         d['운임구분'] = allData[i].fareType;
         d['품목명'] = allData[i].itemNm + ',' + allData[i].optionNm;
         d['박스수량'] = allData[i].qty;
-        d['배송메세지1'] = '';
+        d['배송메세지1'] = allData[i].orderRemarks;
         data.push(d);
     }
     if (data.length == 0) {

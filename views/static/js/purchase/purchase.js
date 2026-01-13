@@ -452,6 +452,7 @@ function insertOrderList() {
     orderListMain.sendZipNo = '';
     orderListMain.sendAddressMain = '';
     orderListMain.sendAddressDetail = '';
+    /**
     orderListMain.sendPersonNm = $('#send_person_nm').val();
     orderListMain.sendTelno = $('#send_telno_1').val() + $('#send_telno_2').val() + $('#send_telno_3').val();
     orderListMain.sendTelno1 = $('#send_telno_1').val();
@@ -460,6 +461,7 @@ function insertOrderList() {
     orderListMain.sendZipNo = $('#send_zip_no').text();
     orderListMain.sendAddressMain = $('#send_address_main').text();
     orderListMain.sendAddressDetail = $('#send_address_detail').val();
+    **/
     orderListMain.receivePersonNm = $('#receive_person_nm').val();
     orderListMain.receiveTelno = $('#receive_telno_1').val() + $('#receive_telno_2').val() + $('#receive_telno_3').val();
     orderListMain.receiveTelno1 = $('#receive_telno_1').val();

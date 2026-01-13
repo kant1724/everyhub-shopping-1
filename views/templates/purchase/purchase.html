@@ -29,7 +29,7 @@
             <hr>
             <div class="additional-info pl-4" id="" style="font-size: 13px;">
                 <div><div class="d-inline-block" style="width: 80px; font-weight: 700;"><span>배송가능일</span></div><div class="d-inline-block"><span>월 ~ 금</span></div></div>
-                <div><div class="d-inline-block" style="width: 80px; font-weight: 700;"><span>배송업체</span></div><div class="d-inline-block"><span>한진택배</span></div></div>
+                <div><div class="d-inline-block" style="width: 80px; font-weight: 700;"><span>배송업체</span></div><div class="d-inline-block"><span>CJ택배</span></div></div>
                 <div><div class="d-inline-block" style="width: 80px; font-weight: 700;"><span>기타정보</span></div><div class="d-inline-block"><span>상황에 따라 1 ~ 2일 지연</span></div></div>
             </div>
             <hr>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="mt-3 ml-2">
                         <div id="order_remarks_label" class="mb-1" style="color: gray;">주문메모</div>
-                        <textarea style="padding: 5px; width: 80%; height: 100px; outline: none;" id="order_remarks"></textarea>
+                        <textarea style="padding: 5px; width: 80%; height: 100px; outline: none;" id="order_remarks" placeholder="배송 요청사항 또는 주문하시는 분의 성함 및 주소를 입력하세요."></textarea>
                     </div>
                     <input type="hidden" id="order_zip_no">
                     <input type="hidden" id="order_address_main">
@@ -69,7 +69,7 @@
                 <div class="form-check mt-3" style="padding-left: 10px;">
                     <input type="checkbox"  class="form-check-input" id="has_sender">
                     <label class="form-check-label" for="has_sender">보내는자 입력</label>
-                </div>-->
+                </div>
                 <div class="sender-input order-info-title-text" style="font-size: 16px;">보내는자 정보</div>
                 <div class="sender-input">
                     <div class="form-check mt-3" style="padding-left: 10px;">
@@ -108,7 +108,7 @@
                             <input type="text" style="font-size: 13px; width: 250px;" class="form-control" id="send_address_detail">
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="order-info-title-text" style="font-size: 16px;">받는자 정보</div>
                 <div>
                     <div class="mt-3 ml-2"><span id="recent_receiver" class="text-underline-link">최근 주문내역</span></div>
@@ -157,10 +157,11 @@
                         <input type="radio" class="form-check-input" id="order_radio" name="radio">
                         <label class="form-check-label" for="order_radio">주문자</label>
                     </div>
+                    <!--
                     <div class="form-check form-check-inline">
                         <input type="radio" class="form-check-input" id="send_radio" name="radio">
                         <label class="form-check-label" for="send_radio">보내는자</label>
-                    </div>
+                    </div>-->
                     <div class="form-check form-check-inline">
                         <input type="radio" class="form-check-input" id="receive_radio" name="radio">
                         <label class="form-check-label" for="receive_radio">받는자</label>
