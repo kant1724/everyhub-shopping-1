@@ -218,6 +218,7 @@ function exportExcelOrderList() {
             '주문자명',
             '받는자명',
             '주문자연락처',
+            '받는자연락처',
             '상품/옵션',
             '수량',
             '총금액',
@@ -236,6 +237,7 @@ function exportExcelOrderList() {
         d['주문자명'] = $(orderObj[i]).find('#order_person_nm').text();
         d['받는자명'] = $(orderObj[i]).find('#receive_person_nm').text();
         d['주문자연락처'] = $(orderObj[i]).find('#order_telno').text();
+        d['받는자연락처'] = $(orderObj[i]).find('#receive_telno').text();
         d['상품/옵션'] = $(orderObj[i]).find('#item_nm').text();
         d['수량'] = $(orderObj[i]).find('#qty').text();
         d['총금액'] = $(orderObj[i]).find('#total_price').text();
@@ -525,27 +527,30 @@ function selectOrderListMainCallback(ret) {
             html += '<div id="order_no" class="order-no">' + orderNo + '</div>';
             html += '<div id="modify_order" class="modify-order" style="margin-top: 10px;"><span class="text-underline-link" style="font-size: 11px;">정보수정</span></div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="width: 150px; vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<td rowspan="' + rs + '" style="width: 130px; vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="order_date" class="oreder-date">' + orderDate + '</div>';
             html += '<div id="order_detail" class="oreder-detail text-underline-link">상세정보</div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<td rowspan="' + rs + '" style="width: 80px; vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="order_person_nm" class="order-person-nm">' + orderPersonNm + '</div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<td rowspan="' + rs + '" style="width: 80px; vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="receive_person_nm" class="order-person-nm">' + receivePersonNm + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="order_telno" class="order-telno">' + orderTelno + '</div>';
             html += '</td>';
             html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<div id="receive_telno" class="receive-telno">' + receiveTelno + '</div>';
+            html += '</td>';
+            html += '<td rowspan="' + rs + '" style="width: 60px; vertical-align: middle; padding-top: ' + pt + '">';
             if (orderRemarks != '' || depositRemarks != '') {
                 html += '<div id="order_remark_yn" class="order-remark-yn" style="color: red;">Y</div>';
             } else {
                 html += '<div id="order_remark_yn" class="order-remark-yn">N</div>';
             }
             html += '</td>';
-            html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
+            html += '<td style="width: 200px; vertical-align: middle; padding-top: ' + pt + '">';
             html += '<div id="item_nm" class="item-nm">' + itemNm + '<br>' + optionNm + '</div>';
             html += '</td>';
             html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
@@ -560,10 +565,10 @@ function selectOrderListMainCallback(ret) {
             html += '<td style="vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="dlvr_confirm_date" class="dlvr-confirm-date">' + dlvrConfirmDate + '</div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<td rowspan="' + rs + '" style="width: 80px; vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="cancel_date" class="cancel-date">' + cancelDate + '</div>';
             html += '</td>';
-            html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
+            html += '<td rowspan="' + rs + '" style="width: 60px; vertical-align: middle; padding-top: ' + pt + ';">';
             html += '<div id="write_invoice_no" class="write-invoice-no">' + invoiceCnt + '건<br><span class="text-underline-link">입력</span></div>';
             html += '</td>';
             //html += '<td rowspan="' + rs + '" style="vertical-align: middle; padding-top: ' + pt + ';">';
