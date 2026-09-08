@@ -1,10 +1,13 @@
 let mybatisMapper = require('mybatis-mapper');
 let format = {language: 'sql', indent: '  '};
+let utils = require('../../common/utils');
 mybatisMapper.createMapper(['server/admin/delivery_manager/deliveryManagerSQL.xml']);
 
 module.exports = {
     selectShippingInfoList: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.lastShippingInfoNo = utils.toSafeInt(param.lastShippingInfoNo);
+        param.limit = utils.toSafeInt(param.limit);
         let query = mybatisMapper.getStatement('deliveryManagerSQL', 'selectShippingInfoList', param, format);
         conn.beginTransaction(() => {
             conn.query(query, (err, rows, fields) => {
@@ -44,6 +47,7 @@ module.exports = {
 
     updateShippingInfo: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.shippingInfoNo = utils.toSafeInt(param.shippingInfoNo);
         let query = mybatisMapper.getStatement('deliveryManagerSQL', 'updateShippingInfo', param, format);
         conn.beginTransaction(() => {
             conn.query(query, (err, rows, fields) => {
@@ -57,6 +61,7 @@ module.exports = {
 
     deleteShippingInfo: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.shippingInfoNo = utils.toSafeInt(param.shippingInfoNo);
         let query = mybatisMapper.getStatement('deliveryManagerSQL', 'deleteShippingInfo', param, format);
         conn.beginTransaction(() => {
             conn.query(query, (err, rows, fields) => {

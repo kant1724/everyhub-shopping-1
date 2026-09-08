@@ -7,6 +7,14 @@ mybatisMapper.createMapper(['server/purchase/purchaseSQL.xml']);
 module.exports = {
     insertOrderList: function(param, callback) {
         let conn = require('../common/mysql.js').getDBConnection();
+        param.orderListMain.totalPrice = utils.toSafeInt(param.orderListMain.totalPrice);
+        param.orderListMain.sellerNo = utils.toSafeInt(param.orderListMain.sellerNo);
+        param.orderListMain.userNo = utils.toSafeInt(param.orderListMain.userNo);
+        param.orderListDetail.forEach((d) => {
+            d.itemNo = utils.toSafeInt(d.itemNo);
+            d.optionNo = utils.toSafeInt(d.optionNo);
+            d.qty = utils.toSafeInt(d.qty);
+        });
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('purchaseSQL', 'selectItems', param, format);
             conn.query(query, (err, rows, fields) => {

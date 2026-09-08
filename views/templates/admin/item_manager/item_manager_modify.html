@@ -1,265 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>상품변경</title>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>상품 수정</title>
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
-    <link href="/static/css/admin/item_manager/item_manager_modify.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
+    <link href="/static/css/admin/admin.css" rel="stylesheet">
 </head>
 
 <body>
-    <header></header>
-    <div class="container">
-        <div class="container mt-5 pt-5">
-            <div class="mt-2">
-                <div style="border: 1px solid #ccc;">
-                    <div class="text-center" style="border-bottom: 1px solid #ccc; background: #EAEAEA;">1</div>
-                    <div class="ml-4 mt-2 mb-3">
-                        <div class="mb-1" style="font-size: 20px;"><i class="fas fa-image"></i>&nbsp;&nbsp;<a style="color: gray;">이미지</a></div>
-                        <div class="d-inline-block">
-                            <div id="image_div_1" class="image-div">
-                                <i id="remove_image_1" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="item_image_1">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="d-inline-block">
-                            <div id="image_div_2" class="image-div">
-                                <i id="remove_image_2" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="item_image_2">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="d-inline-block">
-                            <div id="image_div_3" class="image-div">
-                                <i id="remove_image_3" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="item_image_3">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="d-inline-block">
-                            <div id="image_div_4" class="image-div">
-                                <i id="remove_image_4" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="item_image_4">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="d-inline-block">
-                            <div id="image_div_5" class="image-div">
-                                <i id="remove_image_5" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="item_image_5">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="d-inline-block">
-                            <div id="image_div_6" class="image-div">
-                                <i id="remove_image_6" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="item_image_6">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+    <div id="item_form_app" class="adm" v-cloak>
+        <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
+
+        <div class="adm-shell adm-shell-narrow">
+            <button type="button" class="adm-back" @click="goBack"><i class="far fa-angle-left"></i> 상품목록</button>
+
+            <div class="adm-head">
+                <div>
+                    <h1 class="adm-title">[[ isEdit ? '상품 수정' : '상품 등록' ]]</h1>
+                    <p class="adm-sub" v-if="isEdit">상품번호 [[ itemNo ]]</p>
+                </div>
+                <div class="adm-actions">
+                    <button type="button" class="adm-btn" @click="goBack">취소</button>
+                    <button type="button" class="adm-btn adm-btn-primary" id="save_item" @click="save" :disabled="saving">
+                        [[ saving ? '저장 중...' : '저장' ]]
+                    </button>
                 </div>
             </div>
-            <div class="mt-5">
-                <div style="border: 1px solid #ccc;">
-                    <div class="text-center" style="border-bottom: 1px solid #ccc; background: #EAEAEA;">2</div>
-                    <div class="ml-4 mr-4 mt-2 mb-4">
-                        <div>
-                            <div class="mt-3 d-inline-block">
-                                <div class="md-form">
-                                    <i class="fas fa-pencil prefix" style="font-size: 25px;"></i>
-                                    <input type="text" class="form-control" id="item_nm" style="width: 200px;">
-                                    <label id="item_nm_label" for="item_nm">상품명</label>
-                                </div>
-                            </div>
-                            <div class="mt-3 ml-3 d-inline-block">
-                                <div class="md-form">
-                                    <i class="far fa-sort-numeric-down prefix" style="font-size: 25px;"></i>
-                                    <input type="number" class="form-control" id="sort_order" style="width: 200px;">
-                                    <label id="sort_order_label" for="sort_order">정렬순서</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="mt-3 d-inline-block">
-                                <div class="mb-1" style="color: gray;">대분류</div>
-                                <div style="width: 200px;">
-                                    <select id="item_main_ctgr_cd" class="browser-default common-select">
-                                        <option value="">선택</option>
-                                        <option value="1">과일</option>
-                                        <option value="2">야채</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mt-3 ml-3 d-inline-block">
-                                <div class="mb-1" style="color: gray;">중분류</div>
-                                <div style="width: 200px;">
-                                    <select id="item_mid_ctgr_cd" class="browser-default common-select">
-                                        <option value="">선택</option>
-                                        <option value="1">한라봉</option>
-                                        <option value="2">천혜향</option>
-                                        <option value="3">레드향</option>
-                                        <option value="4">황금향</option>
-                                        <option value="5">카라향</option>
-                                        <option value="6">진지향</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mt-3 ml-3 d-inline-block">
-                                <div class="mb-1" style="color: gray;">원산지</div>
-                                <div style="width: 200px;">
-                                    <select id="origin_cd" class="browser-default common-select">
-                                        <option value="1">국내산</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="mt-3 d-inline-block">
-                                <div class="mb-1" style="color: gray;">추천상품</div>
-                                <div style="width: 200px;">
-                                    <select id="recommend_yn" class="browser-default common-select">
-                                        <option value="">선택</option>
-                                        <option value="Y">Y</option>
-                                        <option value="N">N</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mt-3 ml-3 d-inline-block">
-                                <div class="mb-1" style="color: gray;">사용여부</div>
-                                <div style="width: 200px;">
-                                    <select id="use_yn" class="browser-default common-select">
-                                        <option value="">선택</option>
-                                        <option value="Y">Y</option>
-                                        <option value="N">N</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-3 d-inline-block">
-                            <div class="mb-1" style="color: gray;">출하여부</div>
-                            <div style="width: 200px;">
-                                <select id="ship_yn" class="browser-default common-select">
-                                    <option value="">선택</option>
-                                    <option value="Y">Y</option>
-                                    <option value="N">N</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mt-3 ml-3 d-inline-block">
-                            <div class="mb-1" style="color: gray;">품절여부</div>
-                            <div style="width: 200px;">
-                                <select id="sold_out_yn" class="browser-default common-select">
-                                    <option value="">선택</option>
-                                    <option value="Y">Y</option>
-                                    <option value="N">N</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mt-3">
-                            <div id="item_desc_label" class="mb-1" style="color: gray;">상품설명</div>
-                            <textarea length="100" style="width: 100%; outline: none;" id="item_desc"></textarea>
-                        </div>
-                        <div class="mt-3">
-                            <div id="notice_label" class="mb-1" style="color: gray;">유의사항</div>
-                            <textarea length="500" style="width: 100%; outline: none;" id="notice"></textarea>
-                        </div>
-                        <div class="mt-3">
-                            <div id="keeping_method_label" class="mb-1" style="color: gray;">보관방법</div>
-                            <textarea length="500" style="width: 100%; outline: none;" id="keeping_method"></textarea>
-                        </div>
-                        <div class="mt-3">
-                            <div id="damage_remarks_label" class="mb-1" style="color: gray;">파손시 조치사항</div>
-                            <textarea length="500" style="width: 100%; outline: none;" id="damage_remarks"></textarea>
+
+            <p v-if="loading" class="adm-empty">불러오는 중...</p>
+
+            <template v-else>
+                <section class="adm-card">
+                    <h2 class="adm-card-title">기본 정보</h2>
+
+                    <div class="adm-field">
+                        <label class="adm-label" for="item_nm">상품명</label>
+                        <input id="item_nm" type="text" class="gd-input" v-model="form.itemNm">
+                    </div>
+                    <p class="adm-error" v-if="errors.itemNm">[[ errors.itemNm ]]</p>
+
+                    <div class="adm-field">
+                        <label class="adm-label" for="item_main_ctgr_cd">대분류</label>
+                        <select id="item_main_ctgr_cd" class="gd-input" v-model="form.itemMainCtgrCd">
+                            <option value="">선택</option>
+                            <option v-for="c in mainCtgrList" :key="c.cd" :value="c.cd">[[ c.nm ]]</option>
+                        </select>
+                    </div>
+
+                    <div class="adm-field">
+                        <label class="adm-label" for="item_mid_ctgr_cd">중분류</label>
+                        <select id="item_mid_ctgr_cd" class="gd-input" v-model="form.itemMidCtgrCd">
+                            <option value="">선택</option>
+                            <option v-for="c in midCtgrList" :key="c.cd" :value="c.cd">[[ c.nm ]]</option>
+                        </select>
+                    </div>
+
+                    <div class="adm-field">
+                        <label class="adm-label" for="origin_cd">원산지</label>
+                        <select id="origin_cd" class="gd-input" v-model="form.originCd">
+                            <option v-for="c in originList" :key="c.cd" :value="c.cd">[[ c.nm ]]</option>
+                        </select>
+                    </div>
+
+                    <div class="adm-field adm-field-block">
+                        <label class="adm-label" for="item_desc">상품설명</label>
+                        <textarea id="item_desc" class="gd-input" style="height:90px;" v-model="form.itemDesc"></textarea>
+                    </div>
+                    <p class="adm-hint" :class="{ 'is-over': (form.itemDesc || '').length > 100 }">
+                        [[ (form.itemDesc || '').length ]] / 100자
+                    </p>
+                    <p class="adm-error" v-if="errors.itemDesc">[[ errors.itemDesc ]]</p>
+
+                    <div class="adm-field adm-field-block">
+                        <label class="adm-label" for="notice">공지</label>
+                        <textarea id="notice" class="gd-input" style="height:70px;" v-model="form.notice"></textarea>
+                    </div>
+
+                    <div class="adm-field">
+                        <label class="adm-label" for="keeping_method">보관방법</label>
+                        <input id="keeping_method" type="text" class="gd-input" v-model="form.keepingMethod">
+                    </div>
+
+                    <div class="adm-field adm-field-block">
+                        <label class="adm-label" for="damage_remarks">파손시 조치</label>
+                        <textarea id="damage_remarks" class="gd-input" style="height:70px;" v-model="form.damageRemarks"></textarea>
+                    </div>
+
+                    <div class="adm-field">
+                        <label class="adm-label" for="sort_order">정렬순서</label>
+                        <input id="sort_order" type="text" inputmode="numeric" class="gd-input" v-model="form.sortOrder">
+                    </div>
+                </section>
+
+                <section class="adm-card">
+                    <h2 class="adm-card-title">노출 설정</h2>
+                    <div class="adm-field"><span class="adm-label">추천상품</span>
+                        <div class="adm-radios">
+                            <label class="adm-radio"><input type="radio" value="Y" v-model="form.recommendYn"><span>예</span></label>
+                            <label class="adm-radio"><input type="radio" value="N" v-model="form.recommendYn"><span>아니오</span></label>
+                        </div></div>
+                    <div class="adm-field"><span class="adm-label">사용여부</span>
+                        <div class="adm-radios">
+                            <label class="adm-radio"><input type="radio" value="Y" v-model="form.useYn"><span>사용</span></label>
+                            <label class="adm-radio"><input type="radio" value="N" v-model="form.useYn"><span>미사용</span></label>
+                        </div></div>
+                    <div class="adm-field"><span class="adm-label">출하여부</span>
+                        <div class="adm-radios">
+                            <label class="adm-radio"><input type="radio" value="Y" v-model="form.shipYn"><span>판매중</span></label>
+                            <label class="adm-radio"><input type="radio" value="N" v-model="form.shipYn"><span>출하전</span></label>
+                        </div></div>
+                    <div class="adm-field"><span class="adm-label">품절여부</span>
+                        <div class="adm-radios">
+                            <label class="adm-radio"><input type="radio" value="Y" v-model="form.soldOutYn"><span>품절</span></label>
+                            <label class="adm-radio"><input type="radio" value="N" v-model="form.soldOutYn"><span>판매가능</span></label>
+                        </div></div>
+                </section>
+
+                <section class="adm-card">
+                    <h2 class="adm-card-title">상품 이미지</h2>
+                    <p class="adm-note">사진을 새로 고르지 않으면 기존 사진이 그대로 유지됩니다.</p>
+                    <div class="adm-images">
+                        <div class="adm-image-slot" v-for="s in slots" :key="s.n">
+                            <div class="adm-image-label">이미지 [[ s.n ]]</div>
+                            <img v-if="shownImage(s)" :src="shownImage(s)" :alt="'이미지 ' + s.n">
+                            <div v-else class="adm-image-empty"><i class="fal fa-image"></i></div>
+                            <input :id="'item_image_' + s.n" type="file" accept="image/*" @change="onPick(s, $event)">
+                            <button type="button" class="adm-link adm-link-danger adm-image-remove"
+                                    v-if="shownImage(s)" @click="clearSlot(s)">이미지 삭제</button>
                         </div>
                     </div>
-                </div>
-            </div>
-            <hr>
-            <input type="hidden" id="item_no" value="{{itemNo}}">
-            <div class="text-center">
-                <button id="item_modify_btn" type="button" class="btn btn-sm deep-orange btn-rounded item-register-btn">상품변경
-                    <i class="fa fa-angle-right right"></i>
-                </button>
-            </div>
-            <div class="mb-5"></div>
+                </section>
+            </template>
         </div>
+
+        <app-footer></app-footer>
     </div>
+
+    <input type="hidden" id="item_no" value="{{itemNo}}">
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0">
-    </footer>
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/component/header.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/admin/item_manager/item_manager_modify.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/admin/item_manager/item_manager_modify.js"></script>
 </body>
 
 </html>

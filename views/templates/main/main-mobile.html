@@ -1,173 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>간드락닷컴</title>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
     <link href="/static/lib/swiper/swiper.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
-    <link href="/static/css/main/main-mobile.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
+    <link href="/static/css/main/main.css" rel="stylesheet">
 </head>
+
 <body>
-    <header></header>
-    <section>
-        <div class="text-center top">
-            <div><img id="title_logo" src="/static/res/gandeurak_logo.jpg" width="150px;"></div>
-            <div class="menu">
-                <div class="menu-1"><a href="#special_price" class="smooth-goto" style="color: #333;">추천상품</a></div>
-                <div class="divide-vertical">ㅣ</div>
-                <div class="menu-2"><a href="#all_product" class="smooth-goto" style="color: #333;">전체상품</a></div>
-                <div class="divide-vertical">ㅣ</div>
-                <div class="menu-3"><a href="/introduction" class="smooth-goto" style="color: #333">농장소개</a></div>
+    <div id="main_app" v-cloak>
+        <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
+
+        <button type="button" class="gd-cart-fab" @click="goCart" aria-label="장바구니">
+            <i class="far fa-shopping-cart"></i>
+        </button>
+
+        <section class="home-hero">
+            <div class="home-brand">
+                <img id="title_logo" src="/static/res/gandeurak_logo.jpg" alt="간드락농원" @click="location.href='/'">
+                <nav class="home-nav">
+                    <a href="#recommend" @click.prevent="scrollTo('#recommend')">추천상품</a>
+                    <span class="home-nav-sep"></span>
+                    <a href="#all_product" @click.prevent="scrollTo('#all_product')">전체상품</a>
+                    <span class="home-nav-sep"></span>
+                    <a href="/introduction">농장소개</a>
+                </nav>
             </div>
-            <div class="swiper-container top-swiper">
+
+            <div class="swiper-container hero-swiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide top-main-1 text-left" style="padding-top: 20px; padding-bottom: 20px;">
-                        <div style="font-size: 14px; margin-top: 100px; margin-left: 10%;">
-                            <span style="font-size: 17px; font-weight: 700;">키토산</span><span>으로 재배한</span>
-                        </div>
-                        <div style="font-size: 12px; margin-top: 2px; margin-left: 10%;">
-                            <span>달콤한 한라봉</span>
-                        </div>
-                        <div style="font-size: 9px; font-weight: 700; margin-top: 30px; margin-left: 10%;">
-                            <span>간드락에서 주문하세요.</span>
+                    <div class="swiper-slide hero-slide top-main-1">
+                        <div class="hero-copy">
+                            <p class="hero-copy-lead"><strong>키토산</strong>으로 재배한</p>
+                            <p class="hero-copy-title">달콤한 한라봉</p>
+                            <p class="hero-copy-sub">간드락에서 주문하세요.</p>
                         </div>
                     </div>
-                    <div class="swiper-slide top-main-2 text-left" style="padding-top: 20px; padding-bottom: 20px;">
-                        <div style="font-size: 14px; margin-top: 100px; margin-left: 10%;">
-                            <span style="font-size: 17px; font-weight: 700;">키토산</span><span>으로 재배한</span>
-                        </div>
-                        <div style="font-size: 12px; margin-top: 2px; margin-left: 10%;">
-                            <span>달콤한 카라향</span>
-                        </div>
-                        <div style="font-size: 9px; font-weight: 700; margin-top: 30px; margin-left: 10%;">
-                            <span>간드락에서 주문하세요.</span>
+                    <div class="swiper-slide hero-slide top-main-2">
+                        <div class="hero-copy">
+                            <p class="hero-copy-lead"><strong>키토산</strong>으로 재배한</p>
+                            <p class="hero-copy-title">달콤한 카라향</p>
+                            <p class="hero-copy-sub">간드락에서 주문하세요.</p>
                         </div>
                     </div>
-                    <div class="swiper-slide top-main-3 text-left" style="padding-top: 100px; padding-bottom: 100px; margin: auto;"></div>
-                    <div class="swiper-slide top-main-4 text-center" style="padding-top: 100px; padding-bottom: 100px; margin: auto;"></div>
-                    <div class="swiper-slide top-main-5 text-center" style="padding-top: 100px; padding-bottom: 100px; margin: auto;"></div>
-                    <div class="swiper-slide top-main-6 text-center" style="padding-top: 100px; padding-bottom: 100px; margin: auto;"></div>
-                    <div class="swiper-slide top-main-7 text-center" style="padding-top: 100px; padding-bottom: 100px; margin: auto;"></div>
-                    <div class="swiper-slide top-main-8 text-center" style="padding-top: 100px; padding-bottom: 100px; margin: auto;"></div>
-                    <div class="swiper-slide top-main-9 text-center" style="padding-top: 100px; padding-bottom: 100px; margin: auto;"></div>
-                    <div class="swiper-slide top-main-10 text-center" style="padding-top: 100px; padding-bottom: 100px; margin: auto;"></div>
-                    <div class="swiper-slide top-main-11 text-center" style="padding-top: 100px; padding-bottom: 100px; margin: auto;"></div>
+                    <div class="swiper-slide hero-slide top-main-3"></div>
+                    <div class="swiper-slide hero-slide top-main-4"></div>
+                    <div class="swiper-slide hero-slide top-main-5"></div>
+                    <div class="swiper-slide hero-slide top-main-6"></div>
+                    <div class="swiper-slide hero-slide top-main-7"></div>
+                    <div class="swiper-slide hero-slide top-main-8"></div>
+                    <div class="swiper-slide hero-slide top-main-9"></div>
+                    <div class="swiper-slide hero-slide top-main-10"></div>
+                    <div class="swiper-slide hero-slide top-main-11"></div>
                 </div>
-                <div class="swiper-pagination top-swiper"></div>
-                <div class="swiper-button-prev top-swiper"><i class="far fa-angle-left"></i></div>
-                <div class="swiper-button-next top-swiper"><i class="far fa-angle-right"></i></div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"><i class="far fa-angle-left"></i></div>
+                <div class="swiper-button-next"><i class="far fa-angle-right"></i></div>
             </div>
-        </div>
-    </section>
-    <div id="special_price" >
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <section class="mt-5">
-                        <span style="font-size: 16px;" class="font-weight-bold mt-4 section-title">
-                            <strong>추천 상품</strong>
-                        </span>
-                        <hr>
-                        <div class="swiper-container rcm-swiper">
-                            <div id="recommend_product" class="swiper-wrapper pt-3">
+        </section>
+
+        <section id="recommend" class="home-section home-section-tint" v-if="recommended.length > 0">
+            <div class="home-shell">
+                <div class="home-section-head">
+                    <h2 class="home-section-title">추천 상품</h2>
+                    <p class="home-section-sub">간드락농원이 자신 있게 권하는 과일이에요</p>
+                </div>
+
+                <div class="swiper-container rcm-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide rcm-slide" v-for="item in recommended" :key="item.itemNo">
+                        <article class="product-card" @click="goProduct(item.itemNo)">
+                            <div class="product-card-thumb">
+                                <img :src="item.imagePath1" :alt="item.itemNm">
                             </div>
-                            <div class="swiper-pagination rcm-swiper"></div>
-                            <div class="swiper-button-prev rcm-swiper"><i class="far fa-angle-left"></i></div>
-                            <div class="swiper-button-next rcm-swiper"><i class="far fa-angle-right"></i></div>
+                            <div class="product-card-body">
+                                <span class="product-chip" :class="{ 'is-off': item.shipYn !== 'Y' }">[[ statusOf(item) ]]</span>
+                                <h3 class="product-card-name">[[ item.itemNm ]]</h3>
+                                <p class="product-card-desc">[[ descOf(item) ]]</p>
+                                <p class="product-card-origin">원산지 국내산</p>
+                            </div>
+                        </article>
                         </div>
-                    </section>
+                    </div>
+                    <div class="swiper-button-prev"><i class="far fa-angle-left"></i></div>
+                    <div class="swiper-button-next"><i class="far fa-angle-right"></i></div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div>
-        <div class="container">
-            <section class="mt-5" id="all_product">
-                <span style="font-size: 16px;" class="font-weight-bold mt-4 section-title">
-                    <strong>전체 상품</strong>
-                </span>
-                <hr>
-                <div id="all_item_list" class="row">
+        </section>
+
+        <section id="all_product" class="home-section">
+            <div class="home-shell">
+                <div class="home-section-head">
+                    <h2 class="home-section-title">전체 상품</h2>
+                    <p class="home-section-sub">제철에 맞춰 수확한 상품을 만나보세요</p>
                 </div>
-            </section>
-        </div>
-    </div>
-    <div>
-        <div class="container">
-            <section class="my-5">
-                <span style="font-size: 16px;" class="font-weight-bold mt-4 section-title">
-                    <strong>알림마당</strong>
-                </span>
-                <hr>
-                <table id="notice_list" class="table table-bordered text-center">
-                    <colgroup>
-                        <col style="width: 60%;">
-                        <col style="width: 40%;">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>제목</th>
-                        <th>작성일자</th>
-                    </tr>
-                    </thead>
-                    <tbody id="notice_list_tbody"></tbody>
-                </table>
-            </section>
-        </div>
-    </div>
-    <div>
-        <div class="container">
-            <section class="mt-5">
-                <span style="font-size: 16px;" class="font-weight-bold mt-4 section-title">
-                    <strong>갤러리</strong>
-                </span>
-                <hr>
-                <div class="swiper-container gallery-top pt-3">
-                    <div class="swiper-wrapper gallery-top-wrapper"></div>
-                    <!-- Add Arrows -->
-                    <div class="swiper-button-next swiper-button-white"></div>
-                    <div class="swiper-button-prev swiper-button-white"></div>
+
+                <div v-if="items.length === 0" class="home-empty">준비 중인 상품이 없습니다.</div>
+
+                <div v-else class="product-grid">
+                    <template v-for="item in items" :key="item.itemNo">
+                        <article class="product-card" @click="goProduct(item.itemNo)">
+                            <div class="product-card-thumb">
+                                <img :src="item.imagePath1" :alt="item.itemNm">
+                            </div>
+                            <div class="product-card-body">
+                                <span class="product-chip" :class="{ 'is-off': item.shipYn !== 'Y' }">[[ statusOf(item) ]]</span>
+                                <h3 class="product-card-name">[[ item.itemNm ]]</h3>
+                                <p class="product-card-desc">[[ descOf(item) ]]</p>
+                                <p class="product-card-origin">원산지 국내산</p>
+                            </div>
+                        </article>
+                    </template>
                 </div>
-                <div class="swiper-container gallery-thumbs">
-                    <div class="swiper-wrapper gallery-thumbs-wrapper"></div>
+            </div>
+        </section>
+
+        <section class="home-section home-section-tint">
+            <div class="home-shell">
+                <div class="home-section-head home-section-head-row">
+                    <h2 class="home-section-title">알림마당</h2>
+                    <a href="/board/notice" class="home-more">전체보기 <i class="far fa-angle-right"></i></a>
                 </div>
-                <hr>
-                <div id="image_desc" class="mb-5" style="width:100%; font-size: 20px;"></div>
-            </section>
-        </div>
+
+                <div v-if="notices.length === 0" class="home-empty">등록된 공지가 없습니다.</div>
+
+                <ul v-else class="notice-list">
+                    <li v-for="n in notices" :key="n.noticeNo" class="notice-row" @click="goNotice(n.noticeNo)">
+                        <span class="notice-row-title">[[ n.noticeTitle ]]</span>
+                        <span class="notice-row-date">[[ n.noticeDate ]]</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="home-section" v-if="gallery.length > 0">
+            <div class="home-shell">
+                <div class="home-section-head">
+                    <h2 class="home-section-title">갤러리</h2>
+                    <p class="home-section-sub">농원의 사계절을 담았습니다</p>
+                </div>
+
+                <div class="swiper-container gallery-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide gallery-slide" v-for="(g, i) in gallery" :key="i">
+                            <img :src="g" alt="갤러리 이미지">
+                        </div>
+                    </div>
+                    <div class="swiper-button-prev"><i class="far fa-angle-left"></i></div>
+                    <div class="swiper-button-next"><i class="far fa-angle-right"></i></div>
+                </div>
+
+                <p class="gallery-desc" v-if="galleryDesc">[[ galleryDesc ]]</p>
+            </div>
+        </section>
+
+        <section class="home-section home-section-tint">
+            <div class="home-shell">
+                <div class="home-section-head">
+                    <h2 class="home-section-title">YouTube</h2>
+                </div>
+                <div class="video-frame">
+                    <iframe src="https://www.youtube.com/embed/TUJ0CgnJkxE" frameborder="0" allowfullscreen
+                            title="간드락농원 영상"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <app-footer></app-footer>
     </div>
-    <div>
-        <div class="container">
-            <section class="my-3">
-                <span style="font-size: 16px;" class="font-weight-bold mt-4 section-title">
-                    <strong>YouTube</strong>
-                </span>
-                <hr>
-                <style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style><div class='embed-container'><iframe src='https://www.youtube.com/embed/TUJ0CgnJkxE' frameborder='0' allowfullscreen></iframe></div>
-            </section>
-        </div>
-    </div>
+
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/js/component/header-mobile.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/lib/swiper/swiper.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/common/nav.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/main/main-mobile.js"></script>
+
+    <script src="/static/lib/swiper/swiper.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/main/main.js"></script>
 </body>
 
 </html>

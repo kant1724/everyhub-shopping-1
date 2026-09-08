@@ -1,83 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>E-Commerce - MDBootstrap</title>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>장바구니</title>
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
     <link href="/static/css/cart/cart.css" rel="stylesheet">
 </head>
 
 <body>
-    <header></header>
-    <div class="container mt-5 pt-3">
-        <div class="container">
-            <div class="mt-4 mb-3" style="width: 100px; font-size:20px; border-left: 5px solid #333; padding-left: 10px;">장바구니</div>
-            <hr>
-            <section class="section my-5 pb-5">
-                <div class="table-responsive">
-                    <table class="table product-table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>
-                                    <strong>이미지</strong>
-                                </th>
-                                <th class="font-weight-bold">
-                                    <strong>상품</strong>
-                                </th>
-                                <th class="font-weight-bold">
-                                    <strong>옵션명</strong>
-                                </th>
-                                <th class="font-weight-bold">
-                                    <strong>단가</strong>
-                                </th>
-                                <th class="font-weight-bold">
-                                    <strong>배송비</strong>
-                                </th>
-                                <th class="font-weight-bold">
-                                    <strong>수량</strong>
-                                </th>
-                                <th class="font-weight-bold">
-                                    <strong>가격</strong>
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="cart_tbody">
-                        </tbody>
-                    </table>
-                    <hr>
-                    <div style="font-size: 16px; float: right; margin-right: 40px;">
-                        <span id="totalPrice"></span>
+    <div id="cart_app" class="cart-page" v-cloak>
+        <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
+
+        <div class="cart-shell">
+            <h1 class="cart-title">장바구니</h1>
+
+            <div v-if="items.length === 0" class="cart-empty">
+                <i class="fal fa-shopping-cart"></i>
+                <p class="cart-empty-text">장바구니가 비어있습니다.</p>
+                <a href="/" class="cart-empty-btn">상품 보러가기</a>
+            </div>
+
+            <div v-else class="cart-layout">
+                <div class="cart-list">
+                    <div class="cart-list-head">
+                        <label class="cart-check">
+                            <input type="checkbox" :checked="allChecked" @change="toggleAll">
+                            <span>전체선택 ([[ checkedCount ]]/[[ items.length ]])</span>
+                        </label>
+                        <button type="button" class="cart-remove-checked" @click="removeChecked" :disabled="checkedCount === 0">
+                            선택삭제
+                        </button>
+                    </div>
+
+                    <div v-for="(item, idx) in items" :key="item.id" class="cart-card" :class="{ 'is-unchecked': !item.checked }">
+                        <label class="cart-check cart-card-check">
+                            <input type="checkbox" v-model="item.checked" @change="persist">
+                        </label>
+
+                        <div class="cart-card-thumb">
+                            <img :src="item.imagePath" :alt="item.itemNm">
+                        </div>
+
+                        <div class="cart-card-body">
+                            <div class="cart-card-name">[[ item.itemNm ]]</div>
+                            <div class="cart-card-option">[[ item.optionNm ]]</div>
+                            <div class="cart-card-meta">
+                                <span>상품 [[ item.itemPrice ]]</span>
+                                <span class="cart-dot">·</span>
+                                <span>배송비 [[ item.shippingFee ]]</span>
+                            </div>
+
+                            <div class="cart-card-bottom">
+                                <div class="qty-stepper">
+                                    <button type="button" @click="decrease(item)" :disabled="item.qty <= 1" aria-label="수량 감소">
+                                        <i class="fal fa-minus"></i>
+                                    </button>
+                                    <span class="qty-value">[[ item.qty ]]</span>
+                                    <button type="button" @click="increase(item)" aria-label="수량 증가">
+                                        <i class="fal fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="cart-card-sum">[[ formatWon(lineTotal(item)) ]]</div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="cart-card-remove" @click="removeItem(idx)" aria-label="삭제">
+                            <i class="fal fa-times"></i>
+                        </button>
                     </div>
                 </div>
-                <div class="my-3" style="float: right; margin-right: 30px;">
-                    <button type="button" id="purchase_btn" class="btn btn-sm deep-orange btn-rounded purchase-btn">구매하기
-                        <i class="fa fa-angle-right right"></i>
-                    </button>
-                </div>
-            </section>
+
+                <aside class="cart-summary">
+                    <div class="cart-summary-box">
+                        <h2 class="cart-summary-title">결제 예정 금액</h2>
+                        <dl class="cart-summary-row">
+                            <dt>상품 금액</dt>
+                            <dd>[[ formatWon(totalItemPrice) ]]</dd>
+                        </dl>
+                        <dl class="cart-summary-row">
+                            <dt>배송비</dt>
+                            <dd>[[ formatWon(totalShippingFee) ]]</dd>
+                        </dl>
+                        <div class="cart-summary-divider"></div>
+                        <dl class="cart-summary-row cart-summary-total">
+                            <dt>총 결제금액</dt>
+                            <dd>[[ formatWon(totalPrice) ]]</dd>
+                        </dl>
+                        <button type="button" id="purchase_btn" class="cart-purchase-btn" @click="goPurchase" :disabled="checkedCount === 0">
+                            [[ checkedCount ]]건 구매하기
+                        </button>
+                        <p class="cart-summary-note">※ 도서산간 지역은 배송비가 추가될 수 있습니다.</p>
+                    </div>
+                </aside>
+            </div>
         </div>
+
+        <app-footer></app-footer>
     </div>
+
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/component/header.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/cart/cart.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/cart/cart.js"></script>
 </body>
 
 </html>

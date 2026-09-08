@@ -1,5 +1,6 @@
 let mybatisMapper = require('mybatis-mapper');
 let format = {language: 'sql', indent: '  '};
+let utils = require('../common/utils');
 mybatisMapper.createMapper(['server/user/userSQL.xml']);
 
 module.exports = {
@@ -47,6 +48,7 @@ module.exports = {
 
     selectUser: function(param, callback) {
         let conn = require('../common/mysql.js').getDBConnection();
+        param.userNo = utils.toSafeInt(param.userNo);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('userSQL', 'selectUser', param, format);
             conn.query(query, (err, rows, fields) => {
@@ -58,6 +60,8 @@ module.exports = {
 
     selectAllUser: function(param, callback) {
         let conn = require('../common/mysql.js').getDBConnection();
+        param.lastUserNo = utils.toSafeInt(param.lastUserNo);
+        param.limit = utils.toSafeInt(param.limit);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('userSQL', 'selectAllUser', param, format);
             conn.query(query, (err, rows, fields) => {
@@ -84,6 +88,7 @@ module.exports = {
 
     selectSellerInfo: function(param, callback) {
         let conn = require('../common/mysql.js').getDBConnection();
+        param.sellerNo = utils.toSafeInt(param.sellerNo);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('userSQL', 'selectSellerInfo', param, format);
             conn.query(query, (err, rows, fields) => {

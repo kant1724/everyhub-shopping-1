@@ -1,40 +1,40 @@
-function ajax(url, inputData, gubun, method) {
-    $.ajax(url, {
-        type: method,
-        data: inputData,
-        async: false,
-        xhrFields: { withCredentials: true },
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: 'json',
-        success: function (data, status, xhr) {
-            if (gubun == 'selectNoticeDetail') {
-                selectNoticeDetailCallback(data.ret);
+/**
+ * 알림마당 상세 (Vue 3) — MDBootstrap / Bootstrap / jQuery 미사용
+ */
+(function () {
+    const ctx = pageContext();
+    const el = document.getElementById('notice_no');
+    const noticeNo = el ? el.value : '';
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                userNo: ctx.userNo,
+                adminYn: ctx.adminYn,
+                notice: null,
+                loading: true
+            };
+        },
+
+        computed: {
+            isAdmin() { return this.adminYn === 'Y'; }
+        },
+
+        methods: {
+            goList() { location.href = '/board/notice'; },
+            edit() {
+                location.href = '/board/notice/notice_modify?noticeNo=' + encodeURIComponent(noticeNo);
             }
         },
-        error: function (jqXhr, textStatus, errorMessage) {}
+
+        async mounted() {
+            const ret = await apiPost('/board/notice/selectNoticeDetail', { noticeNo: noticeNo });
+            if (ret && ret.length > 0) this.notice = ret[0];
+            this.loading = false;
+        }
     });
-}
 
-$(document).ready(function() {
-    $('#go_main_btn').click(function() {
-        goMain();
-    });
-
-    selectNoticeDetail();
-});
-
-function selectNoticeDetail() {
-    let inputData = {
-        noticeNo: $('#notice_no').val()
-    };
-    ajax('/board/notice/selectNoticeDetail', inputData, 'selectNoticeDetail', 'POST');
-}
-
-function selectNoticeDetailCallback(ret) {
-    $('#notice_title').text(ret[0].noticeTitle);
-    $('#notice_content').text(ret[0].noticeContent);
-}
-
-function goMain() {
-    location.href = '/'
-}
+    registerLayout(app);
+    app.config.compilerOptions.delimiters = ['[[', ']]'];
+    app.mount('#notice_detail_app');
+})();

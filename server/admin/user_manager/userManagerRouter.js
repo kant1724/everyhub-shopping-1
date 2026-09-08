@@ -3,7 +3,7 @@ let router = express.Router();
 let userManagerBiz = require('./userManagerBiz');
 let auth = require('../../common/auth');
 
-router.get('/', function(req, res, next) {
+router.get('/', auth.requireAdminPage, function(req, res, next) {
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;
     res.render('templates/admin/user_manager/user_manager', {userNo: userNo, adminYn: adminYn});
@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/updateManagerNo', function(req, res) {
     let param = req.body;
-    if (req.session.adminYn == 'N') {
+    if (req.session.adminYn !== 'Y') {
         param.userNo = req.session.userNo;
     }
     userManagerBiz.updateManagerNo(param, (ret) => {
@@ -20,7 +20,7 @@ router.post('/updateManagerNo', function(req, res) {
 });
 
 router.post('/sendSMS', function(req, res) {
-    if (req.session.adminYn == 'N') {
+    if (req.session.adminYn !== 'Y') {
         res.status(500).send();
     } else {
         let param = req.body;

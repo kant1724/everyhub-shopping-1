@@ -16,10 +16,26 @@ app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 let session = require('express-session');
 
+// The session secret signs the cookie that carries userNo/adminYn. A value
+// committed to source can be used to forge an admin session, so it comes from
+// the environment; without it a random per-process secret is used instead.
+const sessionSecret = process.env.SESSION_SECRET || require('crypto').randomBytes(48).toString('hex');
+if (!process.env.SESSION_SECRET) {
+    console.warn('[app] SESSION_SECRET is not set; generated a temporary random secret for this process.');
+}
+
 app.use(session({
-    secret: 'ghjkkqxs',
+    secret: sessionSecret,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        sameSite: 'lax',
+        // opt-in: only enable once the site is served over HTTPS, otherwise
+        // the browser would stop sending the cookie and logins would break
+        secure: process.env.COOKIE_SECURE === 'true',
+        maxAge: 1000 * 60 * 60 * 12
+    }
 }));
 
 const config = require('./config')

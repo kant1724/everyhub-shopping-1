@@ -1,690 +1,506 @@
-function ajax(url, inputData, gubun, method) {
-    $.ajax(url, {
-        type: method,
-        data: inputData,
-        async: false,
-        xhrFields: { withCredentials: true },
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: 'json',
-        success: function (data, status, xhr) {
-            if (gubun == 'insertOrderList') {
-                insertOrderListCallback(data.ret);
-            } else if (gubun == 'selectUser') {
-                selectUserCallback(data.ret);
-            } else if (gubun == 'selectSellerInfo') {
-                selectSellerInfoCallback(data.ret);
-            } else if (gubun == 'selectOneItem') {
-                selectOneItemCallback(data.ret);
-            } else if (gubun == 'selectShippingInfoByZipNo') {
-                selectShippingInfoByZipNoCallback(data.ret);
-            } else if (gubun == 'selectRecentReceiver') {
-                selectRecentReceiverCallback(data.ret);
-            } else if (gubun == 'selectDepositPersonList') {
-                selectDepositPersonListCallback(data.ret);
+/**
+ * 주문결제 (Vue 3) — MDBootstrap / Bootstrap / jQuery / jsGrid 미사용
+ *
+ * ★ 돈이 걸린 화면이라 기존 비즈니스 규칙을 하나도 바꾸지 않았다.
+ *
+ *  1) 진입 경로 2가지
+ *     - 장바구니: ?items=1;2;3  → localStorage 'product' 에서 id 로 매칭
+ *     - 바로주문: ?itemNo=&optionNo=&qty=... (상품상세에서 전달)
+ *     - 로그인/재주문 복귀 시 direct* · order* · send* 파라미터로 폼 복원
+ *  2) 추가배송비: 받는분 주소 선택 시 우편번호로 조회.
+ *     includingKeyword 가 있으면 주소에 그 단어가 포함될 때만 적용.
+ *     금액 = shippingFee × 총수량. 최종 결제금액에 합산해서 전송.
+ *  3) 보내는분 미입력 시 농원 기본값(현병윤 / 01094278169 / 제주 간월동로 54)
+ *  4) 검증 항목·문구, 주문 확인 confirm, 응답 'not ok' · 'diff item' 처리 동일
+ *  5) 성공 시 purchase_complete 로 동일한 쿼리스트링 전달 (재주문 기능이 이를 사용)
+ *
+ * 델리미터는 [[ ]] (서버 mustache 가 {{ }} 를 쓰므로).
+ */
+(function () {
+    /* 농원 기본 발송인 정보 — 기존 코드의 하드코딩 값을 그대로 사용 */
+    const DEFAULT_SENDER = {
+        personNm: '현병윤',
+        telno: '01094278169',
+        telno1: '010',
+        telno2: '9427',
+        telno3: '8169',
+        zipNo: '63246',
+        addressMain: '제주특별자치도 제주시 간월동로 54',
+        addressDetail: '제주품은 간드락'
+    };
+    const SELLER_NO = 1;
+
+    const ctx = pageContext();
+    const params = new URLSearchParams(location.search);
+    const q = function (k) { return params.get(k) || ''; };
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                userNo: ctx.userNo,
+                adminYn: ctx.adminYn,
+
+                /* 주문 상품 */
+                orderListDetail: [],
+                orderRows: [],          // 화면 표시용
+                totalPrice: 0,
+                totalQty: 0,
+                additionalShippingFee: 0,
+                additionalShippingText: '',
+
+                /* 판매자(입금 계좌) */
+                sellerAcno: '',
+                sellerDepositPersonNm: '',
+
+                /* 폼 */
+                form: {
+                    orderPersonNm: q('orderPersonNm'),
+                    orderTelno1: q('orderTelno1'),
+                    orderTelno2: q('orderTelno2'),
+                    orderTelno3: q('orderTelno3'),
+                    orderRemarks: q('orderRemarks'),
+                    orderZipNo: '',
+                    orderAddressMain: '',
+                    orderAddressDetail: '',
+
+                    senderSame: false,
+                    sendPersonNm: q('sendPersonNm'),
+                    sendTelno1: q('sendTelno1'),
+                    sendTelno2: q('sendTelno2'),
+                    sendTelno3: q('sendTelno3'),
+
+                    receiverSame: false,
+                    receivePersonNm: '',
+                    receiveTelno1: '',
+                    receiveTelno2: '',
+                    receiveTelno3: '',
+                    receiveZipNo: '',
+                    receiveAddressMain: '',
+                    receiveAddressDetail: '',
+
+                    depositWho: '',
+                    depositPersonNm: '',
+                    depositRemarks: ''
+                },
+
+                submitting: false,
+
+                /* 주소 검색 모달 */
+                addressModalOpen: false,
+                addressKeyword: '',
+                addressRows: [],
+                addressPage: 1,
+                addressTotal: 0,
+                addressGubun: 1,
+
+                /* 최근 받는분 모달 */
+                receiverModalOpen: false,
+                receiverTelno: '',
+                receiverRows: [],
+
+                /* 과거 입금자명 모달 */
+                depositModalOpen: false,
+                depositRows: []
+            };
+        },
+
+        computed: {
+            finalPrice() { return this.totalPrice + this.additionalShippingFee; },
+            finalPriceText() { return numberWithCommas(this.finalPrice) + '원'; },
+            totalPriceText() { return numberWithCommas(this.totalPrice) + '원'; },
+            addressPageCount() {
+                return Math.max(1, Math.ceil(Number(this.addressTotal) / 10));
             }
         },
-        error: function (jqXhr, textStatus, errorMessage) {}
-    });
-}
 
-let orderListDetail = [];
-let orderListMain = {};
-let recentReceiver = [];
-let depositPersonList = [];
-let rowNo;
-$(document).ready(function() {
-    $('.mdb-select').materialSelect();
+        methods: {
+            won(n) { return numberWithCommas(Number(n) || 0) + '원'; },
 
-    $("#container").jsGrid({
-        width: "100%",
-        height: "300px",
-        filtering: false,
-        editing: false,
-        inserting: false,
-        sorting: false,
-        paging: true,
-        autoload: true,
-        pageSize: 150,
-        pageButtonCount: 10,
-        data: recentReceiver,
-        fields: [
-            { name: "받는자 전화번호", type: "text", width: 100 },
-            { name: "받는자 주소", type: "text", width: 150, align: "center" }
-        ],
-        rowClick: function(args) {
-            let $row = this.rowByItem(args.item);
-            $row.children('.jsgrid-cell').css('background-color', '#B2CCFF');
-            $row.children('.jsgrid-cell').css('border-color', '#B2CCFF');
-            rowNo = args.item['번호'];
-            for (let i = 0; i < recentReceiverData.length; ++i) {
-                if (recentReceiverData[i].num == rowNo) {
-                    $('#receive_person_nm').val(recentReceiverData[i].receivePersonNm);
-                    $('#receive_person_nm').focus();
-                    $('#receive_telno_1').val(recentReceiverData[i].receiveTelno1);
-                    $('#receive_telno_2').val(recentReceiverData[i].receiveTelno2);
-                    $('#receive_telno_3').val(recentReceiverData[i].receiveTelno3);
-                    $('#receive_zip_no').text(recentReceiverData[i].receiveZipNo);
-                    $('#receive_address_main').text(recentReceiverData[i].receiveAddressMain);
-                    $('#receive_address_detail').val(recentReceiverData[i].receiveAddressDetail);
-                    $('#receive_address_detail').focus();
-                    $('#recent_receiver_close_modal').click();
+            /* ---------------- 주문 상품 구성 ---------------- */
+            buildFromCart(itemsParam) {
+                let productArr = [];
+                try {
+                    const raw = JSON.parse(localStorage.getItem('product'));
+                    if (Array.isArray(raw)) productArr = raw;
+                } catch (e) { productArr = []; }
+
+                const ids = itemsParam.split(';');
+                let sum = 0;
+                let qtySum = 0;
+
+                ids.forEach((id) => {
+                    productArr.forEach((p) => {
+                        if (String(p.id) !== String(id)) return;
+                        this.orderListDetail.push({
+                            qty: p.qty,
+                            itemNo: p.itemNo,
+                            itemNm: p.itemNm,
+                            keepingMethod: p.keepingMethod,
+                            damageRemarks: p.damageRemarks,
+                            optionNo: p.optionNo,
+                            optionNm: p.optionNm,
+                            itemPriceNum: p.itemPriceNum
+                        });
+                        this.orderRows.push({
+                            imagePath: p.imagePath,
+                            itemNm: p.itemNm,
+                            optionNm: p.optionNm,
+                            itemPrice: p.itemPrice,
+                            shippingFee: p.shippingFee,
+                            qty: p.qty,
+                            sum: (Number(p.itemPriceNum) + Number(p.shippingFeeNum)) * Number(p.qty)
+                        });
+                        sum += (Number(p.itemPriceNum) + Number(p.shippingFeeNum)) * Number(p.qty);
+                        qtySum += Number(p.qty);
+                    });
+                });
+
+                this.totalPrice = sum;
+                this.totalQty = qtySum;
+            },
+
+            async buildDirect() {
+                const itemNo = q('itemNo') || q('directItemNo');
+                const optionNo = q('optionNo') || q('directOptionNo');
+                const optionNm = q('optionNm') || q('directOptionNm');
+                const itemNm = q('itemNm') || q('directItemNm');
+                const imagePath = q('imagePath') || q('directImagePath');
+                const itemPrice = q('itemPrice') || q('directItemPrice');
+                const shippingFee = q('shippingFee') || q('directShippingFee');
+                const itemPriceNum = q('itemPriceNum') || q('directItemPriceNum');
+                const shippingFeeNum = q('shippingFeeNum') || q('directShippingFeeNum');
+                const qty = q('qty') || q('directQty');
+
+                // 보관방법 / 파손시 조치는 상품 정보에서 가져온다 (SMS 문구에 사용)
+                let keepingMethod = q('keepingMethod') || q('directKeepingMethod');
+                let damageRemarks = '';
+                const ret = await apiPost('/admin/item_manager/selectOneItem', { itemNo: itemNo });
+                if (ret && ret.length > 0) {
+                    keepingMethod = ret[0].keepingMethod;
+                    damageRemarks = ret[0].damageRemarks;
                 }
-            }
-        }
-    });
 
-    $("#deposit_person_list_modal_container").jsGrid({
-        width: "100%",
-        height: "300px",
-        filtering: false,
-        editing: false,
-        inserting: false,
-        sorting: false,
-        paging: true,
-        autoload: true,
-        pageSize: 150,
-        pageButtonCount: 10,
-        data: depositPersonList,
-        fields: [
-            { name: "주문자명", type: "text", width: 250 },
-        ],
-        rowClick: function(args) {
-            let $row = this.rowByItem(args.item);
-            $row.children('.jsgrid-cell').css('background-color', '#B2CCFF');
-            $row.children('.jsgrid-cell').css('border-color', '#B2CCFF');
-            rowNo = args.item['번호'];
-            for (let i = 0; i < depositPersonListData.length; ++i) {
-                if (depositPersonListData[i].num == rowNo) {
-                    $('#deposit_person_nm').val(depositPersonListData[i].depositPersonNm);
-                    $('#deposit_person_nm').focus();
-                    $('#deposit_person_list_close_modal').click();
+                this.orderListDetail.push({
+                    qty: qty,
+                    itemNo: itemNo,
+                    itemNm: itemNm,
+                    keepingMethod: keepingMethod,
+                    damageRemarks: damageRemarks,
+                    optionNo: optionNo,
+                    optionNm: optionNm,
+                    itemPriceNum: itemPriceNum
+                });
+
+                const sum = (Number(itemPriceNum) + Number(shippingFeeNum)) * Number(qty);
+                this.orderRows.push({
+                    imagePath: imagePath,
+                    itemNm: itemNm,
+                    optionNm: optionNm,
+                    itemPrice: itemPrice,
+                    shippingFee: shippingFee,
+                    qty: qty,
+                    sum: sum
+                });
+                this.totalPrice = sum;
+                this.totalQty = Number(qty);
+            },
+
+            /* ---------------- 주문자 정보 ---------------- */
+            async loadUser() {
+                const ret = await apiPost('/user/selectUser', { userNo: this.userNo });
+                if (!ret || ret.length === 0) return;
+                const u = ret[0];
+                // 로그인 복귀 시 쿼리로 넘어온 값이 있으면 그것을 우선한다
+                if (isNull(this.form.orderPersonNm)) this.form.orderPersonNm = u.userNm || '';
+                if (isNull(this.form.orderTelno1)) {
+                    this.form.orderTelno1 = u.telno1 || '';
+                    this.form.orderTelno2 = u.telno2 || '';
+                    this.form.orderTelno3 = u.telno3 || '';
                 }
+                this.form.orderZipNo = u.zipNo || '';
+                this.form.orderAddressMain = u.addressMain || '';
+                this.form.orderAddressDetail = u.addressDetail || '';
+            },
+
+            async loadSeller() {
+                const ret = await apiPost('/user/selectSellerInfo', { sellerNo: SELLER_NO });
+                if (!ret || ret.length === 0) return;
+                this.sellerAcno = ret[0].acno || '';
+                this.sellerDepositPersonNm = ret[0].depositPersonNm || '';
+            },
+
+            /* ---------------- 동일정보 복사 ---------------- */
+            orderInfoFilled() {
+                return !isNull(this.form.orderPersonNm) &&
+                       !isNull(this.form.orderTelno1) &&
+                       !isNull(this.form.orderTelno2) &&
+                       !isNull(this.form.orderTelno3);
+            },
+
+            onSenderSame(e) {
+                if (!e.target.checked) { this.form.senderSame = false; return; }
+                if (!this.orderInfoFilled()) {
+                    alert('주문자 정보를 입력하세요.');
+                    this.form.senderSame = false;
+                    return;
+                }
+                this.form.senderSame = true;
+                this.form.sendPersonNm = this.form.orderPersonNm;
+                this.form.sendTelno1 = this.form.orderTelno1;
+                this.form.sendTelno2 = this.form.orderTelno2;
+                this.form.sendTelno3 = this.form.orderTelno3;
+            },
+
+            onReceiverSame(e) {
+                if (!e.target.checked) { this.form.receiverSame = false; return; }
+                if (!this.orderInfoFilled()) {
+                    alert('주문자 정보를 입력하세요.');
+                    this.form.receiverSame = false;
+                    return;
+                }
+                this.form.receiverSame = true;
+                this.form.receivePersonNm = this.form.orderPersonNm;
+                this.form.receiveTelno1 = this.form.orderTelno1;
+                this.form.receiveTelno2 = this.form.orderTelno2;
+                this.form.receiveTelno3 = this.form.orderTelno3;
+                this.form.receiveZipNo = this.form.orderZipNo;
+                this.form.receiveAddressMain = this.form.orderAddressMain;
+                this.form.receiveAddressDetail = this.form.orderAddressDetail;
+                if (!isNull(this.form.receiveZipNo)) this.checkAdditionalShippingFee(this.form.receiveZipNo);
+            },
+
+            /** 주문자 정보가 바뀌면 동일 체크된 항목도 따라간다 (기존 동작) */
+            onOrderInfoChanged() {
+                if (this.form.senderSame) {
+                    this.form.sendPersonNm = this.form.orderPersonNm;
+                    this.form.sendTelno1 = this.form.orderTelno1;
+                    this.form.sendTelno2 = this.form.orderTelno2;
+                    this.form.sendTelno3 = this.form.orderTelno3;
+                }
+                if (this.form.receiverSame) {
+                    this.form.receivePersonNm = this.form.orderPersonNm;
+                    this.form.receiveTelno1 = this.form.orderTelno1;
+                    this.form.receiveTelno2 = this.form.orderTelno2;
+                    this.form.receiveTelno3 = this.form.orderTelno3;
+                }
+            },
+
+            pickDepositWho(who) {
+                this.form.depositWho = who;
+                if (who === 'order') this.form.depositPersonNm = this.form.orderPersonNm;
+                else if (who === 'send') this.form.depositPersonNm = this.form.sendPersonNm;
+                else if (who === 'receive') this.form.depositPersonNm = this.form.receivePersonNm;
+            },
+
+            /** 전화번호 입력 시 자동으로 다음 칸으로 이동 (기존 UX) */
+            advance(e, len, nextRef) {
+                if (String(e.target.value).length >= len && this.$refs[nextRef]) {
+                    this.$refs[nextRef].focus();
+                }
+            },
+
+            /* ---------------- 추가 배송비 ---------------- */
+            async checkAdditionalShippingFee(zipNo) {
+                this.additionalShippingFee = 0;
+                this.additionalShippingText = '';
+                const ret = await apiPost('/admin/delivery_manager/selectShippingInfoByZipNo', { zipNo: zipNo });
+                if (!ret || ret.length === 0) return;
+                // 포함 키워드가 지정되어 있으면 주소에 그 단어가 있을 때만 적용한다
+                if (ret[0].includingKeyword !== '' && ret[0].includingKeyword != null) {
+                    if (String(this.form.receiveAddressMain).indexOf(ret[0].includingKeyword) === -1) return;
+                }
+                this.additionalShippingFee = Number(ret[0].shippingFee) * this.totalQty;
+                this.additionalShippingText =
+                    '해당지역은 추가배송료가 있습니다. +' + numberWithCommas(this.additionalShippingFee) + '원';
+            },
+
+            /* ---------------- 주소 검색 (공용 컴포넌트 사용) ---------------- */
+            openAddressModal() {
+                this.addressModalOpen = true;
+            },
+
+            selectAddress(row) {
+                this.form.receiveZipNo = row.zipNo;
+                this.form.receiveAddressMain = row.addr;
+                this.addressModalOpen = false;
+                // 받는분 주소가 정해지면 추가배송비를 다시 계산한다 (기존 동작)
+                this.checkAdditionalShippingFee(row.zipNo);
+            },
+
+            /* ---------------- 최근 받는분 ---------------- */
+            async searchRecentReceiver() {
+                const ret = await apiPost('/admin/order_list/selectRecentReceiver', { telno: this.receiverTelno });
+                this.receiverRows = ret || [];
+            },
+
+            pickReceiver(r) {
+                this.form.receivePersonNm = r.receivePersonNm;
+                this.form.receiveTelno1 = r.receiveTelno1;
+                this.form.receiveTelno2 = r.receiveTelno2;
+                this.form.receiveTelno3 = r.receiveTelno3;
+                this.form.receiveZipNo = r.receiveZipNo;
+                this.form.receiveAddressMain = r.receiveAddressMain;
+                this.form.receiveAddressDetail = r.receiveAddressDetail;
+                this.receiverModalOpen = false;
+                if (!isNull(r.receiveZipNo)) this.checkAdditionalShippingFee(r.receiveZipNo);
+            },
+
+            /* ---------------- 과거 입금자명 ---------------- */
+            async searchDepositPersons() {
+                const ret = await apiPost('/admin/order_list/selectDepositPersonList', {});
+                this.depositRows = ret || [];
+            },
+
+            pickDepositPerson(d) {
+                this.form.depositPersonNm = d.depositPersonNm;
+                this.depositModalOpen = false;
+            },
+
+            /* ---------------- 검증 · 주문 ---------------- */
+            validate() {
+                const f = this.form;
+                if (isNull(f.orderPersonNm)) { alert('주문자명을 입력하세요.'); return false; }
+                if (isNull(f.orderTelno1) || isNull(f.orderTelno2) || isNull(f.orderTelno3)) {
+                    alert('주문자 휴대폰 번호를 입력하세요.'); return false;
+                }
+                if (isNull(f.receivePersonNm)) { alert('받는자명을 입력하세요'); return false; }
+                if (isNull(f.receiveTelno1) || isNull(f.receiveTelno2) || isNull(f.receiveTelno3)) {
+                    alert('받는자 휴대폰 번호를 입력하세요.'); return false;
+                }
+                if (isNull(f.receiveAddressMain)) { alert('받는자 주소를 입력하세요'); return false; }
+                if (isNull(f.receiveAddressDetail)) { alert('받는자 상세주소를 입력하세요'); return false; }
+                if (isNull(f.depositPersonNm)) { alert('입금자명을 입력하세요'); return false; }
+                return true;
+            },
+
+            buildOrderListMain() {
+                const f = this.form;
+                const main = {};
+
+                // SMS 문구에 쓰이는 계좌 안내 (기존 포맷 유지)
+                main.acno = '\n' + this.sellerAcno + '\n' + this.sellerDepositPersonNm;
+
+                main.orderPersonNm = f.orderPersonNm;
+                main.orderTelno = f.orderTelno1 + f.orderTelno2 + f.orderTelno3;
+                main.orderTelno1 = f.orderTelno1;
+                main.orderTelno2 = f.orderTelno2;
+                main.orderTelno3 = f.orderTelno3;
+
+                // 보내는분 미입력 시 농원 기본값
+                main.sendPersonNm = isNull(f.sendPersonNm) ? DEFAULT_SENDER.personNm : f.sendPersonNm;
+                if (isNull(f.sendTelno1)) {
+                    main.sendTelno = DEFAULT_SENDER.telno;
+                    main.sendTelno1 = DEFAULT_SENDER.telno1;
+                    main.sendTelno2 = DEFAULT_SENDER.telno2;
+                    main.sendTelno3 = DEFAULT_SENDER.telno3;
+                } else {
+                    main.sendTelno = f.sendTelno1 + f.sendTelno2 + f.sendTelno3;
+                    main.sendTelno1 = f.sendTelno1;
+                    main.sendTelno2 = f.sendTelno2;
+                    main.sendTelno3 = f.sendTelno3;
+                }
+                main.sendZipNo = DEFAULT_SENDER.zipNo;
+                main.sendAddressMain = DEFAULT_SENDER.addressMain;
+                main.sendAddressDetail = DEFAULT_SENDER.addressDetail;
+
+                main.receivePersonNm = f.receivePersonNm;
+                main.receiveTelno = f.receiveTelno1 + f.receiveTelno2 + f.receiveTelno3;
+                main.receiveTelno1 = f.receiveTelno1;
+                main.receiveTelno2 = f.receiveTelno2;
+                main.receiveTelno3 = f.receiveTelno3;
+                main.receiveZipNo = f.receiveZipNo;
+                main.receiveAddressMain = f.receiveAddressMain;
+                main.receiveAddressDetail = f.receiveAddressDetail;
+
+                main.orderRemarks = f.orderRemarks;
+                main.depositPersonNm = f.depositPersonNm;
+                main.depositRemarks = f.depositRemarks;
+
+                main.totalQty = this.totalQty;
+                main.additionalShippingFee = this.additionalShippingFee || 0;
+                // 최종 결제금액 = 상품합계 + 추가배송비 (기존과 동일)
+                main.totalPrice = this.totalPrice + main.additionalShippingFee;
+                main.sellerNo = SELLER_NO;
+
+                return main;
+            },
+
+            async pay() {
+                if (this.submitting) return;
+                if (!this.validate()) return;
+                if (!confirm('해당내용으로 주문하시겠습니까?')) return;
+
+                this.submitting = true;
+                const payload = {
+                    orderListMain: this.buildOrderListMain(),
+                    orderListDetail: this.orderListDetail
+                };
+                const ret = await apiPost('/purchase/insertOrderList', { data: JSON.stringify(payload) });
+                this.submitting = false;
+
+                if (ret === 'not ok') {
+                    alert('주문 오류가 발생하였습니다. 지속적으로 문제발생 시 크롬 브라우저를 이용하여 주문하시기 바랍니다.');
+                    return;
+                }
+                if (ret === 'diff item') {
+                    alert('존재하지 않는 상품이 있습니다. 장바구니를 비우고 다시 주문하시길 바랍니다.');
+                    return;
+                }
+
+                this.goComplete();
+            },
+
+            /** 주문완료 화면으로 이동 (재주문에 쓰이는 파라미터를 그대로 전달) */
+            goComplete() {
+                const f = this.form;
+                const url = new URL(window.location.origin + '/purchase/purchase_complete');
+                const set = function (k, v) { url.searchParams.set(k, v == null ? '' : v); };
+
+                set('directItemNo', q('itemNo') || q('directItemNo'));
+                set('directItemNm', q('itemNm') || q('directItemNm'));
+                set('directItemPrice', q('itemPrice') || q('directItemPrice'));
+                set('directItemPriceNum', q('itemPriceNum') || q('directItemPriceNum'));
+                set('directQty', q('qty') || q('directQty'));
+                set('directOptionNo', q('optionNo') || q('directOptionNo'));
+                set('directOptionNm', q('optionNm') || q('directOptionNm'));
+                set('directImagePath', q('imagePath') || q('directImagePath'));
+                set('directShippingFee', q('shippingFee') || q('directShippingFee'));
+                set('directShippingFeeNum', q('shippingFeeNum') || q('directShippingFeeNum'));
+                set('directKeepingMethod', q('keepingMethod') || q('directKeepingMethod'));
+                set('items', q('items'));
+
+                set('orderPersonNm', f.orderPersonNm);
+                set('orderTelno1', f.orderTelno1);
+                set('orderTelno2', f.orderTelno2);
+                set('orderTelno3', f.orderTelno3);
+                set('orderRemarks', f.orderRemarks);
+
+                set('sendPersonNm', f.sendPersonNm);
+                set('sendTelno1', f.sendTelno1);
+                set('sendTelno2', f.sendTelno2);
+                set('sendTelno3', f.sendTelno3);
+                set('sendZipNo', '');
+                set('sendAddressMain', '');
+                set('sendAddressDetail', '');
+
+                window.location.href = url.href;
             }
-        }
-    });
+        },
 
-    $('.payment-btn').click(function() {
-        if (validationCheck()) {
-            if (confirm('해당내용으로 주문하시겠습니까?')) {
-                insertOrderList();
+        async mounted() {
+            const items = q('items');
+            if (!isNull(items)) {
+                this.buildFromCart(items);
+            } else {
+                await this.buildDirect();
             }
+
+            await this.loadUser();
+            await this.loadSeller();
         }
     });
 
-    setItem();
-    if ($('#items').val() != '') {
-        purchaseFromCart();
-    } else {
-        purchaseDirect();
-    }
-
-    $('#order_radio').click(function () {
-        $('#deposit_person_nm').val($('#order_person_nm').val());
-        $('#deposit_person_nm').focus();
-    });
-
-    $('#send_radio').click(function () {
-        $('#deposit_person_nm').val($('#send_person_nm').val());
-        $('#deposit_person_nm').focus();
-    });
-
-    $('#receive_radio').click(function () {
-        $('#deposit_person_nm').val($('#receive_person_nm').val());
-        $('#deposit_person_nm').focus();
-    });
-
-    $('#sender_same_with_order_info').click(function() {
-        if ($('#order_person_nm').val() == '' || $('#order_telno').val() == '') {
-            alert('주문자 정보를 입력하세요.');
-            return false;
-        }
-        setSendInfoSameWithOrderInfo(true);
-    });
-
-    $('#receiver_same_with_order_info').click(function() {
-        if ($('#order_person_nm').val() == '' || $('#order_telno').val() == '') {
-            alert('주문자 정보를 입력하세요.');
-            return false;
-        }
-        setReceiveInfoSameWithOrderInfo(true);
-    });
-
-    $('#order_person_nm').change(function() {
-        setSendInfoSameWithOrderInfo(false);
-        setReceiveInfoSameWithOrderInfo(false);
-    });
-
-    $('#order_telno').change(function() {
-        setSendInfoSameWithOrderInfo(false);
-        setReceiveInfoSameWithOrderInfo(false);
-    });
-
-    $('#search_send_address').click(function() {
-        $('#zip_no_id').val('send_zip_no');
-        $('#address_main_id').val('send_address_main');
-        $('#address_modal').modal();
-        searchAddressApi.init();
-    });
-
-    $('#search_send_address').click(function() {
-        $('#zip_no_id').val('send_zip_no');
-        $('#address_main_id').val('send_address_main');
-        $('#address_modal').modal();
-        searchAddressApi.init();
-    });
-
-    $('#search_receive_address').click(function() {
-        $('#zip_no_id').val('receive_zip_no');
-        $('#address_main_id').val('receive_address_main');
-        $('#address_modal').modal();
-        searchAddressApi.init();
-    });
-
-    $('#recent_receiver').click(function() {
-        $('#recent_receiver_modal').modal();
-    });
-
-    $('#search_recent_receiver_modal').click(function() {
-        selectRecentReceiver();
-    });
-
-    $('#search_deposit_person_list').click(function() {
-        $('#deposit_person_list_modal').modal();
-    });
-
-    $('#search_deposit_person_list_modal').click(function() {
-        selectDepositPersonList();
-    });
-
-    $('#order_telno_1').keyup(function(event) {
-        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
-        let val = $(this).val();
-        if (val.length >= 3) {
-            $('#order_telno_2').focus();
-        }
-    });
-
-    $('#order_telno_2').keyup(function(event) {
-        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
-        let val = $(this).val();
-        if (val.length >= 4) {
-            $('#order_telno_3').focus();
-        }
-    });
-
-    $('#send_telno_1').keyup(function(event) {
-        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
-        let val = $(this).val();
-        if (val.length >= 3) {
-            $('#send_telno_2').focus();
-        }
-    });
-
-    $('#send_telno_2').keyup(function(event) {
-        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
-        let val = $(this).val();
-        if (val.length >= 4) {
-            $('#send_telno_3').focus();
-        }
-    });
-
-    $('#receive_telno_1').keyup(function(event) {
-        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
-        let val = $(this).val();
-        if (val.length >= 3) {
-            $('#receive_telno_2').focus();
-        }
-    });
-
-    $('#receive_telno_2').keyup(function(event) {
-        if (event.which == 37 || event.which == 38 || event.which == 39 || event.which == 40) return;
-        let val = $(this).val();
-        if (val.length >= 4) {
-            $('#receive_telno_3').focus();
-        }
-    });
-
-    selectUser();
-    selectSellerInfo();
-
-    setOrderUser();
-    setSenderUser();
-});
-
-function selectUser() {
-    let inputData  = {
-        userNo: $('#user_no').val()
-    };
-    ajax('/user/selectUser', inputData , 'selectUser', 'POST');
-}
-
-function selectUserCallback(ret) {
-    if (ret.length > 0) {
-        $('#order_person_nm').val(ret[0].userNm);
-        $('#order_person_nm').focus();
-        $('#order_telno').val(ret[0].telno);
-        $('#order_telno_1').val(ret[0].telno1);
-        $('#order_telno_2').val(ret[0].telno2);
-        $('#order_telno_3').val(ret[0].telno3);
-        $('#order_zip_no').val(ret[0].zipNo);
-        $('#order_address_main').val(ret[0].addressMain);
-        $('#order_address_detail').val(ret[0].addressDetail);
-        $('body, html').animate({'scrollTop': 0}, 0);
-    }
-}
-
-function setSenderInput() {
-    if ($('#has_sender').is(':checked')) {
-        $('.sender-input').show(500);
-    } else {
-        $('.sender-input').hide(500);
-    }
-}
-
-function setSendInfoSameWithOrderInfo(focus) {
-    if ($('#sender_same_with_order_info').is(':checked')) {
-        $('#send_person_nm').val($('#order_person_nm').val());
-        $('#send_telno_1').val($('#order_telno_1').val());
-        $('#send_telno_2').val($('#order_telno_2').val());
-        $('#send_telno_3').val($('#order_telno_3').val());
-        /**
-        $('#send_zip_no').text($('#order_zip_no').val());
-        $('#send_address_main').text($('#order_address_main').val());
-        $('#send_address_detail').val($('#order_address_detail').val());
-        **/
-        if (focus) {
-            $('#send_person_nm').focus();
-            /**
-            $('#send_address_detail').focus();
-            $('#sender_same_with_order_info').focus();
-            **/
-        }
-    }
-}
-
-function setReceiveInfoSameWithOrderInfo(focus) {
-    if ($('#receiver_same_with_order_info').is(':checked')) {
-        $('#receive_person_nm').val($('#order_person_nm').val());
-        $('#receive_telno_1').val($('#order_telno_1').val());
-        $('#receive_telno_2').val($('#order_telno_2').val());
-        $('#receive_telno_3').val($('#order_telno_3').val());
-        $('#receive_zip_no').text($('#order_zip_no').val());
-        $('#receive_address_main').text($('#order_address_main').val());
-        $('#receive_address_detail').val($('#order_address_detail').val());
-        if (focus) {
-            $('#receive_person_nm').focus();
-            $('#receive_address_detail').focus();
-            $('#receiver_same_with_order_info').focus();
-        }
-    }
-}
-
-function purchaseDirect() {
-    selectOneItem();
-}
-
-function selectOneItem() {
-    let itemNo = $('#direct_item_no').val();
-    let inputData  = {
-        itemNo: itemNo
-    };
-    ajax('/admin/item_manager/selectOneItem', inputData , 'selectOneItem', 'POST');
-}
-
-function selectOneItemCallback(ret) {
-    let html = '';
-    let eachOrder = {};
-
-    if (ret != null && ret.length > 0) {
-        eachOrder.keepingMethod = ret[0].keepingMethod;
-        eachOrder.damageRemarks = ret[0].damageRemarks;
-
-    }
-
-    eachOrder.qty = $('#direct_qty').val();
-    eachOrder.itemNo = $('#direct_item_no').val();
-    eachOrder.itemNm = $('#direct_item_nm').val();
-    eachOrder.optionNo = $('#direct_option_no').val();
-    eachOrder.optionNm = $('#direct_option_nm').val();
-    eachOrder.itemPriceNum = $('#direct_item_price_num').val();
-
-    html += '<div style="font-size: 11px;">';
-    html += '<div class="mt-2 mb-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + $('#direct_image_path').val() + '" alt="" class="img-fluid z-depth-0"></div>';
-    html += '<div class="mb-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
-    html += '<div class="mb-2">상품명: ' + $('#direct_item_nm').val() + '</div>';
-    html += '<div class="mb-2">옵션: ' + $('#direct_option_nm').val() + '</div>';
-    html += '<div class="mb-2">단가: ' + $('#direct_item_price').val() + '</div>';
-    html += '<div class="mb-2">배송비: ' + $('#direct_shipping_fee').val() + '</div>';
-    html += '<div class="mb-2">수량: ' + $('#direct_qty').val() + '</div>';
-    html += '<div>가격: ' + numberWithCommas((Number($('#direct_item_price_num').val()) + Number($('#direct_shipping_fee_num').val())) * Number($('#direct_qty').val())) + '원</div>';
-    html += '</div>';
-    html += '</div>';
-    orderListDetail.push(eachOrder);
-    let sum = (Number($('#direct_item_price_num').val()) + Number($('#direct_shipping_fee_num').val())) * Number($('#direct_qty').val());
-    $('#total_price_text').text('총 결제금액: ' + numberWithCommas(sum) + '원');
-    $('#order_list').append(html);
-
-    orderListMain.totalPrice = sum;
-    orderListMain.totalQty =  Number($('#direct_qty').val());
-}
-
-function purchaseFromCart() {
-    let itemArr = $('#items').val().split(';');
-    let productArr = JSON.parse(localStorage.getItem('product'));
-    let html = '';
-    let cnt = 1;
-    let sum = 0;
-    orderListMain.totalQty = 0;
-    for (let i = 0; i < itemArr.length; ++i) {
-        for (let j = 0; j < productArr.length; ++j) {
-            if (productArr[j].id == itemArr[i]) {
-                let eachOrder = {};
-                eachOrder.qty = productArr[j].qty;
-                eachOrder.itemNo = productArr[j].itemNo;
-                eachOrder.itemNm = productArr[j].itemNm;
-                eachOrder.keepingMethod = productArr[j].keepingMethod;
-                eachOrder.damageRemarks = productArr[j].damageRemarks;
-                eachOrder.optionNo = productArr[j].optionNo;
-                eachOrder.optionNm = productArr[j].optionNm;
-                eachOrder.itemPriceNum = productArr[j].itemPriceNum;
-
-                html += '<div style="font-size: 20px; font-weight: 700; color: gray;"><i class="far fa-list"></i>&nbsp;&nbsp;주문' + cnt + '</div>';
-                html += '<hr>';
-                html += '<div style="font-size: 11px;">';
-                html += '<div class="mt-2 mb-2 mr-4 d-inline-block" style="overflow: hidden;"><img style="border-radius: 5px;" width="120px" src="' + productArr[i].imagePath + '" alt="" class="img-fluid z-depth-0"></div>';
-                html += '<div class="mb-2 d-inline-block" style="overflow: hidden; vertical-align: top">';
-                html += '<div class="mb-2">상품명: ' + productArr[j].itemNm + '</div>';
-                html += '<div class="mb-2">옵션: ' + productArr[j].optionNm + '</div>';
-                html += '<div class="mb-2">단가: ' + productArr[j].itemPrice + '</div>';
-                html += '<div class="mb-2">배송비: ' + productArr[j].shippingFee + '</div>';
-                html += '<div class="mb-2">수량: ' + productArr[j].qty + '</div>';
-                html += '<div>가격: ' + numberWithCommas((Number(productArr[j].itemPriceNum) + Number(productArr[j].shippingFeeNum)) * productArr[j].qty) + '원</div>';
-                html += '</div>';
-                html += '</div>';
-                orderListDetail.push(eachOrder);
-                cnt += 1;
-                sum += (Number(productArr[j].itemPriceNum) + Number(productArr[j].shippingFeeNum)) * productArr[j].qty;
-                orderListMain.totalQty +=  Number(productArr[j].qty);
-            }
-        }
-    }
-    $('#total_price_text').text('총 결제금액: ' + numberWithCommas(sum) + '원');
-    $('#order_list').append(html);
-
-    orderListMain.totalPrice = sum;
-}
-
-function validationCheck() {
-    if (isNull($('#order_person_nm').val())) {
-        alert('주문자명을 입력하세요.');
-        return false;
-    } else if (isNull($('#order_telno_1').val()) || isNull($('#order_telno_2').val()) || isNull($('#order_telno_3').val())) {
-        alert('주문자 휴대폰 번호를 입력하세요.');
-        return false;
-    } else if (isNull($('#receive_person_nm').val())) {
-        alert('받는자명을 입력하세요');
-        return false;
-    } else if (isNull($('#receive_telno_1').val()) || isNull($('#receive_telno_2').val()) || isNull($('#receive_telno_3').val())) {
-        alert('받는자 휴대폰 번호를 입력하세요.');
-        return false;
-    } else if (isNull($('#receive_address_main').text())) {
-        alert('받는자 주소를 입력하세요');
-        return false;
-    } else if (isNull($('#receive_address_detail').val())) {
-        alert('받는자 상세주소를 입력하세요');
-        return false;
-    } else if (isNull($('#deposit_person_nm').val())) {
-        alert('입금자명을 입력하세요');
-        return false;
-    }
-
-    return true;
-}
-
-function insertOrderList() {
-    orderListMain.acno = '\n' + $('#seller_acno').val() + '\n' + $('#seller_deposit_person_nm').val();
-    orderListMain.orderPersonNm = $('#order_person_nm').val();
-    orderListMain.orderTelno = $('#order_telno_1').val() + $('#order_telno_2').val() + $('#order_telno_3').val();
-    orderListMain.orderTelno1 = $('#order_telno_1').val();
-    orderListMain.orderTelno2 = $('#order_telno_2').val();
-    orderListMain.orderTelno3 = $('#order_telno_3').val();
-    orderListMain.sendPersonNm = '';
-    orderListMain.sendTelno = '';
-    orderListMain.sendTelno1 = '';
-    orderListMain.sendTelno2 = '';
-    orderListMain.sendTelno3 = '';
-    orderListMain.sendZipNo = '63246';
-    orderListMain.sendAddressMain = '제주특별자치도 제주시 간월동로 54';
-    orderListMain.sendAddressDetail = '제주품은 간드락';
-    if (!$('#send_person_nm').val()) {
-        orderListMain.sendPersonNm = '현병윤';
-    } else {
-        orderListMain.sendPersonNm = $('#send_person_nm').val();
-    }
-    if (!$('#send_telno_1').val()) {
-        orderListMain.sendTelno = '01094278169';
-        orderListMain.sendTelno1 = '010';
-        orderListMain.sendTelno2 = '9427';
-        orderListMain.sendTelno3 = '8169';
-    } else {
-        orderListMain.sendTelno = $('#send_telno_1').val() + $('#send_telno_2').val() + $('#send_telno_3').val();
-        orderListMain.sendTelno1 = $('#send_telno_1').val();
-        orderListMain.sendTelno2 = $('#send_telno_2').val();
-        orderListMain.sendTelno3 = $('#send_telno_3').val();
-    }
-    //orderListMain.sendZipNo = $('#send_zip_no').text();
-    //orderListMain.sendAddressMain = $('#send_address_main').text();
-    //orderListMain.sendAddressDetail = $('#send_address_detail').val();
-    orderListMain.receivePersonNm = $('#receive_person_nm').val();
-    orderListMain.receiveTelno = $('#receive_telno_1').val() + $('#receive_telno_2').val() + $('#receive_telno_3').val();
-    orderListMain.receiveTelno1 = $('#receive_telno_1').val();
-    orderListMain.receiveTelno2 = $('#receive_telno_2').val();
-    orderListMain.receiveTelno3 = $('#receive_telno_3').val();
-    orderListMain.receiveZipNo = $('#receive_zip_no').text();
-    orderListMain.receiveAddressMain = $('#receive_address_main').text();
-    orderListMain.receiveAddressDetail = $('#receive_address_detail').val();
-    orderListMain.orderRemarks = $('#order_remarks').val();
-    orderListMain.depositPersonNm = $('#deposit_person_nm').val();
-    orderListMain.depositRemarks = $('#deposit_remarks').val();
-    if (orderListMain.additionalShippingFee == null) {
-        orderListMain.additionalShippingFee = 0;
-    }
-    orderListMain.totalPrice += orderListMain.additionalShippingFee;
-    orderListMain.sellerNo = 1;
-    let inputData = {
-        data: JSON.stringify(
-            {
-                orderListMain: orderListMain,
-                orderListDetail: orderListDetail
-            })
-    };
-    ajax('/purchase/insertOrderList', inputData, 'insertOrderList', 'POST');
-}
-
-function insertOrderListCallback(ret) {
-    if (ret == 'not ok') {
-        alert('주문 오류가 발생하였습니다. 지속적으로 문제발생 시 크롬 브라우저를 이용하여 주문하시기 바랍니다.');
-        return;
-    }
-
-    if (ret == 'diff item') {
-        alert('존재하지 않는 상품이 있습니다. 장바구니를 비우고 다시 주문하시길 바랍니다.');
-        return;
-    }
-
-    let url = new URL(window.location.origin + '/purchase/purchase_complete');
-
-    url.searchParams.set('directItemNo', $('#direct_item_no').val());
-    url.searchParams.set('directItemNm', $('#direct_item_nm').val());
-    url.searchParams.set('directItemPrice', $('#direct_item_price').val());
-    url.searchParams.set('directItemPriceNum', $('#direct_item_price_num').val());
-    url.searchParams.set('directQty', $('#direct_qty').val());
-    url.searchParams.set('directOptionNo', $('#direct_option_no').val());
-    url.searchParams.set('directOptionNm', $('#direct_option_nm').val());
-    url.searchParams.set('directImagePath', $('#direct_image_path').val());
-    url.searchParams.set('directShippingFee', $('#direct_shipping_fee').val());
-    url.searchParams.set('directShippingFeeNum', $('#direct_shipping_fee_num').val());
-    url.searchParams.set('directKeepingMethod', $('#direct_keeping_method').val());
-
-    url.searchParams.set('items', $('#items').val());
-
-    url.searchParams.set('orderPersonNm', $('#order_person_nm').val());
-    url.searchParams.set('orderTelno1', $('#order_telno_1').val());
-    url.searchParams.set('orderTelno2', $('#order_telno_2').val());
-    url.searchParams.set('orderTelno3', $('#order_telno_3').val());
-    url.searchParams.set('orderRemarks', $('#order_remarks').val());
-
-    url.searchParams.set('sendPersonNm', $('#send_person_nm').val());
-    url.searchParams.set('sendTelno1', $('#send_telno_1').val());
-    url.searchParams.set('sendTelno2', $('#send_telno_2').val());
-    url.searchParams.set('sendTelno3', $('#send_telno_3').val());
-    url.searchParams.set('sendZipNo', $('#send_zip_no').text());
-    url.searchParams.set('sendAddressMain', $('#send_address_main').text());
-    url.searchParams.set('sendAddressDetail', $('#send_address_detail').val());
-
-    window.location.href = url.href;
-}
-
-function setItem() {
-    let params = new URLSearchParams(location.search);
-    if (params.get('directItemNo') != null && params.get('directItemNo') != '') {
-        $('#direct_item_no').val(params.get('directItemNo'));
-        $('#direct_item_nm').val(params.get('directItemNm'));
-        $('#direct_item_price').val(params.get('directItemPrice'));
-        $('#direct_item_price_num').val(params.get('directItemPriceNum'));
-        $('#direct_qty').val(params.get('directQty'));
-        $('#direct_option_no').val(params.get('directOptionNo'));
-        $('#direct_option_nm').val(params.get('directOptionNm'));
-        $('#direct_image_path').val(params.get('directImagePath'));
-        $('#direct_shipping_fee').val(params.get('directShippingFee'));
-        $('#direct_shipping_fee_num').val(params.get('directShippingFeeNum'));
-        $('#direct_keeping_method').val(params.get('directKeepingMethod'));
-    }
-    if (params.get('items') != null && params.get('items') != '') {
-        $('#items').val(params.get('items'));
-    }
-}
-
-function setOrderUser() {
-    let params = new URLSearchParams(location.search);
-    if (params.get('orderPersonNm') != null) {
-        $('#order_person_nm').val(params.get('orderPersonNm'));
-        $('#order_telno_1').val(params.get('orderTelno1'));
-        $('#order_telno_2').val(params.get('orderTelno2'));
-        $('#order_telno_3').val(params.get('orderTelno3'));
-        $('#order_remarks').val(params.get('orderRemarks'));
-    }
-}
-
-function setSenderUser() {
-    let params = new URLSearchParams(location.search);
-    if (params.get('sendPersonNm') != null) {
-        $('#send_person_nm').val(params.get('sendPersonNm'));
-        $('#send_telno_1').val(params.get('sendTelno1'));
-        $('#send_telno_2').val(params.get('sendTelno2'));
-        $('#send_telno_3').val(params.get('sendTelno3'));
-        $('#send_zip_no').text(params.get('sendZipNo'));
-        $('#send_address_main').text(params.get('sendAddressMain'));
-        $('#send_address_detail').val(params.get('sendAddressDetail'));
-
-        $('#send_person_nm').focus();
-        $('#send_zip_no').focus();
-        $('#send_address_main').focus();
-        $('#send_address_detail').focus();
-    }
-}
-
-function selectSellerInfo() {
-    let inputData = {
-        sellerNo: 1
-    };
-    ajax('/user/selectSellerInfo', inputData, 'selectSellerInfo', 'POST');
-}
-
-function selectSellerInfoCallback(ret) {
-    $('#seller_acno').val(ret[0].acno);
-    $('#seller_deposit_person_nm').val(ret[0].depositPersonNm);
-}
-
-function selectShippingInfoByZipNo(zipNo) {
-    let inputData = {
-        zipNo: zipNo
-    };
-    ajax('/admin/delivery_manager/selectShippingInfoByZipNo', inputData, 'selectShippingInfoByZipNo', 'POST');
-}
-
-function selectShippingInfoByZipNoCallback(ret) {
-    orderListMain.additionalShippingFee = 0;
-    $('#additional_shipping_fee_text').hide();
-    $('#total_price_text').text('총 결제금액: ' + numberWithCommas(orderListMain.totalPrice) + '원');
-    if (ret.length > 0) {
-        if (ret[0].includingKeyword != '') {
-            if ($('#receive_address_main').text().indexOf(ret[0].includingKeyword) == -1) {
-                return;
-            }
-        }
-        orderListMain.additionalShippingFee = Number(ret[0].shippingFee) * orderListMain.totalQty;
-        $('#additional_shipping_fee_text').text('해당지역은 추가배송료가 있습니다. +' + numberWithCommas(orderListMain.additionalShippingFee) + '원');
-        $('#additional_shipping_fee_text').show();
-        $('#total_price_text').text('총 결제금액: ' + numberWithCommas(orderListMain.totalPrice + orderListMain.additionalShippingFee) + '원');
-    }
-}
-
-function selectRecentReceiver() {
-    let inputData = {
-        telno: $('#telno_subject').val()
-    };
-    ajax('/admin/order_list/selectRecentReceiver', inputData, 'selectRecentReceiver', 'POST');
-}
-
-let recentReceiverData = [];
-function selectRecentReceiverCallback(ret) {
-    recentReceiver = [];
-    recentReceiverData = [];
-    for (let i = 0; i < ret.length; ++i) {
-        let a = {};
-        a['번호'] = i;
-        a['받는자 전화번호'] = ret[i].receiveTelno;
-        a['받는자 주소'] = ret[i].receiveZipNo + ' ' + ret[i].receiveAddressMain + ' ' + ret[i].receiveAddressDetail;
-        recentReceiver.push(a);
-
-        let b = {};
-        b.num = i;
-        b.receivePersonNm = ret[i].receivePersonNm;
-        b.receiveTelno1 = ret[i].receiveTelno1;
-        b.receiveTelno2 = ret[i].receiveTelno2;
-        b.receiveTelno3 = ret[i].receiveTelno3;
-        b.receiveZipNo = ret[i].receiveZipNo;
-        b.receiveAddressMain = ret[i].receiveAddressMain;
-        b.receiveAddressDetail = ret[i].receiveAddressDetail;
-
-        recentReceiverData.push(b);
-    }
-
-    $("#container").jsGrid("option", "data", recentReceiver);
-}
-
-function selectDepositPersonList() {
-    let inputData = {};
-    ajax('/admin/order_list/selectDepositPersonList', inputData, 'selectDepositPersonList', 'POST');
-}
-
-let depositPersonListData = [];
-function selectDepositPersonListCallback(ret) {
-    depositPersonList = [];
-    depositPersonListData = [];
-    for (let i = 0; i < ret.length; ++i) {
-        let a = {};
-        a['번호'] = i;
-        a['주문자명'] = ret[i].depositPersonNm;
-        depositPersonList.push(a);
-
-        let b = {};
-        b.num = i;
-        b.depositPersonNm = ret[i].depositPersonNm;
-
-        depositPersonListData.push(b);
-    }
-
-    $("#deposit_person_list_modal_container").jsGrid("option", "data", depositPersonList);
-}
+    registerLayout(app);
+    app.config.compilerOptions.delimiters = ['[[', ']]'];
+    app.mount('#purchase_app');
+})();

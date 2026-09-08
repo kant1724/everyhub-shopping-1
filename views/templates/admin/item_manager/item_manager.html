@@ -1,79 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>상품정보</title>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>상품 관리</title>
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
-    <link href="/static/css/admin/item_manager/item_manager.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
+    <link href="/static/css/admin/admin.css" rel="stylesheet">
 </head>
 
 <body>
-    <header></header>
-    <div class="container pt-5">
-        <div class="container">
-            <div class="mb-3 mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">상품목록</div>
-            <div class="mb-3 mt-5  d-inline-block" style="float: right; margin-right: 40px;">
-                <button type="button" class="btn btn-sm deep-orange btn-rounded new-item-btn">상품등록
-                </button>
-            </div>
-            <hr>
-            <section class="section mt-3 mb-5 pb-5">
-                <div class="table-responsive">
-                    <table class="table item-table">
-                        <thead>
-                            <tr>
-                                <th class="font-weight-bold text-center">
-                                    <strong>상품번호</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>이미지</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>상품명</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>추천상품</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>사용여부</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>옵션</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>변경</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>삭제</strong>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+    <div id="item_mgr_app" class="adm" v-cloak>
+        <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
+
+        <div class="adm-shell">
+            <div class="adm-head">
+                <div>
+                    <h1 class="adm-title">상품 관리</h1>
+                    <p class="adm-sub">등록된 상품 [[ items.length ]]건</p>
                 </div>
-            </section>
+                <div class="adm-actions">
+                    <button type="button" class="adm-btn adm-btn-primary new-item-btn" @click="goNew">상품등록</button>
+                </div>
+            </div>
+
+            <p v-if="loading" class="adm-empty">불러오는 중...</p>
+            <p v-else-if="items.length === 0" class="adm-empty">등록된 상품이 없습니다.</p>
+
+            <div v-else class="adm-table-wrap">
+                <table class="adm-table item-table">
+                    <thead>
+                        <tr>
+                            <th>상품번호</th>
+                            <th>이미지</th>
+                            <th>상품명</th>
+                            <th>추천</th>
+                            <th>사용</th>
+                            <th class="adm-table-center">옵션</th>
+                            <th class="adm-table-center">변경</th>
+                            <th class="adm-table-center">삭제</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="it in items" :key="it.itemNo">
+                            <td class="item-no">[[ it.itemNo ]]</td>
+                            <td><img :src="it.imagePath1" :alt="it.itemNm" width="64" height="64"></td>
+                            <td>[[ it.itemNm ]]</td>
+                            <td><span class="adm-badge" :class="it.recommendYn === 'Y' ? 'is-on' : 'is-off'">[[ it.recommendYn ]]</span></td>
+                            <td><span class="adm-badge" :class="it.useYn === 'Y' ? 'is-on' : 'is-off'">[[ it.useYn ]]</span></td>
+                            <td class="adm-table-center"><button type="button" class="adm-link" @click="goOption(it)">옵션관리</button></td>
+                            <td class="adm-table-center"><button type="button" class="adm-link" @click="goModify(it)">변경</button></td>
+                            <td class="adm-table-center"><button type="button" class="adm-link adm-link-danger" @click="remove(it)">삭제</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        <app-footer></app-footer>
     </div>
+
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0">
-    </footer>
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/component/header.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/admin/item_manager/item_manager.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/admin/item_manager/item_manager.js"></script>
 </body>
 
 </html>

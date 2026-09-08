@@ -1,5 +1,6 @@
 let mybatisMapper = require('mybatis-mapper');
 let format = {language: 'sql', indent: '  '};
+let utils = require('../../common/utils');
 mybatisMapper.createMapper(['server/admin/order_list/orderListSQL.xml']);
 
 module.exports = {
@@ -17,6 +18,7 @@ module.exports = {
 
     selectOrderListMainByOrderNo: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.orderNo = utils.toSafeInt(param.orderNo);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('orderListSQL', 'selectOrderListMainByOrderNo', param, format);
             console.log(query);
@@ -29,6 +31,7 @@ module.exports = {
 
     updateDepositConfirmDate: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.orderNo = utils.toSafeInt(param.orderNo);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('orderListSQL', 'updateDepositConfirmDate', param, format);
             conn.query(query, (err, rows, fields) => {
@@ -45,6 +48,8 @@ module.exports = {
         conn.beginTransaction(() => {
             let query = '';
             for (let i = 0; i < param.orderListDetail.length; ++i) {
+                param.orderListDetail[i].orderNo = utils.toSafeInt(param.orderListDetail[i].orderNo);
+                param.orderListDetail[i].orderSeq = utils.toSafeInt(param.orderListDetail[i].orderSeq);
                 query += mybatisMapper.getStatement('orderListSQL', 'updateDlvrConfirmDate', param.orderListDetail[i], format) + ';';
             }
             conn.query(query, (err, rows, fields) => {
@@ -58,6 +63,8 @@ module.exports = {
 
     updateInvoiceNo: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.orderNo = utils.toSafeInt(param.orderNo);
+        param.orderSeq = utils.toSafeInt(param.orderSeq);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('orderListSQL', 'updateInvoiceNo', param, format);
             conn.query(query, (err, rows, fields) => {
@@ -71,6 +78,8 @@ module.exports = {
 
     insertInvoiceNo: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.orderNo = utils.toSafeInt(param.orderNo);
+        param.invoiceNo = utils.toSafeInt(param.invoiceNo);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('orderListSQL', 'insertInvoiceNo', param, format);
             conn.query(query, (err, rows, fields) => {
@@ -84,6 +93,8 @@ module.exports = {
 
     deleteInvoiceNo: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.orderNo = utils.toSafeInt(param.orderNo);
+        param.invoiceNo = utils.toSafeInt(param.invoiceNo);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('orderListSQL', 'deleteInvoiceNo', param, format);
             conn.query(query, (err, rows, fields) => {
@@ -97,6 +108,7 @@ module.exports = {
 
     selectInvoiceNo: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.orderNo = utils.toSafeInt(param.orderNo);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('orderListSQL', 'selectInvoiceNo', param, format);
             conn.query(query, (err, rows, fields) => {
@@ -108,6 +120,7 @@ module.exports = {
 
     updateAdditionalInfo: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.orderNo = utils.toSafeInt(param.orderNo);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('orderListSQL', 'updateAdditionalInfo', param, format);
             conn.query(query, (err, rows, fields) => {

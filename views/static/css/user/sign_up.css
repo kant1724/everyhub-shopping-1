@@ -1,23 +1,152 @@
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: #eee !important;
+/* 회원가입 — Vue + Toss 스타일 */
+
+body { background: #f9fafb; }
+
+.auth-shell-wide {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 100px 20px 80px;
 }
 
-.screen-ratio {
-    margin: auto;
-    width: 500px;
+.auth-page-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #191f28;
+    margin-bottom: 24px;
 }
 
-.screen-ratio-inner {
-    margin-left: 20px;
+.auth-card-form {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .05);
 }
 
-@media only screen and (max-width: 620px) {
-    .screen-ratio {
-        width: 300px;
-        padding-left: 0px;
-    }
-    .screen-ratio-inner {
-        margin-left: 0px;
-    }
+.auth-field {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+}
+
+.auth-field-block { align-items: flex-start; }
+
+.auth-label {
+    flex: 0 0 96px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7684;
+}
+
+.auth-field-block .auth-label { padding-top: 13px; }
+
+.auth-tel, .auth-birth {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.auth-tel .gd-input, .auth-birth .gd-input {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+}
+
+.auth-tel span, .auth-birth span { color: #8b95a1; flex: 0 0 auto; font-size: 14px; }
+
+.auth-ghost-btn {
+    flex: 0 0 auto;
+    padding: 13px 16px;
+    border: none;
+    border-radius: 12px;
+    background: #f2f4f6;
+    color: #333d4b;
+    font-size: 13.5px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.auth-ghost-btn:hover { background: #e5e8eb; }
+
+.auth-dup {
+    margin: -6px 0 18px 112px;
+    font-size: 13px;
+    color: #8b95a1;
+}
+
+.auth-dup.is-ok { color: #12b76a; font-weight: 600; }
+
+.auth-radios { flex: 1; display: flex; gap: 18px; }
+
+.auth-radio {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    font-size: 14px;
+    color: #4e5968;
+    cursor: pointer;
+}
+
+.auth-radio input[type="radio"] { width: 18px; height: 18px; accent-color: #3182f6; cursor: pointer; }
+
+.auth-address { flex: 1; min-width: 0; }
+.auth-address-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.auth-zip { flex: 0 0 150px; }
+.auth-address .gd-input { margin-bottom: 8px; }
+.auth-address .gd-input:last-child { margin-bottom: 0; }
+
+.auth-agree {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0 4px;
+    padding: 14px 16px;
+    background: #f9fafb;
+    border-radius: 12px;
+    font-size: 14px;
+    color: #4e5968;
+    cursor: pointer;
+    flex-wrap: wrap;
+}
+
+.auth-agree input[type="checkbox"] { width: 20px; height: 20px; accent-color: #3182f6; cursor: pointer; }
+
+.auth-agree-link {
+    margin-left: auto;
+    font-size: 13px;
+    color: #8b95a1;
+    text-decoration: underline;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 16px;
+    margin-top: 16px;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    transition: background-color .15s ease;
+}
+
+.auth-btn-primary { background: #3182f6; color: #ffffff; }
+.auth-btn-primary:hover:not(:disabled) { background: #1b64da; }
+.auth-btn-primary:disabled { background: #e5e8eb; color: #b0b8c1; cursor: default; }
+
+@media (max-width: 640px) {
+    .auth-shell-wide { padding: 88px 18px 60px; }
+    .auth-page-title { font-size: 24px; }
+    .auth-card-form { padding: 20px 18px; border-radius: 16px; }
+
+    .auth-field { flex-direction: column; align-items: stretch; gap: 8px; }
+    .auth-label { flex: none; padding-top: 0 !important; }
+    .auth-field-block { align-items: stretch; }
+    .auth-dup { margin-left: 0; }
+    .auth-tel { flex-wrap: wrap; }
+    .auth-ghost-btn { flex: 1 0 100%; }
 }

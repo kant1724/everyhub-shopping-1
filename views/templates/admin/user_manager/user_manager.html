@@ -1,96 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>주문내역</title>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>회원 관리</title>
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/lib/datepicker/datepicker.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
-    <link href="/static/css/admin/user_manager/user_manager.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
+    <link href="/static/css/admin/admin.css" rel="stylesheet">
 </head>
 
 <body>
-    <header></header>
-    <div class="mt-5" style="width: 80%; margin: auto;">
-        <div class="ml-3 mr-3">
-            <div class="mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">회원목록</div>
-            <hr>
-            <button type="button" id="send_sms_btn" class="btn btn-sm btn-secondary btn-rounded send-sms-btn">문자메세지 전송
-            </button>
-            <section class="section mt-3 mb-3 pb-3">
-                <table id="user_list" class="table table-bordered text-center">
+    <div id="user_mgr_app" class="adm" v-cloak>
+        <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
+
+        <div class="adm-shell">
+            <div class="adm-head">
+                <div>
+                    <h1 class="adm-title">회원 관리</h1>
+                    <p class="adm-sub">불러온 회원 [[ rows.length ]]명 · 선택 [[ selectedTelnos.length ]]명</p>
+                </div>
+                <div class="adm-actions">
+                    <button type="button" class="adm-btn adm-btn-primary" @click="openSms">문자 보내기</button>
+                </div>
+            </div>
+
+            <p v-if="loading && rows.length === 0" class="adm-empty">불러오는 중...</p>
+            <p v-else-if="rows.length === 0" class="adm-empty">회원이 없습니다.</p>
+
+            <div v-else class="adm-table-wrap">
+                <table class="adm-table" id="user_list">
                     <thead>
-                    <tr>
-                        <th><div class="ml-2 custom-control custom-checkbox"><input type="checkbox" class="custom-control-input select-order" id="check_all"><label class="custom-control-label" for="check_all"></label></div></th>
-                        <th>회원명</th>
-                        <th>휴대폰번호</th>
-                        <th>매니저명</th>
-                        <th>매니저휴대폰번호</th>
-                        <th>매니저지정</th>
-                    </tr>
+                        <tr>
+                            <th><input type="checkbox" id="check_all" :checked="allChecked" @change="toggleAll"></th>
+                            <th>회원번호</th><th>이름</th><th>휴대폰</th><th>성별</th>
+                            <th>주소</th><th>담당자</th><th class="adm-table-center">관리</th>
+                        </tr>
                     </thead>
-                    <tbody id="user_list_tbody"></tbody>
+                    <tbody id="user_list_tbody">
+                        <tr v-for="r in rows" :key="r.userNo">
+                            <td><input type="checkbox" class="select-user" v-model="selected[r.userNo]"></td>
+                            <td>[[ r.userNo ]]</td>
+                            <td>[[ r.userNm ]]</td>
+                            <td>[[ r.telno ]]</td>
+                            <td>[[ r.gender ]]</td>
+                            <td>[[ r.zipNo ]] [[ r.addressMain ]] [[ r.addressDetail ]]</td>
+                            <td>[[ r.managerNm ]]</td>
+                            <td class="adm-table-center">
+                                <button type="button" class="adm-link" @click="openManager(r)">담당자 지정</button>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
-            </section>
-            <div id="user_list_pagination" class="text-center mb-5">
-                <div class="user-list-pagination"></div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="manager_modal" tabindex="-1" role="dialog" aria-labelledby="manager_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content text-center">
-                <input type="hidden" id="modal_user_no">
-                <div class="modal-body" style="margin: 20px;">
-                    <input type="text" class="form-control" id="modal_manager_telno" style="width: 200px; margin: auto;">
-                    <label id="manager_telno_label" class="mt-2" for="modal_manager_telno">매니저 휴대폰번호를 입력하세요.(-제외)</label>
-                </div>
-                <div class="text-center pb-5">
-                    <a id="update_manager_no" class="common-button-1">저장</a>
-                    <a id="manager_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                <div class="adm-more" v-if="hasMore">
+                    <button type="button" class="adm-btn" @click="load(false)" :disabled="loading">더 보기</button>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="send_sms_modal" tabindex="-1" role="dialog" aria-labelledby="send_sms_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <input id="smsTelno" type="hidden">
-                <div class="mt-4" style="width: 80%; margin: auto;">제목</div>
-                <div class="text-center mt-1">
-                    <input type="text" id="sms_subject" placeholder="문자메세지 제목을 입력하세요" style="padding: 5px; width: 80%;">
-                </div>
-                <hr>
-                <div style="width: 80%; margin: auto;">내용</div>
-                <div class="text-center mt-1 mb-3">
-                    <textarea id="sms_content" placeholder="문자메세지 내용을 입력하세요" style="padding: 5px; width: 80%; height: 300px;"></textarea>
-                </div>
-                <div class="text-center pb-5">
-                    <a id="send_sms" class="common-button-1 mr-1">문자전송</a>
-                    <a id="send_sms_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+
+        <transition name="modal-fade">
+            <div class="gd-modal-backdrop" v-if="managerModal" @click.self="managerModal = false">
+                <div class="gd-modal">
+                    <div class="gd-modal-body">
+                        <h2 class="gd-modal-title">담당자 지정</h2>
+                        <p class="adm-sub">[[ managerTarget ? managerTarget.userNm : '' ]] 회원의 담당자를 지정합니다.</p>
+                        <div class="adm-field" style="margin-top:16px;">
+                            <label class="adm-label" for="modal_manager_telno">담당자 휴대폰</label>
+                            <input id="modal_manager_telno" type="tel" class="gd-input" v-model="managerTelno"
+                                   placeholder="- 제외하고 입력">
+                        </div>
+                    </div>
+                    <div class="gd-modal-footer">
+                        <button type="button" class="gd-btn" @click="managerModal = false">닫기</button>
+                        <button type="button" class="gd-btn gd-btn-primary" @click="saveManager">저장</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </transition>
+
+        <transition name="modal-fade">
+            <div class="gd-modal-backdrop" v-if="smsModal" @click.self="smsModal = false">
+                <div class="gd-modal">
+                    <div class="gd-modal-body">
+                        <h2 class="gd-modal-title">문자 보내기</h2>
+                        <p class="adm-sub">선택한 [[ selectedTelnos.length ]]명에게 발송됩니다.</p>
+                        <div class="adm-field" style="margin-top:16px;">
+                            <label class="adm-label" for="sms_subject">제목</label>
+                            <input id="sms_subject" type="text" class="gd-input" v-model="smsSubject">
+                        </div>
+                        <div class="adm-field adm-field-block">
+                            <label class="adm-label" for="sms_content">내용</label>
+                            <textarea id="sms_content" class="gd-input adm-textarea" style="height:150px;" v-model="smsContent"></textarea>
+                        </div>
+                    </div>
+                    <div class="gd-modal-footer">
+                        <button type="button" class="gd-btn" @click="smsModal = false">닫기</button>
+                        <button type="button" class="gd-btn gd-btn-primary" @click="sendSms" :disabled="sending">전송</button>
+                    </div>
+                </div>
+            </div>
+        </transition>
+
+        <app-footer></app-footer>
     </div>
+
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0">
-    </footer>
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/component/header.js"></script>
-    <script type="text/javascript" src="/static/js/component/user_list.js"></script>
-    <script type="text/javascript" src="/static/js/admin/user_manager/user_manager.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/admin/user_manager/user_manager.js"></script>
 </body>
 
 </html>

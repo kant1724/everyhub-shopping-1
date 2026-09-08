@@ -1,49 +1,33 @@
-function ajax(url, inputData, gubun, method) {
-    $.ajax(url, {
-        type: method,
-        data: inputData,
-        async: false,
-        xhrFields: { withCredentials: true },
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: 'json',
-        success: function (data, status, xhr) {
-            if (gubun == 'selectProductList') {
-                selectProductListCallback(data.ret);
-            }
+/**
+ * 검색결과 (Vue 3) — MDBootstrap / Bootstrap / jQuery 미사용
+ *
+ * 버그 수정: 기존 코드는 존재하지 않는 API
+ * (/admin/product_manager/selectProductList) 를 호출해서 검색 페이지가
+ * 항상 응답 없이 멈춰 있었다. 실제 상품 조회 API 로 교체한다.
+ */
+(function () {
+    const ctx = pageContext();
+    const el = document.getElementById("query");
+    const query = el ? el.value : "";
+
+    const app = Vue.createApp({
+        data() {
+            return { userNo: ctx.userNo, adminYn: ctx.adminYn, query: query, items: [], loading: true };
         },
-        error: function (jqXhr, textStatus, errorMessage) {}
+        methods: {
+            statusOf(item) { return item.shipYn === "Y" ? "판매중" : "출하전"; },
+            descOf(item) { return item.itemDesc ? String(item.itemDesc).split("\n")[0] : ""; },
+            goProduct(itemNo) { location.href = "/product?itemNo=" + encodeURIComponent(itemNo); }
+        },
+        async mounted() {
+            // 판매중 상품 중 상품명에 검색어가 포함된 것 (SQL 이 itemNm LIKE 지원)
+            this.items = (await apiPost("/admin/item_manager/selectItemList",
+                { useYn: "Y", itemNm: this.query })) || [];
+            this.loading = false;
+        }
     });
-}
 
-$(document).ready(function() {
-    selectProductList();
-});
-
-function selectProductList() {
-    let inputData = {
-        itemNm1: $('#query').val()
-    };
-    ajax(serverUrl + '/admin/product_manager/selectProductList', inputData, 'selectProductList', 'POST');
-}
-
-function selectProductListCallback(ret) {
-    let html = '';
-    for (let i = 0; i < ret.length; ++i) {
-        html += '<div class="each-item col-lg-4 col-md-12 col-12 pt-2">';
-        html += '<input type="hidden" id="item_no" value="' + ret[i].itemNo + '">';
-        html += '<div class="row py-2 mb-4 hoverable align-items-center">';
-        html += '<div class="col-6"><a><img src="' + ret[i].imagePath + '" style="border-radius: 5px; height: 150px;" class="img-fluid"></a></div>';
-        html += '<div class="col-6"><div class="ml-3">';
-        html += '<a class="pt-5"><strong>' + ret[i].itemNm1 + ' ' + ret[i].itemNm2 + '</strong></a><br>';
-        html += '<a class="pt-5" style="font-size: 15px;"><strong>' + ret[i].itemQty + '과 / ' + ret[i].itemKg + 'KG</strong></a>';
-        html += '<h6 class="mt-1 h6-responsive font-weight-bold dark-grey-text"><strong>' + numberWithCommas(ret[i].itemPrice) + '원</strong></h6>';
-        html += '<a class="all-product-detail-text3">원산지: 국내산</a>';
-        html += '</div></div></div></div><hr>';
-    }
-    $('#all_item_list').append(html);
-
-    $('.each-item').click(function() {
-        let itemNo = $($(this).find('#item_no')).val();
-        location.href = '/product?itemNo=' + itemNo;
-    });
-}
+    registerLayout(app);
+    app.config.compilerOptions.delimiters = ["[[", "]]"];
+    app.mount("#search_app");
+})();

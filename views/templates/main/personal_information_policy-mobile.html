@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>주문내역</title>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>개인정보처리방침</title>
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
     <link href="/static/css/main/personal_information_policy.css" rel="stylesheet">
 </head>
+
 <body>
-    <header></header>
-    <div class="container mt-5 pt-5">
+    <div id="policy_app" class="pol" v-cloak>
+        <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
+
+        <div class="pol-shell">
+            <h1 class="pol-title">개인정보처리방침</h1>
+            <div class="pol-doc">
+<div class="container mt-5 pt-5">
         <div class="container">
             <p class="ls2 lh6 bs5 ts4"><em class="emphasis">간드락('http://gandeurak.com'이하  '간드락농원')
             </em>은(는) 개인정보보호법에 따라 이용자의 개인정보 보호 및 권익을 보호하고 개인정보와 관련한 이용자의 고충을 원활하게 처리할 수 있도록 다음과 같은 처리방침을 두고 있습니다.</p>
@@ -69,7 +72,6 @@
             <p class="ls2">간드락 은 정보주체의 이용정보를 저장하고 수시로 불러오는 ‘쿠키’를 사용하지 않습니다.</br></br></p>
             <p class='lh6 bs4'><strong>9. 개인정보 보호책임자 작성 </strong></p>
             <br/> ①  간드락(‘http://gandeurak.com’이하 ‘간드락농원) 은(는) 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.
-            </br></br><p class='lh6 bs4'><strong>10. 개인정보 처리방침 변경 </strong></p>
             <p>①이 개인정보처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 공지사항을 통하여 고지할 것입니다.</p></br></br>
             <p class='lh6 bs4'><strong>11. 개인정보의 안전성 확보 조치 <em class="emphasis">간드락('간드락농원')</em>은(는) 개인정보보호법 제29조에 따라 다음과 같이 안전성 확보에 필요한 기술적/관리적 및 물리적 조치를 하고 있습니다.</strong></p>
             <p class='ls2'>1. 정기적인 자체 감사 실시</br> 개인정보 취급 관련 안정성 확보를 위해 정기적(분기 1회)으로 자체 감사를 실시하고 있습니다.</br>
@@ -82,18 +84,19 @@
             </p></p>
         </div>
     </div>
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
-    <input type="hidden" id="query" value="{{query}}">
+            </div>
+        </div>
+
+        <app-footer></app-footer>
+    </div>
+
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/component/header-mobile.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/main/personal_information_policy.js"></script>
 </body>
 
 </html>

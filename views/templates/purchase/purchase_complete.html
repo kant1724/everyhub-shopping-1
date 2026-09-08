@@ -1,57 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>주문완료</title>
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
-    <link href="/static/css/common/address.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
     <link href="/static/css/purchase/purchase_complete.css" rel="stylesheet">
 </head>
 
 <body>
-    <header></header>
-    <div class="container mt-5 pt-5 text-center">
-        <div style="font-weight: 700;">
-            주문이 완료되었습니다.
+    <div id="complete_app" class="done" v-cloak>
+        <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
+
+        <div class="done-shell">
+            <div class="done-card">
+                <div class="done-icon"><i class="fal fa-check"></i></div>
+
+                <h1 class="done-title">주문이 완료되었습니다</h1>
+                <p class="done-sub">아래 계좌로 입금해 주시면 발송이 시작됩니다.</p>
+
+                <div class="done-account">
+                    <dl class="done-account-row">
+                        <dt>입금 계좌</dt>
+                        <dd id="seller_acno">[[ acno ]]</dd>
+                    </dl>
+                    <dl class="done-account-row">
+                        <dt>예금주</dt>
+                        <dd id="seller_deposit_person_nm">[[ depositPersonNm ]]</dd>
+                    </dl>
+                </div>
+
+                <p class="done-note">입금자명이 주문 시 입력한 이름과 다르면 확인이 늦어질 수 있습니다.</p>
+
+                <div class="done-actions">
+                    <button type="button" class="done-btn done-btn-ghost re-order" @click="reorder">재주문하기</button>
+                    <button type="button" class="done-btn done-btn-primary go-main" @click="goMain">메인으로</button>
+                </div>
+            </div>
         </div>
-        <div style="font-weight: 700;">
-            아래의 계좌로 금액을 입금하세요.
-        </div>
-        <div class="mt-3">
-            <span id="seller_acno"></span>
-            <br>
-            <span id="seller_deposit_person_nm"></span>
-        </div>
-        <div class="mt-3 mb-5 text-center">
-            <button type="button" class="btn btn-sm deep-orange btn-rounded go-main">메인으로
-                <i class="fa fa-angle-right right"></i>
-            </button>
-            <button type="button" class="btn btn-sm blue btn-rounded re-order">재주문하기
-                <i class="fa fa-angle-right right"></i>
-            </button>
-        </div>
+
+        <app-footer></app-footer>
     </div>
+
     <input id="items" type="hidden" value="{{items}}">
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/common/address.js"></script>
-    <script type="text/javascript" src="/static/js/component/header.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/purchase/purchase_complete.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/purchase/purchase_complete.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 let mybatisMapper = require('mybatis-mapper');
 let format = {language: 'sql', indent: '  '};
+let utils = require('../../common/utils');
 mybatisMapper.createMapper(['server/board/notice/noticeSQL.xml']);
 
 module.exports = {
@@ -17,6 +18,7 @@ module.exports = {
 
     selectNoticeDetail: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.noticeNo = utils.toSafeInt(param.noticeNo);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('noticeSQL', 'selectNoticeDetail', param, format);
             console.log(query);
@@ -42,6 +44,7 @@ module.exports = {
 
     updateNotice: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.noticeNo = utils.toSafeInt(param.noticeNo);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('noticeSQL', 'updateNotice', param, format);
             conn.query(query, (err, rows, fields) => {

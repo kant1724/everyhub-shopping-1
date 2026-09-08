@@ -1,321 +1,329 @@
-function ajax(url, inputData, gubun, method) {
-    $.ajax(url, {
-        type: method,
-        data: inputData,
-        async: false,
-        xhrFields: { withCredentials: true },
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: 'json',
-        success: function (data, status, xhr) {
-            if (gubun == 'selectOneItem') {
-                selectOneItemCallback(data.ret);
-            } else if (gubun == 'selectProductReviews') {
-                selectProductReviewsCallback(data.ret);
-            } else if (gubun == 'selectQna') {
-                selectQnaCallback(data.ret);
-            } else if (gubun == 'selectQnaReply') {
-                selectQnaReplyCallback(data.ret);
-            } else if (gubun == 'writeQna') {
-                writeQnaCallback();
-            } else if (gubun == 'writeQnaReply') {
-                writeQnaReplyCallback();
-            } else if (gubun == 'selectItemOption') {
-                selectItemOptionCallback(data.ret);
+/**
+ * 상품 상세 (Vue 3) — MDBootstrap / Bootstrap / jQuery 미사용, PC·모바일 공용
+ *
+ * 기존 로직·데이터 계약 유지:
+ *  - 장바구니 저장 구조(localStorage 'product')와 동일 옵션 중복 차단 규칙
+ *  - '바로주문' 의 /purchase 쿼리스트링 파라미터
+ *  - 출하전 / 품절 표시 및 구매 버튼 비활성 규칙 (관리자는 예외)
+ *  - 후기 / Q&A 는 lastReviewNo · lastQnaNo · limit 로 배치 조회
+ *
+ * 통신은 fetch (vue-layout.js 의 apiPost), 델리미터는 [[ ]].
+ */
+(function () {
+    const REVIEW_PER_PAGE = 15;
+    const REVIEW_BATCH = 150;
+    const QNA_PER_PAGE = 5;
+    const QNA_BATCH = 50;
+
+    const ctx = pageContext();
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                itemNo: ctx.itemNo,
+                userNo: ctx.userNo,
+                adminYn: ctx.adminYn,
+
+                item: null,
+                images: [],
+                options: [],
+                selectedOptionNo: '',
+
+                qty: 1,
+                toast: '',
+                toastTimer: null,
+
+                tab: 'review',
+
+                reviews: [],
+                reviewPage: 0,
+                reviewLastNo: 99999999,
+                reviewHasMore: true,
+                openedReviewNo: null,
+
+                qnas: [],
+                qnaPage: 0,
+                qnaLastNo: 99999999,
+                qnaHasMore: true,
+                openedQnaNo: null,
+                qnaReplies: {},
+
+                qnaModalOpen: false,
+                qnaForm: { subject: '', content: '' },
+                replyText: ''
+            };
+        },
+
+        computed: {
+            isAdmin() { return this.adminYn === 'Y'; },
+            loggedIn() { return this.userNo && this.userNo !== '0'; },
+
+            selectedOption() {
+                const no = String(this.selectedOptionNo);
+                return this.options.find(function (o) { return String(o.optionNo) === no; }) || null;
+            },
+
+            usableOptions() {
+                return this.options.filter(function (o) { return o.useYn !== 'N'; });
+            },
+
+            itemPriceNum() { return this.selectedOption ? Number(this.selectedOption.itemPrice) : 0; },
+            shippingFeeNum() { return this.selectedOption ? Number(this.selectedOption.shippingFee) : 0; },
+            itemPriceText() { return numberWithCommas(this.itemPriceNum) + '원'; },
+            shippingFeeText() { return numberWithCommas(this.shippingFeeNum) + '원'; },
+            totalPriceText() {
+                return numberWithCommas((this.itemPriceNum + this.shippingFeeNum) * Number(this.qty)) + '원';
+            },
+
+            /** 출하전 / 품절 — 관리자에게는 표시하지 않고 구매도 허용 (기존 규칙) */
+            statusLabel() {
+                if (!this.item || this.isAdmin) return '';
+                if (this.item.shipYn === 'N') return '출하전';
+                if (this.item.soldOutYn === 'Y') return '품절';
+                return '';
+            },
+
+            canBuy() { return !!this.item && !!this.selectedOption && this.statusLabel === ''; },
+
+            descHtml() {
+                if (!this.item || !this.item.itemDesc) return '';
+                return escapeHtmlWithBreaks(this.item.itemDesc);
+            },
+
+            pagedReviews() {
+                const s = this.reviewPage * REVIEW_PER_PAGE;
+                return this.reviews.slice(s, s + REVIEW_PER_PAGE);
+            },
+            reviewPageCount() { return Math.max(1, Math.ceil(this.reviews.length / REVIEW_PER_PAGE)); },
+
+            pagedQnas() {
+                const s = this.qnaPage * QNA_PER_PAGE;
+                return this.qnas.slice(s, s + QNA_PER_PAGE);
+            },
+            qnaPageCount() { return Math.max(1, Math.ceil(this.qnas.length / QNA_PER_PAGE)); }
+        },
+
+        methods: {
+            /* ---------- 조회 ---------- */
+            async loadItem() {
+                const ret = await apiPost('/admin/item_manager/selectOneItem', { itemNo: this.itemNo });
+                if (!ret || ret.length === 0) return;
+                this.item = ret[0];
+                const imgs = [];
+                for (let i = 1; i <= 5; ++i) {
+                    const path = ret[0]['imagePath' + i];
+                    if (!isNull(path)) imgs.push(path);
+                }
+                this.images = imgs;
+            },
+
+            async loadOptions() {
+                const ret = await apiPost('/admin/item_manager/selectItemOption', { itemNo: this.itemNo });
+                this.options = ret || [];
+                const first = this.options.find(function (o) { return o.useYn === 'Y'; }) || this.options[0];
+                if (first) this.selectedOptionNo = first.optionNo;
+            },
+
+            async loadReviews() {
+                const ret = await apiPost('/product/selectProductReviews', {
+                    itemNo: this.itemNo,
+                    lastReviewNo: this.reviewLastNo,
+                    limit: REVIEW_BATCH
+                });
+                const rows = ret || [];
+                if (rows.length > 0) {
+                    this.reviews = this.reviews.concat(rows);
+                    this.reviewLastNo = rows[rows.length - 1].reviewNo;
+                }
+                this.reviewHasMore = rows.length >= REVIEW_BATCH;
+            },
+
+            async loadQnas() {
+                const ret = await apiPost('/product/selectQna', {
+                    itemNo: this.itemNo,
+                    lastQnaNo: this.qnaLastNo,
+                    limit: QNA_BATCH
+                });
+                const rows = ret || [];
+                if (rows.length > 0) {
+                    this.qnas = this.qnas.concat(rows);
+                    this.qnaLastNo = rows[rows.length - 1].qnaNo;
+                }
+                this.qnaHasMore = rows.length >= QNA_BATCH;
+            },
+
+            /* ---------- 페이징 ---------- */
+            async goReviewPage(p) {
+                if (p < 0) return;
+                if (p >= this.reviewPageCount) {
+                    if (!this.reviewHasMore) return;
+                    await this.loadReviews();
+                    if (p >= this.reviewPageCount) return;
+                }
+                this.reviewPage = p;
+                this.openedReviewNo = null;
+            },
+
+            async goQnaPage(p) {
+                if (p < 0) return;
+                if (p >= this.qnaPageCount) {
+                    if (!this.qnaHasMore) return;
+                    await this.loadQnas();
+                    if (p >= this.qnaPageCount) return;
+                }
+                this.qnaPage = p;
+                this.openedQnaNo = null;
+            },
+
+            toggleReview(no) {
+                this.openedReviewNo = this.openedReviewNo === no ? null : no;
+            },
+
+            async toggleQna(no) {
+                if (this.openedQnaNo === no) { this.openedQnaNo = null; return; }
+                this.openedQnaNo = no;
+                this.replyText = '';
+                const ret = await apiPost('/product/selectQnaReply', { qnaNo: no });
+                this.qnaReplies[no] = ret || [];
+            },
+
+            stars(n) { return Number(n) || 0; },
+
+            /* ---------- 수량 ---------- */
+            increase() { this.qty = Number(this.qty) + 1; },
+            decrease() { if (Number(this.qty) > 1) this.qty = Number(this.qty) - 1; },
+
+            /* ---------- 장바구니 / 주문 ---------- */
+            addCart() {
+                if (!this.canBuy) return;
+                let productArr = [];
+                try {
+                    const raw = JSON.parse(localStorage.getItem('product'));
+                    if (Array.isArray(raw)) productArr = raw;
+                } catch (e) { productArr = []; }
+
+                let id = 0;
+                for (let i = 0; i < productArr.length; ++i) {
+                    // 같은 옵션이 이미 담겨 있으면 추가하지 않는다 (기존 규칙)
+                    if (String(productArr[i].optionNo) === String(this.selectedOption.optionNo)) {
+                        this.showToast('이미 장바구니에 있는 상품입니다. 장바구니에서 수량을 조정하세요.');
+                        return;
+                    }
+                    id = Math.max(Number(productArr[i].id), id);
+                }
+                id += 1;
+
+                productArr.push({
+                    id: id,
+                    optionNo: this.selectedOption.optionNo,
+                    optionNm: this.selectedOption.optionNm,
+                    itemNo: this.itemNo,
+                    imagePath: this.images.length > 0 ? this.images[0] : '',
+                    itemNm: this.item.itemNm,
+                    keepingMethod: this.item.keepingMethod,
+                    damageRemarks: this.item.damageRemarks,
+                    itemPrice: this.itemPriceText,
+                    shippingFee: this.shippingFeeText,
+                    itemPriceNum: this.itemPriceNum,
+                    shippingFeeNum: this.shippingFeeNum,
+                    qty: this.qty
+                });
+                localStorage.setItem('product', JSON.stringify(productArr));
+                this.showToast('상품이 장바구니에 추가되었습니다.');
+            },
+
+            orderNow() {
+                if (!this.canBuy) return;
+                if (Number(this.qty) === 0) { alert('수량은 1이상이어야 합니다.'); return; }
+                const q = {
+                    itemNo: this.itemNo,
+                    optionNo: this.selectedOption.optionNo,
+                    optionNm: this.selectedOption.optionNm,
+                    imagePath: this.images.length > 0 ? this.images[0] : '',
+                    itemNm: this.item.itemNm,
+                    keepingMethod: this.item.keepingMethod,
+                    itemPrice: this.itemPriceText,
+                    shippingFee: this.shippingFeeText,
+                    itemPriceNum: this.itemPriceNum,
+                    shippingFeeNum: this.shippingFeeNum,
+                    qty: this.qty
+                };
+                location.href = '/purchase?' + Object.keys(q).map(function (k) {
+                    return k + '=' + encodeURIComponent(q[k] == null ? '' : q[k]);
+                }).join('&');
+            },
+
+            showToast(msg) {
+                this.toast = msg;
+                clearTimeout(this.toastTimer);
+                this.toastTimer = setTimeout(() => { this.toast = ''; }, 2200);
+            },
+
+            /* ---------- Q&A ---------- */
+            openQnaModal() {
+                if (!this.loggedIn) {
+                    alert('로그인 후 이용해 주세요.');
+                    location.href = '/user';
+                    return;
+                }
+                this.qnaForm.subject = '';
+                this.qnaForm.content = '';
+                this.qnaModalOpen = true;
+            },
+
+            async submitQna() {
+                if (isNull(this.qnaForm.subject)) { alert('제목을 입력하세요.'); return; }
+                if (isNull(this.qnaForm.content)) { alert('내용을 입력하세요.'); return; }
+                await apiPost('/product/writeQna', {
+                    subject: this.qnaForm.subject,
+                    content: this.qnaForm.content,
+                    itemNo: this.itemNo
+                });
+                alert('질문이 등록되었습니다.');
+                this.qnaModalOpen = false;
+                this.qnas = [];
+                this.qnaPage = 0;
+                this.qnaLastNo = 99999999;
+                this.qnaHasMore = true;
+                await this.loadQnas();
+            },
+
+            async submitReply(qnaNo) {
+                if (isNull(this.replyText)) { alert('내용을 입력하세요.'); return; }
+                await apiPost('/product/writeQnaReply', { qnaNo: qnaNo, content: this.replyText });
+                alert('답글이 등록되었습니다.');
+                this.replyText = '';
+                const ret = await apiPost('/product/selectQnaReply', { qnaNo: qnaNo });
+                this.qnaReplies[qnaNo] = ret || [];
+            },
+
+            initSwiper() {
+                new Swiper('.product-gallery', {
+                    slidesPerView: 1,
+                    loop: false,
+                    pagination: { el: '.product-gallery .swiper-pagination', clickable: true },
+                    navigation: {
+                        prevEl: '.product-gallery .swiper-button-prev',
+                        nextEl: '.product-gallery .swiper-button-next'
+                    }
+                });
             }
         },
-        error: function (jqXhr, textStatus, errorMessage) {}
-    });
-}
 
-function addCart() {
-    let productArr = JSON.parse(localStorage.getItem('product'));
-    let id = 0;
-    if (productArr != null) {
-        for (let i = 0; i < productArr.length; ++i) {
-            let optionNo = productArr[i].optionNo;
-            if ($('#info_option_no').val() == optionNo) {
-                return -1;
-            }
-            id = Math.max(productArr[i].id, id);
-        }
-    }
-    id += 1;
-    let p = {
-        id: id,
-        optionNo: $('#info_option_no').val(),
-        optionNm: $('#info_option_nm').val(),
-        itemNo: $('#item_no').val(),
-        imagePath: $('#info_image_path_1').prop('src'),
-        itemNm: $('#info_item_nm').text(),
-        keepingMethod: $('#keeping_method').val(),
-        damageRemarks: $('#damage_remarks').val(),
-        itemPrice: $('#info_item_price').text(),
-        shippingFee: $('#info_shipping_fee').text(),
-        itemPriceNum: $('#info_item_price_num').val(),
-        shippingFeeNum: $('#info_shipping_fee_num').val(),
-        qty: $('#qty').val()
-    };
-    if (localStorage.getItem('product') != null) {
-        productArr.push(p);
-        localStorage.setItem('product', JSON.stringify(productArr));
-    } else {
-        let productArr = [p];
-        localStorage.setItem('product', JSON.stringify(productArr));
-    }
+        async mounted() {
+            await this.loadItem();
+            await this.loadOptions();
+            await this.loadReviews();
+            await this.loadQnas();
 
-    return id;
-}
-
-$(document).ready(function() {
-    toastr.options = {
-        "timeOut": "1000"
-    };
-    $('#add_cart').click(function() {
-        let res = addCart();
-        if (res >= 0) {
-            toastr["info"]("상품이 장바구니에 추가되었습니다.")
-        } else {
-            toastr["info"]("이미 장바구니에 있는 상품입니다. 장바구니에서 수량을 조정하세요.")
+            // 이미지가 그려진 뒤에 Swiper 를 붙인다
+            this.$nextTick(() => {
+                if (this.images.length > 0) this.initSwiper();
+            });
         }
     });
 
-    $('#order_now').click(function() {
-        let param = 'itemNo=' + encodeURIComponent($('#item_no').val());
-        param += '&optionNo=' + encodeURIComponent($('#info_option_no').val());
-        param += '&optionNm=' + encodeURIComponent($('#info_option_nm').val());
-        param += '&imagePath=' + encodeURIComponent($('#info_image_path_1').prop('src'));
-        param += '&itemNm=' + encodeURIComponent($('#info_item_nm').text());
-        param += '&keepingMethod=' + encodeURIComponent($('#keeping_method').val());
-        param += '&itemPrice=' + encodeURIComponent($('#info_item_price').text());
-        param += '&shippingFee=' + encodeURIComponent($('#info_shipping_fee').text());
-        param += '&itemPriceNum=' + encodeURIComponent($('#info_item_price_num').val());
-        param += '&shippingFeeNum=' + encodeURIComponent($('#info_shipping_fee_num').val());
-        param += '&qty=' + encodeURIComponent($('#qty').val());
-        if ($('#qty').val() == 0) {
-            alert('수량은 1이상이어야 합니다.');
-            return;
-        }
-        location.href = '/purchase?' + param;
-    });
-
-    $('.admin-page').click(function() {
-        location.href = '/admin/product_manager';
-    });
-
-    $('#product_review').click(function() {
-        $('#qna_list').hide();
-        $('#write_qna').hide();
-        $('#review_list').show();
-        $('#review_pagination').show();
-        $('#qna_pagination').hide();
-        $('#menu_selected').css('margin-left', '5px');
-    });
-
-    $('#qna').click(function() {
-        $('#review_list').hide();
-        $('#qna_list').show();
-        $('#write_qna').show();
-        $('#review_pagination').hide();
-        $('#qna_pagination').show();
-        $('#menu_selected').css('margin-left', '190px');
-    });
-
-    $('#write_qna').click(function() {
-        $('#item_no_modal').val($('#item_no').val());
-        $('#qna_subject_modal').val('');
-        $('#qna_content_modal').val('');
-        $('#qna_modal').modal();
-    });
-
-    $('.qty-plus-btn').click(function() {
-        $('#qty').val(Number($('#qty').val()) + 1);
-    });
-
-    $('.qty-minus-btn').click(function() {
-        if (Number($('#qty').val()) > 0) {
-            $('#qty').val(Number($('#qty').val()) - 1);
-        }
-    });
-
-    $('#write_qna_btn').click(function() {
-        writeQna();
-    });
-
-    $('#item_option').change(function() {
-        let optionNo = $(this).val();
-        for (let i = 0; i < optionData.length; ++i) {
-            if (optionData[i].optionNo == optionNo) {
-                $('#info_item_price').text(numberWithCommas(optionData[i].itemPrice) + '원');
-                $('#info_shipping_fee').text(numberWithCommas(optionData[i].shippingFee) + '원');
-                $('#info_item_price_num').val(optionData[i].itemPrice);
-                $('#info_shipping_fee_num').val(optionData[i].shippingFee);
-                $('#info_option_no').val(optionData[i].optionNo);
-                $('#info_option_nm').val(optionData[i].optionNm);
-            }
-        }
-    });
-
-    constructReview.init(selectProductReviews);
-    constructQna.init(selectQna, selectQnaReply, writeQnaReply);
-
-    selectOneItem();
-    selectItemOption();
-    selectProductReviews();
-    selectQna();
-});
-
-function selectOneItem() {
-    let itemNo = $('#item_no').val();
-    let inputData  = {
-        itemNo: itemNo
-    };
-    ajax('/admin/item_manager/selectOneItem', inputData , 'selectOneItem', 'POST');
-}
-
-function selectItemOption() {
-    let itemNo = $('#item_no').val();
-    let inputData = {
-        itemNo: itemNo
-    };
-    ajax('/admin/item_manager/selectItemOption', inputData, 'selectItemOption', 'POST');
-}
-
-let optionData = [];
-function selectItemOptionCallback(ret) {
-    optionData = ret;
-    for (let i = 0; i < ret.length; ++i) {
-        let optionNo = ret[i].optionNo;
-        let optionNm = ret[i].optionNm;
-        let useYn = ret[i].useYn;
-        if (useYn == 'N') continue;
-        $('#item_option').append('<option value="' + optionNo + '">' + optionNm + '</option>');
-    }
-    let start = 0
-    for (let i = 0; i < optionData.length; ++i) {
-        if (optionData[i].useYn == 'Y') {
-            start = i;
-            break;
-        }
-    }
-    $('#info_item_price').text(numberWithCommas(optionData[start].itemPrice) + '원');
-    $('#info_shipping_fee').text(numberWithCommas(optionData[start].shippingFee) + '원');
-    $('#info_item_price_num').val(optionData[start].itemPrice);
-    $('#info_shipping_fee_num').val(optionData[start].shippingFee);
-    $('#info_option_no').val(optionData[start].optionNo);
-    $('#info_option_nm').val(optionData[start].optionNm);
-}
-
-function selectProductReviews() {
-    let itemNo = $('#item_no').val();
-    let inputData  = {
-        itemNo: itemNo,
-        lastReviewNo: constructReview.lastReviewNo,
-        limit: constructReview.idPerPage * constructReview.pageLength
-    };
-    ajax('/product/selectProductReviews', inputData , 'selectProductReviews', 'POST');
-}
-
-function selectQna() {
-    let itemNo = $('#item_no').val();
-    let inputData  = {
-        itemNo: itemNo,
-        lastQnaNo: constructQna.lastQnaNo,
-        limit: constructQna.idPerPage * constructQna.pageLength
-    };
-    ajax('/product/selectQna', inputData , 'selectQna', 'POST');
-}
-
-function selectQnaReply(qnaNo) {
-    let inputData  = {
-        qnaNo: qnaNo
-    };
-    ajax('/product/selectQnaReply', inputData , 'selectQnaReply', 'POST');
-}
-
-function selectOneItemCallback(ret) {
-    let itemNm = ret[0].itemNm;
-    if (ret[0].shipYn == 'N' && $('#admin_yn').val() != 'Y') {
-        itemNm += '<span class="ml-2" style="color: #980000">(출하전)</span>';
-    } else if (ret[0].soldOutYn == 'Y' && $('#admin_yn').val() != 'Y') {
-        itemNm += '<span class="ml-2" style="color: #980000">(품절)</span>';
-    } else {
-        $('#order_now').prop('disabled', false);
-        $('#add_cart').prop('disabled', false);
-    }
-    let html = '';
-    let cnt = 1;
-    for (let i = 1; i <= 5; ++i) {
-        if (!isNull(ret[0]['imagePath' + i])) {
-            html += '<div class="swiper-slide">';
-            html += '<img id="info_image_path_' + cnt + '" src="' + ret[0]['imagePath' + i] + '" width="400px">';
-            html += '</div>';
-            cnt += 1;
-        }
-    }
-    $('.swiper-wrapper').append(html);
-    initSwiper();
-    $('#info_image_path').prop('src', ret[0].imagePath1);
-    $('#info_item_nm').html(itemNm);
-    $('#info_item_desc').html(ret[0].itemDesc.replace(/\n/gi, '<br>'));
-    $('#keeping_method').val(ret[0].keepingMethod);
-    $('#damage_remarks').val(ret[0].damageRemarks);
-}
-
-function initSwiper() {
-    let swiper = new Swiper('.swiper-container', {
-        autoplay: {
-            delay: 5000,
-        },
-        slidesPerView: 1,
-        loop: false,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-        },
-        navigation: {
-            prevEl: '.swiper-button-prev',
-            nextEl: '.swiper-button-next'
-        }
-    });
-}
-
-function writeQna() {
-    let itemNo = $('#item_no_modal').val();
-    let inputData = {
-        subject: $('#qna_subject_modal').val(),
-        content: $('#qna_content_modal').val(),
-        itemNo: itemNo
-    };
-    ajax('/product/writeQna', inputData, 'writeQna', 'POST');
-}
-
-function writeQnaReply(qnaNo, content) {
-    let inputData = {
-        qnaNo: qnaNo,
-        content: content
-    };
-    ajax('/product/writeQnaReply', inputData, 'writeQnaReply', 'POST');
-}
-
-function selectProductReviewsCallback(ret) {
-    constructReview.selectCallback(ret)
-}
-
-function selectQnaCallback(ret) {
-    constructQna.selectCallback(ret)
-}
-
-function selectQnaReplyCallback(ret) {
-    constructQna.selectReplyCallback(ret)
-}
-
-function writeQnaCallback() {
-    alert('질문이 등록되었습니다.');
-    $('#close_modal').click();
-    constructQna.init(selectQna, selectQnaReply, writeQnaReply);
-    selectQna();
-}
-
-function writeQnaReplyCallback() {
-    alert('답글이 등록되었습니다.');
-}
+    registerLayout(app);
+    app.config.compilerOptions.delimiters = ['[[', ']]'];
+    app.mount('#product_app');
+})();

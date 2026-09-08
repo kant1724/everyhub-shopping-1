@@ -37,7 +37,7 @@ let constructQna =  {
 			html += '<tr class="each-qna" style="margin-bottom: 0px;">';
 			html += '<input type="hidden" id="qna_no" class="qna-no" value="' + qnaNo + '">';
 			html += '<td>';
-			html += '<div id="qna_subject" class="qna-subject" style="text-align: left;">' + subject + '</div>';
+			html += '<div id="qna_subject" class="qna-subject" style="text-align: left;">' + escapeHtml(subject) + '</div>';
 			html += '</td>';
 			html += '<td>';
 			html += '<div id="qna_date" class="qna-date">' + qnaDate + '</div>';
@@ -46,7 +46,7 @@ let constructQna =  {
 			html += '<tr class="each-qna-content" id="qna_content' + qnaNo + '" style="display: none;">';
 			html += '<td colspan="3">';
 			html += '<input type="hidden" class="qna-no" value="' + qnaNo + '">';
-			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
+			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + escapeHtmlWithBreaks(content) + '</div>';
 			html += '<div id="qna_reply_list_' + qnaNo + '" class="qna-reply-list"></div>';
 			if ($('#adminYn').val() == 'Y') {
 				html += '<div class="mt-3 mb-3 text-left"><textarea id="qna_reply_text" style="width: 80%; height: 100px;"></textarea></div>';
@@ -144,7 +144,7 @@ let constructQna =  {
 			let html = '';
 			for (let i = 0; i < data.length; ++i) {
 				let content = data[i].content;
-				html += '<div class="text-left mt-4 mb-3" style="width: 80%; background: #EAEAEA; padding: 10px; border-radius: 5px;"><div style="font-weight: 700;">답변:</div><div>' + content + '</div></div>';
+				html += '<div class="text-left mt-4 mb-3" style="width: 80%; background: #EAEAEA; padding: 10px; border-radius: 5px;"><div style="font-weight: 700;">답변:</div><div>' + escapeHtmlWithBreaks(content) + '</div></div>';
 			}
 			$('#qna_reply_list_' + qnaNo).append(html);
 		}
@@ -190,7 +190,7 @@ let constructQnaMobile =  {
 			html += '<tr class="each-qna" style="margin-bottom: 0px;">';
 			html += '<input type="hidden" id="qna_no" class="qna-no" value="' + qnaNo + '">';
 			html += '<td>';
-			html += '<div id="qna_subject" class="qna-subject">' + subject + '</div>';
+			html += '<div id="qna_subject" class="qna-subject">' + escapeHtml(subject) + '</div>';
 			html += '</td>';
 			html += '<td>';
 			html += '<div id="qna_date" class="qna-date">' + qnaDate + '</div>';
@@ -199,7 +199,7 @@ let constructQnaMobile =  {
 			html += '<tr class="each-qna-content" id="qna_content' + qnaNo + '" style="display: none;">';
 			html += '<td colspan="2">';
 			html += '<input type="hidden" class="qna-no" value="' + qnaNo + '">';
-			html += '<div style="text-align: left; padding-left: 10px; padding-top: 10px; font-size: 13px;">' + content + '</div>';
+			html += '<div style="text-align: left; padding-left: 10px; padding-top: 10px; font-size: 13px;">' + escapeHtmlWithBreaks(content) + '</div>';
 			html += '<div id="qna_reply_list_' + qnaNo + '" class="qna-reply-list"></div>';
 			if ($('#adminYn').val() == 'Y') {
 				html += '<div class="mt-3 mb-3 text-left"><textarea id="qna_reply_text" style="width: 80%; height: 100px;"></textarea></div>';
@@ -296,7 +296,7 @@ let constructQnaMobile =  {
 			let html = '';
 			for (let i = 0; i < data.length; ++i) {
 				let content = data[i].content;
-				html += '<div class="text-left mt-3 mb-3" style="width: 100%; background: #EAEAEA; padding: 10px; border-radius: 5px;"><div style="font-weight: 700;">답변:</div><div>' + content + '</div></div>';
+				html += '<div class="text-left mt-3 mb-3" style="width: 100%; background: #EAEAEA; padding: 10px; border-radius: 5px;"><div style="font-weight: 700;">답변:</div><div>' + escapeHtmlWithBreaks(content) + '</div></div>';
 			}
 			$('#qna_reply_list_' + qnaNo).append(html);
 		}

@@ -1,157 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>회원가입</title>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
-    <link href="/static/css/common/address.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
     <link href="/static/css/user/sign_up.css" rel="stylesheet">
 </head>
+
 <body>
-    <header></header>
-    <div class="container pt-5">
-        <div class="mt-5 screen-ratio" style="padding-left: 5px; border-left: 5px solid #333;">회원가입</div>
-        <div class="mt-3 mb-3 pb-2 screen-ratio" style="background: #FFFFFF; border: 1px solid #ccc;">
-            <div class="screen-ratio-inner">
-                <div class="mt-4 ml-4">
-                    <div style="position: relative; font-size: 13px;">
-                        휴대폰번호
-                    </div>
-                    <div class="mt-2">
-                        <input type="number" class="text-center padding-input" id="telno_1" style="width: 50px;">
-                        -
-                        <input type="number" class="text-center padding-input" id="telno_2" style="width: 50px;">
-                        -
-                        <input type="number" class="text-center padding-input" id="telno_3" style="width: 50px;">
-                        <a id="check_dup" class="ml-2 common-button-1">중복확인</a>
-                    </div>
-                </div>
-                <div class="mt-3 ml-4">
-                    <div class="md-form">
-                        <i class="fas fa-key prefix" style="font-size: 25px;"></i>
-                        <input type="password" autocomplete="new-password" class="form-control" id="password" style="width: 200px;">
-                        <label for="password">비밀번호</label>
+    <div id="signup_app" class="auth auth-wide" v-cloak>
+        <app-header :user-no="'0'" admin-yn="N"></app-header>
+
+        <div class="auth-shell auth-shell-wide">
+            <h1 class="auth-page-title">회원가입</h1>
+
+            <section class="auth-card auth-card-form">
+                <div class="auth-field">
+                    <span class="auth-label">휴대폰번호</span>
+                    <div class="auth-tel">
+                        <input id="telno_1" type="tel" class="gd-input" maxlength="3" v-model="form.telno1"
+                               ref="t1" @input="advance($event, 3, 't2'); onTelnoChanged()">
+                        <span>-</span>
+                        <input id="telno_2" type="tel" class="gd-input" maxlength="4" v-model="form.telno2"
+                               ref="t2" @input="advance($event, 4, 't3'); onTelnoChanged()">
+                        <span>-</span>
+                        <input id="telno_3" type="tel" class="gd-input" maxlength="4" v-model="form.telno3"
+                               ref="t3" @input="onTelnoChanged">
+                        <button type="button" id="check_dup" class="auth-ghost-btn" @click="checkDup">중복확인</button>
                     </div>
                 </div>
-                <div class="mt-3 ml-4">
-                    <div class="md-form">
-                        <i class="fas fa-key prefix" style="font-size: 25px;"></i>
-                        <input type="password" autocomplete="new-password" class="form-control" id="password_confirm" style="width: 200px;">
-                        <label for="password_confirm">비밀번호 확인</label>
+                <p class="auth-dup" :class="{ 'is-ok': dupChecked }">
+                    [[ dupChecked ? '사용 가능한 번호입니다.' : '가입 전 중복확인이 필요합니다.' ]]
+                </p>
+
+                <div class="auth-field">
+                    <label class="auth-label" for="password">비밀번호</label>
+                    <input id="password" type="password" class="gd-input" autocomplete="new-password" v-model="form.password">
+                </div>
+
+                <div class="auth-field">
+                    <label class="auth-label" for="password_confirm">비밀번호 확인</label>
+                    <input id="password_confirm" type="password" class="gd-input" autocomplete="new-password" v-model="form.passwordConfirm">
+                </div>
+
+                <div class="auth-field">
+                    <label class="auth-label" for="user_nm">이름</label>
+                    <input id="user_nm" type="text" class="gd-input" v-model="form.userNm">
+                </div>
+
+                <div class="auth-field">
+                    <span class="auth-label">성별</span>
+                    <div class="auth-radios">
+                        <label class="auth-radio"><input type="radio" id="gender_male" value="M" v-model="form.gender"><span>남</span></label>
+                        <label class="auth-radio"><input type="radio" id="gender_female" value="F" v-model="form.gender"><span>여</span></label>
                     </div>
                 </div>
-                <div class="mt-3 ml-4">
-                    <div class="md-form">
-                        <i class="fas fa-pencil prefix" style="font-size: 25px;"></i>
-                        <input type="text" class="form-control" id="user_nm"  style="width: 200px;">
-                        <label for="user_nm">이름</label>
+
+                <div class="auth-field">
+                    <span class="auth-label">생년월일</span>
+                    <div class="auth-birth">
+                        <input id="date_of_birth_y" type="text" inputmode="numeric" maxlength="4" class="gd-input" placeholder="1980" v-model="form.dateOfBirthY"><span>년</span>
+                        <input id="date_of_birth_m" type="text" inputmode="numeric" maxlength="2" class="gd-input" placeholder="01" v-model="form.dateOfBirthM"><span>월</span>
+                        <input id="date_of_birth_d" type="text" inputmode="numeric" maxlength="2" class="gd-input" placeholder="01" v-model="form.dateOfBirthD"><span>일</span>
                     </div>
                 </div>
-                <div class="mt-3 ml-4">
-                    <i class="fas fa-user mr-3" style="font-size: 25px;"></i>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="gender_male" name="gender_radio">
-                        <label class="form-check-label" for="gender_male">남</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="gender_female" name="gender_radio">
-                        <label class="form-check-label" for="gender_female">여</label>
-                    </div>
-                </div>
-                <div class="mt-3 ml-4">
-                    <div style="position: relative; font-size: 13px;">
-                        생년월일
-                    </div>
-                    <div class="mt-2">
-                        <input type="number" class="text-center padding-input" id="date_of_birth_y" style="width: 50px;" placeholder="1980">
-                        년
-                        <input type="number" class="text-center padding-input" id="date_of_birth_m" style="width: 50px;" placeholder="01">
-                        월
-                        <input type="number" class="text-center padding-input" id="date_of_birth_d" style="width: 50px;" placeholder="01">
-                        일
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-4 mb-3" style="font-size: 15px; background: #EAEAEA;">주소</div>
-            <div class="screen-ratio-inner">
-                <div class="pt-2 ml-4 pb-2">
-                    <a id="search_address" class="common-button-1">주소검색</a>
-                    <div class="mt-3" style="font-weight: 700;">우편번호:</div>
-                    <div id="zip_no" class="mt-2 mb-3" style="width: 80%; border-bottom: 1px solid #ddd; color: gray;"></div>
-                    <div class="mt-3" style="font-weight: 700;">기본주소:</div>
-                    <div id="address_main" class="mt-2 mb-3" style="width: 80%; border-bottom: 1px solid #ddd; color: gray;"></div>
-                    <div class="mt-1 d-inline-block">
-                        <label for="address_detail" style="font-weight: 700;">상세주소</label>
-                        <input type="text" style="width:250px;" class="form-control" id="address_detail" style="width: 200px;">
-                    </div>
-                </div>
-            </div>
-            <div class="ml-4 pt-2 mb-4 form-check" style="font-size: 12px;">
-                <input type="checkbox" class="form-check-input" id="agree_policy">
-                <label style="padding-left: 25px;" class="form-check-label" for="agree_policy">개인정보처리방침에 동의합니다.&nbsp;&nbsp;<a href="/personal_information_policy" target="_blank" class="text-underline-link" style="font-size: 12px;">전문보기</a></label>
-            </div>
-        </div>
-        <div class="screen-ratio text-center">
-            <button id="go_signing_up_btn" type="button" class="btn btn-sm deep-orange btn-rounded">회원가입
-                <i class="fa fa-angle-right right"></i>
-            </button>
-        </div>
-        <div class="modal fade" id="address_modal" tabindex="-1" role="dialog" aria-labelledby="address_modal"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <input type="hidden" id="zip_no_id">
-                    <input type="hidden" id="address_main_id">
-                    <div class="modal-body">
-                        <div style="border-bottom: 1px solid #333; font-weight: 700;">
-                            <span>주소검색</span>
+
+                <div class="auth-field auth-field-block">
+                    <span class="auth-label">주소</span>
+                    <div class="auth-address">
+                        <div class="auth-address-row">
+                            <input id="zip_no" type="text" class="gd-input auth-zip" :value="form.zipNo" placeholder="우편번호" readonly>
+                            <button type="button" id="search_address" class="auth-ghost-btn" @click="addressOpen = true">주소검색</button>
                         </div>
-                        <div class="mt-3">
-                            <span>검색어</span>
-                        </div>
-                        <input id="address_subject" placeholder="예) 세종대로 209, 상암동 1595 (도로나 동까지만 입력하세요)" class="mt-2" type="text" style="width: 100%; outline: none; padding: 3px;">
-                        <div class="mt-2"><a id="search_address_modal_jibun" class="common-button-1">조회(지번)</a><a id="search_address_modal_road" class="ml-2 common-button-1">조회(도로명)</a></div>
-                        <hr>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th style="padding: 3px;">주소</th>
-                                    <th style="padding: 3px;">우편번호</th>
-                                </tr>
-                            </thead>
-                            <tbody id="address_tbody">
-                            </tbody>
-                        </table>
-                        <div id="pagination" style="word-wrap: break-word;"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <a id="address_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                        <input id="address_main" type="text" class="gd-input" :value="form.addressMain" placeholder="기본주소" readonly>
+                        <input id="address_detail" type="text" class="gd-input" v-model="form.addressDetail" placeholder="상세주소">
                     </div>
                 </div>
-            </div>
+
+                <label class="auth-agree">
+                    <input type="checkbox" id="agree_policy" v-model="form.agree">
+                    <span>개인정보처리방침에 동의합니다.</span>
+                    <a href="/personal_information_policy" target="_blank" class="auth-agree-link">전문보기</a>
+                </label>
+
+                <button type="button" id="go_signing_up_btn" class="auth-btn auth-btn-primary"
+                        @click="signUp" :disabled="submitting">
+                    [[ submitting ? '가입 중...' : '가입하기' ]]
+                </button>
+            </section>
         </div>
+
+        <transition name="modal-fade">
+            <address-search v-if="addressOpen" @close="addressOpen = false" @select="onAddressSelected"></address-search>
+        </transition>
+
+        <input type="hidden" id="user_no" value="{{userNo}}">
+        <input type="hidden" id="admin_yn" value="{{adminYn}}">
+
+        <app-footer></app-footer>
     </div>
-    <input type="hidden" id="user_no" value="{{userNo}}">
-    <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/lib/sha256/sha256.js"></script>
-    <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/common/address.js"></script>
-    <script type="text/javascript" src="/static/js/component/header.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/user/sign_up.js"></script>
+
+    <script src="/static/lib/sha256/sha256.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/user/sign_up.js"></script>
 </body>
 
 </html>

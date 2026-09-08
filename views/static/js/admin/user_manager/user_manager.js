@@ -1,126 +1,110 @@
-function ajax(url, inputData, gubun, method) {
-    $.ajax(url, {
-        type: method,
-        data: inputData,
-        async: false,
-        xhrFields: { withCredentials: true },
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: 'json',
-        success: function (data, status, xhr) {
-            if (gubun == 'selectAllUser') {
-                selectAllUserCallback(data.ret);
-            } else if (gubun == 'updateManagerNo') {
-                updateManagerNoCallback(data.ret);
-            } else if (gubun == 'sendSMS') {
-                sendSMSCallback();
+/**
+ * 회원 관리 (Vue 3) — MDBootstrap / Bootstrap / jQuery 미사용
+ *
+ * 기존 동작 유지:
+ *  - lastUserNo + limit 배치 조회 (더보기)
+ *  - 담당자(매니저) 지정: 휴대폰번호로 조회해 연결
+ *  - 선택한 회원에게 SMS 발송 (전송 전 확인)
+ */
+(function () {
+    const ctx = pageContext();
+    const BATCH = 150;
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                userNo: ctx.userNo,
+                adminYn: ctx.adminYn,
+                rows: [],
+                lastNo: 99999999,
+                hasMore: true,
+                loading: true,
+                selected: {},
+                managerModal: false,
+                managerTarget: null,
+                managerTelno: '',
+                smsModal: false,
+                smsSubject: '',
+                smsContent: '',
+                sending: false
+            };
+        },
+        computed: {
+            selectedTelnos() {
+                return this.rows.filter((r) => this.selected[r.userNo]).map((r) => r.telno);
+            },
+            allChecked() {
+                return this.rows.length > 0 && this.selectedTelnos.length === this.rows.length;
             }
         },
-        error: function (jqXhr, textStatus, errorMessage) {}
-    });
-}
+        methods: {
+            async load(reset) {
+                if (reset) { this.rows = []; this.lastNo = 99999999; this.hasMore = true; this.selected = {}; }
+                this.loading = true;
+                const ret = await apiPost('/user/selectAllUser', { lastUserNo: this.lastNo, limit: BATCH });
+                const list = ret || [];
+                if (list.length > 0) {
+                    this.rows = this.rows.concat(list);
+                    this.lastNo = list[list.length - 1].userNo;
+                }
+                this.hasMore = list.length >= BATCH;
+                this.loading = false;
+            },
 
-$(document).ready(function() {
-    $('#update_manager_no').click(function() {
-        updateManagerNo();
-    });
+            toggleAll(e) {
+                const next = e.target.checked;
+                const sel = {};
+                if (next) this.rows.forEach((r) => { sel[r.userNo] = true; });
+                this.selected = sel;
+            },
 
-    $('#check_all').click(function() {
-        checkAll();
-    });
+            openManager(r) {
+                this.managerTarget = r;
+                this.managerTelno = '';
+                this.managerModal = true;
+            },
 
-    $('#send_sms_btn').click(function() {
-        let list = $('#user_list_tbody').find('.select-user');
-        let cnt = 0;
-        for (let i = 0; i < list.length; ++i) {
-            if ($(list[i]).prop('checked')) {
-                cnt += 1;
+            async saveManager() {
+                if (isNull(this.managerTelno)) { alert('휴대폰 번호를 입력하세요.'); return; }
+                const ret = await apiPost('/admin/user_manager/updateManagerNo', {
+                    userNo: this.managerTarget.userNo,
+                    managerTelno: this.managerTelno
+                });
+                if (ret === 'not ok') {
+                    alert('해당 휴대폰 번호로 등록된 매니저가 없습니다.');
+                    return;
+                }
+                alert('업데이트가 완료되었습니다.');
+                this.managerModal = false;
+                await this.load(true);
+            },
+
+            openSms() {
+                if (this.selectedTelnos.length === 0) { alert('문자를 보낼 회원을 선택하세요.'); return; }
+                this.smsSubject = '';
+                this.smsContent = '';
+                this.smsModal = true;
+            },
+
+            async sendSms() {
+                if (isNull(this.smsContent)) { alert('내용을 입력하세요.'); return; }
+                if (!confirm('문자메세지를 전송하시겠습니까?')) return;
+                if (this.sending) return;
+                this.sending = true;
+                await apiPost('/admin/user_manager/sendSMS', {
+                    smsSubject: this.smsSubject,
+                    smsContent: this.smsContent,
+                    smsTelno: this.selectedTelnos.join(';')
+                });
+                this.sending = false;
+                alert('문자가 정상적으로 발송되었습니다.');
+                this.smsModal = false;
             }
-        }
-        if (cnt == 0) {
-            alert('한건이상 선택해 주세요.');
-            return;
-        }
-        $('#send_sms_modal').modal();
+        },
+        async mounted() { await this.load(true); }
     });
 
-    $('#send_sms').click(function() {
-        if (isNull($('#sms_subject').val())) {
-            alert('제목을 입력하세요.');
-            return;
-        }
-        if (isNull($('#sms_content').val())) {
-            alert('내용을 입력하세요.');
-            return;
-        }
-        sendSMS();
-    });
-
-    constructUserList.init(selectAllUser);
-
-    selectAllUser();
-});
-
-function checkAll() {
-    if ($('#check_all').is(':checked')) {
-        $('#user_list_tbody').find('.select-user').prop('checked', true);
-    } else {
-        $('#user_list_tbody').find('.select-user').prop('checked', false);
-    }
-}
-
-function selectAllUser() {
-    let inputData = {
-        lastUserNo: constructUserList.lastUserNo,
-        limit: constructUserList.idPerPage * constructUserList.pageLength
-    };
-    ajax('/user/selectAllUser', inputData, 'selectAllUser', 'POST');
-}
-
-function selectAllUserCallback(ret) {
-    constructUserList.selectCallback(ret)
-}
-
-function updateManagerNo() {
-    let inputData = {
-        userNo: $('#modal_user_no').val(),
-        managerTelno: $('#modal_manager_telno').val()
-    };
-    ajax( '/admin/user_manager/updateManagerNo', inputData, 'updateManagerNo', 'POST');
-}
-
-function updateManagerNoCallback(ret) {
-    if (ret == 'not ok') {
-        alert('해당 휴대폰 번호로 등록된 매니저가 없습니다.');
-    } else {
-        alert('업데이트가 완료되었습니다.');
-        selectAllUser();
-        $('#manager_close_modal').click();
-    }
-}
-
-function sendSMS() {
-    if (!confirm('문자메세지를 전송하시겠습니까?')) {
-        return;
-    }
-    let smsSubject = $('#sms_subject').val();
-    let smsContent = $('#sms_content').val();
-    let smsTelno = '';
-    let list = $('#user_list_tbody').find('.select-user');
-    for (let i = 0; i < list.length; ++i) {
-        if ($(list[i]).prop('checked')) {
-            smsTelno += $(list[i]).prop('id') + ';';
-        }
-    }
-    smsTelno = smsTelno.substring(0, smsTelno.length - 1);
-    let inputData = {
-        smsSubject: smsSubject,
-        smsContent: smsContent,
-        smsTelno: smsTelno
-    };
-    ajax('/admin/user_manager/sendSMS', inputData, 'sendSMS', 'POST');
-}
-
-function sendSMSCallback() {
-    alert('문자가 정상적으로 발송되었습니다.');
-    $('#send_sms_close_modal').click();
-}
+    registerLayout(app);
+    app.config.compilerOptions.delimiters = ['[[', ']]'];
+    app.mount('#user_mgr_app');
+})();

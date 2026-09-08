@@ -36,6 +36,9 @@ router.post('/selectQnaReply', function(req, res) {
 });
 
 router.post('/writeQna', function(req, res) {
+    if (!req.session.userNo) {
+        return res.status(403).send({ret: 'not ok'});
+    }
     let param = req.body;
     param.userNo = req.session.userNo;
     productBiz.writeQna(param, (ret) => {
@@ -44,6 +47,10 @@ router.post('/writeQna', function(req, res) {
 });
 
 router.post('/writeQnaReply', function(req, res) {
+    // replies are the shop's answers to customer questions
+    if (req.session.adminYn !== 'Y') {
+        return res.status(403).send({ret: 'not ok'});
+    }
     let param = req.body;
     param.userNo = req.session.userNo;
     productBiz.writeQnaReply(param, (ret) => {

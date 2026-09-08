@@ -112,16 +112,18 @@ body {
     display: inline-block;
     margin-left: 5%;
     margin-right: 5%;
-    color: #333;
+    color: #d1d6db;
 }
 
 .menu {
-    background-color: #EAEAEA;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 14px;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    background-color: #f9fafb;
+    display: inline-block;
+    margin: 0 auto;
+    padding: 9px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    border-radius: 999px;
 }
 
 .menu-1 {
@@ -171,7 +173,7 @@ body {
 }
 
 .card-outer {
-    border: 1px solid #ccc;
+    border: 1px solid #f2f4f6;
 }
 
 .card-outer:hover {
@@ -199,9 +201,9 @@ body {
     display: inline-block;
     width: 200px;
     outline: none;
-    border-left: 3px solid #C92800;
-    border-top: 3px solid #C92800;
-    border-bottom: 3px solid #C92800;
+    border-left: 3px solid #3182f6;
+    border-top: 3px solid #3182f6;
+    border-bottom: 3px solid #3182f6;
     padding: 5px;
 }
 
@@ -212,7 +214,7 @@ body {
     display: inline-block;
     width: 40px;
     height: 40px;
-    background: #C92800;
+    background: #3182f6;
 }
 
 .search-icon-div:hover {
@@ -263,7 +265,7 @@ body {
 }
 
 #special_price {
-    background: #F6F6F6;
+    background: #f9fafb;
 }
 
 .swiper-pagination-bullet {
@@ -274,7 +276,7 @@ body {
     font-size: 12px;
     color: #000;
     opacity: 1;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.12);
 }
 
 .swiper-pagination-bullet-active {

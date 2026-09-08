@@ -1,38 +1,65 @@
-function ajax(url, inputData, gubun, method) {
-    $.ajax(url, {
-        type: method,
-        data: inputData,
-        async: false,
-        xhrFields: { withCredentials: true },
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: 'json',
-        success: function (data, status, xhr) {
-            if (gubun == 'insertNotice') {
-                insertNoticeCallback(data.ret);
+/**
+ * 알림마당 등록 / 수정 (Vue 3) — MDBootstrap / Bootstrap / jQuery 미사용
+ *
+ * 한 파일로 등록·수정을 모두 처리한다. noticeNo 가 있으면 수정 모드.
+ * 저장 권한은 서버(관리자 전용)에서 최종 검증한다.
+ */
+(function () {
+    const ctx = pageContext();
+    const el = document.getElementById('notice_no');
+    const noticeNo = el ? el.value : '';
+    const isEdit = !!noticeNo;
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                userNo: ctx.userNo,
+                adminYn: ctx.adminYn,
+                isEdit: isEdit,
+                form: { noticeTitle: '', noticeContent: '' },
+                submitting: false
+            };
+        },
+
+        methods: {
+            goList() { location.href = '/board/notice'; },
+
+            async save() {
+                if (isNull(this.form.noticeTitle)) { alert('제목을 입력하세요.'); return; }
+                if (isNull(this.form.noticeContent)) { alert('내용을 입력하세요.'); return; }
+                if (this.submitting) return;
+                this.submitting = true;
+
+                if (isEdit) {
+                    await apiPost('/board/notice/updateNotice', {
+                        noticeNo: noticeNo,
+                        noticeTitle: this.form.noticeTitle,
+                        noticeContent: this.form.noticeContent
+                    });
+                    alert('알림마당이 변경되었습니다.');
+                } else {
+                    await apiPost('/board/notice/insertNotice', {
+                        noticeTitle: this.form.noticeTitle,
+                        noticeContent: this.form.noticeContent
+                    });
+                    alert('알림마당이 저장되었습니다.');
+                }
+                this.submitting = false;
+                location.href = '/board/notice';
             }
         },
-        error: function (jqXhr, textStatus, errorMessage) {}
+
+        async mounted() {
+            if (!isEdit) return;
+            const ret = await apiPost('/board/notice/selectNoticeDetail', { noticeNo: noticeNo });
+            if (ret && ret.length > 0) {
+                this.form.noticeTitle = ret[0].noticeTitle || '';
+                this.form.noticeContent = ret[0].noticeContent || '';
+            }
+        }
     });
-}
 
-$(document).ready(function() {
-    $('#save_notice_btn').click(function() {
-        insertNotice();
-    });
-});
-
-function insertNotice() {
-    let noticeTitle = $('#notice_title').val();
-    let noticeContent = $('#notice_content').val();
-    let inputData = {
-        noticeTitle: noticeTitle,
-        noticeContent: noticeContent
-    };
-    ajax('/board/notice/insertNotice', inputData, 'insertNotice', 'POST');
-}
-
-function insertNoticeCallback() {
-    alert('알림마당이 저장되었습니다.');
-    location.href = '/board/notice'
-}
-
+    registerLayout(app);
+    app.config.compilerOptions.delimiters = ['[[', ']]'];
+    app.mount('#notice_editor_app');
+})();

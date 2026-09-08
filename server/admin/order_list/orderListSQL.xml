@@ -121,6 +121,10 @@
         AND B.OPTION_NO = D.OPTION_NO
         AND A.USER_NO = E.USER_NO
         AND A.ORDER_NO = ${orderNo}
+        <!-- non-admin callers are pinned to their own orders; admins pass NULL -->
+        <if test="userNo != null and userNo != ''">
+        AND (A.USER_NO = #{userNo} or A.RECEIVE_TELNO = (SELECT TELNO FROM USERS WHERE USER_NO = #{userNo}))
+        </if>
         ORDER BY A.ORDER_NO DESC
     </select>
 
@@ -166,6 +170,17 @@
               , INVOICE_NO AS invoiceNo
           FROM INVOICE
          WHERE ORDER_NO = ${orderNo}
+        <!--
+          An invoice number is enough to look the shipment up on the courier
+          site, which discloses the recipient's name and address. A customer may
+          therefore only read invoices for an order they placed or receive.
+        -->
+        <if test="adminYn != 'Y'">
+           AND ORDER_NO IN (
+               SELECT ORDER_NO FROM ORDER_LIST_MAIN
+                WHERE USER_NO = #{userNo} OR RECEIVE_TELNO = #{telno}
+           )
+        </if>
     </select>
 
     <update id="updateAdditionalInfo">

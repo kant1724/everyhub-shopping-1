@@ -1,136 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>상품정보</title>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>옵션 관리</title>
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
-    <link href="/static/css/admin/item_manager/item_option.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
+    <link href="/static/css/admin/admin.css" rel="stylesheet">
 </head>
 
 <body>
-    <header></header>
-    <div class="container pt-5">
-        <div class="container">
-            <div class="mb-3 mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">옵션목록</div>
-            <div class="mb-3 mt-5  d-inline-block" style="float: right; margin-right: 40px;">
-                <button type="button" class="btn btn-sm deep-orange btn-rounded new-option-btn">옵션등록
-                </button>
-            </div>
-            <hr>
-            <section class="section mt-3 mb-5 pb-5">
-                <div class="table-responsive">
-                    <table class="table option-table">
-                        <thead>
-                            <tr>
-                                <th class="font-weight-bold text-center">
-                                    <strong>옵션번호</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>옵션명</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>가격</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                   <strong>배송비</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>사용여부</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>변경</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>삭제</strong>
-                                </th>
-                                <th class="font-weight-bold text-center">
-                                    <strong>정렬순서</strong>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+    <div id="option_app" class="adm" v-cloak>
+        <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
+
+        <div class="adm-shell">
+            <button type="button" class="adm-back" @click="goBack"><i class="far fa-angle-left"></i> 상품목록</button>
+
+            <div class="adm-head">
+                <div>
+                    <h1 class="adm-title">옵션 관리</h1>
+                    <p class="adm-sub">상품번호 [[ itemNo ]] · 옵션 [[ rows.length ]]건</p>
                 </div>
-            </section>
-        </div>
-    </div>
-    <div class="modal fade" id="option_modal" tabindex="-1" role="dialog" aria-labelledby="option_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="margin: 20px;">
-                    <input type="hidden" id="option_no">
-                    <div>
-                        <div style="position: relative; font-size: 13px;">
-                            옵션명
-                        </div>
-                        <div>
-                            <input type="text" id="option_nm" style="width: 200px;">
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <div style="position: relative; font-size: 13px;">
-                            가격
-                        </div>
-                        <div>
-                            <input type="number" id="item_price" style="width: 200px;">
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <div style="position: relative; font-size: 13px;">
-                            배송비
-                        </div>
-                        <div>
-                            <input type="number" id="shipping_fee" style="width: 200px;">
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <div style="position: relative; font-size: 13px;">
-                            사용여부
-                        </div>
-                        <select id="use_yn" class="browser-default common-select">
-                            <option value="">선택</option>
-                            <option value="Y">Y</option>
-                            <option value="N">N</option>
-                        </select>
-                    </div>
-                    <div class="mt-3">
-                        <div style="position: relative; font-size: 13px;">
-                            정렬순서
-                        </div>
-                        <div>
-                            <input type="number" id="sort_order" style="width: 200px;">
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="text-center pb-5">
-                    <a id="save_option" class="common-button-1">저장</a>
-                    <a id="option_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                <div class="adm-actions">
+                    <button type="button" class="adm-btn adm-btn-primary new-option-btn" @click="openNew">옵션 등록</button>
                 </div>
             </div>
+
+            <p v-if="loading" class="adm-empty">불러오는 중...</p>
+            <p v-else-if="rows.length === 0" class="adm-empty">등록된 옵션이 없습니다.</p>
+
+            <div v-else class="adm-table-wrap">
+                <table class="adm-table option-table">
+                    <thead>
+                        <tr><th>옵션번호</th><th>옵션명</th><th>가격</th><th>배송비</th><th>사용</th><th>정렬</th>
+                            <th class="adm-table-center">관리</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="r in rows" :key="r.optionNo">
+                            <td class="option-no">[[ r.optionNo ]]</td>
+                            <td class="option-nm">[[ r.optionNm ]]</td>
+                            <td class="item-price">[[ won(r.itemPrice) ]]원</td>
+                            <td class="shipping-fee">[[ won(r.shippingFee) ]]원</td>
+                            <td><span class="adm-badge" :class="r.useYn === 'Y' ? 'is-on' : 'is-off'">[[ r.useYn ]]</span></td>
+                            <td class="sort-order">[[ r.sortOrder == null ? 0 : r.sortOrder ]]</td>
+                            <td class="adm-table-center">
+                                <button type="button" class="adm-link" @click="openEdit(r)">변경</button>
+                                <button type="button" class="adm-link adm-link-danger" @click="remove(r)">삭제</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        <transition name="modal-fade">
+            <div class="gd-modal-backdrop" v-if="modalOpen" @click.self="modalOpen = false">
+                <div class="gd-modal">
+                    <div class="gd-modal-body">
+                        <h2 class="gd-modal-title">[[ form.optionNo ? '옵션 변경' : '옵션 등록' ]]</h2>
+                        <div class="adm-field"><label class="adm-label" for="option_nm">옵션명</label>
+                            <input id="option_nm" type="text" class="gd-input" v-model="form.optionNm"></div>
+                        <div class="adm-field"><label class="adm-label" for="item_price">가격</label>
+                            <input id="item_price" type="text" inputmode="numeric" class="gd-input" v-model="form.itemPrice"></div>
+                        <div class="adm-field"><label class="adm-label" for="shipping_fee">배송비</label>
+                            <input id="shipping_fee" type="text" inputmode="numeric" class="gd-input" v-model="form.shippingFee"></div>
+                        <div class="adm-field"><span class="adm-label">사용여부</span>
+                            <div class="adm-radios">
+                                <label class="adm-radio"><input type="radio" value="Y" v-model="form.useYn"><span>사용</span></label>
+                                <label class="adm-radio"><input type="radio" value="N" v-model="form.useYn"><span>미사용</span></label>
+                            </div></div>
+                        <div class="adm-field"><label class="adm-label" for="sort_order">정렬순서</label>
+                            <input id="sort_order" type="text" inputmode="numeric" class="gd-input" v-model="form.sortOrder"></div>
+                    </div>
+                    <div class="gd-modal-footer">
+                        <button type="button" class="gd-btn" @click="modalOpen = false">닫기</button>
+                        <button type="button" id="save_option" class="gd-btn gd-btn-primary" @click="save" :disabled="saving">저장</button>
+                    </div>
+                </div>
+            </div>
+        </transition>
+
+        <app-footer></app-footer>
     </div>
+
     <input type="hidden" id="item_no" value="{{itemNo}}">
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0">
-    </footer>
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/component/header.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/admin/item_manager/item_option.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/admin/item_manager/item_option.js"></script>
 </body>
 
 </html>

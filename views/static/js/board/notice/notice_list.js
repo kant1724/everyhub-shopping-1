@@ -1,59 +1,46 @@
-function ajax(url, inputData, gubun, method) {
-    $.ajax(url, {
-        type: method,
-        data: inputData,
-        async: false,
-        xhrFields: { withCredentials: true },
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        dataType: 'json',
-        success: function (data, status, xhr) {
-            if (gubun == 'selectNoticeList') {
-                selectNoticeListCallback(data.ret);
+/**
+ * 알림마당 목록 (Vue 3) — MDBootstrap / Bootstrap / jQuery 미사용
+ *
+ * 기존 동작에서 바로잡은 점:
+ *   기존에는 제목을 누르면 누구나 '수정' 화면으로 이동했다(고객 포함).
+ *   이제 고객은 상세보기로, 수정은 관리자에게만 노출한다.
+ */
+(function () {
+    const ctx = pageContext();
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                userNo: ctx.userNo,
+                adminYn: ctx.adminYn,
+                notices: [],
+                loading: true
+            };
+        },
+
+        computed: {
+            isAdmin() { return this.adminYn === 'Y'; }
+        },
+
+        methods: {
+            openDetail(n) {
+                location.href = '/board/notice/notice_detail?noticeNo=' + encodeURIComponent(n.noticeNo);
+            },
+            editNotice(n) {
+                location.href = '/board/notice/notice_modify?noticeNo=' + encodeURIComponent(n.noticeNo);
+            },
+            goRegist() {
+                location.href = '/board/notice/notice_regist';
             }
         },
-        error: function (jqXhr, textStatus, errorMessage) {}
-    });
-}
 
-$(document).ready(function() {
-    $('#regist').click(function() {
-        location.href = '/board/notice/notice_regist';
+        async mounted() {
+            this.notices = (await apiPost('/board/notice/selectNoticeList', {})) || [];
+            this.loading = false;
+        }
     });
 
-    selectNoticeList();
-});
-
-function selectNoticeList() {
-    let inputData = {};
-    ajax('/board/notice/selectNoticeList', inputData, 'selectNoticeList', 'POST');
-}
-
-let allData = [];
-function selectNoticeListCallback(ret) {
-    let html = '';
-    $('#notice_list_tbody').empty();
-
-    for (let i = 0; i < ret.length; ++i) {
-        let noticeNo = ret[i].noticeNo;
-        let noticeTitle = ret[i].noticeTitle;
-        let noticeDate = ret[i].noticeDate;
-
-        let pt = '15px';
-        html += '<tr style="margin-bottom: 0px;">';
-        html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
-        html += '<div id="notice_no" class="notice-no">' + noticeNo + '</div>';
-        html += '</td>';
-        html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
-        html += '<div id="notice_title" class="notice-title" onclick="updateNotice(' + noticeNo + ')">' + noticeTitle + '</div>';
-        html += '</td>';
-        html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
-        html += '<div id="notice_date" class="notice-date">' + noticeDate + '</div>';
-        html += '</td>';
-        html += '</tr>';
-    }
-    $('#notice_list_tbody').append(html);
-}
-
-function updateNotice(noticeNo) {
-    location.href = '/board/notice/notice_modify?noticeNo=' + noticeNo;
-}
+    registerLayout(app);
+    app.config.compilerOptions.delimiters = ['[[', ']]'];
+    app.mount('#notice_app');
+})();

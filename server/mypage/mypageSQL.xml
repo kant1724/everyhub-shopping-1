@@ -68,8 +68,15 @@
              , DEPOSIT_PERSON_NM = #{depositPersonNm}
              , DEPOSIT_REMARKS = #{depositRemarks}
         WHERE ORDER_NO = ${orderNo}
+        <!--
+          A customer may only edit an order they placed. The statement has no
+          table alias, so the column must not be qualified as A.USER_NO —
+          MySQL rejects that with "Unknown table 'A'" and the update silently
+          fails. Administrators go through updateOrderListByAdmin, which does
+          not set userNo, so this clause is skipped for them.
+        -->
         <if test="userNo != null and userNo != ''">
-            AND A.USER_NO = ${userNo}
+            AND USER_NO = ${userNo}
         </if>
     </update>
 
@@ -77,6 +84,10 @@
         UPDATE ORDER_LIST_MAIN
            SET CANCEL_DATE = CURRENT_TIMESTAMP
         WHERE ORDER_NO = ${orderNo}
+        <!-- a customer may only cancel an order they placed or receive -->
+        <if test="adminYn != 'Y'">
+          AND (USER_NO = #{userNo} OR RECEIVE_TELNO = #{telno})
+        </if>
     </update>
 
     <update id="updateDlvrConfirmDate">

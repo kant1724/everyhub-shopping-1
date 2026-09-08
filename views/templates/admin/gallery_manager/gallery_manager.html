@@ -1,237 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>상품등록</title>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>갤러리 관리</title>
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/addons/mdb-file-upload.css" rel="stylesheet">
-    <link href="/static/css/admin/gallery_manager/gallery_manager.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
+    <link href="/static/css/admin/admin.css" rel="stylesheet">
 </head>
 
 <body>
-    <header></header>
-    <div class="container">
-        <div class="container mt-5 pt-5">
-            <div class="mt-2">
-                <div style="border: 1px solid #ccc;">
-                    <div class="text-center" style="border-bottom: 1px solid #ccc; background: #EAEAEA;">1</div>
-                    <div class="ml-4 mt-2 mb-3">
-                        <div class="mb-1" style="font-size: 20px;"><i class="fas fa-image"></i>&nbsp;&nbsp;<a style="color: gray;">이미지</a></div>
-                        <div class="d-inline-block">
-                            <div id="image_div_1" class="image-div">
-                                <i id="remove_image_1" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="gallery_image_1">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="mt-3">
-                                <div id="image_desc_1_label" class="mb-1" style="color: gray;">설명</div>
-                                <textarea length="300" style="width: 100%; height: 100px; outline: none;" id="image_desc_1"></textarea>
-                            </div>
-                        </div>
-                        <div class="d-inline-block">
-                            <div id="image_div_2" class="image-div">
-                                <i id="remove_image_2" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="gallery_image_2">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="mt-3">
-                                <div id="image_desc_2_label" class="mb-1" style="color: gray;">설명</div>
-                                <textarea length="300" style="width: 100%; height: 100px; outline: none;" id="image_desc_2"></textarea>
-                            </div>
-                        </div>
-                        <div class="d-inline-block">
-                            <div id="image_div_3" class="image-div">
-                                <i id="remove_image_3" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="gallery_image_3">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="mt-3">
-                                <div id="image_desc_3_label" class="mb-1" style="color: gray;">설명</div>
-                                <textarea length="300" style="width: 100%; height: 100px; outline: none;" id="image_desc_3"></textarea>
-                            </div>
-                        </div>
-                        <hr>
-                        <hr>
-                        <div class="d-inline-block">
-                            <div id="image_div_4" class="image-div">
-                                <i id="remove_image_4" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="gallery_image_4">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="mt-3">
-                                <div id="image_desc_4_label" class="mb-1" style="color: gray;">설명</div>
-                                <textarea length="300" style="width: 100%; height: 100px; outline: none;" id="image_desc_4"></textarea>
-                            </div>
-                        </div>
-                        <div class="d-inline-block">
-                            <div id="image_div_5" class="image-div">
-                                <i id="remove_image_5" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="gallery_image_5">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="mt-3">
-                                <div id="image_desc_5_label" class="mb-1" style="color: gray;">설명</div>
-                                <textarea length="300" style="width: 100%; height: 100px; outline: none;" id="image_desc_5"></textarea>
-                            </div>
-                        </div>
-                        <div class="d-inline-block">
-                            <div id="image_div_6" class="image-div">
-                                <i id="remove_image_6" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="gallery_image_6">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="mt-3">
-                                <div id="image_desc_6_label" class="mb-1" style="color: gray;">설명</div>
-                                <textarea length="300" style="width: 100%; height: 100px; outline: none;" id="image_desc_6"></textarea>
-                            </div>
-                        </div>
-                        <hr>
-                        <hr>
-                        <div class="d-inline-block">
-                            <div id="image_div_7" class="image-div">
-                                <i id="remove_image_7" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="gallery_image_7">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="mt-3">
-                                <div id="image_desc_7_label" class="mb-1" style="color: gray;">설명</div>
-                                <textarea length="300" style="width: 100%; height: 100px; outline: none;" id="image_desc_7"></textarea>
-                            </div>
-                        </div>
-                        <div class="d-inline-block">
-                            <div id="image_div_8" class="image-div">
-                                <i id="remove_image_8" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="gallery_image_8">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="mt-3">
-                                <div id="image_desc_8_label" class="mb-1" style="color: gray;">설명</div>
-                                <textarea length="300" style="width: 100%; height: 100px; outline: none;" id="image_desc_8"></textarea>
-                            </div>
-                        </div>
-                        <div class="d-inline-block">
-                            <div id="image_div_9" class="image-div">
-                                <i id="remove_image_9" class="fal fa-times remove-image"></i>
-                            </div>
-                            <form class="md-form file-upload-wrapper">
-                                <div class="file-field">
-                                    <div class="btn btn-primary btn-sm float-left">
-                                        <span>파일선택</span>
-                                        <input type="file" id="gallery_image_9">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload your file">
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="mt-3">
-                                <div id="image_desc_9_label" class="mb-1" style="color: gray;">설명</div>
-                                <textarea length="300" style="width: 100%; height: 100px; outline: none;" id="image_desc_9"></textarea>
-                            </div>
-                        </div>
-                    </div>
+    <div id="gallery_app" class="adm" v-cloak>
+        <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
+
+        <div class="adm-shell">
+            <div class="adm-head">
+                <div>
+                    <h1 class="adm-title">갤러리 관리</h1>
+                    <p class="adm-sub">메인 페이지 갤러리에 노출되는 사진과 설명입니다</p>
+                </div>
+                <div class="adm-actions">
+                    <button type="button" class="adm-btn adm-btn-primary" id="gallery_modify_btn"
+                            @click="save" :disabled="saving">
+                        [[ saving ? '저장 중...' : '저장' ]]
+                    </button>
                 </div>
             </div>
+
+            <p v-if="loading" class="adm-empty">불러오는 중...</p>
+
+            <section v-else class="adm-card">
+                <p class="adm-note">사진을 새로 고르지 않으면 기존 사진이 그대로 유지됩니다. 삭제를 누른 슬롯만 비워집니다.</p>
+                <div class="adm-images">
+                    <div class="adm-image-slot" v-for="s in slots" :key="s.n">
+                        <div class="adm-image-label">사진 [[ s.n ]]</div>
+                        <img v-if="shownImage(s)" :src="shownImage(s)" :alt="'갤러리 ' + s.n">
+                        <div v-else class="adm-image-empty"><i class="fal fa-image"></i></div>
+                        <input :id="'gallery_image_' + s.n" type="file" accept="image/*" @change="onPick(s, $event)">
+                        <textarea class="gd-input adm-gallery-desc" :id="'image_desc_' + s.n"
+                                  v-model="s.desc" placeholder="사진 설명"></textarea>
+                        <button type="button" class="adm-link adm-link-danger adm-image-remove"
+                                v-if="shownImage(s)" @click="clearSlot(s)">이미지 삭제</button>
+                    </div>
+                </div>
+            </section>
         </div>
-        <div class="text-center">
-            <button id="gallery_modify_btn" type="button" class="btn btn-sm deep-orange btn-rounded">등록
-                <i class="fa fa-angle-right right"></i>
-            </button>
-        </div>
+
+        <app-footer></app-footer>
     </div>
+
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0">
-    </footer>
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/addons/mdb-file-upload.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/component/header.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/admin/gallery_manager/gallery_manager.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/admin/gallery_manager/gallery_manager.js"></script>
 </body>
 
 </html>

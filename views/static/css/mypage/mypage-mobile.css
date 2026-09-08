@@ -2,6 +2,28 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+.classic-tabs ul.nav[style*="border: 1px solid #ddd"] {
+    border: none !important;
+    border-bottom: 1px solid #f2f4f6 !important;
+    height: auto !important;
+    padding-bottom: 4px;
+}
+
+.classic-tabs .nav-link {
+    border-radius: 999px !important;
+    font-weight: 600;
+}
+
+.classic-tabs .nav-link.active {
+    background: #191f28 !important;
+    color: #ffffff !important;
+}
+
+.classic-tabs .tab-content {
+    border: none !important;
+    padding-top: 20px;
+}
+
 #order_list th {
     font-size: 11px;
     padding: 3px;

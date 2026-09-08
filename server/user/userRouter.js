@@ -70,14 +70,24 @@ router.post('/login', function(req, res) {
 });
 
 router.post('/selectUser', function(req, res) {
+    // A caller may only read their own record. Admins may read a specific one.
+    if (!req.session.userNo) {
+        return res.status(403).send({ret: []});
+    }
     let param = req.body;
-    //param.userNo = req.session.userNo;
+    if (req.session.adminYn !== 'Y') {
+        param.userNo = req.session.userNo;
+    }
     userBiz.selectUser(param, (ret) => {
         res.status(200).send({ret: ret});
     });
 });
 
 router.post('/selectAllUser', function(req, res) {
+    // Returns every customer record — administrators only.
+    if (req.session.adminYn !== 'Y') {
+        return res.status(403).send({ret: []});
+    }
     let param = req.body;
     param.userNo = req.session.userNo;
     userBiz.selectAllUser(param, (ret) => {

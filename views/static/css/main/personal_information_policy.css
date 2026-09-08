@@ -1,4 +1,48 @@
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-    overflow-x: hidden;
+/* 개인정보처리방침 — 긴 법적 문서라 가독성 위주 */
+
+body { background: #ffffff; }
+
+.pol { padding-top: 96px; padding-bottom: 80px; }
+.pol-shell { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+.pol-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #191f28;
+    margin: 0 0 28px;
+}
+
+.pol-doc p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: #4e5968;
+    letter-spacing: -0.3px;
+    margin: 0 0 14px;
+    word-break: keep-all;
+}
+
+.pol-doc p strong {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.6;
+    color: #191f28;
+    letter-spacing: -0.5px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    padding-top: 24px;
+    border-top: 1px solid #f2f4f6;
+}
+
+.pol-doc p strong em.emphasis { font-size: 15px; font-weight: 500; color: #6b7684; }
+
+.pol-doc em.emphasis { font-style: normal; font-weight: 600; color: #333d4b; }
+
+.pol-doc .container { max-width: none; padding: 0; }
+
+@media (max-width: 640px) {
+    .pol { padding-top: 84px; }
+    .pol-title { font-size: 24px; }
+    .pol-doc p { font-size: 14.5px; }
 }

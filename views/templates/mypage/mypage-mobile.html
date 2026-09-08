@@ -1,313 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>마이페이지</title>
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/lib/datepicker/datepicker.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
-    <link href="/static/css/common/address.css" rel="stylesheet">
-    <link href="/static/css/mypage/mypage-mobile.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
+    <link href="/static/css/mypage/mypage.css" rel="stylesheet">
 </head>
+
 <body>
-    <header></header>
-    <div class="container mt-5 pt-3">
-        <div class="classic-tabs pt-3" style="margin: auto;">
-            <ul class="nav tabs-white" role="tablist" style="border: 1px solid #ddd; height: 42px;">
-                <li class="nav-item">
-                    <a style="color: #333; padding: 7px 15px 7px 15px; font-size: 15px;" class="nav-link  waves-light active show" id="profile-tab-classic" data-toggle="tab" href="#my_order"
-                       role="tab" aria-controls="profile-classic" aria-selected="true">주문내역</a>
-                </li>
-                <span class="mt-2">ㅣ</span>
-                <li class="nav-item">
-                    <a style="color: #333; padding: 7px 15px 7px 15px;  font-size: 15px;" class="nav-link waves-light" id="follow-tab-classic" data-toggle="tab" href="#my_info" role="tab"
-                       aria-controls="follow-classic" aria-selected="false">내정보</a>
-                </li>
-            </ul>
-            <div class="tab-content border-right border-bottom border-left mb-5" id="tab_content">
-                <div class="tab-pane fade active show" id="my_order" role="tabpanel" aria-labelledby="my_order">
-                    <div>
-                        <div class="d-inline-block">
-                            <span style="font-size: 9px;">시작일</span>
-                            <div class="md-form" style="margin-top: 5px;">
-                                <input id="startingDate" data-toggle="datepicker" style="padding: 5px; width: 100px; font-size: 13px;" readonly>
-                            </div>
-                        </div>
-                        ~
-                        <div class="d-inline-block">
-                            <span style="font-size: 9px;">종료일</span>
-                            <div class="md-form" style="margin-top: 5px;">
-                                <input id="endingDate" data-toggle="datepicker" style="padding: 5px; width: 100px; font-size: 13px;" readonly>
-                            </div>
-                        </div>
-                        <a id="search" class="common-button-1">조회</a>
+    <div id="mypage_app" class="my" v-cloak>
+        <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
+
+        <div class="my-shell">
+            <h1 class="my-title">마이페이지</h1>
+
+            <div class="my-tabs">
+                <button type="button" class="my-tab" :class="{ 'is-active': tab === 'orders' }" @click="tab = 'orders'">주문내역</button>
+                <button type="button" class="my-tab" :class="{ 'is-active': tab === 'profile' }" @click="tab = 'profile'">내정보</button>
+            </div>
+
+            <!-- ============ 주문내역 ============ -->
+            <div v-show="tab === 'orders'">
+                <div class="my-filter">
+                    <div class="my-filter-dates">
+                        <input type="date" class="gd-input my-date" v-model="startDate">
+                        <span class="my-filter-sep">~</span>
+                        <input type="date" class="gd-input my-date" v-model="endDate">
                     </div>
-                    <hr>
-                    <section class="section mt-3 mb-5 pb-5">
-                        <table id="order_list" class="table table-bordered text-center">
-                            <thead>
-                            <tr>
-                                <th>번호</th>
-                                <th>상품/옵션</th>
-                                <th>수량</th>
-                                <th>총금액</th>
-                                <th>송장번호</th>
-                                <th>주문취소</th>
-                            </tr>
-                            </thead>
-                            <tbody id="order_list_tbody"></tbody>
+                    <button type="button" id="search" class="my-search-btn" @click="loadOrders">조회</button>
+                </div>
+
+                <p v-if="loading" class="my-empty">불러오는 중...</p>
+                <p v-else-if="orders.length === 0" class="my-empty">해당 기간에 주문내역이 없습니다.</p>
+
+                <article v-else v-for="o in orders" :key="o.orderNo" class="order-card">
+                    <div class="order-card-head">
+                        <div class="order-card-head-left">
+                            <span class="order-badge" :class="statusOf(o).cls">[[ statusOf(o).label ]]</span>
+                            <span class="order-date">[[ o.orderDate ]]</span>
+                            <span class="order-no">주문번호 [[ o.orderNo ]]</span>
+                        </div>
+                        <div class="order-card-head-right">
+                            <button type="button" class="my-link" @click="openDetail(o)">상세정보</button>
+                            <button type="button" class="my-link" @click="openInvoice(o)">송장조회</button>
+                            <button type="button" class="my-link" v-if="isAdmin" @click="modifyOrder(o)">정보수정</button>
+                        </div>
+                    </div>
+
+                    <div class="order-item" v-for="(it, i) in o.items" :key="i">
+                        <div class="order-item-thumb"><img :src="it.imagePath1" :alt="it.itemNm"></div>
+                        <div class="order-item-body">
+                            <div class="order-item-name">[[ it.itemNm ]]</div>
+                            <div class="order-item-option">[[ it.optionNm ]] · 수량 [[ it.qty ]]</div>
+                        </div>
+                        <button type="button" class="my-link my-link-review" @click="openReview(it.itemNo)">후기작성</button>
+                    </div>
+
+                    <div class="order-card-foot">
+                        <div class="order-receiver">받는분 <strong>[[ o.receivePersonNm ]]</strong></div>
+                        <div class="order-total">
+                            <span>결제금액</span>
+                            <strong>[[ won(o.totalPrice) ]]원</strong>
+                        </div>
+                    </div>
+
+                    <div class="order-card-actions">
+                        <button type="button" class="order-cancel-btn" v-if="canCancel(o)" @click="cancelOrder(o)">주문취소</button>
+                        <span class="order-cancel-note" v-else-if="!o.cancelDate">배송이 시작되어 취소할 수 없습니다</span>
+                        <span class="order-cancel-note" v-else>[[ o.cancelDate ]] 취소됨</span>
+                    </div>
+                </article>
+            </div>
+
+            <!-- ============ 내정보 ============ -->
+            <div v-show="tab === 'profile'">
+                <section class="my-card">
+                    <div class="my-field">
+                        <label class="my-label" for="user_nm">이름</label>
+                        <input id="user_nm" type="text" class="gd-input" v-model="profile.userNm">
+                    </div>
+
+                    <div class="my-field">
+                        <span class="my-label">휴대폰 번호</span>
+                        <div class="my-tel">
+                            <input id="telno_1" type="tel" class="gd-input" maxlength="3" v-model="profile.telno1">
+                            <span class="my-tel-sep">-</span>
+                            <input id="telno_2" type="tel" class="gd-input" maxlength="4" v-model="profile.telno2">
+                            <span class="my-tel-sep">-</span>
+                            <input id="telno_3" type="tel" class="gd-input" maxlength="4" v-model="profile.telno3">
+                        </div>
+                    </div>
+
+                    <div class="my-field">
+                        <label class="my-label" for="password">비밀번호</label>
+                        <input id="password" type="password" class="gd-input" autocomplete="new-password" v-model="profile.password">
+                    </div>
+
+                    <div class="my-field">
+                        <label class="my-label" for="password_confirm">비밀번호 확인</label>
+                        <input id="password_confirm" type="password" class="gd-input" autocomplete="new-password" v-model="profile.passwordConfirm">
+                    </div>
+
+                    <div class="my-field">
+                        <span class="my-label">성별</span>
+                        <div class="my-radios">
+                            <label class="my-radio">
+                                <input type="radio" id="gender_male" value="M" v-model="profile.gender"><span>남</span>
+                            </label>
+                            <label class="my-radio">
+                                <input type="radio" id="gender_female" value="F" v-model="profile.gender"><span>여</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="my-field">
+                        <span class="my-label">생년월일</span>
+                        <div class="my-birth">
+                            <input type="text" inputmode="numeric" maxlength="4" class="gd-input" placeholder="1980" v-model="profile.dateOfBirthY"><span>년</span>
+                            <input type="text" inputmode="numeric" maxlength="2" class="gd-input" placeholder="01" v-model="profile.dateOfBirthM"><span>월</span>
+                            <input type="text" inputmode="numeric" maxlength="2" class="gd-input" placeholder="01" v-model="profile.dateOfBirthD"><span>일</span>
+                        </div>
+                    </div>
+
+                    <div class="my-field my-field-block">
+                        <span class="my-label">주소</span>
+                        <div class="my-address">
+                            <div class="my-address-row">
+                                <input id="zip_no" type="text" class="gd-input my-zip" :value="profile.zipNo" placeholder="우편번호" readonly>
+                                <button type="button" id="search_address" class="my-ghost-btn" @click="addressOpen = true">주소검색</button>
+                            </div>
+                            <input id="address_main" type="text" class="gd-input" :value="profile.addressMain" placeholder="기본주소" readonly>
+                            <input id="address_detail" type="text" class="gd-input" v-model="profile.addressDetail" placeholder="상세주소">
+                        </div>
+                    </div>
+
+                    <button type="button" id="update_user" class="my-submit-btn" @click="updateProfile">변경사항 저장</button>
+                </section>
+            </div>
+        </div>
+
+        <!-- 주문 상세 모달 -->
+        <transition name="modal-fade">
+            <div class="gd-modal-backdrop" v-if="detailOrder" @click.self="detailOrder = null">
+                <div class="gd-modal gd-modal-wide">
+                    <div class="gd-modal-body">
+                        <h2 class="gd-modal-title">주문 상세</h2>
+                        <dl class="my-detail"><dt>보내는분</dt><dd>[[ detailOrder.sendPersonNm ]]</dd></dl>
+                        <dl class="my-detail"><dt>보내는분 연락처</dt><dd>[[ detailOrder.sendTelno ]]</dd></dl>
+                        <dl class="my-detail"><dt>보내는분 주소</dt><dd>[[ detailOrder.sendZipNo ]] [[ detailOrder.sendAddressMain ]] [[ detailOrder.sendAddressDetail ]]</dd></dl>
+                        <div class="my-detail-divider"></div>
+                        <dl class="my-detail"><dt>받는분</dt><dd>[[ detailOrder.receivePersonNm ]]</dd></dl>
+                        <dl class="my-detail"><dt>받는분 연락처</dt><dd>[[ detailOrder.receiveTelno ]]</dd></dl>
+                        <dl class="my-detail"><dt>받는분 주소</dt><dd>[[ detailOrder.receiveZipNo ]] [[ detailOrder.receiveAddressMain ]] [[ detailOrder.receiveAddressDetail ]]</dd></dl>
+                        <div class="my-detail-divider"></div>
+                        <dl class="my-detail"><dt>주문메모</dt><dd>[[ detailOrder.orderRemarks ]]</dd></dl>
+                        <dl class="my-detail"><dt>입금메모</dt><dd>[[ detailOrder.depositRemarks ]]</dd></dl>
+                    </div>
+                    <div class="gd-modal-footer">
+                        <button type="button" class="gd-btn" @click="detailOrder = null">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </transition>
+
+        <!-- 송장 조회 모달 -->
+        <transition name="modal-fade">
+            <div class="gd-modal-backdrop" v-if="invoiceOrder" @click.self="invoiceOrder = null">
+                <div class="gd-modal">
+                    <div class="gd-modal-body">
+                        <h2 class="gd-modal-title">송장번호</h2>
+                        <table class="gd-table" v-if="invoiceRows.length > 0">
+                            <thead><tr><th>주문번호</th><th>송장번호</th><th>배송조회</th></tr></thead>
+                            <tbody>
+                                <tr v-for="(v, i) in invoiceRows" :key="i" @click="trackInvoice(v.invoiceNo)">
+                                    <td>[[ v.orderNo ]]</td>
+                                    <td>[[ v.invoiceNo ]]</td>
+                                    <td class="my-track">조회 <i class="far fa-external-link"></i></td>
+                                </tr>
+                            </tbody>
                         </table>
-                    </section>
-                </div>
-                <div class="tab-pane fade" id="my_info" role="tabpanel" aria-labelledby="my_info">
-                    <div class="mt-3 ml-4">
-                        <div style="position: relative; font-size: 13px;">
-                            휴대폰번호
-                        </div>
-                        <div class="mt-2">
-                            <input type="number" class="text-center padding-input" id="telno_1" style="width: 50px;">
-                            -
-                            <input type="number" class="text-center padding-input" id="telno_2" style="width: 50px;">
-                            -
-                            <input type="number" class="text-center padding-input" id="telno_3" style="width: 50px;">
-                        </div>
+                        <p class="gd-modal-empty" v-else>아직 등록된 송장번호가 없습니다.</p>
                     </div>
-                    <div class="mt-3 ml-4">
-                        <div class="">
-                            <label for="password">비밀번호</label>
-                            <input type="password" class="form-control" id="password" style="width: 200px;">
-                        </div>
+                    <div class="gd-modal-footer">
+                        <button type="button" class="gd-btn" @click="invoiceOrder = null">닫기</button>
                     </div>
-                    <div class="mt-3 ml-4">
-                        <div>
-                            <label for="password_confirm">비밀번호 확인</label>
-                            <input type="password" class="form-control" id="password_confirm" style="width: 200px;">
-                        </div>
-                    </div>
-                    <div class="mt-3 ml-4">
-                        <div class="">
-                            <label for="user_nm">이름</label>
-                            <input type="text" class="form-control" id="user_nm"  style="width: 200px;">
-                        </div>
-                    </div>
-                    <div class="mt-3 ml-4">
-                        <i class="fas fa-user mr-3" style="font-size: 25px;"></i>
-                        <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="gender_male" name="gender_radio">
-                            <label class="form-check-label" for="gender_male">남</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="gender_female" name="gender_radio">
-                            <label class="form-check-label" for="gender_female">여</label>
-                        </div>
-                    </div>
-                    <div class="mt-3 ml-4">
-                        <div style="position: relative; font-size: 13px;">
-                            생년월일
-                        </div>
-                        <div class="mt-2">
-                            <input type="number" class="text-center padding-input" id="date_of_birth_y" style="width: 50px;">
-                            년
-                            <input type="number" class="text-center padding-input" id="date_of_birth_m" style="width: 50px;">
-                            월
-                            <input type="number" class="text-center padding-input" id="date_of_birth_d" style="width: 50px;">
-                            일
-                        </div>
-                    </div>
-                    <div class="text-center mt-4 mb-3" style="font-size: 15px; background: #EAEAEA;">주소</div>
-                    <div class="pt-2 ml-4 pb-2">
-                        <a id="search_address" class="common-button-1">주소검색</a>
-                        <div class="mt-3" style="font-weight: 700;">우편번호:</div>
-                        <div id="zip_no" class="mt-2 mb-3" style="width: 80%; border-bottom: 1px solid #ddd; color: gray;"></div>
-                        <div class="mt-3" style="font-weight: 700;">기본주소:</div>
-                        <div id="address_main" class="mt-2 mb-3" style="width: 80%; border-bottom: 1px solid #ddd; color: gray;"></div>
-                        <div class="mt-1 d-inline-block">
-                            <label for="address_detail" style="font-weight: 700;">상세주소</label>
-                            <input type="text" style="width:250px;" class="form-control" id="address_detail" style="width: 200px;">
-                        </div>
-                    </div>
-                    <div class="mt-3 mb-3 ml-4"><a id="update_user" class="common-button-1">변경</a></div>
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
-    <div class="modal fade" id="review_modal" tabindex="-1" role="dialog" aria-labelledby="review_modal"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <input type="hidden" id="item_no_modal">
-                <input type="hidden" id="star_value">
-                <div class="modal-body">
-                    <div style="border-bottom: 1px solid #333; font-weight: 700;">
-                        <span>후기작성</span>
+        </transition>
+
+        <!-- 후기 작성 모달 -->
+        <transition name="modal-fade">
+            <div class="gd-modal-backdrop" v-if="reviewItemNo" @click.self="reviewItemNo = null">
+                <div class="gd-modal">
+                    <div class="gd-modal-body">
+                        <h2 class="gd-modal-title">후기작성</h2>
+
+                        <span class="my-label">별점</span>
+                        <div class="my-stars">
+                            <button type="button" v-for="n in 5" :key="n" class="my-star"
+                                    :class="{ 'is-on': n <= reviewForm.star }" @click="reviewForm.star = n">
+                                <i class="fas fa-star"></i>
+                            </button>
+                            <span class="my-star-value">[[ reviewForm.star ]]점</span>
+                        </div>
+
+                        <label class="my-label my-label-mt" for="review_subject">제목</label>
+                        <input id="review_subject" type="text" class="gd-input" v-model="reviewForm.subject">
+
+                        <label class="my-label my-label-mt" for="review_content">내용</label>
+                        <textarea id="review_content" class="gd-input my-textarea" v-model="reviewForm.content"></textarea>
                     </div>
-                    <div class="mt-3">
-                        <span>별점</span>
+                    <div class="gd-modal-footer">
+                        <button type="button" class="gd-btn" @click="reviewItemNo = null">닫기</button>
+                        <button type="button" id="write_review_btn" class="gd-btn gd-btn-primary" @click="submitReview">작성</button>
                     </div>
-                    <div class="mt-2 form-check" style="padding-left: 0px; color: #DBC000;">
-                        <input type="radio" class="form-check-input star" id="star_5" name="star">
-                        <label class="form-check-label" for="star_5">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </label>
-                    </div>
-                    <div class="form-check" style="padding-left: 0px; color: #DBC000;">
-                        <input type="radio" class="form-check-input star" id="star_4" name="star">
-                        <label class="form-check-label" for="star_4">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </label>
-                    </div>
-                    <div class="form-check" style="padding-left: 0px; color: #DBC000;">
-                        <input type="radio" class="form-check-input star" id="star_3" name="star">
-                        <label class="form-check-label" for="star_3">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </label>
-                    </div>
-                    <div class="form-check" style="padding-left: 0px; color: #DBC000;">
-                        <input type="radio" class="form-check-input star" id="star_2" name="star">
-                        <label class="form-check-label" for="star_2">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </label>
-                    </div>
-                    <div class="form-check" style="padding-left: 0px; color: #DBC000;">
-                        <input type="radio" class="form-check-input star" id="star_1" name="star">
-                        <label class="form-check-label" for="star_1">
-                            <i class="fas fa-star"></i>
-                        </label>
-                    </div>
-                    <hr>
-                    <div>
-                        <span>제목</span>
-                    </div>
-                    <input id="review_subject" class="mt-2" type="text" style="width: 100%;">
-                    <hr>
-                    <div>
-                        <span>내용</span>
-                    </div>
-                    <textarea id="review_content" class="mt-2" style="width: 100%; height: 150px;"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <a id="write_review_btn" class="common-button-1">작성</a>
-                    <a id="review_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
                 </div>
             </div>
-        </div>
+        </transition>
+
+        <!-- 주소 검색 (공용 컴포넌트) -->
+        <transition name="modal-fade">
+            <address-search v-if="addressOpen" @close="addressOpen = false" @select="onAddressSelected"></address-search>
+        </transition>
+
+        <app-footer></app-footer>
     </div>
-    <div class="modal fade" id="address_modal" tabindex="-1" role="dialog" aria-labelledby="address_modal"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <input type="hidden" id="zip_no_id">
-                <input type="hidden" id="address_main_id">
-                <div class="modal-body">
-                    <div style="border-bottom: 1px solid #333; font-weight: 700;">
-                        <span>주소검색</span>
-                    </div>
-                    <div class="md-form mt-3">
-                        <label id="address_subject_label" for="address_subject" style="font-size: 11px; width: 300px;">예) 세종대로 209, 상암동 1595 (도로나 동까지만 입력하세요)</label>
-                        <input id="address_subject" class="mt-2" type="text" style="width: 100%; outline: none; padding: 3px;">
-                    </div>
-                    <div class="mt-2"><a id="search_address_modal_jibun" class="common-button-1">조회(지번)</a><a id="search_address_modal_road" class="ml-2 common-button-1">조회(도로명)</a></div>
-                    <hr>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th style="padding: 3px;">주소</th>
-                            <th style="padding: 3px;">우편번호</th>
-                        </tr>
-                        </thead>
-                        <tbody id="address_tbody">
-                        </tbody>
-                    </table>
-                    <div id="pagination" style="word-wrap: break-word;"></div>
-                </div>
-                <div class="modal-footer">
-                    <a id="address_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="invoice_no_modal" tabindex="-1" role="dialog" aria-labelledby="invoice_no_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content text-center">
-                <input type="hidden" id="modal_order_no">
-                <div class="mt-5 container">
-                    <table id="invoice_list" class="table table-bordered text-center">
-                        <thead>
-                        <tr>
-                            <th>주문번호</th>
-                            <th>송장번호</th>
-                            <th>상세</th>
-                        </tr>
-                        </thead>
-                        <tbody id="invoice_list_tbody">
-                        </tbody>
-                    </table>
-                </div>
-                <div class="text-center pb-5">
-                    <a id="invoice_no_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="order_detail_modal" tabindex="-1" role="dialog" aria-labelledby="order_detail_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="margin: 20px; font-size: 13px;">
-                    <div><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자명</div><div class="d-inline-block" id="modal_send_person_nm"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자연락처</div><div class="d-inline-block" id="modal_send_telno"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자 우편번호</div><div class="d-inline-block" id="modal_send_zip_no"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자 주소</div><div class="d-inline-block" id="modal_send_address_main"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자 상세주소</div><div class="d-inline-block" id="modal_send_address_detail"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자명</div><div class="d-inline-block" id="modal_receive_person_nm"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 연락처</div><div class="d-inline-block" id="modal_receive_telno"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 우편번호</div><div class="d-inline-block" id="modal_receive_zip_no"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 주소</div><div class="d-inline-block" id="modal_receive_address_main"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 상세주소</div><div class="d-inline-block" id="modal_receive_address_detail"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">주문메모</div><div class="d-inline-block" id="modal_order_remarks"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">입금메모</div><div class="d-inline-block" id="modal_deposit_remarks"></div></div>
-                </div>
-                <div class="text-center pb-5">
-                    <a id="order_detail_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
-    <input type="hidden" id="info_item_price_num">
-    <input type="hidden" id="item_no" value="{{itemNo}}">
+
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/js/component/header-mobile.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/lib/sha256/sha256.js"></script>
-    <script type="text/javascript" src="/static/lib/datepicker/datepicker.js"></script>
-    <script type="text/javascript" src="/static/lib/datepicker/datepicker.ko-KR.js"></script>
-    <script type="text/javascript" src="/static/lib/moment/moment.min.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/common/address.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/mypage/mypage-mobile.js"></script>
+
+    <script src="/static/lib/sha256/sha256.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/mypage/mypage.js"></script>
 </body>
 
 </html>

@@ -1,31 +1,28 @@
 let express = require('express');
 let router = express.Router();
+let auth = require('../../common/auth');
 let itemManagerBiz = require('./itemManagerBiz');
 
-router.get('/', function(req, res, next) {
+router.get('/', auth.requireAdminPage, function(req, res, next) {
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;
     res.render('templates/admin/item_manager/item_manager', {userNo: userNo, adminYn: adminYn});
 });
 
-router.get('/item_new', function(req, res, next) {
+router.get('/item_new', auth.requireAdminPage, function(req, res, next) {
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;
     res.render('templates/admin/item_manager/item_manager_new', {userNo: userNo, adminYn: adminYn});
 });
 
-router.get('/item_modify', function(req, res, next) {
+router.get('/item_modify', auth.requireAdminPage, function(req, res, next) {
     let itemNo = req.query.itemNo;
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;
-    if (adminYn == 'N') {
-        res.status(500).send();
-    } else {
-        res.render('templates/admin/item_manager/item_manager_modify', {itemNo : itemNo, userNo: userNo, adminYn: adminYn});
-    }
+    res.render('templates/admin/item_manager/item_manager_modify', {itemNo : itemNo, userNo: userNo, adminYn: adminYn});
 });
 
-router.get('/item_option', function(req, res, next) {
+router.get('/item_option', auth.requireAdminPage, function(req, res, next) {
     let itemNo = req.query.itemNo;
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;
@@ -33,7 +30,7 @@ router.get('/item_option', function(req, res, next) {
 });
 
 router.post('/registerNewItem', function(req, res) {
-    if (req.session.adminYn == 'N') {
+    if (req.session.adminYn !== 'Y') {
         res.status(500).send();
     } else {
         let param = req.body;
@@ -44,7 +41,7 @@ router.post('/registerNewItem', function(req, res) {
 });
 
 router.post('/modifyItem', function(req, res) {
-    if (req.session.adminYn == 'N') {
+    if (req.session.adminYn !== 'Y') {
         res.status(500).send();
     } else {
         let param = req.body;
@@ -55,7 +52,7 @@ router.post('/modifyItem', function(req, res) {
 });
 
 router.post('/deleteItem', function(req, res) {
-    if (req.session.adminYn == 'N') {
+    if (req.session.adminYn !== 'Y') {
         res.status(500).send();
     } else {
         let param = req.body;
@@ -89,7 +86,7 @@ router.post('/insertItemOption', function(req, res) {
     let itemNo = req.query.itemNo;
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;
-    if (adminYn == 'N') {
+    if (adminYn !== 'Y') {
         res.status(500).send();
     } else {
         let param = req.body;
@@ -103,7 +100,7 @@ router.post('/updateItemOption', function(req, res) {
     let itemNo = req.query.itemNo;
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;
-    if (adminYn == 'N') {
+    if (adminYn !== 'Y') {
         res.status(500).send();
     } else {
         let param = req.body;
@@ -114,10 +111,14 @@ router.post('/updateItemOption', function(req, res) {
 });
 
 router.post('/deleteItemOption', function(req, res) {
-    let param = req.body;
-    itemManagerBiz.deleteItemOption(param, () => {
-        res.status(200).send({});
-    });
+    if (req.session.adminYn !== 'Y') {
+        res.status(500).send();
+    } else {
+        let param = req.body;
+        itemManagerBiz.deleteItemOption(param, () => {
+            res.status(200).send({});
+        });
+    }
 });
 
 module.exports = router;

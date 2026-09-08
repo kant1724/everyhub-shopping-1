@@ -1,44 +1,48 @@
-body {
-    font-family: 'Noto Sans KR', sans-serif;
+/* 주문내역 수정 — 결제 화면 스타일(purchase.css)을 재사용하고 차이만 정의 */
+
+.mod-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 18px;
+    padding: 9px 14px;
+    border: none;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #4e5968;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.select {
-    width: 200px;
-    height: 30px;
-    padding-left: 10px;
-    font-size: 18px;
-    color: #006fff;
-    border: 1px solid #006fff;
-    border-radius: 3px;
+.mod-back:hover { background: #f2f4f6; color: #191f28; }
+
+.mod-order-no {
+    margin: -18px 0 24px;
+    font-size: 14px;
+    color: #8b95a1;
 }
 
-.order-list {
-    padding: 15px;
-    border: 1px solid #ccc;
+.mod-loading { padding: 80px 0; text-align: center; color: #8b95a1; }
+
+.mod-toggle { margin: 0 !important; }
+
+.mod-note {
+    margin: 0 0 16px;
     font-size: 13px;
+    color: #8b95a1;
+    line-height: 1.6;
 }
 
-.order-info {
-    padding: 15px;
-    border: 1px solid #ccc;
-    font-size: 13px;
-}
-
-.additional-info {
-    padding: 15px;
-    border: 1px solid #ccc;
-    font-size: 13px;
-}
-
-.order-info-title-text {
-    padding-left: 5px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #333;
-    font-size: 20px;
+.mod-cancel-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    background: #f2f4f6;
+    color: #4e5968;
+    font-size: 15px;
     font-weight: 700;
-    margin-top: 20px;
 }
 
-.sender-input {
-    display: none;
-}
+.mod-cancel-btn:hover { background: #e5e8eb; color: #191f28; }

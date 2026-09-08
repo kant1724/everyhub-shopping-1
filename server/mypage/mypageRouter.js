@@ -37,7 +37,17 @@ router.get('/modify', function(req, res, next) {
     }
 });
 
+// Everything below acts on the signed-in customer's own data.
+function requireLogin(req, res) {
+    if (!req.session.userNo) {
+        res.status(403).send({ret: 'not ok'});
+        return false;
+    }
+    return true;
+}
+
 router.post('/writeReview', function(req, res) {
+    if (!requireLogin(req, res)) return;
     let param = req.body;
     param.userNo = req.session.userNo;
     mypageBiz.writeReview(param, (ret) => {
@@ -46,6 +56,7 @@ router.post('/writeReview', function(req, res) {
 });
 
 router.post('/updateUser', function(req, res) {
+    if (!requireLogin(req, res)) return;
     let param = req.body;
     param.userNo = req.session.userNo;
     mypageBiz.updateUser(param, (ret) => {
@@ -54,18 +65,22 @@ router.post('/updateUser', function(req, res) {
 });
 
 router.post('/cancelOrder', function(req, res) {
+    if (!requireLogin(req, res)) return;
     let param = req.body;
     param.userNo = req.session.userNo;
-    param.telno = req.session.telno;
+    // never leave a mapper parameter undefined — it throws inside a DB callback
+    param.telno = req.session.telno || '';
+    param.adminYn = req.session.adminYn === 'Y' ? 'Y' : 'N';
     mypageBiz.cancelOrder(param, (ret) => {
         res.status(200).send({ret: ret});
     });
 });
 
 router.post('/updateOrderList', function(req, res) {
+    if (!requireLogin(req, res)) return;
     let json = req.body.data;
     let param = JSON.parse(json);
-    if (req.session.adminYn == 'N') {
+    if (req.session.adminYn !== 'Y') {
         param.orderListMain.userNo = req.session.userNo;
         param.orderListMain.telno = req.session.telno;
     }
@@ -75,12 +90,12 @@ router.post('/updateOrderList', function(req, res) {
 });
 
 router.post('/updateOrderListByAdmin', function(req, res) {
+    // the admin variant skips the ownership pin, so it must be admin-only
+    if (req.session.adminYn !== 'Y') {
+        return res.status(403).send({ret: 'not ok'});
+    }
     let json = req.body.data;
     let param = JSON.parse(json);
-    if (req.session.adminYn == 'N') {
-        param.orderListMain.userNo = req.session.userNo;
-        param.orderListMain.telno = req.session.telno;
-    }
     mypageBiz.updateOrderListByAdmin(param, (ret) => {
         res.status(200).send({ret: ret});
     });

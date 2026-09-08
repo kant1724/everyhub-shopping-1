@@ -1,42 +1,130 @@
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: #eee !important;
+/* 로그인 · 비밀번호 찾기 — Vue + Toss 스타일 */
+
+body { background: #f9fafb; }
+
+.auth {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.wrapper {
-    margin-top: 80px;
-    margin-bottom: 80px;
-}
-
-.form-signin {
-    max-width: 380px;
-    padding: 35px 35px 45px;
-    margin: 0 auto;
-    background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.form-control {
-    position: relative;
-    font-size: 16px;
-    height: auto;
-    padding: 10px;
-}
-
-input[type="text"] {
-    margin-bottom: -1px;
-}
-
-input[type="password"] {
-    margin-bottom: 20px;
-}
-
-.form-signin-heading {
-    margin-bottom: 15px;
-}
-
-input {
+.auth-shell {
+    flex: 1;
     width: 100%;
-    padding: 5px;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 120px 20px 80px;
+}
 
+.auth-logo {
+    display: block;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.auth-logo img { width: 170px; }
+
+.auth-card {
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 34px 28px 28px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .05);
+}
+
+.auth-title {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    color: #191f28;
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+/* 필드 — 토스 스타일 회색 채움 */
+.auth-input {
+    width: 100%;
+    padding: 15px 16px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    background: #f2f4f6;
+    font-size: 15px;
+    color: #191f28;
+    outline: none;
+    transition: background-color .15s ease, border-color .15s ease;
+}
+
+.auth-input::placeholder { color: #8b95a1; }
+
+.auth-input:focus {
+    background: #ffffff;
+    border-color: #3182f6;
+    box-shadow: 0 0 0 3px rgba(49, 130, 246, .12);
+}
+
+.auth-input[readonly] { background: #f9fafb; color: #6b7684; }
+
+.auth-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    transition: background-color .15s ease;
+}
+
+.auth-btn-primary { background: #3182f6; color: #ffffff; }
+.auth-btn-primary:hover:not(:disabled) { background: #1b64da; }
+.auth-btn-primary:disabled { background: #e5e8eb; color: #b0b8c1; cursor: default; }
+
+.auth-btn-ghost { background: #f2f4f6; color: #333d4b; }
+.auth-btn-ghost:hover { background: #e5e8eb; }
+
+.auth-link {
+    display: block;
+    width: 100%;
+    margin-top: 16px;
+    border: none;
+    background: none;
+    font-size: 14px;
+    color: #8b95a1;
+}
+
+.auth-link:hover { color: #4e5968; }
+
+.auth-hint {
+    margin: -2px 0 10px;
+    font-size: 13px;
+    color: #8b95a1;
+}
+
+/* 비밀번호 찾기 단계 표시 */
+.auth-steps {
+    display: flex;
+    gap: 6px;
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+}
+
+.auth-steps li {
+    flex: 1;
+    text-align: center;
+    padding: 8px 4px;
+    border-radius: 10px;
+    background: #f2f4f6;
+    color: #b0b8c1;
+    font-size: 12.5px;
+    font-weight: 600;
+}
+
+.auth-steps li.is-on { background: #e8f3ff; color: #3182f6; }
+
+@media (max-width: 480px) {
+    .auth-shell { padding: 88px 18px 60px; }
+    .auth-card { padding: 28px 20px 24px; border-radius: 18px; }
+    .auth-logo img { width: 140px; }
 }

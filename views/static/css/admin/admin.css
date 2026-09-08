@@ -1,0 +1,337 @@
+/* ==========================================================================
+   관리자 콘솔 공용 — Vue + Toss 스타일 (base.css 위에 얹는다)
+   ========================================================================== */
+
+body { background: #f9fafb; }
+
+.adm { padding-top: 96px; padding-bottom: 80px; }
+
+.adm-shell { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+.adm-shell-narrow { max-width: 760px; }
+
+.adm-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+}
+
+.adm-title {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #191f28;
+    margin: 0;
+}
+
+.adm-sub { margin: 6px 0 0; font-size: 14px; color: #8b95a1; }
+
+.adm-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ---------------- 버튼 ---------------- */
+.adm-btn {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    background: #f2f4f6;
+    color: #333d4b;
+    transition: background-color .15s ease;
+}
+
+.adm-btn:hover:not(:disabled) { background: #e5e8eb; }
+.adm-btn:disabled { color: #b0b8c1; cursor: default; }
+
+.adm-btn-primary { background: #3182f6; color: #ffffff; }
+.adm-btn-primary:hover:not(:disabled) { background: #1b64da; }
+
+.adm-btn-dark { background: #191f28; color: #ffffff; }
+.adm-btn-dark:hover { background: #000000; }
+
+.adm-btn-danger { background: #fdeced; color: #f04452; }
+.adm-btn-danger:hover { background: #fbdcdf; }
+
+.adm-link {
+    border: none;
+    background: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4e5968;
+}
+
+.adm-link:hover { background: #f2f4f6; color: #191f28; }
+.adm-link-danger { color: #f04452; }
+.adm-link-danger:hover { background: #fdeced; }
+
+/* ---------------- 카드 · 필터 ---------------- */
+.adm-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 14px;
+}
+
+.adm-filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+}
+
+.adm-filter-item { display: flex; flex-direction: column; gap: 6px; }
+
+.adm-filter-label { font-size: 12.5px; font-weight: 600; color: #8b95a1; }
+
+.adm-filter .gd-input { min-width: 130px; padding: 11px 12px; font-size: 14px; }
+
+.adm-count { margin-left: auto; font-size: 13px; color: #8b95a1; font-weight: 600; }
+
+/* ---------------- 표 ---------------- */
+.adm-table-wrap {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 6px 6px 12px;
+    overflow-x: auto;
+}
+
+.adm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    white-space: nowrap;
+}
+
+.adm-table th {
+    position: sticky;
+    top: 0;
+    padding: 13px 10px;
+    background: #f9fafb;
+    color: #6b7684;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-align: left;
+    border-bottom: 1px solid #e5e8eb;
+}
+
+.adm-table th:first-child { border-top-left-radius: 12px; }
+.adm-table th:last-child { border-top-right-radius: 12px; }
+
+.adm-table td {
+    padding: 12px 10px;
+    color: #333d4b;
+    border-bottom: 1px solid #f2f4f6;
+    vertical-align: middle;
+}
+
+.adm-table tbody tr:hover { background: #f9fafb; }
+
+.adm-table img { border-radius: 8px; object-fit: cover; display: block; }
+
+.adm-table-center { text-align: center; }
+
+.adm-empty { padding: 64px 0; text-align: center; color: #8b95a1; font-size: 15px; }
+
+.adm-more { display: flex; justify-content: center; padding: 18px 0 6px; }
+
+/* 상태 배지 */
+.adm-badge {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 7px;
+    font-size: 11.5px;
+    font-weight: 700;
+}
+
+.adm-badge.is-on  { background: #e8f3ff; color: #3182f6; }
+.adm-badge.is-off { background: #f2f4f6; color: #8b95a1; }
+.adm-badge.is-warn { background: #fff4e5; color: #f79009; }
+.adm-badge.is-done { background: #e7f7ee; color: #12b76a; }
+.adm-badge.is-cancel { background: #fdeced; color: #f04452; }
+
+/* ---------------- 폼 ---------------- */
+.adm-field { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+.adm-field-block { align-items: flex-start; }
+
+.adm-label {
+    flex: 0 0 120px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7684;
+}
+
+.adm-field-block .adm-label { padding-top: 13px; }
+
+.adm-field .gd-input { flex: 1; min-width: 0; }
+
+.adm-textarea { height: 200px; resize: vertical; line-height: 1.7; }
+
+.adm-radios { flex: 1; display: flex; gap: 16px; flex-wrap: wrap; }
+
+.adm-radio {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    font-size: 14px;
+    color: #4e5968;
+    cursor: pointer;
+}
+
+.adm-radio input { width: 18px; height: 18px; accent-color: #3182f6; cursor: pointer; }
+
+.adm-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-size: 14px;
+    color: #4e5968;
+    cursor: pointer;
+}
+
+.adm-check input { width: 18px; height: 18px; accent-color: #3182f6; cursor: pointer; }
+
+.adm-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 22px;
+}
+
+.adm-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+    padding: 9px 14px;
+    border: none;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #4e5968;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.adm-back:hover { background: #f2f4f6; color: #191f28; }
+
+/* 이미지 업로드 슬롯 */
+.adm-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+}
+
+.adm-image-slot {
+    border: 1px dashed #d1d6db;
+    border-radius: 14px;
+    padding: 12px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.adm-image-slot img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #f2f4f6;
+    margin-bottom: 10px;
+}
+
+.adm-image-empty {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    background: #f2f4f6;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b0b8c1;
+    font-size: 22px;
+}
+
+.adm-image-slot input[type="file"] { width: 100%; font-size: 12px; }
+
+.adm-image-label { font-size: 12.5px; font-weight: 600; color: #6b7684; margin-bottom: 8px; }
+
+.adm-image-remove { margin-top: 8px; }
+
+/* ---------------- 반응형 ---------------- */
+@media (max-width: 900px) {
+    .adm-head { flex-direction: column; align-items: stretch; }
+    .adm-actions .adm-btn { flex: 1; }
+}
+
+@media (max-width: 640px) {
+    .adm { padding-top: 84px; }
+    .adm-title { font-size: 22px; }
+    .adm-card { padding: 18px; border-radius: 14px; }
+    .adm-field { flex-direction: column; align-items: stretch; gap: 8px; }
+    .adm-label { flex: none; padding-top: 0 !important; }
+    .adm-filter { flex-direction: column; align-items: stretch; }
+    .adm-filter-item { width: 100%; }
+    .adm-count { margin-left: 0; }
+}
+
+/* 상품/갤러리 폼 보조 스타일 */
+.adm-card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #191f28;
+    margin: 0 0 18px;
+}
+
+.adm-note {
+    margin: -6px 0 18px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    background: #f2f4f6;
+    font-size: 13px;
+    color: #6b7684;
+}
+
+.adm-error {
+    margin: -8px 0 14px 136px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #f04452;
+}
+
+.adm-hint {
+    margin: -8px 0 14px 136px;
+    font-size: 12.5px;
+    color: #8b95a1;
+}
+
+.adm-hint.is-over { color: #f04452; font-weight: 600; }
+
+.adm-field select.gd-input {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%238b95a1' stroke-width='1.8' d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+}
+
+.adm-gallery-desc {
+    height: 64px;
+    margin-top: 8px;
+    font-size: 13px;
+    resize: vertical;
+}
+
+@media (max-width: 640px) {
+    .adm-error, .adm-hint { margin-left: 0; }
+}

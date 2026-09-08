@@ -38,7 +38,7 @@ let constructReview =  {
 			html += '<tr class="each-review" style="margin-bottom: 0px;">';
 			html += '<input type="hidden" id="review_no" class="review-no" value="' + reviewNo + '">';
 			html += '<td>';
-			html += '<div id="review_subject" class="review-subject" style="text-align: left;">' + subject + '</div>';
+			html += '<div id="review_subject" class="review-subject" style="text-align: left;">' + escapeHtml(subject) + '</div>';
 			html += '</td>';
 			html += '<td>';
 			html += '<div id="review_date" class="review-date">' + reviewDate + '</div>';
@@ -46,7 +46,7 @@ let constructReview =  {
 			html += '</tr>';
 			html += '<tr class="each-review-content" id="review_content' + reviewNo + '" style="display: none;">';html += '<td colspan="3">';
 			html += '<div style="text-align: left; padding-left: 10px; font-size: 11px;">별점:&nbsp;&nbsp;' + starValue + '</div>';
-			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + content + '</div>';
+			html += '<div style="text-align: left; padding-left: 10px; font-size: 13px; padding-top: 15px;">' + escapeHtmlWithBreaks(content) + '</div>';
 			html += '</td>';
 			html += '</tr>';
 		}
@@ -163,7 +163,7 @@ let constructReviewMobile =  {
 			html += '<tr class="each-review" style="margin-bottom: 0px;">';
 			html += '<input type="hidden" id="review_no" class="review-no" value="' + reviewNo + '">';
 			html += '<td>';
-			html += '<div id="review_subject" class="review-subject">' + subject + '</div>';
+			html += '<div id="review_subject" class="review-subject">' + escapeHtml(subject) + '</div>';
 			html += '</td>';
 			html += '<td>';
 			html += '<div id="review_date" class="review-date">' + reviewDate + '</div>';
@@ -172,7 +172,7 @@ let constructReviewMobile =  {
 			html += '<tr class="each-content" id="content' + reviewNo + '" style="display: none;">';
 			html += '<td colspan="2">';
 			html += '<div style="text-align: left; padding-left: 10px; font-size: 11px;">별점:&nbsp;&nbsp;' + starValue + '</div>';
-			html += '<div style="text-align: left; padding-left: 10px; padding-top: 10px; font-size: 13px;">' + content + '</div>';
+			html += '<div style="text-align: left; padding-left: 10px; padding-top: 10px; font-size: 13px;">' + escapeHtmlWithBreaks(content) + '</div>';
 			html += '</td>';
 			html += '</tr>';
 		}

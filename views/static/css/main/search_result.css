@@ -1,0 +1,64 @@
+/* 검색결과 — Vue + Toss 스타일 */
+
+body { background: #ffffff; }
+
+.srch { padding-top: 96px; padding-bottom: 80px; }
+.srch-shell { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+.srch-title { font-size: 28px; font-weight: 700; letter-spacing: -1px; color: #191f28; margin: 0; }
+.srch-sub { margin: 8px 0 28px; font-size: 15px; color: #8b95a1; }
+.srch-sub strong { color: #3182f6; font-weight: 700; }
+.srch-empty { padding: 80px 0; text-align: center; color: #8b95a1; font-size: 15px; }
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 28px 20px;
+}
+
+.product-card { cursor: pointer; }
+
+.product-card-thumb {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #f2f4f6;
+}
+
+.product-card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s ease; }
+.product-card:hover .product-card-thumb img { transform: scale(1.04); }
+
+.product-card-body { padding-top: 14px; }
+
+.product-chip {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 6px;
+    background: #e8f3ff;
+    color: #3182f6;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.product-chip.is-off { background: #f2f4f6; color: #8b95a1; }
+
+.product-card-name { margin: 8px 0 0; font-size: 17px; font-weight: 700; letter-spacing: -0.5px; color: #191f28; }
+
+.product-card-desc {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: #4e5968;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.product-card-origin { margin: 6px 0 0; font-size: 13px; color: #8b95a1; }
+
+@media (max-width: 560px) {
+    .srch { padding-top: 84px; }
+    .srch-title { font-size: 24px; }
+    .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 12px; }
+    .product-card-name { font-size: 15px; }
+}

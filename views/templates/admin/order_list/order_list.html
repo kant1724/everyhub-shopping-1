@@ -1,213 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>주문내역</title>
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>주문 관리</title>
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/lib/datepicker/datepicker.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
+    <link href="/static/css/admin/admin.css" rel="stylesheet">
     <link href="/static/css/admin/order_list/order_list.css" rel="stylesheet">
 </head>
 
 <body>
-    <header></header>
-    <div class="mt-5" style="width: 90%; margin: auto;">
-        <div class="ml-3 mr-3">
-            <div class="mt-5 d-inline-block" style="width: 100px; font-size: 20px; border-left: 5px solid #333; padding-left: 10px;">주문목록</div>
-            <div class="mt-5  d-inline-block" style="float: right; margin-right: 40px;">
-                <button type="button" id="export_excel_cj" class="btn btn-sm deep-orange btn-rounded export-excel">엑셀다운(CJ)
-                </button>
-                <button type="button" id="export_excel_hanjin" class="btn btn-sm btn-primary btn-rounded export-excel">엑셀다운(한진)
-                </button>
-                <button type="button" id="start_dlvr" class="btn btn-sm btn-secondary btn-rounded export-excel">배송시작
-                </button>
-                <button type="button" id="export_excel_order_list" class="btn btn-sm btn-cyan btn-rounded export-excel">엑셀다운(주문목록)
-                </button>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="mt-4 ml-3 mr-3" style="font-size: 15px; color: gray;">
-                    주문일
-                </div>
-                <div class="col-md-1 mr-5">
-                    <span style="font-size: 13px;">시작일</span>
-                    <div class="md-form" style="margin-top: 5px;">
-                        <input id="starting_date" data-toggle="datepicker" style="width: 120px; padding: 5px;" readonly>
-                    </div>
-                </div>
-                <div class="col-md-1 ml-2 mr-5">
-                    <span style="font-size: 13px;">종료일</span>
-                    <div class="md-form" style="margin-top: 5px;">
-                        <input id="ending_date" data-toggle="datepicker" style="width: 120px; padding: 5px;" readonly>
-                    </div>
-                </div>
-                <div class="mt-4 ml-4 mr-2" style="font-size: 15px; color: gray;">
-                    주문자
-                </div>
-                <div class="col-md-1 ml-2 mr-5">
-                    <span style="font-size: 13px;">주문자명</span>
-                    <div class="md-form" style="margin-top: 5px;">
-                        <input id="order_user_nm" style="width: 120px; padding: 5px;">
-                    </div>
-                </div>
-                <div class="col-md-1 ml-2 mr-5">
-                    <span style="font-size: 13px;">받는자명</span>
-                    <div class="md-form" style="margin-top: 5px;">
-                        <input id="user_nm" style="width: 120px; padding: 5px;">
-                    </div>
-                </div>
-                <div class="col-md-1 ml-2 mr-5">
-                    <span style="font-size: 13px;">입금자명</span>
-                    <div class="md-form" style="margin-top: 5px;">
-                        <input id="deposit_person_nm" style="width: 120px; padding: 5px;">
-                    </div>
-                </div>
-                <div class="col-md-2 ml-2" style="margin-top: 35px;">
-                    <a id="search" class="common-button-1">조회</a>
+    <div id="order_list_app" class="adm" v-cloak>
+        <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
+
+        <div class="adm-shell adm-shell-wide">
+            <div class="adm-head">
+                <div>
+                    <h1 class="adm-title">주문 관리</h1>
+                    <p class="adm-sub">총 [[ totalCnt ]]건 · 선택 [[ selectedCount ]]건</p>
                 </div>
             </div>
-            <hr>
-            <div id="total_cnt" style="margin-bottom: 5px; margin-right: 5px; float: right; font-size: 13px;"></div>
-            <section class="section mt-3 mb-5 pb-5">
-                <table id="order_list" class="table table-bordered text-center">
-                    <thead>
-                    <tr>
-                        <th><div class="ml-2 custom-control custom-checkbox"><input type="checkbox" class="custom-control-input select-order" id="check_all"><label class="custom-control-label" for="check_all"></label></div></th>
-                        <th>주문번호</th>
-                        <th>주문일</th>
-                        <th>주문자명</th>
-                        <th>받는자명</th>
-                        <th>주문자 연락처</th>
-                        <th>받는자 연락처</th>
-                        <th>메모여부</th>
-                        <th>상품/옵션</th>
-                        <th>수량</th>
-                        <th>총금액</th>
-                        <th>입금자명</th>
-                        <th>배송일자</th>
-                        <th>취소일자</th>
-                        <th>송장번호</th>
-                    </tr>
-                    </thead>
-                    <tbody id="order_list_tbody"></tbody>
-                </table>
-            </section>
-        </div>
-    </div>
-    <div class="modal fade" id="invoice_no_modal" tabindex="-1" role="dialog" aria-labelledby="invoice_no_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content text-center">
-                <input type="hidden" id="modal_order_no">
-                <div class="modal-body" style="margin: 20px;">
-                    <input type="text" class="form-control" id="modal_invoice_no" style="width: 200px; margin: auto;">
-                    <label id="invoice_no_label" class="mt-2" for="modal_invoice_no">송장번호를 입력하세요.</label>
+
+            <!-- 검색 -->
+            <div class="adm-filter">
+                <div class="adm-filter-item">
+                    <label class="adm-filter-label" for="starting_date">시작일</label>
+                    <input id="starting_date" type="date" class="gd-input" v-model="filter.startOrderDate">
                 </div>
-                <div class="text-center pb-5">
-                    <a id="save_invoice_no" class="common-button-1">저장</a>
-                    <a id="invoice_no_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                <div class="adm-filter-item">
+                    <label class="adm-filter-label" for="ending_date">종료일</label>
+                    <input id="ending_date" type="date" class="gd-input" v-model="filter.endOrderDate">
                 </div>
-                <div class="container">
-                    <table id="invoice_list" class="table table-bordered text-center">
-                        <thead>
-                        <tr>
-                            <th>주문번호</th>
-                            <th>송장번호</th>
-                            <th>상세</th>
-                            <th>삭제</th>
-                        </tr>
-                        </thead>
-                        <tbody id="invoice_list_tbody">
-                        </tbody>
-                    </table>
+                <div class="adm-filter-item">
+                    <label class="adm-filter-label" for="order_user_nm">주문자명</label>
+                    <input id="order_user_nm" type="text" class="gd-input" v-model="filter.orderUserNm"
+                           @keyup.enter="search">
+                </div>
+                <div class="adm-filter-item">
+                    <label class="adm-filter-label" for="user_nm">받는분</label>
+                    <input id="user_nm" type="text" class="gd-input" v-model="filter.userNm" @keyup.enter="search">
+                </div>
+                <div class="adm-filter-item">
+                    <label class="adm-filter-label" for="deposit_person_nm">입금자명</label>
+                    <input id="deposit_person_nm" type="text" class="gd-input" v-model="filter.depositPersonNm"
+                           @keyup.enter="search">
+                </div>
+                <button type="button" id="search" class="adm-btn adm-btn-primary" @click="search">조회</button>
+            </div>
+
+            <!-- 일괄 작업 -->
+            <div class="ord-toolbar">
+                <label class="adm-check">
+                    <input type="checkbox" id="check_all" :checked="allChecked" @change="toggleAll">
+                    <span>전체선택</span>
+                </label>
+                <span class="ord-toolbar-count" v-if="selectedCount > 0">[[ selectedCount ]]건 선택됨</span>
+                <div class="ord-toolbar-actions">
+                    <button type="button" id="start_dlvr" class="adm-btn adm-btn-dark" @click="startDelivery">
+                        배송시작
+                    </button>
+                    <button type="button" id="export_excel_order_list" class="adm-btn" @click="exportOrderList">
+                        <i class="far fa-file-excel"></i> 주문내역
+                    </button>
+                    <button type="button" id="export_excel_cj" class="adm-btn" @click="exportCj">
+                        <i class="far fa-file-excel"></i> CJ대한통운
+                    </button>
+                    <button type="button" id="export_excel_hanjin" class="adm-btn" @click="exportHanjin">
+                        <i class="far fa-file-excel"></i> 한진택배
+                    </button>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="modal fade" id="additional_info_modal" tabindex="-1" role="dialog" aria-labelledby="additional_info_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content text-center">
-                <input type="hidden" id="modal_order_no_2">
-                <div class="modal-body" style="margin: 20px;">
-                    <input type="text" class="form-control" id="modal_basic_fares" style="width: 200px; margin: auto;">
-                    <label class="mt-2" for="modal_basic_fares">기본운임을 입력하세요.</label>
-                    <input type="text" class="form-control" id="modal_box_type" style="width: 200px; margin: auto;">
-                    <label class="mt-2" for="modal_box_type">박스타입을 입력하세요.</label>
-                    <input type="text" class="form-control" id="modal_fare_type" style="width: 200px; margin: auto;">
-                    <label class="mt-2" for="modal_fare_type">운임구분을 입력하세요.</label>
-                </div>
-                <div class="text-center pb-5">
-                    <a id="save_additional_info" class="common-button-1">저장</a>
-                    <a id="additional_info_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="order_detail_modal" tabindex="-1" role="dialog" aria-labelledby="order_detail_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body" style="margin: 20px; font-size: 13px;">
-                    <div><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자명</div><div class="d-inline-block" id="modal_send_person_nm"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자연락처</div><div class="d-inline-block" id="modal_send_telno"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자 우편번호</div><div class="d-inline-block" id="modal_send_zip_no"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자 주소</div><div class="d-inline-block" id="modal_send_address_main"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">보내는자 상세주소</div><div class="d-inline-block" id="modal_send_address_detail"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자명</div><div class="d-inline-block" id="modal_receive_person_nm"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 연락처</div><div class="d-inline-block" id="modal_receive_telno"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 우편번호</div><div class="d-inline-block" id="modal_receive_zip_no"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 주소</div><div class="d-inline-block" id="modal_receive_address_main"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">받는자 상세주소</div><div class="d-inline-block" id="modal_receive_address_detail"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">주문메모</div><div class="d-inline-block" id="modal_order_remarks"></div></div>
-                    <div class="mt-2"><div class="d-inline-block" style="width: 150px; font-weight: 700;">입금메모</div><div class="d-inline-block" id="modal_deposit_remarks"></div></div>
-                </div>
-                <div class="text-center pb-5">
-                    <a id="order_detail_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
-                </div>
+
+            <p v-if="loading" class="adm-empty">불러오는 중...</p>
+            <p v-else-if="orders.length === 0" class="adm-empty">조회된 주문이 없습니다.</p>
+
+            <!-- 주문 카드 -->
+            <div v-else class="ord-list">
+                <article class="ord-card each-order" v-for="o in orders" :key="o.head.orderNo"
+                         :class="{ 'is-cancelled': isCancelled(o) }">
+
+                    <header class="ord-card-head">
+                        <div class="ord-card-id">
+                            <span class="ord-no order-no">#[[ o.head.orderNo ]]</span>
+                            <span class="ord-badge is-today" v-if="isToday(o.head.orderDate)">오늘</span>
+                            <span class="ord-date">[[ o.head.orderDate ]]</span>
+                            <span class="adm-badge is-cancel" v-if="isCancelled(o)">
+                                취소됨 [[ o.head.cancelDate ]]
+                            </span>
+                            <span class="adm-badge is-warn" v-if="hasRemarks(o)">메모</span>
+                        </div>
+                        <div class="ord-card-tools">
+                            <button type="button" class="adm-link" @click="openDetail(o)">상세정보</button>
+                            <button type="button" class="adm-link" @click="modifyOrder(o)">정보수정</button>
+                            <button type="button" class="adm-link" @click="openExtra(o)">기타정보</button>
+                            <button type="button" class="adm-link" @click="openSms(o)">문자</button>
+                            <button type="button" class="adm-link adm-link-danger" v-if="canCancel(o)"
+                                    @click="cancelOrder(o)">주문취소</button>
+                        </div>
+                    </header>
+
+                    <div class="ord-card-body">
+                        <div class="ord-people">
+                            <div class="ord-person">
+                                <span class="ord-person-role">주문자</span>
+                                <span class="ord-person-nm">[[ o.head.orderPersonNm ]]</span>
+                                <a class="ord-person-tel" :href="'tel:' + o.head.orderTelno">[[ o.head.orderTelno ]]</a>
+                            </div>
+                            <div class="ord-person">
+                                <span class="ord-person-role">받는분</span>
+                                <span class="ord-person-nm">[[ o.head.receivePersonNm ]]</span>
+                                <a class="ord-person-tel" :href="'tel:' + o.head.receiveTelno">[[ o.head.receiveTelno ]]</a>
+                            </div>
+                            <p class="ord-address">
+                                [[ o.head.receiveAddressMain ]] [[ o.head.receiveAddressDetail ]]
+                                <span class="ord-zip" v-if="o.head.receiveZipNo">([[ o.head.receiveZipNo ]])</span>
+                            </p>
+                        </div>
+
+                        <div class="ord-money">
+                            <div class="ord-price">[[ won(o.head.totalPrice) ]]<span>원</span></div>
+                            <div class="ord-deposit">
+                                <span class="ord-deposit-nm">[[ o.head.depositPersonNm ]]</span>
+                                <span class="adm-badge is-done" v-if="!blank(o.head.depositConfirmDate)">입금완료</span>
+                                <button type="button" class="adm-btn adm-btn-primary ord-deposit-btn"
+                                        v-else @click="confirmDeposit(o)">입금확인</button>
+                            </div>
+                            <button type="button" class="adm-link ord-invoice-btn" @click="openInvoice(o)">
+                                송장 [[ o.head.invoiceCnt ]]건 · 입력
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 주문 상세 (줄 단위) -->
+                    <div class="ord-lines">
+                        <div class="ord-line" v-for="l in o.lines" :key="l.orderNo + '_' + l.orderSeq">
+                            <label class="ord-line-check">
+                                <input type="checkbox" class="select-order"
+                                       :disabled="!isSelectable(l)"
+                                       :checked="isChecked(l)" @change="toggle(l)">
+                            </label>
+                            <div class="ord-line-item">
+                                <span class="item-nm">[[ l.itemNm ]]</span>
+                                <span class="option-nm">[[ l.optionNm ]]</span>
+                            </div>
+                            <div class="ord-line-qty qty">[[ l.qty ]]개</div>
+                            <div class="ord-line-dlvr">
+                                <span class="adm-badge is-done dlvr-confirm-date" v-if="!blank(l.dlvrConfirmDate)">
+                                    배송 [[ l.dlvrConfirmDate ]]
+                                </span>
+                                <span class="adm-badge is-off" v-else>배송대기</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="send_sms_modal" tabindex="-1" role="dialog" aria-labelledby="send_sms_modal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <input id="smsTelno" type="hidden">
-                <div class="mt-4" style="width: 80%; margin: auto;">제목</div>
-                <div class="text-center mt-1">
-                    <input type="text" id="sms_subject" placeholder="문자메세지 제목을 입력하세요" style="padding: 5px; width: 80%;">
-                </div>
-                <hr>
-                <div style="width: 80%; margin: auto;">내용</div>
-                <div class="text-center mt-1 mb-3">
-                    <textarea id="sms_content" placeholder="문자메세지 내용을 입력하세요" style="padding: 5px; width: 80%; height: 300px;"></textarea>
-                </div>
-                <div class="text-center pb-5">
-                    <a id="send_sms" class="common-button-1 mr-1" data-dismiss="modal">문자전송</a>
-                    <a id="send_sms_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+
+        <!-- 상세정보 모달 -->
+        <transition name="modal-fade">
+            <div class="gd-modal-backdrop" v-if="detailModal" @click.self="detailModal = null">
+                <div class="gd-modal">
+                    <div class="gd-modal-body">
+                        <h2 class="gd-modal-title">주문 상세정보</h2>
+                        <div class="ord-detail">
+                            <h3 class="ord-detail-title">보내는 분</h3>
+                            <dl class="ord-dl">
+                                <dt>성명</dt><dd>[[ detailModal.sendPersonNm ]]</dd>
+                                <dt>연락처</dt><dd>[[ detailModal.sendTelno ]]</dd>
+                                <dt>우편번호</dt><dd>[[ detailModal.sendZipNo ]]</dd>
+                                <dt>주소</dt><dd>[[ detailModal.sendAddressMain ]] [[ detailModal.sendAddressDetail ]]</dd>
+                            </dl>
+                            <h3 class="ord-detail-title">받는 분</h3>
+                            <dl class="ord-dl">
+                                <dt>성명</dt><dd>[[ detailModal.receivePersonNm ]]</dd>
+                                <dt>연락처</dt><dd>[[ detailModal.receiveTelno ]]</dd>
+                                <dt>우편번호</dt><dd>[[ detailModal.receiveZipNo ]]</dd>
+                                <dt>주소</dt><dd>[[ detailModal.receiveAddressMain ]] [[ detailModal.receiveAddressDetail ]]</dd>
+                            </dl>
+                            <h3 class="ord-detail-title">메모</h3>
+                            <dl class="ord-dl">
+                                <dt>주문메모</dt><dd>[[ detailModal.orderRemarks ]]</dd>
+                                <dt>입금메모</dt><dd>[[ detailModal.depositRemarks ]]</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="gd-modal-footer">
+                        <button type="button" class="gd-btn" @click="detailModal = null">닫기</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </transition>
+
+        <!-- 송장번호 모달 -->
+        <transition name="modal-fade">
+            <div class="gd-modal-backdrop" v-if="invoiceModal" @click.self="invoiceModal = null">
+                <div class="gd-modal">
+                    <div class="gd-modal-body">
+                        <h2 class="gd-modal-title">송장번호</h2>
+                        <p class="gd-modal-sub">주문번호 [[ invoiceModal.orderNo ]]</p>
+
+                        <div class="ord-invoice-input">
+                            <input id="modal_invoice_no" type="text" class="gd-input" placeholder="송장번호 입력"
+                                   v-model="invoiceNoInput" @keyup.enter="saveInvoice">
+                            <button type="button" id="save_invoice_no" class="gd-btn gd-btn-primary"
+                                    @click="saveInvoice" :disabled="busy">저장</button>
+                        </div>
+
+                        <p v-if="invoiceRows.length === 0" class="ord-invoice-empty">등록된 송장번호가 없습니다.</p>
+                        <table v-else class="adm-table ord-invoice-table">
+                            <thead><tr><th>송장번호</th><th class="adm-table-center">조회</th>
+                                <th class="adm-table-center">삭제</th></tr></thead>
+                            <tbody id="invoice_list_tbody">
+                                <tr v-for="inv in invoiceRows" :key="inv.invoiceNo">
+                                    <td class="modal-invoice-no">[[ inv.invoiceNo ]]</td>
+                                    <td class="adm-table-center">
+                                        <button type="button" class="adm-link modal-invoice-detail"
+                                                @click="traceInvoice(inv)">배송조회</button>
+                                    </td>
+                                    <td class="adm-table-center">
+                                        <button type="button" class="adm-link adm-link-danger delete-invoice-no"
+                                                @click="deleteInvoice(inv)">삭제</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="gd-modal-footer">
+                        <button type="button" class="gd-btn" @click="invoiceModal = null">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </transition>
+
+        <!-- 기타정보 모달 -->
+        <transition name="modal-fade">
+            <div class="gd-modal-backdrop" v-if="extraModal" @click.self="extraModal = null">
+                <div class="gd-modal">
+                    <div class="gd-modal-body">
+                        <h2 class="gd-modal-title">기타정보</h2>
+                        <p class="gd-modal-sub">택배 엑셀에 들어가는 값입니다. 주문번호 [[ extraModal.orderNo ]]</p>
+                        <div class="adm-field">
+                            <label class="adm-label" for="modal_basic_fares">기본운임</label>
+                            <input id="modal_basic_fares" type="text" class="gd-input" v-model="extraForm.basicFares">
+                        </div>
+                        <div class="adm-field">
+                            <label class="adm-label" for="modal_box_type">박스타입</label>
+                            <input id="modal_box_type" type="text" class="gd-input" v-model="extraForm.boxType">
+                        </div>
+                        <div class="adm-field">
+                            <label class="adm-label" for="modal_fare_type">운임구분</label>
+                            <input id="modal_fare_type" type="text" class="gd-input" v-model="extraForm.fareType">
+                        </div>
+                    </div>
+                    <div class="gd-modal-footer">
+                        <button type="button" class="gd-btn" @click="extraModal = null">닫기</button>
+                        <button type="button" id="save_additional_info" class="gd-btn gd-btn-primary"
+                                @click="saveExtra" :disabled="busy">저장</button>
+                    </div>
+                </div>
+            </div>
+        </transition>
+
+        <!-- 문자 발송 모달 -->
+        <transition name="modal-fade">
+            <div class="gd-modal-backdrop" v-if="smsModal" @click.self="smsModal = null">
+                <div class="gd-modal">
+                    <div class="gd-modal-body">
+                        <h2 class="gd-modal-title">문자 발송</h2>
+                        <div class="adm-field">
+                            <label class="adm-label" for="smsTelno">받는번호</label>
+                            <input id="smsTelno" type="text" class="gd-input" v-model="smsForm.smsTelno">
+                        </div>
+                        <div class="adm-field">
+                            <label class="adm-label" for="sms_subject">제목</label>
+                            <input id="sms_subject" type="text" class="gd-input" v-model="smsForm.smsSubject"
+                                   placeholder="문자메세지 제목을 입력하세요">
+                        </div>
+                        <div class="adm-field adm-field-block">
+                            <label class="adm-label" for="sms_content">내용</label>
+                            <textarea id="sms_content" class="gd-input ord-sms-content" v-model="smsForm.smsContent"
+                                      placeholder="문자메세지 내용을 입력하세요"></textarea>
+                        </div>
+                    </div>
+                    <div class="gd-modal-footer">
+                        <button type="button" id="send_sms_close_modal" class="gd-btn"
+                                @click="smsModal = null">닫기</button>
+                        <button type="button" id="send_sms" class="gd-btn gd-btn-primary"
+                                @click="sendSms" :disabled="busy">전송</button>
+                    </div>
+                </div>
+            </div>
+        </transition>
+
+        <app-footer></app-footer>
     </div>
+
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0">
-    </footer>
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/lib/datepicker/datepicker.js"></script>
-    <script type="text/javascript" src="/static/lib/datepicker/datepicker.ko-KR.js"></script>
-    <script type="text/javascript" src="/static/lib/moment/moment.min.js"></script>
-    <script type="text/javascript" src="/static/lib/js-xlsx/xlsx.full.min.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/component/header.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/admin/order_list/order_list.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/lib/js-xlsx/xlsx.full.min.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/admin/order_list/order_list.js"></script>
 </body>
 
 </html>

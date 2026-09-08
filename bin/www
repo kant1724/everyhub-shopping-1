@@ -30,6 +30,23 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 /**
+ * Keep the shop online.
+ *
+ * Every DAO runs its queries inside mysql driver callbacks, which sit outside
+ * Express's error handling: a single throw in there (an unconvertible mapper
+ * parameter from a malformed request, a DB hiccup) terminates the process and
+ * takes the whole site down until someone restarts it. Log it loudly and stay
+ * up instead — an individual failed request is far better than an outage.
+ */
+process.on('uncaughtException', function (err) {
+  console.error('[uncaughtException] request failed but the server stays up:', err && err.stack ? err.stack : err);
+});
+
+process.on('unhandledRejection', function (reason) {
+  console.error('[unhandledRejection]', reason);
+});
+
+/**
  * Normalize a port into a number, string, or false.
  */
 

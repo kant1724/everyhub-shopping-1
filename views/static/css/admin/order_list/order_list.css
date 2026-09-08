@@ -1,74 +1,248 @@
-body {
-    font-family: 'Noto Sans KR', sans-serif;
-}
+/* ==========================================================================
+   주문 관리 — Toss 스타일 (base.css + admin.css 위에 얹는다)
+   15열 rowspan 표 대신 주문번호 단위 카드로 보여준다.
+   ========================================================================== */
 
-.top {
-    width: 100%;
-    height: 50px;
+.adm-shell-wide { max-width: 1320px; }
+
+/* ---------------- 일괄 작업 바 ---------------- */
+.ord-toolbar {
+    position: sticky;
+    top: 64px;
+    z-index: 20;
     display: flex;
     align-items: center;
-    background: #333;
+    gap: 14px;
+    flex-wrap: wrap;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 14px 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .04);
 }
 
-.top i {
-    font-size: 30px;
-    margin-left: 20px;
+.ord-toolbar-count {
+    font-size: 13px;
+    font-weight: 700;
+    color: #3182f6;
 }
 
-.top i:hover {
-    cursor: pointer;
+.ord-toolbar-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-left: auto;
 }
 
-.button-div {
-    display: none;
-    width: 90%;
-    margin: auto;
+.ord-toolbar-actions .adm-btn { padding: 10px 14px; font-size: 13.5px; }
+.ord-toolbar-actions i { margin-right: 5px; color: #12b76a; }
+.ord-toolbar-actions .adm-btn-dark i { color: inherit; }
+
+/* ---------------- 주문 카드 ---------------- */
+.ord-list { display: flex; flex-direction: column; gap: 12px; }
+
+.ord-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 18px 20px;
+    transition: box-shadow .15s ease;
 }
 
-.excel-down {
+.ord-card:hover { box-shadow: 0 4px 16px rgba(0, 0, 0, .06); }
+
+.ord-card.is-cancelled { background: #fbfbfc; }
+.ord-card.is-cancelled .ord-card-body,
+.ord-card.is-cancelled .ord-lines { opacity: .55; }
+
+.ord-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f2f4f6;
+}
+
+.ord-card-id { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+
+.ord-no {
+    font-size: 16px;
+    font-weight: 700;
+    color: #191f28;
+    letter-spacing: -.3px;
+}
+
+.ord-date { font-size: 13.5px; color: #8b95a1; }
+
+.ord-badge.is-today {
     display: inline-block;
-    position:relative;
-    float: right;
-    margin-bottom: 3px;
-}
-
-.excel-down-button {
-    margin-right: 0px;
-}
-
-.order-no-title {
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: #3182f6;
+    color: #ffffff;
     font-size: 11px;
-    color: gray;
-}
-
-.empty-space-1 {
-    width: 100%;
-    height: 1px;
-    background: #E4E7EA;
-    margin-bottom: 15px;
-}
-
-.divide-line {
-    display: none;
-    width: 90%;
-    margin: auto;
-    border-bottom: 2px solid #ddd;
-    margin-top: 30px;
-    margin-bottom: 20px;
-}
-
-.today-icon {
-    position: relative;
-    top: -3px;
-    background: #980000;
-    padding: 1px 3px 2px 3px;
-    color: white;
-    border-radius: 3px;
-    font-size: 8px;
-    margin-right: 7px;
     font-weight: 700;
 }
 
-.oreder-detail:hover {
+.ord-card-tools { display: flex; gap: 2px; flex-wrap: wrap; }
+
+/* ---------------- 카드 본문 ---------------- */
+.ord-card-body {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 16px 0;
+}
+
+.ord-people { flex: 1 1 380px; min-width: 0; }
+
+.ord-person {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 7px;
+}
+
+.ord-person-role {
+    flex: 0 0 48px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #8b95a1;
+}
+
+.ord-person-nm { font-size: 14.5px; font-weight: 600; color: #191f28; }
+
+.ord-person-tel { font-size: 13.5px; color: #4e5968; }
+.ord-person-tel:hover { color: #3182f6; text-decoration: underline; }
+
+.ord-address {
+    margin: 10px 0 0 58px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #4e5968;
+}
+
+.ord-zip { color: #8b95a1; }
+
+.ord-money {
+    flex: 0 0 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 9px;
+    text-align: right;
+}
+
+.ord-price {
+    font-size: 21px;
+    font-weight: 700;
+    color: #191f28;
+    letter-spacing: -.6px;
+}
+
+.ord-price span { font-size: 14px; font-weight: 600; margin-left: 2px; }
+
+.ord-deposit { display: flex; align-items: center; gap: 8px; }
+
+.ord-deposit-nm { font-size: 13.5px; color: #4e5968; }
+
+.ord-deposit-btn { padding: 7px 12px; font-size: 12.5px; border-radius: 9px; }
+
+.ord-invoice-btn { font-size: 13px; }
+
+/* ---------------- 주문 상세 줄 ---------------- */
+.ord-lines {
+    border-top: 1px solid #f2f4f6;
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.ord-line {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 9px 10px;
+    border-radius: 10px;
+}
+
+.ord-line:hover { background: #f9fafb; }
+
+.ord-line-check { display: flex; margin: 0; }
+
+.ord-line-check input {
+    width: 18px;
+    height: 18px;
+    accent-color: #3182f6;
     cursor: pointer;
+}
+
+.ord-line-check input:disabled { cursor: default; opacity: .4; }
+
+.ord-line-item { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+
+.ord-line-item .item-nm { font-size: 14px; font-weight: 600; color: #191f28; }
+.ord-line-item .option-nm { font-size: 13px; color: #6b7684; }
+
+.ord-line-qty { flex: 0 0 60px; font-size: 13.5px; font-weight: 600; color: #333d4b; text-align: right; }
+
+.ord-line-dlvr { flex: 0 0 150px; text-align: right; }
+
+/* ---------------- 모달 ---------------- */
+.gd-modal-sub { margin: -10px 0 18px; font-size: 13px; color: #8b95a1; }
+
+.ord-detail-title {
+    margin: 20px 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #191f28;
+}
+
+.ord-detail-title:first-child { margin-top: 0; }
+
+.ord-dl {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 8px 14px;
+    margin: 0;
+    font-size: 13.5px;
+}
+
+.ord-dl dt { color: #8b95a1; font-weight: 600; }
+.ord-dl dd { margin: 0; color: #333d4b; word-break: break-all; }
+
+.ord-invoice-input { display: flex; gap: 8px; margin-bottom: 18px; }
+.ord-invoice-input .gd-input { flex: 1; min-width: 0; }
+
+.ord-invoice-empty {
+    padding: 28px 0;
+    text-align: center;
+    color: #8b95a1;
+    font-size: 14px;
+}
+
+.ord-invoice-table { font-size: 13.5px; }
+
+.ord-sms-content { height: 200px; resize: vertical; line-height: 1.7; }
+
+/* ---------------- 반응형 ---------------- */
+@media (max-width: 900px) {
+    .ord-toolbar { top: 56px; }
+    .ord-toolbar-actions { margin-left: 0; width: 100%; }
+    .ord-toolbar-actions .adm-btn { flex: 1; }
+    .ord-money { flex: 1 1 100%; align-items: flex-start; text-align: left; }
+}
+
+@media (max-width: 640px) {
+    .ord-card { padding: 16px; border-radius: 14px; }
+    .ord-card-body { flex-direction: column; gap: 14px; }
+    .ord-address { margin-left: 0; }
+    .ord-line { flex-wrap: wrap; gap: 10px; }
+    .ord-line-item { flex: 1 1 100%; order: 2; }
+    .ord-line-qty { order: 3; text-align: left; }
+    .ord-line-dlvr { flex: 1; order: 4; }
+    .ord-dl { grid-template-columns: 1fr; gap: 3px 0; }
+    .ord-dl dd { margin-bottom: 8px; }
 }

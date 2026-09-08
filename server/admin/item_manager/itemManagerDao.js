@@ -1,5 +1,6 @@
 let mybatisMapper = require('mybatis-mapper');
 let format = {language: 'sql', indent: '  '};
+let utils = require('../../common/utils');
 mybatisMapper.createMapper(['server/admin/item_manager/itemManagerSQL.xml']);
 
 module.exports = {
@@ -16,6 +17,7 @@ module.exports = {
 
     selectOneItem: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.itemNo = utils.toSafeInt(param.itemNo);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('itemManagerSQL', 'selectOneItem', param, format);
             conn.query(query, (err, rows, fields) => {
@@ -27,6 +29,7 @@ module.exports = {
 
     registerNewItem: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.sortOrder = utils.toSafeInt(param.sortOrder);
         let query = mybatisMapper.getStatement('itemManagerSQL', 'registerNewItem', param, format);
         conn.beginTransaction(() => {
             conn.query(query, (err, rows, fields) => {
@@ -59,6 +62,8 @@ module.exports = {
 
     modifyItem: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.itemNo = utils.toSafeInt(param.itemNo);
+        param.sortOrder = utils.toSafeInt(param.sortOrder);
         let query = mybatisMapper.getStatement('itemManagerSQL', 'modifyItem', param, format);
         conn.beginTransaction(() => {
             conn.query(query, (err, rows, fields) => {
@@ -96,6 +101,7 @@ module.exports = {
 
     deleteItem: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.itemNo = utils.toSafeInt(param.itemNo);
         let query = mybatisMapper.getStatement('itemManagerSQL', 'deleteItem', param, format);
         conn.beginTransaction(() => {
             conn.query(query, (err, rows, fields) => {
@@ -109,6 +115,7 @@ module.exports = {
 
     selectItemOption: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.itemNo = utils.toSafeInt(param.itemNo);
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('itemManagerSQL', 'selectItemOption', param, format);
             conn.query(query, (err, rows, fields) => {
@@ -120,6 +127,10 @@ module.exports = {
 
     insertItemOption: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.itemNo = utils.toSafeInt(param.itemNo);
+        param.itemPrice = utils.toSafeInt(param.itemPrice);
+        param.shippingFee = utils.toSafeInt(param.shippingFee);
+        param.sortOrder = utils.toSafeInt(param.sortOrder);
         let query = mybatisMapper.getStatement('itemManagerSQL', 'insertItemOption', param, format);
         conn.beginTransaction(() => {
             conn.query(query, (err, rows, fields) => {
@@ -133,6 +144,11 @@ module.exports = {
 
     updateItemOption: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.itemNo = utils.toSafeInt(param.itemNo);
+        param.optionNo = utils.toSafeInt(param.optionNo);
+        param.itemPrice = utils.toSafeInt(param.itemPrice);
+        param.shippingFee = utils.toSafeInt(param.shippingFee);
+        param.sortOrder = utils.toSafeInt(param.sortOrder);
         let query = mybatisMapper.getStatement('itemManagerSQL', 'updateItemOption', param, format);
         conn.beginTransaction(() => {
             conn.query(query, (err, rows, fields) => {
@@ -146,6 +162,8 @@ module.exports = {
 
     deleteItemOption: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        param.itemNo = utils.toSafeInt(param.itemNo);
+        param.optionNo = utils.toSafeInt(param.optionNo);
         let query = mybatisMapper.getStatement('itemManagerSQL', 'deleteItemOption', param, format);
         conn.beginTransaction(() => {
             conn.query(query, (err, rows, fields) => {

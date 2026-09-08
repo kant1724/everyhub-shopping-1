@@ -1,300 +1,305 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>상품정보</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>주문결제</title>
     <link rel="stylesheet" href="/static/lib/fontawesome-pro/css/all.css">
-    <link href="https://fonts.googleapis.com/css?family=Nanum+Pen+Script|Black+Han+Sans|Dokdo|Jua|Kirang+Haerang|Nanum+Pen+Script|Stylish|Sunflower:300|Noto+Sans+KR" rel="stylesheet">
-    <link href="/static/lib/mdb/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/lib/mdb/css/mdb.min.css" rel="stylesheet">
-    <link href="/static/lib/jsgrid/jsgrid.css" rel="stylesheet">
-    <link href="/static/lib/jsgrid/jsgrid-theme.css" rel="stylesheet">
-    <link href="/static/css/common/common.css" rel="stylesheet">
-    <link href="/static/css/common/address.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+    <link href="/static/css/common/base.css" rel="stylesheet">
     <link href="/static/css/purchase/purchase.css" rel="stylesheet">
 </head>
 
 <body>
-    <header></header>
-    <div class="container mt-5 pt-3">
-        <div style="width: 80%; margin: auto;">
-            <div class="mb-3 mt-4" style="width: 100px; font-size:20px; border-left: 5px solid #333; padding-left: 10px;">주문결제</div>
-            <hr>
-            <div class="mb-4" style="width: 320px; font-size:14px; font-weight: 700;"><i class="fas fa-money-check-alt blue-text"></i>&nbsp;&nbsp;&nbsp;아래의 주문으로 결제하시겠습니까?</div>
-            <div class="order-list pl-4" id="order_list" style="font-size: 13px;">
-            </div>
-            <hr>
-            <div class="additional-info pl-4" id="" style="font-size: 13px;">
-                <div><div class="d-inline-block" style="width: 80px; font-weight: 700;"><span>배송가능일</span></div><div class="d-inline-block"><span>월 ~ 금</span></div></div>
-                <div><div class="d-inline-block" style="width: 80px; font-weight: 700;"><span>배송업체</span></div><div class="d-inline-block"><span>CJ택배</span></div></div>
-                <div><div class="d-inline-block" style="width: 80px; font-weight: 700;"><span>기타정보</span></div><div class="d-inline-block"><span>상황에 따라 1 ~ 2일 지연</span></div></div>
-            </div>
-            <hr>
-            <div class="order-info pl-4">
-                <div style="font-size: 16px; font-weight: 700; color: gray;"><i class="far fa-info-square"></i>&nbsp;&nbsp;주문정보</div>
-                <hr>
-                <div class="order-info-title-text" style="font-size: 16px;">주문자 정보</div>
-                <div>
-                    <div class="ml-2">
-                        <div class="md-form">
-                            <i class="far fa-user prefix" style="font-size: 25px;"></i>
-                            <input type="text" class="form-control" id="order_person_nm" style="font-size: 13px; width: 200px;">
-                            <label id="order_person_nm_label" for="order_person_nm" style="font-size: 13px;">주문자명</label>
+    <div id="purchase_app" class="chk" v-cloak>
+        <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
+
+        <div class="chk-shell">
+            <h1 class="chk-title">주문결제</h1>
+
+            <div class="chk-layout">
+                <div class="chk-main">
+                    <!-- 주문 상품 -->
+                    <section class="chk-card">
+                        <h2 class="chk-card-title">주문 상품</h2>
+                        <div class="chk-item" v-for="(row, i) in orderRows" :key="i">
+                            <div class="chk-item-thumb"><img :src="row.imagePath" :alt="row.itemNm"></div>
+                            <div class="chk-item-body">
+                                <div class="chk-item-name">[[ row.itemNm ]]</div>
+                                <div class="chk-item-option">[[ row.optionNm ]]</div>
+                                <div class="chk-item-meta">
+                                    <span>단가 [[ row.itemPrice ]]</span>
+                                    <span class="chk-dot">·</span>
+                                    <span>배송비 [[ row.shippingFee ]]</span>
+                                    <span class="chk-dot">·</span>
+                                    <span>수량 [[ row.qty ]]</span>
+                                </div>
+                            </div>
+                            <div class="chk-item-sum">[[ won(row.sum) ]]</div>
                         </div>
-                    </div>
-                    <div class="ml-2">
-                        <div style="position: relative; font-size: 13px;">
-                            주문자 전화번호
+                    </section>
+
+                    <!-- 배송 안내 -->
+                    <section class="chk-card chk-card-tint">
+                        <dl class="chk-note"><dt>배송가능일</dt><dd>월 ~ 금</dd></dl>
+                        <dl class="chk-note"><dt>배송업체</dt><dd>CJ택배</dd></dl>
+                        <dl class="chk-note"><dt>기타정보</dt><dd>상황에 따라 1 ~ 2일 지연</dd></dl>
+                    </section>
+
+                    <!-- 주문자 -->
+                    <section class="chk-card">
+                        <h2 class="chk-card-title">주문자 정보</h2>
+
+                        <div class="chk-field">
+                            <label class="chk-label" for="order_person_nm">주문자명</label>
+                            <input id="order_person_nm" type="text" class="chk-input" v-model="form.orderPersonNm"
+                                   @change="onOrderInfoChanged" placeholder="이름을 입력하세요">
                         </div>
-                        <div class="mt-2">
-                            <input type="number" class="text-center padding-input" id="order_telno_1" style="width: 50px;">
-                            -
-                            <input type="number" class="text-center padding-input" id="order_telno_2" style="width: 50px;">
-                            -
-                            <input type="number" class="text-center padding-input" id="order_telno_3" style="width: 50px;">
+
+                        <div class="chk-field">
+                            <span class="chk-label">휴대폰 번호</span>
+                            <div class="chk-tel">
+                                <input id="order_telno_1" type="tel" class="chk-input chk-input-tel" maxlength="3"
+                                       v-model="form.orderTelno1" ref="ot1"
+                                       @input="advance($event, 3, 'ot2')" @change="onOrderInfoChanged">
+                                <span class="chk-tel-sep">-</span>
+                                <input id="order_telno_2" type="tel" class="chk-input chk-input-tel" maxlength="4"
+                                       v-model="form.orderTelno2" ref="ot2"
+                                       @input="advance($event, 4, 'ot3')" @change="onOrderInfoChanged">
+                                <span class="chk-tel-sep">-</span>
+                                <input id="order_telno_3" type="tel" class="chk-input chk-input-tel" maxlength="4"
+                                       v-model="form.orderTelno3" ref="ot3" @change="onOrderInfoChanged">
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-3 ml-2">
-                        <div id="order_remarks_label" class="mb-1" style="color: gray;">주문메모</div>
-                        <textarea style="padding: 5px; width: 80%; height: 100px; outline: none;" id="order_remarks" placeholder="배송 요청사항 또는 (꼭 필요시)주문하시는 분의 주소를 입력하세요."></textarea>
-                    </div>
-                    <input type="hidden" id="order_zip_no">
-                    <input type="hidden" id="order_address_main">
-                    <input type="hidden" id="order_address_detail">
+
+                        <div class="chk-field chk-field-block">
+                            <label class="chk-label" for="order_remarks">주문메모</label>
+                            <textarea id="order_remarks" class="chk-input chk-textarea" v-model="form.orderRemarks"
+                                      placeholder="배송 요청사항 또는 (꼭 필요시) 주문하시는 분의 주소를 입력하세요."></textarea>
+                        </div>
+                    </section>
+
+                    <!-- 보내는분 -->
+                    <section class="chk-card">
+                        <h2 class="chk-card-title">보내는 분</h2>
+                        <p class="chk-hint">주문자와 받는 분이 같으면 입력하지 않아도 됩니다. 비워두면 농원 이름으로 발송됩니다.</p>
+
+                        <label class="chk-check">
+                            <input type="checkbox" :checked="form.senderSame" @change="onSenderSame">
+                            <span>주문자 정보와 동일</span>
+                        </label>
+
+                        <div class="chk-field">
+                            <label class="chk-label" for="send_person_nm">보내는분</label>
+                            <input id="send_person_nm" type="text" class="chk-input" v-model="form.sendPersonNm">
+                        </div>
+
+                        <div class="chk-field">
+                            <span class="chk-label">휴대폰 번호</span>
+                            <div class="chk-tel">
+                                <input id="send_telno_1" type="tel" class="chk-input chk-input-tel" maxlength="3"
+                                       v-model="form.sendTelno1" ref="st1" @input="advance($event, 3, 'st2')">
+                                <span class="chk-tel-sep">-</span>
+                                <input id="send_telno_2" type="tel" class="chk-input chk-input-tel" maxlength="4"
+                                       v-model="form.sendTelno2" ref="st2" @input="advance($event, 4, 'st3')">
+                                <span class="chk-tel-sep">-</span>
+                                <input id="send_telno_3" type="tel" class="chk-input chk-input-tel" maxlength="4"
+                                       v-model="form.sendTelno3" ref="st3">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 받는분 -->
+                    <section class="chk-card">
+                        <div class="chk-card-head">
+                            <h2 class="chk-card-title">받는 분</h2>
+                            <button type="button" id="recent_receiver" class="chk-btn-text"
+                                    @click="receiverModalOpen = true">최근 주문내역 불러오기</button>
+                        </div>
+
+                        <label class="chk-check">
+                            <input type="checkbox" :checked="form.receiverSame" @change="onReceiverSame">
+                            <span>주문자 정보와 동일</span>
+                        </label>
+
+                        <div class="chk-field">
+                            <label class="chk-label" for="receive_person_nm">받는분</label>
+                            <input id="receive_person_nm" type="text" class="chk-input" v-model="form.receivePersonNm">
+                        </div>
+
+                        <div class="chk-field">
+                            <span class="chk-label">휴대폰 번호</span>
+                            <div class="chk-tel">
+                                <input id="receive_telno_1" type="tel" class="chk-input chk-input-tel" maxlength="3"
+                                       v-model="form.receiveTelno1" ref="rt1" @input="advance($event, 3, 'rt2')">
+                                <span class="chk-tel-sep">-</span>
+                                <input id="receive_telno_2" type="tel" class="chk-input chk-input-tel" maxlength="4"
+                                       v-model="form.receiveTelno2" ref="rt2" @input="advance($event, 4, 'rt3')">
+                                <span class="chk-tel-sep">-</span>
+                                <input id="receive_telno_3" type="tel" class="chk-input chk-input-tel" maxlength="4"
+                                       v-model="form.receiveTelno3" ref="rt3">
+                            </div>
+                        </div>
+
+                        <div class="chk-field chk-field-block">
+                            <span class="chk-label">주소</span>
+                            <div class="chk-address">
+                                <div class="chk-address-row">
+                                    <input type="text" class="chk-input chk-input-zip" id="receive_zip_no"
+                                           :value="form.receiveZipNo" placeholder="우편번호" readonly>
+                                    <button type="button" id="search_receive_address" class="chk-btn-ghost"
+                                            @click="openAddressModal('receive')">주소검색</button>
+                                </div>
+                                <input type="text" class="chk-input" id="receive_address_main"
+                                       :value="form.receiveAddressMain" placeholder="기본주소" readonly>
+                                <input type="text" class="chk-input" id="receive_address_detail"
+                                       v-model="form.receiveAddressDetail" placeholder="상세주소를 입력하세요">
+                            </div>
+                            <p class="chk-warn" v-if="additionalShippingText">[[ additionalShippingText ]]</p>
+                        </div>
+                    </section>
+
+                    <!-- 입금 정보 -->
+                    <section class="chk-card">
+                        <h2 class="chk-card-title">입금 정보</h2>
+
+                        <div class="chk-field">
+                            <span class="chk-label">입금자</span>
+                            <div class="chk-radios">
+                                <label class="chk-radio">
+                                    <input type="radio" name="depositWho" value="order"
+                                           :checked="form.depositWho === 'order'" @change="pickDepositWho('order')">
+                                    <span>주문자</span>
+                                </label>
+                                <label class="chk-radio">
+                                    <input type="radio" name="depositWho" value="send"
+                                           :checked="form.depositWho === 'send'" @change="pickDepositWho('send')">
+                                    <span>보내는분</span>
+                                </label>
+                                <label class="chk-radio">
+                                    <input type="radio" name="depositWho" value="receive"
+                                           :checked="form.depositWho === 'receive'" @change="pickDepositWho('receive')">
+                                    <span>받는분</span>
+                                </label>
+                                <button type="button" id="search_deposit_person_list" class="chk-btn-text"
+                                        @click="depositModalOpen = true">과거 입금자명</button>
+                            </div>
+                        </div>
+
+                        <div class="chk-field">
+                            <label class="chk-label" for="deposit_person_nm">입금자명</label>
+                            <input id="deposit_person_nm" type="text" class="chk-input" v-model="form.depositPersonNm">
+                        </div>
+
+                        <div class="chk-field chk-field-block">
+                            <label class="chk-label" for="deposit_remarks">입금메모</label>
+                            <textarea id="deposit_remarks" class="chk-input chk-textarea" v-model="form.depositRemarks"></textarea>
+                        </div>
+                    </section>
                 </div>
-                <!--
-                <div class="form-check mt-3" style="padding-left: 10px;">
-                    <input type="checkbox"  class="form-check-input" id="has_sender">
-                    <label class="form-check-label" for="has_sender">보내는자 입력</label>
-                </div>-->
-                <div class="sender-input order-info-title-text" style="font-size: 16px;">보내는자 정보</div>
-                <div class="mt-2" style="color: red;">- 주문자와 받는자가 동일인일 시 입력하지 마세요.</div>
-                <div class="sender-input">
-                    <div class="form-check mt-3" style="padding-left: 10px;">
-                        <input type="checkbox"  class="form-check-input" id="sender_same_with_order_info">
-                        <label class="form-check-label" for="sender_same_with_order_info">주문자 정보와 동일</label>
+
+                <!-- 결제 요약 -->
+                <aside class="chk-summary">
+                    <div class="chk-summary-box">
+                        <h2 class="chk-summary-title">결제 금액</h2>
+                        <dl class="chk-summary-row">
+                            <dt>상품 합계</dt>
+                            <dd>[[ totalPriceText ]]</dd>
+                        </dl>
+                        <dl class="chk-summary-row" v-if="additionalShippingFee > 0">
+                            <dt>추가 배송비</dt>
+                            <dd>[[ won(additionalShippingFee) ]]</dd>
+                        </dl>
+                        <div class="chk-summary-divider"></div>
+                        <dl class="chk-summary-row chk-summary-total">
+                            <dt>총 결제금액</dt>
+                            <dd id="total_price_text">[[ finalPriceText ]]</dd>
+                        </dl>
+
+                        <button type="button" class="chk-pay-btn payment-btn" @click="pay" :disabled="submitting">
+                            [[ submitting ? '처리 중...' : '결제하기' ]]
+                        </button>
+                        <p class="chk-summary-note">※ 도서지역은 택배비용이 추가발생할 수 있습니다.</p>
                     </div>
-                    <div class="ml-2">
-                        <div class="md-form">
-                            <i class="fas fa-user prefix" style="font-size: 25px;"></i>
-                            <input type="text" class="form-control" id="send_person_nm"  style="font-size: 13px; width: 200px;">
-                            <label id="send_person_nm_label" for="send_person_nm" style="font-size: 13px;">보내는자명</label>
-                        </div>
-                    </div>
-                    <div class="ml-2">
-                        <div style="position: relative; font-size: 13px;">
-                            보내는자 전화번호
-                        </div>
-                        <div class="mt-2">
-                            <input type="number" class="text-center padding-input" id="send_telno_1" style="width: 50px;">
-                            -
-                            <input type="number" class="text-center padding-input" id="send_telno_2" style="width: 50px;">
-                            -
-                            <input type="number" class="text-center padding-input" id="send_telno_3" style="width: 50px;">
-                        </div>
-                    </div>
-                </div>
-                <!--
-                <div class="sender-input">
-                    <div class="d-inline-block ml-2 mt-5">
-                        <a id="search_send_address" class="common-button-1">주소검색</a>
-                        <div class="mt-3" style="font-weight: 700;">보내는자 우편번호:</div>
-                        <div id="send_zip_no" class="mt-2 mb-3" style="border-bottom: 1px solid #ddd; color: gray;"></div>
-                        <div class="mt-3" style="font-weight: 700;">보내는자 기본주소:</div>
-                        <div id="send_address_main" class="mt-2 mb-3" style="border-bottom: 1px solid #ddd; color: gray;"></div>
-                        <div class="md-form">
-                            <label for="send_address_detail" style="font-size: 13px; width: 200px;">보내는자 상세주소</label>
-                            <input type="text" style="font-size: 13px; width: 250px;" class="form-control" id="send_address_detail">
-                        </div>
-                    </div>
-                </div>-->
-                <div class="order-info-title-text" style="font-size: 16px;">받는자 정보</div>
-                <div>
-                    <div class="mt-3 ml-2"><span id="recent_receiver" class="text-underline-link">최근 주문내역</span></div>
-                    <div class="form-check mt-3" style="padding-left: 10px;">
-                        <input type="checkbox"  class="form-check-input" id="receiver_same_with_order_info">
-                        <label class="form-check-label" for="receiver_same_with_order_info">주문자 정보와 동일</label>
-                    </div>
-                    <div class="ml-2">
-                        <div class="md-form">
-                            <i class="fas fa-user prefix" style="font-size: 25px;"></i>
-                            <input type="text" class="form-control" id="receive_person_nm"  style="font-size: 13px; width: 200px;">
-                            <label id="receive_person_nm_label" for="receive_person_nm" style="font-size: 13px;">받는자명</label>
-                        </div>
-                    </div>
-                    <div class="ml-2">
-                        <div style="position: relative; font-size: 13px;">
-                            받는자 전화번호
-                        </div>
-                        <div class="mt-2">
-                            <input type="number" class="text-center padding-input" id="receive_telno_1" style="width: 50px;">
-                            -
-                            <input type="number" class="text-center padding-input" id="receive_telno_2" style="width: 50px;">
-                            -
-                            <input type="number" class="text-center padding-input" id="receive_telno_3" style="width: 50px;">
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="d-inline-block ml-2 mt-5">
-                        <a id="search_receive_address" class="common-button-1">주소검색</a>
-                        <div class="mt-3" style="font-weight: 700;">받는자 우편번호:</div>
-                        <div id="receive_zip_no" class="mt-2 mb-3" style="border-bottom: 1px solid #ddd; color: gray;"></div>
-                        <div class="mt-3" style="font-weight: 700;">받는자 기본주소:</div>
-                        <div id="receive_address_main" class="mt-2 mb-3" style="border-bottom: 1px solid #ddd; color: gray;"></div>
-                        <div class="md-form">
-                            <label for="receive_address_detail" style="font-size: 13px; width: 200px;">받는자 상세주소</label>
-                            <input type="text" style="font-size: 13px; width: 250px;" class="form-control" id="receive_address_detail">
-                        </div>
-                        <div id="additional_shipping_fee_text" class="mb-3" style="color: red; display: none;"></div>
-                    </div>
-                </div>
-                <div class="order-info-title-text" style="font-size: 16px;">입금 정보</div>
-                <div class="mt-3 d-inline-block ml-2" style="font-size: 13px; font-weight: 700;">입금자 : &nbsp;&nbsp;&nbsp;</div>
-                <div class="d-inline-block">
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="order_radio" name="radio">
-                        <label class="form-check-label" for="order_radio">주문자</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="send_radio" name="radio">
-                        <label class="form-check-label" for="send_radio">보내는자</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="receive_radio" name="radio">
-                        <label class="form-check-label" for="receive_radio">받는자</label>
-                    </div>
-                </div>
-                <a id="search_deposit_person_list" class="common-button-1 ml-2">과거 입금자명 목록</a>
-                <div class="mt-3 ml-2">
-                    <div class="md-form">
-                        <i class="fas fa-user prefix" style="font-size: 25px;"></i>
-                        <input type="text" class="form-control" id="deposit_person_nm"  style="font-size: 13px; width: 200px;">
-                        <label id="deposit_person_nm_label" for="deposit_person_nm" style="font-size: 13px;">입금자명</label>
-                    </div>
-                </div>
-                <div class="mt-3 ml-2">
-                    <div id="deposit_remarks_label" class="mb-1" style="color: gray;">입금메모</div>
-                    <textarea style="padding: 5px; width: 80%; height: 100px; outline: none;" id="deposit_remarks"></textarea>
-                </div>
-            </div>
-            <div class="ml-3 mt-3" style="font-size: 16px; font-weight: 700; color: red;"><i class="far fa-won-sign"></i>&nbsp;&nbsp;<span id="total_price_text"></span></div>
-            <div class="ml-3 mt-2" style="font-size: 13px;">※ 도서지역은 택배비용이 추가발생할 수 있습니다.</div>
-            <hr>
-            <div>
-                <div class="mt-3 mb-5 text-center">
-                    <button type="button" class="btn btn-sm deep-orange btn-rounded payment-btn">결제하기
-                        <i class="fa fa-angle-right right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <input id="items" type="hidden" value="{{items}}">
-        <input id="direct_item_no" type="hidden" value="{{itemNo}}">
-        <input id="direct_image_path" type="hidden" value="{{imagePath}}">
-        <input id="direct_item_nm" type="hidden" value="{{itemNm}}">
-        <input id="direct_keeping_method" type="hidden" value="{{keepingMethod}}">
-        <input id="direct_option_no" type="hidden" value="{{optionNo}}">
-        <input id="direct_option_nm" type="hidden" value="{{optionNm}}">
-        <input id="direct_qty" type="hidden" value="{{qty}}">
-        <input id="direct_item_price" type="hidden" value="{{itemPrice}}">
-        <input id="direct_shipping_fee" type="hidden" value="{{shippingFee}}">
-        <input id="direct_item_price_num" type="hidden" value="{{itemPriceNum}}">
-        <input id="direct_shipping_fee_num" type="hidden" value="{{shippingFeeNum}}">
-    </div>
-    <div class="modal fade" id="address_modal" tabindex="-1" role="dialog" aria-labelledby="address_modal"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <input type="hidden" id="zip_no_id">
-                <input type="hidden" id="address_main_id">
-                <div class="modal-body">
-                    <div style="border-bottom: 1px solid #333; font-weight: 700;">
-                        <span>주소검색</span>
-                    </div>
-                    <div class="md-form mt-3">
-                        <label id="address_subject_label" for="address_subject" style="font-size: 13px; width: 400px;">예) 세종대로 209, 상암동 1595 (도로나 동까지만 입력하세요)</label>
-                        <input id="address_subject" class="mt-2" type="text" style="width: 100%; outline: none; padding: 3px;">
-                    </div>
-                    <div class="mt-2"><a id="search_address_modal_jibun" class="common-button-1">조회(지번)</a><a id="search_address_modal_road" class="ml-2 common-button-1">조회(도로명)</a></div>
-                    <hr>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th style="padding: 3px;">주소</th>
-                            <th style="padding: 3px;">우편번호</th>
-                        </tr>
-                        </thead>
-                        <tbody id="address_tbody">
-                        </tbody>
-                    </table>
-                    <div id="pagination" style="word-wrap: break-word;"></div>
-                </div>
-                <div class="modal-footer">
-                    <a id="address_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
-                </div>
+                </aside>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="recent_receiver_modal" tabindex="-1" role="dialog" aria-labelledby="recent_receiver_modal"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div style="border-bottom: 1px solid #333; font-weight: 700;">
-                        <span>최근 받는자 내역</span>
+
+        <!-- 주소 검색 (공용 컴포넌트) -->
+        <transition name="modal-fade">
+            <address-search v-if="addressModalOpen"
+                            @close="addressModalOpen = false"
+                            @select="selectAddress"></address-search>
+        </transition>
+
+        <!-- 최근 받는분 모달 -->
+        <transition name="modal-fade">
+            <div class="gd-modal-backdrop" v-if="receiverModalOpen" @click.self="receiverModalOpen = false">
+                <div class="gd-modal gd-modal-wide">
+                    <div class="gd-modal-body">
+                        <h2 class="gd-modal-title">최근 받는분 내역</h2>
+                        <input type="text" class="chk-input" v-model="receiverTelno"
+                               placeholder="받는분 전화번호 (- 제외)" @keyup.enter="searchRecentReceiver">
+                        <div class="chk-modal-actions">
+                            <button type="button" class="gd-btn gd-btn-primary" @click="searchRecentReceiver">조회</button>
+                        </div>
+
+                        <table class="chk-table" v-if="receiverRows.length > 0">
+                            <thead><tr><th>받는분</th><th>연락처</th><th>주소</th></tr></thead>
+                            <tbody>
+                                <tr v-for="(r, i) in receiverRows" :key="i" @click="pickReceiver(r)">
+                                    <td>[[ r.receivePersonNm ]]</td>
+                                    <td>[[ r.receiveTelno ]]</td>
+                                    <td>[[ r.receiveZipNo ]] [[ r.receiveAddressMain ]] [[ r.receiveAddressDetail ]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="chk-modal-empty" v-else>전화번호로 조회하면 이전 배송지를 불러올 수 있습니다.</p>
                     </div>
-                    <div class="md-form mt-3">
-                        <label id="telno_subject_label" for="telno_subject" style="font-size: 13px; width: 200px;">받는자 전화번호(-제외)</label>
-                        <input id="telno_subject" class="mt-2" type="text" style="width: 100%; outline: none; padding: 3px;">
+                    <div class="gd-modal-footer">
+                        <button type="button" class="gd-btn" @click="receiverModalOpen = false">닫기</button>
                     </div>
-                    <div class="mt-2"><a id="search_recent_receiver_modal" class="common-button-1">조회</a></div>
-                    <hr>
-                    <div id="container"></div>
-                </div>
-                <div class="modal-footer">
-                    <a id="recent_receiver_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="modal fade" id="deposit_person_list_modal" tabindex="-1" role="dialog" aria-labelledby="recent_receiver_modal"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div style="border-bottom: 1px solid #333; font-weight: 700;">
-                        <span>과거 입금자명 목록</span>
+        </transition>
+
+        <!-- 과거 입금자명 모달 -->
+        <transition name="modal-fade">
+            <div class="gd-modal-backdrop" v-if="depositModalOpen" @click.self="depositModalOpen = false">
+                <div class="gd-modal">
+                    <div class="gd-modal-body">
+                        <h2 class="gd-modal-title">과거 입금자명</h2>
+                        <div class="chk-modal-actions">
+                            <button type="button" class="gd-btn gd-btn-primary" @click="searchDepositPersons">조회</button>
+                        </div>
+                        <table class="chk-table" v-if="depositRows.length > 0">
+                            <thead><tr><th>입금자명</th></tr></thead>
+                            <tbody>
+                                <tr v-for="(d, i) in depositRows" :key="i" @click="pickDepositPerson(d)">
+                                    <td>[[ d.depositPersonNm ]]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="chk-modal-empty" v-else>조회를 누르면 이전에 사용한 입금자명이 표시됩니다.</p>
                     </div>
-                    <div class="mt-2"><a id="search_deposit_person_list_modal" class="common-button-1">조회</a></div>
-                    <hr>
-                    <div id="deposit_person_list_modal_container"></div>
-                </div>
-                <div class="modal-footer">
-                    <a id="deposit_person_list_close_modal" class="common-button-1" data-dismiss="modal">닫기</a>
+                    <div class="gd-modal-footer">
+                        <button type="button" class="gd-btn" @click="depositModalOpen = false">닫기</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </transition>
+
+        <app-footer></app-footer>
     </div>
+
     <input type="hidden" id="user_no" value="{{userNo}}">
     <input type="hidden" id="admin_yn" value="{{adminYn}}">
-    <input type="hidden" id="seller_acno">
-    <input type="hidden" id="seller_deposit_person_nm">
-    <footer style="font-size: 13px;" class="page-footer text-center text-md-left stylish-color-dark pt-0"></footer>
-    <script type="text/javascript" src="/static/lib/mdb/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/popper.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/lib/mdb/js/mdb.min.js"></script>
-    <script type="text/javascript" src="/static/lib/jsgrid/jsgrid.js"></script>
-    <script type="text/javascript" src="/static/js/common/properties.js"></script>
-    <script type="text/javascript" src="/static/js/common/utils.js"></script>
-    <script type="text/javascript" src="/static/js/common/address.js"></script>
-    <script type="text/javascript" src="/static/js/component/header.js"></script>
-    <script type="text/javascript" src="/static/js/component/footer.js"></script>
-    <script type="text/javascript" src="/static/js/purchase/purchase.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+    <script src="/static/js/common/utils.js"></script>
+    <script src="/static/js/component/vue-layout.js"></script>
+    <script src="/static/js/purchase/purchase.js"></script>
 </body>
 
 </html>

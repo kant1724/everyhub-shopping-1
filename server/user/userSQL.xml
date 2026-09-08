@@ -45,7 +45,7 @@
     <select id="getTelno">
       SELECT TELNO AS telno
         FROM USERS
-       WHERE TELNO = ${telno}
+       WHERE TELNO = #{telno}
     </select>
 
     <select id="getPassword">
@@ -55,13 +55,12 @@
             , TELNO AS telno
             , DATE_FORMAT(LAST_PWD_SEND_DATE, '%Y%m%d') AS lastPwdSendDate
         FROM USERS
-       WHERE TELNO = ${telno}
+       WHERE TELNO = #{telno}
     </select>
 
     <select id="selectUser">
       SELECT USER_NO AS userNo
             , USER_NM AS userNm
-            , PASSWORD AS password
             , ADMIN_YN AS adminYn
             , TELNO AS telno
             , TELNO_1 AS telno1
@@ -79,14 +78,13 @@
             , MANAGER_NO AS managerNo
             , DATE_FORMAT(LAST_PWD_SEND_DATE, '%Y%m%d') AS lastPwdSendDate
         FROM USERS
-       WHERE USER_NO = ${userNo}
+       WHERE USER_NO = #{userNo}
       ORDER BY USER_NO DESC
     </select>
 
     <select id="selectAllUser">
       SELECT A.USER_NO AS userNo
             , A.USER_NM AS userNm
-            , A.PASSWORD AS password
             , A.ADMIN_YN AS adminYn
             , A.TELNO AS telno
             , A.TELNO_1 AS telno1
@@ -110,6 +108,7 @@
        ORDER BY A.USER_NO DESC
         LIMIT ${limit}
     </select>
+    <!-- lastUserNo and limit above are sanitized to integers in userDao.js before reaching this template -->
 
     <select id="selectSellerInfo">
         SELECT SELLER_NM AS sellerNm
@@ -125,7 +124,7 @@
               , MAIL_ORDER_NO AS mailOrderNo
               , COMPANY_REGISTRATION_NO AS companyRegistrationNo
           FROM SELLER
-         WHERE SELLER_NO = ${sellerNo}
+         WHERE SELLER_NO = #{sellerNo}
     </select>
 
     <update id="updateCertificationCode">
@@ -137,13 +136,13 @@
     <select id="getCertificationCode">
         SELECT CERTIFICATION_CODE AS certificationCode
           FROM USERS
-         WHERE TELNO = ${telno}
+         WHERE TELNO = #{telno}
     </select>
 
     <update id="modifyPassword">
         UPDATE USERS
            SET PASSWORD = #{password}
-         WHERE TELNO = ${telno}
+         WHERE TELNO = #{telno}
            AND CERTIFICATION_CODE = #{certificationCode}
     </update>
 

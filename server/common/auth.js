@@ -80,3 +80,20 @@ exports.getTelno= (req) => {
 exports.delete = (req, res) => {
 	res.cookie('jwt', '');
 };
+
+/**
+ * Guard for administrator console *pages*.
+ *
+ * The data APIs behind these screens enforce their own checks, so an open page
+ * route is not a data breach on its own — but it exposes the admin surface to
+ * anyone and renders a broken, empty console for customers. Apply this to the
+ * GET routes that render admin templates only; the POST data endpoints under
+ * /admin must stay reachable, because customer-facing pages call some of them
+ * (product list, gallery, shipping fee, a customer's own orders).
+ */
+exports.requireAdminPage = (req, res, next) => {
+	if (req.session && req.session.adminYn === 'Y') {
+		return next();
+	}
+	return res.status(403).send('권한이 없습니다.');
+};

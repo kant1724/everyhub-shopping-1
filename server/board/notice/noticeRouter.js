@@ -44,7 +44,7 @@ router.post('/selectNoticeDetail', function(req, res) {
 });
 
 router.post('/insertNotice', function(req, res) {
-    if (req.session.adminYn == 'N') {
+    if (req.session.adminYn !== 'Y') {
         res.status(500).send();
     } else {
         let param = req.body;
@@ -55,7 +55,7 @@ router.post('/insertNotice', function(req, res) {
 });
 
 router.post('/updateNotice', function(req, res) {
-    if (req.session.adminYn == 'N') {
+    if (req.session.adminYn !== 'Y') {
         res.status(500).send();
     } else {
         let param = req.body;

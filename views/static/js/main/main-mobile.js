@@ -134,7 +134,7 @@ function selectNoticeListCallback(ret) {
         let pt = '15px';
         html += '<tr style="margin-bottom: 0px;">';
         html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
-        html += '<div id="notice_title" class="notice-title" onclick="noticeDetail(' + noticeNo + ')">' + noticeTitle + '</div>';
+        html += '<div id="notice_title" class="notice-title" onclick="noticeDetail(' + noticeNo + ')">' + escapeHtml(noticeTitle) + '</div>';
         html += '</td>';
         html += '<td style="vertical-align: middle; padding-top: ' + pt + '">';
         html += '<div id="notice_date" class="notice-date">' + noticeDate + '</div>';
@@ -194,12 +194,12 @@ function setRecommendProduct(ret) {
         html += '</div>';
         html += '<div class="card-body">';
         html += '<a class="card-title mb-1">';
-        html += '<a style="font-size: 16px; font-weight: 700;">' + ret[i].itemNm + '</a>';
+        html += '<a style="font-size: 16px; font-weight: 700;">' + escapeHtml(ret[i].itemNm) + '</a>';
         html += '</a><br>';
         html += '<a class="all-product-detail-text3">원산지: 국내산</a><br>';
         html += '<a style="color: #980000; font-size: 13px;">' + shipYn + '</a><br>';
         html += '<hr>';
-        html += '<a class="all-product-detail-text3">' + ret[i].itemDesc.replace(/\n/gi, '<br>') +'</a>';
+        html += '<a class="all-product-detail-text3">' + escapeHtmlWithBreaks(ret[i].itemDesc) +'</a>';
         html += '<div class="row mb-0 mt-3">';
         html += '<a class="ml-3 mb-0 pb-0 mt-1 font-weight-bold" style="font-size: 16px;">';
         html += '<span class="red-text">';
@@ -229,7 +229,7 @@ function setAllProduct(ret) {
         html += '<div class="row py-2 mb-4 align-items-center">';
         html += '<div class="col-12"><a><img src="' + ret[i].imagePath1 + '" style="border-radius: 5px; height: 150px;" class="img-fluid"></a></div>';
         html += '<div class="col-12 pt-2 text-center">';
-        html += '<a class="pt-3" style="font-size: 14px; font-weight: 700;"><strong>' + ret[i].itemNm + '</strong></a><br>';
+        html += '<a class="pt-3" style="font-size: 14px; font-weight: 700;"><strong>' + escapeHtml(ret[i].itemNm) + '</strong></a><br>';
         html += '<a class="all-product-detail-text3" style="font-size: 12px;">원산지: 국내산</a><br>';
         html += '<a style="color: #980000; font-size: 13px;">' + shipYn + '</a>';
         html += '</div></div></div><hr>';
