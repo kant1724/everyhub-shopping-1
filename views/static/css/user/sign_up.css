@@ -5,7 +5,8 @@ body { background: #f9fafb; }
 .auth-shell-wide {
     max-width: 620px;
     margin: 0 auto;
-    padding: 100px 20px 80px;
+    /* 고정 헤더 높이는 2단(데스크톱)/1단(모바일)에 따라 달라지므로 변수로 계산한다 */
+    padding: calc(var(--header-h) + 32px) 20px 80px;
 }
 
 .auth-page-title {
@@ -139,7 +140,7 @@ body { background: #f9fafb; }
 .auth-btn-primary:disabled { background: #e5e8eb; color: #b0b8c1; cursor: default; }
 
 @media (max-width: 640px) {
-    .auth-shell-wide { padding: 88px 18px 60px; }
+    .auth-shell-wide { padding: calc(var(--header-h) + 22px) 18px 60px; }
     .auth-page-title { font-size: 24px; }
     .auth-card-form { padding: 20px 18px; border-radius: 16px; }
 
