@@ -2,7 +2,7 @@
 
 body { background: #ffffff; }
 
-.intro { padding-top: 96px; padding-bottom: 80px; }
+.intro { padding-top: calc(var(--header-h) + 32px); padding-bottom: 80px; }
 
 .intro-shell { max-width: 720px; margin: 0 auto; padding: 0 20px; text-align: center; }
 
@@ -32,7 +32,7 @@ body { background: #ffffff; }
 .intro-photo img { width: 100%; height: auto; border-radius: 20px; }
 
 @media (max-width: 640px) {
-    .intro { padding-top: 84px; }
+    .intro { padding-top: calc(var(--header-h) + 22px); }
     .intro-title { font-size: 30px; }
     .intro-text { font-size: 20px; }
 }

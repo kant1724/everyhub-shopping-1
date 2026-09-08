@@ -2,7 +2,7 @@
 
 body { background: #ffffff; }
 
-.srch { padding-top: 96px; padding-bottom: 80px; }
+.srch { padding-top: calc(var(--header-h) + 32px); padding-bottom: 80px; }
 .srch-shell { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
 
 .srch-title { font-size: 28px; font-weight: 700; letter-spacing: -1px; color: #191f28; margin: 0; }
@@ -57,7 +57,7 @@ body { background: #ffffff; }
 .product-card-origin { margin: 6px 0 0; font-size: 13px; color: #8b95a1; }
 
 @media (max-width: 560px) {
-    .srch { padding-top: 84px; }
+    .srch { padding-top: calc(var(--header-h) + 22px); }
     .srch-title { font-size: 24px; }
     .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 12px; }
     .product-card-name { font-size: 15px; }

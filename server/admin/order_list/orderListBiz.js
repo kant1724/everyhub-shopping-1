@@ -6,6 +6,10 @@ module.exports = {
          orderListDao.selectOrderListMain(param, callback);
     },
 
+    selectOrderListMainCount: function(param, callback) {
+        orderListDao.selectOrderListMainCount(param, callback);
+    },
+
     selectOrderListMainByOrderNo: function(param, callback) {
         orderListDao.selectOrderListMainByOrderNo(param, callback);
     },

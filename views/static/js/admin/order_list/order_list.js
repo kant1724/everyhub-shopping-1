@@ -3,6 +3,8 @@
  *
  * 서버 계약은 전부 그대로 유지한다:
  *   POST /admin/order_list/selectOrderListMain      {startOrderDate,endOrderDate,orderUserNm,userNm,depositPersonNm,userNo:''}
+ *                                                   (+ pageSize/pageOffset 을 주면 서버가 주문 100건씩 잘라 주고
+ *                                                    응답에 totalCnt 를 함께 담아 준다)
  *   POST /admin/order_list/updateDepositConfirmDate {orderNo}
  *   POST /admin/order_list/updateDlvrConfirmDate    {data: JSON.stringify({orderListDetail:[{orderNo,orderSeq,itemNm,optionNm,orderTelno}]})}
  *   POST /admin/order_list/selectInvoiceNo          {orderNo}
@@ -47,7 +49,10 @@
                 rows: [],          // 서버가 준 원본 (엑셀은 이걸 쓴다)
                 seller: {},        // 보내는분이 비었을 때 채울 판매자 정보
                 loading: true,
-                selected: {},      // "orderNo_orderSeq" -> true
+                selected: {},      // "orderNo_orderSeq" -> true (현재 페이지 안에서만)
+                page: 1,           // 주문 100건 단위 서버사이드 페이징 (주문번호 기준)
+                pageSize: 100,
+                total: 0,          // 조건에 맞는 전체 주문 건수 (서버가 알려준다)
 
                 detailModal: null,     // 상세정보
                 invoiceModal: null,    // 송장번호
@@ -76,7 +81,8 @@
                 return order.map(function (no) { return map[no]; });
             },
 
-            totalCnt() { return this.orders.length; },
+            /** 조건에 맞는 전체 주문 건수 (페이저가 쓴다) */
+            totalCnt() { return this.total; },
 
             selectedCount() {
                 const s = this.selected;
@@ -90,6 +96,7 @@
                 return sel.every(function (k) { return s[k]; });
             },
 
+            /** 이 페이지에서 선택 가능한(아직 배송 전인) 주문상세 줄의 키 */
             selectableKeys() {
                 const self = this;
                 const keys = [];
@@ -127,6 +134,12 @@
                 this.selectableKeys.forEach(function (k) { self.selected[k] = on; });
             },
 
+            async goPage(p) {
+                this.page = p;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                await this.fetchPage();
+            },
+
             isToday(d) { return d === TODAY; },
 
             isCancelled(o) { return !isNull(o.head.cancelDate); },
@@ -141,18 +154,39 @@
             },
 
             /* ---------------- 조회 ---------------- */
-            async search() {
-                this.loading = true;
-                this.selected = {};
+            /** 현재 검색 조건 (페이징 파라미터는 뺀 상태) */
+            filterParams() {
                 const f = this.filter;
-                this.rows = (await apiPost('/admin/order_list/selectOrderListMain', {
+                return {
                     startOrderDate: f.startOrderDate,
                     endOrderDate: f.endOrderDate,
                     orderUserNm: f.orderUserNm,
                     userNm: f.userNm,
                     depositPersonNm: f.depositPersonNm,
                     userNo: ''
-                })) || [];
+                };
+            },
+
+            async search() {
+                this.page = 1;
+                await this.fetchPage();
+            },
+
+            /**
+             * 서버에서 현재 페이지의 주문 100건만 받아온다.
+             * 주문 하나에 상세가 여러 줄이라 rows 길이는 100보다 클 수 있고,
+             * 페이지 수 계산에 쓰는 건수는 서버가 준 totalCnt 를 그대로 쓴다.
+             */
+            async fetchPage() {
+                this.loading = true;
+                this.selected = {};
+                const res = await apiPostFull('/admin/order_list/selectOrderListMain',
+                    Object.assign(this.filterParams(), {
+                        pageSize: this.pageSize,
+                        pageOffset: (this.page - 1) * this.pageSize
+                    }));
+                this.rows = res.ret || [];
+                this.total = res.totalCnt || 0;
                 this.loading = false;
             },
 
@@ -163,7 +197,7 @@
                 await apiPost('/admin/order_list/updateDepositConfirmDate', { orderNo: o.head.orderNo });
                 this.busy = false;
                 alert('입금확인 처리되었습니다.');
-                await this.search();
+                await this.fetchPage();   // 보던 페이지 유지
             },
 
             async startDelivery() {
@@ -191,7 +225,7 @@
                 });
                 this.busy = false;
                 alert('배송시작 처리되었습니다.');
-                await this.search();
+                await this.fetchPage();   // 보던 페이지 유지
             },
 
             async cancelOrder(o) {
@@ -201,7 +235,7 @@
                 await apiPost('/mypage/cancelOrder', { orderNo: o.head.orderNo });
                 this.busy = false;
                 alert('주문이 취소되었습니다.');
-                await this.search();
+                await this.fetchPage();   // 보던 페이지 유지
             },
 
             modifyOrder(o) {
@@ -276,7 +310,7 @@
                 this.busy = false;
                 alert('기타정보가 저장되었습니다.');
                 this.extraModal = null;
-                await this.search();
+                await this.fetchPage();   // 보던 페이지 유지
             },
 
             /* ---------------- 문자 발송 ---------------- */
@@ -316,14 +350,19 @@
                 XLSX.writeFile(wb, fileName);
             },
 
-            /** 화면에 보이는 주문내역 전체 (원본과 동일하게 선택 여부와 무관) */
-            exportOrderList() {
+            /**
+             * 검색 조건에 맞는 주문내역 전체 (선택 여부와 무관).
+             * 화면은 100건씩 페이징하지만 엑셀은 예전처럼 조회 결과 전부를 담아야 하므로
+             * 페이징 없이 한 번 더 조회한다.
+             */
+            async exportOrderList() {
                 const self = this;
                 const header = {
                     header: ['주문번호', '주문일', '주문자명', '받는자명', '주문자연락처', '받는자연락처',
                              '상품/옵션', '수량', '총금액', '입금자명', '배송일자', '취소일자']
                 };
-                const data = this.rows.map(function (r) {
+                const all = (await apiPost('/admin/order_list/selectOrderListMain', this.filterParams())) || [];
+                const data = all.map(function (r) {
                     return {
                         '주문번호': r.orderNo,
                         '주문일': r.orderDate,

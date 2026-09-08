@@ -24,13 +24,6 @@
         <section class="home-hero">
             <div class="home-brand">
                 <img id="title_logo" src="/static/res/gandeurak_logo.jpg" alt="간드락농원" @click="location.href='/'">
-                <nav class="home-nav">
-                    <a href="#recommend" @click.prevent="scrollTo('#recommend')">추천상품</a>
-                    <span class="home-nav-sep"></span>
-                    <a href="#all_product" @click.prevent="scrollTo('#all_product')">전체상품</a>
-                    <span class="home-nav-sep"></span>
-                    <a href="/introduction">농장소개</a>
-                </nav>
             </div>
 
             <div class="swiper-container hero-swiper">
@@ -88,8 +81,6 @@
                         </article>
                         </div>
                     </div>
-                    <div class="swiper-button-prev"><i class="far fa-angle-left"></i></div>
-                    <div class="swiper-button-next"><i class="far fa-angle-right"></i></div>
                 </div>
             </div>
         </section>
@@ -139,7 +130,7 @@
             </div>
         </section>
 
-        <section class="home-section" v-if="gallery.length > 0">
+        <section id="gallery" class="home-section" v-if="gallery.length > 0">
             <div class="home-shell">
                 <div class="home-section-head">
                     <h2 class="home-section-title">갤러리</h2>

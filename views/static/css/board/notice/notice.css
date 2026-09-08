@@ -2,7 +2,7 @@
 
 body { background: #f9fafb; }
 
-.nt { padding-top: 96px; padding-bottom: 80px; }
+.nt { padding-top: calc(var(--header-h) + 32px); padding-bottom: 80px; }
 
 .nt-shell { max-width: 880px; margin: 0 auto; padding: 0 20px; }
 .nt-shell-narrow { max-width: 720px; }
@@ -192,7 +192,7 @@ body { background: #f9fafb; }
 
 /* ---------------- 반응형 ---------------- */
 @media (max-width: 640px) {
-    .nt { padding-top: 84px; }
+    .nt { padding-top: calc(var(--header-h) + 22px); }
     .nt-title { font-size: 24px; }
     .nt-head { flex-direction: column; align-items: stretch; }
     .nt-primary-btn { width: 100%; }

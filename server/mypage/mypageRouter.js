@@ -1,39 +1,27 @@
 let express = require('express');
 let router = express.Router();
 let mypageBiz = require('./mypageBiz');
-let MobileDetect = require('mobile-detect');
 
 router.get('/', function(req, res, next) {
-    let md = new MobileDetect(req.headers['user-agent']);
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;
     if (userNo == null) {
-        if (md.mobile()) {
-            res.render('templates/user/login-mobile', {userNo: userNo, adminYn: adminYn});
-        } else {
-            res.render('templates/user/login', {userNo: userNo, adminYn: adminYn});
-        }
+        res.render('templates/user/login', {userNo: userNo, adminYn: adminYn});
     } else {
-        if (md.mobile()) {
-            res.render('templates/mypage/mypage-mobile', {userNo: userNo, adminYn: adminYn});
-        } else {
-            res.render('templates/mypage/mypage', {userNo: userNo, adminYn: adminYn});
-        }
+        res.render('templates/mypage/mypage', {userNo: userNo, adminYn: adminYn});
     }
 });
 
 router.get('/modify', function(req, res, next) {
-    let md = new MobileDetect(req.headers['user-agent']);
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;
     let orderNo = req.query.orderNo;
+    // gubun tells the page whether the edit came from the admin order list.
+    // The old mobile branch rendered without it, so on a phone an admin edit
+    // silently saved through the customer path instead.
+    let gubun = req.query.gubun;
     if (userNo != null) {
-        if (md.mobile()) {
-            res.render('templates/mypage/modify-mobile', {userNo: userNo, adminYn: adminYn, orderNo: orderNo});
-        } else {
-            let gubun = req.query.gubun;
-            res.render('templates/mypage/modify', {userNo: userNo, adminYn: adminYn, orderNo: orderNo, gubun: gubun});
-        }
+        res.render('templates/mypage/modify', {userNo: userNo, adminYn: adminYn, orderNo: orderNo, gubun: gubun});
     }
 });
 

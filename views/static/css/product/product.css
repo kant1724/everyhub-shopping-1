@@ -8,7 +8,7 @@ body {
 [v-cloak] { display: none; }
 
 .pdp {
-    padding-top: 96px;
+    padding-top: calc(var(--header-h) + 32px);
     padding-bottom: 80px;
 }
 
@@ -445,7 +445,7 @@ body {
 }
 
 @media (max-width: 560px) {
-    .pdp { padding-top: 84px; }
+    .pdp { padding-top: calc(var(--header-h) + 22px); }
     .pdp-shell { padding: 0 16px; }
     .pdp-tabs { margin-top: 48px; }
     .pdp-tab { padding: 12px 14px; font-size: 15px; }

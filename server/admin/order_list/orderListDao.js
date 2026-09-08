@@ -6,11 +6,28 @@ mybatisMapper.createMapper(['server/admin/order_list/orderListSQL.xml']);
 module.exports = {
     selectOrderListMain: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
+        // LIMIT/OFFSET reach the mapper through ${}, so force them to integers
+        param.pageSize = utils.toSafeInt(param.pageSize);
+        param.pageOffset = utils.toSafeInt(param.pageOffset);
+        if (param.pageSize !== null && param.pageOffset === null) {
+            param.pageOffset = 0;
+        }
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('orderListSQL', 'selectOrderListMain', param, format);
-            console.log(query);
             conn.query(query, (err, rows, fields) => {
                 callback(rows);
+                conn.end();
+            });
+        });
+    },
+
+    /** 조건에 맞는 주문 건수 (페이징용) */
+    selectOrderListMainCount: function(param, callback) {
+        let conn = require('../../common/mysql.js').getDBConnection();
+        conn.beginTransaction(() => {
+            let query = mybatisMapper.getStatement('orderListSQL', 'selectOrderListMainCount', param, format);
+            conn.query(query, (err, rows, fields) => {
+                callback(rows && rows.length > 0 ? rows[0].totalCnt : 0);
                 conn.end();
             });
         });

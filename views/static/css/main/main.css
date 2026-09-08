@@ -9,7 +9,8 @@ body {
 [v-cloak] { display: none; }
 
 /* ---------------- 히어로 ---------------- */
-.home-hero { padding-top: 68px; }
+/* 추천상품·전체상품·농장소개 메뉴는 헤더 로고 아래 줄로 옮겼다 (.gd-sitenav) */
+.home-hero { padding-top: calc(var(--header-h) + 6px); }
 
 .home-brand { text-align: center; padding: 24px 16px 18px; }
 
@@ -18,29 +19,6 @@ body {
     max-width: 60vw;
     cursor: pointer;
 }
-
-.home-nav {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 18px;
-    padding: 6px;
-    background: #f2f4f6;
-    border-radius: 999px;
-}
-
-.home-nav a {
-    padding: 9px 18px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #4e5968;
-    transition: background-color .15s ease, color .15s ease;
-}
-
-.home-nav a:hover { background: #ffffff; color: #191f28; }
-
-.home-nav-sep { width: 1px; height: 12px; background: #d1d6db; }
 
 .hero-swiper { width: 100%; }
 
@@ -183,11 +161,8 @@ body {
     color: #8b95a1;
 }
 
-/* 추천 스와이퍼 슬라이드 폭 */
+/* 추천 스와이퍼 슬라이드 폭 (좌우 화살표 없이 드래그로 넘긴다) */
 .rcm-slide { width: 260px; }
-
-.rcm-swiper .swiper-button-prev,
-.rcm-swiper .swiper-button-next { color: #191f28 !important; }
 
 /* ---------------- 공지 ---------------- */
 .notice-list { list-style: none; margin: 0; padding: 0; }
@@ -279,14 +254,12 @@ body {
 }
 
 @media (max-width: 560px) {
-    .home-hero { padding-top: 58px; }
     .hero-slide { height: 260px; }
     .hero-copy { padding-left: 8%; }
     .hero-copy-lead { font-size: 17px; }
     .hero-copy-lead strong { font-size: 20px; }
     .hero-copy-title { font-size: 15px; }
     .hero-copy-sub { font-size: 12px; }
-    .home-nav a { padding: 8px 13px; font-size: 13px; }
     .home-section { padding: 44px 0; }
     .home-section-title { font-size: 20px; }
     .home-section-sub { font-size: 14px; }

@@ -69,6 +69,10 @@ module.exports = {
         userDao.selectAllUser(param, callback);
     },
 
+    selectAllUserCount: function(param, callback) {
+        userDao.selectAllUserCount(param, callback);
+    },
+
     checkDup: function(param, callback) {
         userDao.checkDup(param, callback);
     },

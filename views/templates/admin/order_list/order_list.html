@@ -157,6 +157,9 @@
                     </div>
                 </article>
             </div>
+
+            <list-pager :total="totalCnt" :page="page" :size="pageSize"
+                        @change="goPage"></list-pager>
         </div>
 
         <!-- 상세정보 모달 -->

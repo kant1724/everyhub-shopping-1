@@ -1,30 +1,19 @@
 let express = require('express');
-let MobileDetect = require('mobile-detect');
 let router = express.Router();
 let userBiz = require('./userBiz');
 let auth = require('../common/auth');
 
 
 router.get('/', function(req, res, next) {
-    let md = new MobileDetect(req.headers['user-agent']);
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;
-    if (md.mobile()) {
-        res.render('templates/user/login-mobile', {userNo: userNo, adminYn: adminYn});
-    } else {
-        res.render('templates/user/login', {userNo: userNo, adminYn: adminYn});
-    }
+    res.render('templates/user/login', {userNo: userNo, adminYn: adminYn});
 });
 
 router.get('/sign_up', function(req, res, next) {
-    let md = new MobileDetect(req.headers['user-agent']);
     let userNo = req.session.userNo;
     let adminYn = req.session.adminYn;
-    if (md.mobile()) {
-        res.render('templates/user/sign_up-mobile', {userNo: userNo, adminYn: adminYn});
-    } else {
-        res.render('templates/user/sign_up', {userNo: userNo, adminYn: adminYn});
-    }
+    res.render('templates/user/sign_up', {userNo: userNo, adminYn: adminYn});
 });
 
 router.get('/get_password', function(req, res, next) {
@@ -34,17 +23,12 @@ router.get('/get_password', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
-    let md = new MobileDetect(req.headers['user-agent']);
     let userNo = 0;
     let adminYn = 'N';
     req.session.destroy(function(){
         req.session;
     });
-    if (md.mobile()) {
-        res.render('templates/main/main-mobile', {userNo: userNo, adminYn: adminYn});
-    } else {
-        res.render('templates/main/main', {userNo: userNo, adminYn: adminYn});
-    }
+    res.render('templates/main/main', {userNo: userNo, adminYn: adminYn});
 });
 
 router.post('/goSigningUp', function(req, res) {
@@ -90,8 +74,15 @@ router.post('/selectAllUser', function(req, res) {
     }
     let param = req.body;
     param.userNo = req.session.userNo;
+    // When the console asks for a page, send the total alongside it so the
+    // pager knows how many pages there are without a second round trip.
     userBiz.selectAllUser(param, (ret) => {
-        res.status(200).send({ret: ret});
+        if (param.pageSize === undefined || param.pageSize === '') {
+            return res.status(200).send({ret: ret});
+        }
+        userBiz.selectAllUserCount(param, (totalCnt) => {
+            res.status(200).send({ret: ret, totalCnt: totalCnt});
+        });
     });
 });
 

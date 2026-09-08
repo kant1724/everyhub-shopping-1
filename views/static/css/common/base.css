@@ -22,8 +22,17 @@
     --red: #f04452;
     --white: #ffffff;
 
-    --header-h: 62px;
+    /*
+      헤더 전체 높이. 데스크톱은 로고 줄 + 메뉴 줄 2단이고,
+      900px 이하에서는 한 줄로 접히므로 아래 미디어쿼리에서 다시 줄인다.
+      각 페이지의 상단 여백은 이 값을 기준으로 계산한다.
+    */
+    --header-h: 104px;
     --font-sans: 'Pretendard Variable', Pretendard, 'Noto Sans KR', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+@media (max-width: 900px) {
+    :root { --header-h: 62px; }
 }
 
 /* ---------------- reset ---------------- */
@@ -72,6 +81,12 @@ button { cursor: pointer; }
 }
 
 /* ---------------- 헤더 ---------------- */
+/*
+  2단 구조:
+    .gd-header-top    로고 + 장바구니/계정
+    .gd-header-bottom 추천상품·전체상품·농장소개·알림마당·갤러리 (+관리자 메뉴)
+  900px 이하에서는 두 줄을 모두 감추고 .gd-drawer 로 대체한다.
+*/
 .gd-header {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -81,6 +96,13 @@ button { cursor: pointer; }
     -webkit-backdrop-filter: saturate(180%) blur(12px);
     border-bottom: 1px solid var(--grey100);
     z-index: 1000;
+}
+
+.gd-header-top { height: 60px; }
+
+.gd-header-bottom {
+    height: 43px;
+    border-top: 1px solid var(--grey100);
 }
 
 .gd-header-inner {
@@ -94,13 +116,31 @@ button { cursor: pointer; }
     gap: 16px;
 }
 
+/* ---- 로고 ---- */
 .gd-logo {
-    font-size: 19px;
-    font-weight: 700;
-    letter-spacing: -0.6px;
-    color: var(--grey900);
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
     white-space: nowrap;
 }
+
+.gd-logo-mark {
+    flex: none;
+    display: block;
+    transition: transform .18s ease;
+}
+
+.gd-logo:hover .gd-logo-mark { transform: rotate(-8deg) scale(1.05); }
+
+.gd-logo-text {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.9px;
+    line-height: 1;
+}
+
+.gd-logo-text b { color: var(--grey900); font-weight: 800; }
+.gd-logo-text span { color: var(--grey500); font-weight: 700; }
 
 .gd-header-toggle {
     display: none;
@@ -112,62 +152,121 @@ button { cursor: pointer; }
     border-radius: 10px;
 }
 
-.gd-nav {
+/* ---- 로고 줄 오른쪽: 장바구니/계정 ---- */
+.gd-util {
     display: flex;
     align-items: center;
     gap: 2px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
 }
 
-.gd-nav-link {
+.gd-util-link {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     padding: 8px 12px;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 600;
-    color: var(--grey700);
+    color: var(--grey600);
     white-space: nowrap;
     transition: background-color .15s ease, color .15s ease;
 }
 
-.gd-nav-link i { color: var(--blue); font-size: 13px; }
+.gd-util-link i { color: var(--blue); font-size: 13px; }
+.gd-util-link:hover { background: var(--grey100); color: var(--grey900); }
 
-.gd-nav-link:hover { background: var(--grey100); color: var(--grey900); }
+/* ---- 메뉴 줄 ---- */
+.gd-sitenav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
 
-.gd-nav-admin { font-size: 13px; color: var(--grey600); }
-.gd-nav-admin i { display: none; }
+.gd-sitenav::-webkit-scrollbar { display: none; }
 
-.gd-nav-divider {
+.gd-sitenav-link {
+    position: relative;
+    padding: 9px 13px;
+    border-radius: 9px;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--grey800);
+    white-space: nowrap;
+    transition: background-color .15s ease, color .15s ease;
+}
+
+.gd-sitenav-link:hover { background: var(--grey100); color: var(--blue); }
+
+.gd-sitenav-admin {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--grey500);
+}
+
+.gd-sitenav-admin:hover { color: var(--grey900); }
+
+.gd-sitenav-divider {
+    flex: none;
     width: 1px;
     height: 14px;
     background: var(--grey200);
-    margin: 0 6px;
+    margin: 0 8px;
+}
+
+/* ---- 모바일 서랍 ---- */
+.gd-drawer {
+    position: absolute;
+    top: var(--header-h);
+    left: 0; right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px;
+    background: var(--white);
+    border-bottom: 1px solid var(--grey100);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .06);
+    max-height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+}
+
+.gd-drawer.is-open { display: flex; }
+
+.gd-drawer-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 14px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--grey800);
+}
+
+.gd-drawer-link i { color: var(--blue); font-size: 14px; width: 16px; }
+.gd-drawer-link:hover { background: var(--grey100); }
+.gd-drawer-admin { font-size: 14px; color: var(--grey600); }
+
+.gd-drawer-divider {
+    height: 1px;
+    background: var(--grey100);
+    margin: 6px 8px;
 }
 
 @media (max-width: 900px) {
+    .gd-header-top { height: 100%; }
+    .gd-header-bottom { display: none; }
     .gd-header-toggle { display: block; }
-
-    .gd-nav {
-        position: absolute;
-        top: var(--header-h);
-        left: 0; right: 0;
-        display: none;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        padding: 8px;
-        background: var(--white);
-        border-bottom: 1px solid var(--grey100);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, .06);
-    }
-
-    .gd-nav.is-open { display: flex; }
-    .gd-nav-link { padding: 13px 14px; font-size: 15px; }
-    .gd-nav-divider { width: auto; height: 1px; margin: 6px 8px; }
+    .gd-util { display: none; }
 }
+
+/*
+  고정 헤더에 가려지지 않도록, 앵커로 이동하는 섹션은 헤더 높이만큼 여유를 둔다.
+  (헤더 아래 메뉴의 추천상품/전체상품/갤러리가 이 값을 쓴다)
+*/
+section[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
 
 /* ---------------- 푸터 ---------------- */
 .gd-footer {
@@ -367,4 +466,14 @@ button { cursor: pointer; }
 
 .gd-pager button:disabled { color: var(--grey300); background: var(--grey50); cursor: default; }
 
+.gd-pager button:hover:not(:disabled):not(.is-now) { background: var(--grey200); color: var(--grey900); }
+
+.gd-pager button.is-now { background: var(--blue); color: var(--white); }
+
 .gd-pager-now { font-size: 14px; color: var(--grey600); font-weight: 600; }
+
+@media (max-width: 640px) {
+    .gd-pager { flex-wrap: wrap; gap: 6px; }
+    .gd-pager button { min-width: 32px; height: 32px; font-size: 13px; }
+    .gd-pager-now { width: 100%; text-align: center; font-size: 13px; margin-top: 6px; }
+}

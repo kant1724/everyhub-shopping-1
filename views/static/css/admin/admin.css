@@ -4,7 +4,7 @@
 
 body { background: #f9fafb; }
 
-.adm { padding-top: 96px; padding-bottom: 80px; }
+.adm { padding-top: calc(var(--header-h) + 32px); padding-bottom: 80px; }
 
 .adm-shell { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
 .adm-shell-narrow { max-width: 760px; }
@@ -274,7 +274,7 @@ body { background: #f9fafb; }
 }
 
 @media (max-width: 640px) {
-    .adm { padding-top: 84px; }
+    .adm { padding-top: calc(var(--header-h) + 22px); }
     .adm-title { font-size: 22px; }
     .adm-card { padding: 18px; border-radius: 14px; }
     .adm-field { flex-direction: column; align-items: stretch; gap: 8px; }

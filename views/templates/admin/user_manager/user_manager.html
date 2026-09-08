@@ -19,14 +19,14 @@
             <div class="adm-head">
                 <div>
                     <h1 class="adm-title">회원 관리</h1>
-                    <p class="adm-sub">불러온 회원 [[ rows.length ]]명 · 선택 [[ selectedTelnos.length ]]명</p>
+                    <p class="adm-sub">전체 회원 [[ total ]]명 · 이 페이지에서 선택 [[ selectedTelnos.length ]]명</p>
                 </div>
                 <div class="adm-actions">
                     <button type="button" class="adm-btn adm-btn-primary" @click="openSms">문자 보내기</button>
                 </div>
             </div>
 
-            <p v-if="loading && rows.length === 0" class="adm-empty">불러오는 중...</p>
+            <p v-if="loading" class="adm-empty">불러오는 중...</p>
             <p v-else-if="rows.length === 0" class="adm-empty">회원이 없습니다.</p>
 
             <div v-else class="adm-table-wrap">
@@ -53,10 +53,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="adm-more" v-if="hasMore">
-                    <button type="button" class="adm-btn" @click="load(false)" :disabled="loading">더 보기</button>
-                </div>
             </div>
+
+            <list-pager :total="total" :page="page" :size="pageSize"
+                        @change="goPage"></list-pager>
         </div>
 
         <transition name="modal-fade">

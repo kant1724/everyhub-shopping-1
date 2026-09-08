@@ -8,7 +8,7 @@ body {
 [v-cloak] { display: none; }
 
 .cart-page {
-    padding-top: 96px;
+    padding-top: calc(var(--header-h) + 32px);
     padding-bottom: 80px;
 }
 
@@ -290,7 +290,7 @@ body {
 }
 
 @media (max-width: 560px) {
-    .cart-page { padding-top: 84px; }
+    .cart-page { padding-top: calc(var(--header-h) + 22px); }
     .cart-title { font-size: 24px; margin-bottom: 20px; }
     .cart-card { padding: 16px; gap: 12px; border-radius: 16px; }
     .cart-card-thumb { flex-basis: 76px; width: 76px; height: 76px; }

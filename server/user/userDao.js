@@ -60,12 +60,30 @@ module.exports = {
 
     selectAllUser: function(param, callback) {
         let conn = require('../common/mysql.js').getDBConnection();
+        // these all reach the mapper through ${} (raw substitution), so they
+        // must be integers before they get anywhere near the statement
         param.lastUserNo = utils.toSafeInt(param.lastUserNo);
         param.limit = utils.toSafeInt(param.limit);
+        param.pageSize = utils.toSafeInt(param.pageSize);
+        param.pageOffset = utils.toSafeInt(param.pageOffset);
+        if (param.pageSize !== null && param.pageOffset === null) {
+            param.pageOffset = 0;
+        }
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('userSQL', 'selectAllUser', param, format);
             conn.query(query, (err, rows, fields) => {
                 callback(rows);
+                conn.end();
+            });
+        });
+    },
+
+    selectAllUserCount: function(param, callback) {
+        let conn = require('../common/mysql.js').getDBConnection();
+        conn.beginTransaction(() => {
+            let query = mybatisMapper.getStatement('userSQL', 'selectAllUserCount', param, format);
+            conn.query(query, (err, rows, fields) => {
+                callback(rows && rows.length > 0 ? rows[0].totalCnt : 0);
                 conn.end();
             });
         });

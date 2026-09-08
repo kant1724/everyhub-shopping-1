@@ -1,5 +1,4 @@
 let express = require('express');
-let MobileDetect = require('mobile-detect');
 let router = express.Router();
 let purchaseBiz = require('./purchaseBiz');
 
@@ -10,20 +9,11 @@ router.get('/', function(req, res, next) {
     param.userNo = req.session.userNo;
     param.adminYn = req.session.adminYn;
 
-    let md = new MobileDetect(req.headers['user-agent']);
     if (userNo == null) {
         param = JSON.stringify(param);
-        if (md.mobile()) {
-            res.render('templates/user/login-mobile', {userNo: userNo, adminYn: adminYn, param: param, gubun: 'purchase'});
-        } else {
-            res.render('templates/user/login', {userNo: userNo, adminYn: adminYn, param: param, gubun: 'purchase'});
-        }
+        res.render('templates/user/login', {userNo: userNo, adminYn: adminYn, param: param, gubun: 'purchase'});
     } else {
-        if (md.mobile()) {
-            res.render('templates/purchase/purchase-mobile', param);
-        } else {
-            res.render('templates/purchase/purchase', param);
-        }
+        res.render('templates/purchase/purchase', param);
     }
 });
 

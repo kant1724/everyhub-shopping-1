@@ -104,11 +104,29 @@
             , B.TELNO AS managerTelno
         FROM USERS A LEFT OUTER JOIN USERS B
           ON A.MANAGER_NO = B.USER_NO
+      <choose>
+        <!--
+          Page-number paging for the admin console (100 per page).
+          The older cursor form is kept for any caller that does not ask for a
+          page, so behaviour there is unchanged.
+        -->
+        <when test="pageSize != null and pageSize != ''">
+       ORDER BY A.USER_NO DESC
+        LIMIT ${pageSize} OFFSET ${pageOffset}
+        </when>
+        <otherwise>
        WHERE A.USER_NO <![CDATA[<]]> ${lastUserNo}
        ORDER BY A.USER_NO DESC
         LIMIT ${limit}
+        </otherwise>
+      </choose>
     </select>
-    <!-- lastUserNo and limit above are sanitized to integers in userDao.js before reaching this template -->
+    <!-- lastUserNo, limit, pageSize and pageOffset above are sanitized to integers in userDao.js before reaching this template -->
+
+    <select id="selectAllUserCount">
+        SELECT COUNT(*) AS totalCnt
+          FROM USERS
+    </select>
 
     <select id="selectSellerInfo">
         SELECT SELLER_NM AS sellerNm

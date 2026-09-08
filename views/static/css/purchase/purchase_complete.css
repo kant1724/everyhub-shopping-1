@@ -2,7 +2,7 @@
 
 body { background: #f9fafb; }
 
-.done { padding-top: 96px; padding-bottom: 80px; }
+.done { padding-top: calc(var(--header-h) + 32px); padding-bottom: 80px; }
 
 .done-shell { max-width: 560px; margin: 0 auto; padding: 0 20px; }
 
@@ -97,7 +97,7 @@ body { background: #f9fafb; }
 .done-btn-ghost:hover { background: #e5e8eb; }
 
 @media (max-width: 560px) {
-    .done { padding-top: 84px; }
+    .done { padding-top: calc(var(--header-h) + 22px); }
     .done-card { padding: 36px 22px 26px; border-radius: 20px; }
     .done-title { font-size: 21px; }
     .done-actions { grid-template-columns: 1fr; }

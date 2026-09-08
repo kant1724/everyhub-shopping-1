@@ -19,8 +19,16 @@ router.post('/selectOrderListMain', function(req, res) {
     }
     let param = req.body;
     param.userNo = req.session.adminYn === 'Y' ? null : req.session.userNo;
+    // The admin console pages 100 orders at a time and needs the total to
+    // render the pager. Callers that send no pageSize (mypage) get the whole
+    // result exactly as before.
     orderListBiz.selectOrderListMain(param, (ret) => {
-        res.status(200).send({ret: ret});
+        if (param.pageSize === undefined || param.pageSize === '') {
+            return res.status(200).send({ret: ret});
+        }
+        orderListBiz.selectOrderListMainCount(param, (totalCnt) => {
+            res.status(200).send({ret: ret, totalCnt: totalCnt});
+        });
     });
 });
 

@@ -86,11 +86,38 @@
                 this.galleryDescs = descs;
             },
 
+            /**
+             * 상단 배너.
+             *
+             * 이 화면은 Vue 런타임 컴파일러가 #main_app 의 기존 DOM 을 템플릿으로 삼아
+             * 통째로 다시 그린다. 그래서 mounted 시작 시점에 바로 Swiper 를 만들면
+             * 슬라이드를 0개로 측정해 드래그가 전혀 먹지 않았다.
+             * $nextTick 으로 미뤄 실제 DOM 이 자리잡은 뒤 초기화한다.
+             * (추천·갤러리 스와이퍼가 정상이었던 이유도 이미 $nextTick 안이었기 때문)
+             *
+             * observer 옵션은 이후 DOM 이 바뀌어도 스스로 다시 측정하게 하는 안전장치다.
+             */
             initHeroSwiper() {
                 new Swiper('.hero-swiper', {
-                    autoplay: { delay: 5000 },
                     slidesPerView: 1,
-                    loop: false,
+                    loop: true,                 // 마지막에서 처음으로 자연스럽게 이어진다
+                    grabCursor: true,
+                    observer: true,
+                    observeParents: true,
+
+                    // 기본값(longSwipesRatio 0.5)은 배너 폭이 넓을수록 불리하다.
+                    // 1280px 배너라면 천천히 640px 이나 끌어야 넘어가서 "안 넘어간다" 고 느껴진다.
+                    // 15% 만 끌어도 넘어가게 하고, 빠르게 튕기는 동작은 shortSwipes 가 받는다.
+                    longSwipesRatio: 0.15,
+                    longSwipesMs: 100,
+                    shortSwipes: true,
+                    followFinger: true,
+                    threshold: 5,               // 미세한 흔들림은 무시해 클릭을 방해하지 않는다
+
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false   // 손으로 넘긴 뒤에도 자동재생 계속
+                    },
                     pagination: { el: '.hero-swiper .swiper-pagination', clickable: true },
                     navigation: {
                         prevEl: '.hero-swiper .swiper-button-prev',
@@ -99,15 +126,14 @@
                 });
             },
 
+            /** 추천상품은 좌우 화살표 없이 드래그·스와이프로만 넘긴다 */
             initRecommendSwiper() {
                 new Swiper('.rcm-swiper', {
                     slidesPerView: 'auto',
                     spaceBetween: 16,
                     loop: false,
-                    navigation: {
-                        prevEl: '.rcm-swiper .swiper-button-prev',
-                        nextEl: '.rcm-swiper .swiper-button-next'
-                    }
+                    grabCursor: true,
+                    mousewheel: { forceToAxis: true }
                 });
             },
 
@@ -126,7 +152,8 @@
         },
 
         async mounted() {
-            this.initHeroSwiper();
+            // 배너는 DOM 이 자리잡은 뒤에 초기화해야 슬라이드를 제대로 잡는다
+            this.$nextTick(() => this.initHeroSwiper());
 
             await this.loadItems();
             await this.loadNotices();

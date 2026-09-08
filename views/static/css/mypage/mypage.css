@@ -2,7 +2,7 @@
 
 body { background: #f9fafb; }
 
-.my { padding-top: 96px; padding-bottom: 80px; }
+.my { padding-top: calc(var(--header-h) + 32px); padding-bottom: 80px; }
 
 .my-shell { max-width: 840px; margin: 0 auto; padding: 0 20px; }
 
@@ -307,7 +307,7 @@ body { background: #f9fafb; }
 
 /* ---------------- 반응형 ---------------- */
 @media (max-width: 640px) {
-    .my { padding-top: 84px; }
+    .my { padding-top: calc(var(--header-h) + 22px); }
     .my-title { font-size: 24px; }
     .my-card, .order-card { padding: 18px; border-radius: 16px; }
 

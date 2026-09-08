@@ -2,7 +2,7 @@
 
 body { background: #ffffff; }
 
-.pol { padding-top: 96px; padding-bottom: 80px; }
+.pol { padding-top: calc(var(--header-h) + 32px); padding-bottom: 80px; }
 .pol-shell { max-width: 760px; margin: 0 auto; padding: 0 20px; }
 
 .pol-title {
@@ -42,7 +42,7 @@ body { background: #ffffff; }
 .pol-doc .container { max-width: none; padding: 0; }
 
 @media (max-width: 640px) {
-    .pol { padding-top: 84px; }
+    .pol { padding-top: calc(var(--header-h) + 22px); }
     .pol-title { font-size: 24px; }
     .pol-doc p { font-size: 14.5px; }
 }
