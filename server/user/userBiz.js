@@ -1,4 +1,3 @@
-let crypto = require('crypto');
 let userDao = require('./userDao');
 let sms = require('../common/sms');
 let phoneVerification = require('../common/phoneVerification');
@@ -180,8 +179,10 @@ module.exports = {
             if (res == null || res.length == 0) {
                 callback('not ok');
             } else {
-                // 6 digits from a cryptographically secure source
-                let certificationCode = crypto.randomInt(100000, 1000000);
+                // 6 digits from a cryptographically secure source.
+                // crypto.randomInt 는 Node 14.10 부터여서 운영 서버(Node 8)에서
+                // 터졌다. 회원가입 인증과 같은 생성기를 쓴다.
+                let certificationCode = phoneVerification.generateCode();
                 param.certificationCode = certificationCode;
                 entry.issuedAt = Date.now();
                 let telno = param.telno;

@@ -24,6 +24,21 @@ const SEND_WINDOW_MS = 60 * 60 * 1000;      // 발송 한도 집계 구간 1시�
 
 const sendLog = new Map();                  // telno -> { count, windowEndsAt, lastSentAt }
 
+/**
+ * 0 이상 max 미만의 정수를 균등하게 뽑는다 (CSPRNG).
+ *
+ * randomBytes 로 뽑은 32비트 값을 그냥 % max 하면 앞쪽 숫자가 조금 더 자주
+ * 나온다(모듈로 편향). max 의 배수를 넘는 구간은 버리고 다시 뽑아 편향을 없앤다.
+ */
+function randomBelow(max) {
+	const limit = Math.floor(0xFFFFFFFF / max) * max;
+	let n;
+	do {
+		n = crypto.randomBytes(4).readUInt32BE(0);
+	} while (n >= limit);
+	return n % max;
+}
+
 /** 만료된 발송 기록은 쌓아둘 필요가 없다 */
 function sweepSendLog(now) {
 	for (let [telno, entry] of sendLog) {
@@ -79,9 +94,15 @@ module.exports = {
 		if (entry && entry.count > 0) entry.count -= 1;
 	},
 
-	/** 6자리 인증번호. Math.random 은 예측 가능하므로 CSPRNG 를 쓴다 */
+	/**
+	 * 6자리 인증번호. Math.random 은 예측 가능하므로 CSPRNG 를 쓴다.
+	 *
+	 * crypto.randomInt 는 Node 14.10 부터라서 운영 서버(Node 8)에서
+	 * "crypto.randomInt is not a function" 으로 터진다. randomBytes 는
+	 * 오래전부터 있으므로 그걸로 직접 균등 추출한다.
+	 */
 	generateCode: function () {
-		return String(crypto.randomInt(100000, 1000000));
+		return String(100000 + randomBelow(900000));
 	},
 
 	/**
