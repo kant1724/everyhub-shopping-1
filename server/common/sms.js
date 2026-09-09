@@ -36,6 +36,12 @@ module.exports = {
 				console.log('Response: ' + chunk);
 			});
 		});
+
+		// 리스너가 없으면 'error' 이벤트가 처리되지 않아 프로세스 전체가 죽는다.
+		// 문자 한 통이 안 보내진 것 때문에 서버가 내려가서는 안 되므로 기록만 남긴다.
+		post_req.on('error', function (err) {
+			console.error('[sms] 전송 실패 ' + err.code + ': ' + err.message);
+		});
 		console.log(msg);
 		post_req.write(post_data);
 		post_req.end();
@@ -71,6 +77,12 @@ module.exports = {
 			res.on('data', function (chunk) {
 				console.log('Response: ' + chunk);
 			});
+		});
+
+		// 리스너가 없으면 'error' 이벤트가 처리되지 않아 프로세스 전체가 죽는다.
+		// 문자 한 통이 안 보내진 것 때문에 서버가 내려가서는 안 되므로 기록만 남긴다.
+		post_req.on('error', function (err) {
+			console.error('[sms] 전송 실패 ' + err.code + ': ' + err.message);
 		});
 		post_req.write(post_data);
 		post_req.end();

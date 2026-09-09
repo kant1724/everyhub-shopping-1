@@ -52,7 +52,7 @@ module.exports = {
      * 번호당 발송 제한만 phoneVerification 의 메모리에서 센다.
      * 이미 가입된 번호에는 보내지 않는다(남의 번호 확인 용도로도 쓰일 수 있다).
      *
-     * callback: 'ok' | 'invalid' | 'dup' | 'cooldown' | 'too_many'
+     * callback: 'ok' | 'invalid' | 'dup' | 'cooldown' | 'too_many' | 'error'
      */
     sendSignUpCode: function(param, session, callback) {
         let telno = phoneVerification.normalizeTelno(param.telno);
@@ -66,6 +66,12 @@ module.exports = {
             return;
         }
         userDao.checkDup({ telno: telno }, (dup) => {
+            // 조회 실패를 '가입 가능'으로 넘기면 안 되고, '이미 가입됨'으로
+            // 알려서도 안 된다. 둘 다 사실이 아니므로 따로 돌려준다.
+            if (dup === 'error') {
+                callback('error');
+                return;
+            }
             if (dup !== 'ok') {
                 callback('dup');
                 return;

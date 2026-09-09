@@ -14,6 +14,22 @@
 (function () {
     const CODE_TTL_SEC = 300;     // 서버 phoneVerification.CODE_TTL_MS 와 맞춘다
     const RESEND_WAIT_SEC = 30;   // 서버 RESEND_COOLDOWN_MS 와 맞춘다
+    const REQUEST_TIMEOUT_MS = 15000;
+
+    /**
+     * apiPost 에 제한시간을 둔다.
+     *
+     * 서버가 응답을 보내지 않으면 fetch 는 끝나지 않는다. 그대로 await 하면
+     * busy 가 true 로 고정되어 버튼이 영구히 눌리지 않는다(= 화면이 멈춘다).
+     * 제한시간이 지나면 'timeout' 을 돌려주어 최소한 안내를 띄우고 다시 누를 수
+     * 있게 한다.
+     */
+    function apiPostWithTimeout(url, params) {
+        return Promise.race([
+            apiPost(url, params),
+            new Promise((resolve) => setTimeout(() => resolve('timeout'), REQUEST_TIMEOUT_MS))
+        ]);
+    }
 
     const app = Vue.createApp({
         data() {
@@ -112,10 +128,18 @@
                 }
 
                 this.busy = true;
-                const ret = await apiPost('/user/sendSignUpCode', { telno: this.telno });
-                this.busy = false;
+                let ret;
+                try {
+                    ret = await apiPostWithTimeout('/user/sendSignUpCode', { telno: this.telno });
+                } finally {
+                    this.busy = false;   // 무슨 일이 있어도 버튼은 다시 눌릴 수 있어야 한다
+                }
 
-                if (ret === 'ok') {
+                if (ret === 'timeout') {
+                    alert('서버 응답이 없습니다. 잠시 후 다시 시도해 주세요.');
+                } else if (ret === 'error') {
+                    alert('일시적인 오류로 인증번호를 보내지 못했습니다. 잠시 후 다시 시도해 주세요.');
+                } else if (ret === 'ok') {
                     this.codeSent = true;
                     this.certificationCode = '';
                     this.certNotice = '';
@@ -142,13 +166,19 @@
                 if (isNull(this.certificationCode)) { alert('인증번호를 입력하세요.'); return; }
 
                 this.busy = true;
-                const ret = await apiPost('/user/confirmSignUpCode', {
-                    telno: this.telno,
-                    certificationCode: this.certificationCode
-                });
-                this.busy = false;
+                let ret;
+                try {
+                    ret = await apiPostWithTimeout('/user/confirmSignUpCode', {
+                        telno: this.telno,
+                        certificationCode: this.certificationCode
+                    });
+                } finally {
+                    this.busy = false;
+                }
 
-                if (ret === 'ok') {
+                if (ret === 'timeout') {
+                    alert('서버 응답이 없습니다. 잠시 후 다시 시도해 주세요.');
+                } else if (ret === 'ok') {
                     this.telnoVerified = true;
                     this.certNotice = '';
                     this.stopTimer();
@@ -196,24 +226,32 @@
 
                 this.submitting = true;
                 const f = this.form;
-                const ret = await apiPost('/user/goSigningUp', {
-                    telno: this.telno,
-                    telno1: f.telno1,
-                    telno2: f.telno2,
-                    telno3: f.telno3,
-                    password: sha256(f.password),
-                    userNm: f.userNm,
-                    gender: f.gender,
-                    dateOfBirth: String(f.dateOfBirthY) + String(f.dateOfBirthM) + String(f.dateOfBirthD),
-                    dateOfBirthY: f.dateOfBirthY,
-                    dateOfBirthM: f.dateOfBirthM,
-                    dateOfBirthD: f.dateOfBirthD,
-                    zipNo: f.zipNo,
-                    addressMain: f.addressMain,
-                    addressDetail: f.addressDetail
-                });
-                this.submitting = false;
+                let ret;
+                try {
+                    ret = await apiPostWithTimeout('/user/goSigningUp', {
+                        telno: this.telno,
+                        telno1: f.telno1,
+                        telno2: f.telno2,
+                        telno3: f.telno3,
+                        password: sha256(f.password),
+                        userNm: f.userNm,
+                        gender: f.gender,
+                        dateOfBirth: String(f.dateOfBirthY) + String(f.dateOfBirthM) + String(f.dateOfBirthD),
+                        dateOfBirthY: f.dateOfBirthY,
+                        dateOfBirthM: f.dateOfBirthM,
+                        dateOfBirthD: f.dateOfBirthD,
+                        zipNo: f.zipNo,
+                        addressMain: f.addressMain,
+                        addressDetail: f.addressDetail
+                    });
+                } finally {
+                    this.submitting = false;
+                }
 
+                if (ret === 'timeout') {
+                    alert('서버 응답이 없습니다. 가입이 완료되지 않았을 수 있으니 로그인을 먼저 확인해 주세요.');
+                    return;
+                }
                 if (ret === 'not verified') {
                     // 인증 후 30분이 지났거나 세션이 끊긴 경우
                     this.resetCert();
