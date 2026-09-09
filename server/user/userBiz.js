@@ -77,18 +77,28 @@ module.exports = {
                 return;
             }
             let certificationCode = phoneVerification.generateCode();
-            session.signUpCert = {
-                telno: telno,
-                codeHash: phoneVerification.hashCode(telno, certificationCode),
-                issuedAt: Date.now(),
-                attempts: 0,
-                verifiedAt: 0
-            };
+            // 30초 쿨다운을 먼저 걸어 동시 요청으로 문자가 여러 통 나가는 것을 막는다
             phoneVerification.registerSend(telno);
             let title = '인증번호 전송';
             let msg = '간드락농원 회원가입 인증번호는 ' + certificationCode + ' 입니다.';
-            sms.sendSMS2(title, msg, telno);
-            callback('ok');
+            sms.sendSMS2(title, msg, telno, (result) => {
+                if (!result.ok) {
+                    // 문자가 나가지 않았으면 '전송했다'고 해서는 안 된다. 인증번호도
+                    // 세션에 남기지 않는다(받지 못한 번호를 맞출 수는 없다).
+                    // 실제로 발송되지 않았으므로 시간당 발송 횟수에서도 되돌린다.
+                    phoneVerification.rollbackSend(telno);
+                    callback('error');
+                    return;
+                }
+                session.signUpCert = {
+                    telno: telno,
+                    codeHash: phoneVerification.hashCode(telno, certificationCode),
+                    issuedAt: Date.now(),
+                    attempts: 0,
+                    verifiedAt: 0
+                };
+                callback('ok');
+            });
         });
     },
 

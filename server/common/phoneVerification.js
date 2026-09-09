@@ -67,6 +67,18 @@ module.exports = {
 		entry.lastSentAt = now;
 	},
 
+	/**
+	 * 발송이 실제로 실패했을 때 시간당 횟수만 되돌린다.
+	 *
+	 * 문자가 나가지 않았으니 한도를 깎을 이유가 없다. 다만 lastSentAt 은 그대로 둬서
+	 * 30초 쿨다운은 유지한다. 실패가 반복될 때 재시도가 폭주하지 않게 하려는 것이고,
+	 * 문자가 나가지 않는 실패는 남의 번호로 문자를 퍼붓는 수단이 되지 않는다.
+	 */
+	rollbackSend: function (telno) {
+		let entry = sendLog.get(telno);
+		if (entry && entry.count > 0) entry.count -= 1;
+	},
+
 	/** 6자리 인증번호. Math.random 은 예측 가능하므로 CSPRNG 를 쓴다 */
 	generateCode: function () {
 		return String(crypto.randomInt(100000, 1000000));
