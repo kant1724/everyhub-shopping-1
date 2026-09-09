@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let userBiz = require('./userBiz');
-let auth = require('../common/auth');
+let phoneVerification = require('../common/phoneVerification');
 
 
 router.get('/', function(req, res, next) {
@@ -31,9 +31,42 @@ router.get('/logout', function(req, res, next) {
     res.render('templates/main/main', {userNo: userNo, adminYn: adminYn});
 });
 
+/**
+ * 회원가입 휴대폰 본인인증 - 인증번호 발송.
+ * 인증 상태는 요청한 브라우저의 세션에만 남긴다.
+ */
+router.post('/sendSignUpCode', function(req, res) {
+    userBiz.sendSignUpCode(req.body, req.session, (ret) => {
+        res.status(200).send({ret: ret});
+    });
+});
+
+/** 회원가입 휴대폰 본인인증 - 인증번호 확인 */
+router.post('/confirmSignUpCode', function(req, res) {
+    userBiz.confirmSignUpCode(req.body, req.session, (ret) => {
+        res.status(200).send({ret: ret});
+    });
+});
+
 router.post('/goSigningUp', function(req, res) {
     let param = req.body;
+    // 본인인증을 통과한 번호로만 가입할 수 있다. 화면에서 버튼을 막는 것만으로는
+    // 이 API 를 직접 호출하는 경우를 막지 못하므로 서버에서 다시 확인한다.
+    let telno = phoneVerification.normalizeTelno(param.telno);
+    if (telno == null || !phoneVerification.isVerified(req.session.signUpCert, telno)) {
+        return res.status(200).send({ret: 'not verified'});
+    }
+    // 인증한 번호와 저장할 번호가 어긋나지 않도록 세 토막도 서버에서 만든다.
+    let parts = phoneVerification.splitTelno(telno);
+    param.telno = telno;
+    param.telno1 = parts.telno1;
+    param.telno2 = parts.telno2;
+    param.telno3 = parts.telno3;
     userBiz.goSigningUp(param, (ret) => {
+        if (ret !== 'not ok') {
+            // 인증 표시를 지워 같은 세션으로 다시 가입하지 못하게 한다
+            delete req.session.signUpCert;
+        }
         res.status(200).send({ret: ret});
     });
 });
@@ -83,14 +116,6 @@ router.post('/selectAllUser', function(req, res) {
         userBiz.selectAllUserCount(param, (totalCnt) => {
             res.status(200).send({ret: ret, totalCnt: totalCnt});
         });
-    });
-});
-
-router.post('/checkDup', function(req, res) {
-    let param = req.body;
-    param.userNo = req.session.userNo;
-    userBiz.checkDup(param, (ret) => {
-        res.status(200).send({ret: ret});
     });
 });
 

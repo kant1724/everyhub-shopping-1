@@ -1,7 +1,7 @@
-let moment = require('moment');
 let crypto = require('crypto');
 let userDao = require('./userDao');
 let sms = require('../common/sms');
+let phoneVerification = require('../common/phoneVerification');
 
 /**
  * Password-reset guard.
@@ -45,6 +45,83 @@ function clearGuard(telno) {
 }
 
 module.exports = {
+    /**
+     * 회원가입 휴대폰 본인인증 - 인증번호 발송.
+     *
+     * 아직 가입 전이라 DB 에 인증번호를 둘 수 없으므로 발급 내역은 세션에 남기고,
+     * 번호당 발송 제한만 phoneVerification 의 메모리에서 센다.
+     * 이미 가입된 번호에는 보내지 않는다(남의 번호 확인 용도로도 쓰일 수 있다).
+     *
+     * callback: 'ok' | 'invalid' | 'dup' | 'cooldown' | 'too_many'
+     */
+    sendSignUpCode: function(param, session, callback) {
+        let telno = phoneVerification.normalizeTelno(param.telno);
+        if (telno == null) {
+            callback('invalid');
+            return;
+        }
+        let sendable = phoneVerification.checkSendable(telno);
+        if (sendable !== 'ok') {
+            callback(sendable);
+            return;
+        }
+        userDao.checkDup({ telno: telno }, (dup) => {
+            if (dup !== 'ok') {
+                callback('dup');
+                return;
+            }
+            let certificationCode = phoneVerification.generateCode();
+            session.signUpCert = {
+                telno: telno,
+                codeHash: phoneVerification.hashCode(telno, certificationCode),
+                issuedAt: Date.now(),
+                attempts: 0,
+                verifiedAt: 0
+            };
+            phoneVerification.registerSend(telno);
+            let title = '인증번호 전송';
+            let msg = '간드락농원 회원가입 인증번호는 ' + certificationCode + ' 입니다.';
+            sms.sendSMS2(title, msg, telno);
+            callback('ok');
+        });
+    },
+
+    /**
+     * 회원가입 휴대폰 본인인증 - 인증번호 확인.
+     *
+     * 통과하면 세션에 인증 완료 시각을 남기고 인증번호는 지운다(재사용 차단).
+     *
+     * callback: 'ok' | 'invalid' | 'expired' | 'too_many' | 'not ok'
+     */
+    confirmSignUpCode: function(param, session, callback) {
+        let telno = phoneVerification.normalizeTelno(param.telno);
+        if (telno == null) {
+            callback('invalid');
+            return;
+        }
+        let cert = session.signUpCert;
+        if (!cert || cert.telno !== telno || !cert.codeHash) {
+            callback('not ok');
+            return;
+        }
+        if (cert.attempts >= phoneVerification.MAX_ATTEMPTS) {
+            callback('too_many');
+            return;
+        }
+        if (Date.now() - cert.issuedAt > phoneVerification.CODE_TTL_MS) {
+            callback('expired');
+            return;
+        }
+        if (phoneVerification.codeMatches(cert.codeHash, telno, param.certificationCode)) {
+            cert.verifiedAt = Date.now();
+            cert.codeHash = null;
+            callback('ok');
+        } else {
+            cert.attempts += 1;
+            callback('not ok');
+        }
+    },
+
     goSigningUp: function(param, callback) {
         userDao.insertUser(param, callback);
     },
@@ -71,10 +148,6 @@ module.exports = {
 
     selectAllUserCount: function(param, callback) {
         userDao.selectAllUserCount(param, callback);
-    },
-
-    checkDup: function(param, callback) {
-        userDao.checkDup(param, callback);
     },
 
     selectSellerInfo: function(param, callback) {
