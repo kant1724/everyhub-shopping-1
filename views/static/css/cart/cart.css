@@ -118,6 +118,36 @@ body {
 
 .cart-card.is-unchecked { opacity: .5; }
 
+/* 품절 · 출하전 · 판매중지 — 선택도 수량 변경도 막힌 상태 */
+.cart-card.is-unavailable { opacity: .6; background: #fafbfc; }
+.cart-card.is-unavailable .cart-card-thumb img { filter: grayscale(1); }
+
+.cart-card-badge {
+    display: inline-block;
+    margin-right: 6px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #ffeceb;
+    color: #e5443a;
+    font-size: 12px;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.cart-card-alert {
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #e5443a;
+}
+
+.cart-summary-warn {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #e5443a;
+}
+
 .cart-card-check { align-self: flex-start; padding-top: 2px; }
 
 .cart-card-thumb {

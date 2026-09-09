@@ -87,18 +87,32 @@
         </foreach>
     </insert>
 
+    <!--
+      Options the order is allowed to contain, with the parent item's sale
+      state alongside. SHIP_YN / SOLD_OUT_YN come back rather than being
+      filtered here so the DAO can tell "no such option" (diff item) apart
+      from "out of stock" (sold out), and so an administrator keeps the
+      existing exemption from the stock rule.
+      A deleted item is never orderable, so DEL_YN stays in the WHERE clause.
+    -->
     <select id="selectItems">
-        SELECT ITEM_NO AS itemNo
-              , OPTION_NO AS optionNo
-              , OPTION_NM AS optionNm
-              , ITEM_PRICE AS itemPrice
-          FROM ITEM_OPTION
-         WHERE ITEM_NO IN (
+        SELECT O.ITEM_NO AS itemNo
+              , O.OPTION_NO AS optionNo
+              , O.OPTION_NM AS optionNm
+              , O.ITEM_PRICE AS itemPrice
+              , I.ITEM_NM AS itemNm
+              , I.SHIP_YN AS shipYn
+              , I.SOLD_OUT_YN AS soldOutYn
+          FROM ITEM_OPTION O
+         INNER JOIN ITEMS I
+            ON I.ITEM_NO = O.ITEM_NO
+         WHERE O.ITEM_NO IN (
         <foreach collection="orderListDetail" item="order" separator=",">
             ${order.itemNo}
         </foreach>
                            )
-            AND USE_YN = 'Y'
-            AND DEL_YN = 'N'
+            AND O.USE_YN = 'Y'
+            AND O.DEL_YN = 'N'
+            AND I.DEL_YN = 'N'
     </select>
 </mapper>

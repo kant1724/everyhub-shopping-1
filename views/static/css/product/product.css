@@ -87,10 +87,22 @@ body {
     display: inline-block;
     padding: 5px 10px;
     border-radius: 8px;
-    background: #f2f4f6;
-    color: #6b7684;
+    background: #ffeceb;
+    color: #e5443a;
     font-size: 13px;
     font-weight: 700;
+}
+
+/* 품절 · 출하전이라 주문 버튼이 잠겼을 때의 사유 안내 */
+.pdp-status-notice {
+    margin: 16px 0 0;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #ffeceb;
+    color: #e5443a;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.6;
 }
 
 .pdp-price {

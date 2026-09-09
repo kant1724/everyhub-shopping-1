@@ -11,6 +11,9 @@
  *
  * 문자 발송 대상 선택은 지금 화면에 있는 페이지 안에서만 고른다.
  * 다른 페이지의 회원 정보는 브라우저에 없으므로 페이지를 옮기면 선택은 초기화된다.
+ *
+ * 회원명 · 전화번호 검색도 서버에서 처리한다. 목록이 페이지 단위로만
+ * 내려오기 때문에 브라우저에서 거르면 현재 페이지 안에서만 찾게 된다.
  */
 (function () {
     const ctx = pageContext();
@@ -22,8 +25,12 @@
                 userNo: ctx.userNo,
                 adminYn: ctx.adminYn,
                 rows: [],          // 현재 페이지의 회원만 담는다
-                total: 0,          // 전체 회원 수 (서버가 알려준다)
+                total: 0,          // 조건에 맞는 전체 회원 수 (서버가 알려준다)
                 loading: true,
+                // 입력 중인 검색어. 조회 버튼을 눌러야 applied 로 옮겨간다
+                filter: { userNm: '', telno: '' },
+                // 실제로 서버에 보낸 검색 조건 (페이지를 넘겨도 유지된다)
+                applied: { userNm: '', telno: '' },
                 page: 1,
                 pageSize: PAGE_SIZE,
                 selected: {},
@@ -42,6 +49,9 @@
             },
             allChecked() {
                 return this.rows.length > 0 && this.rows.every((r) => this.selected[r.userNo]);
+            },
+            searching() {
+                return this.applied.userNm !== '' || this.applied.telno !== '';
             }
         },
         methods: {
@@ -52,12 +62,32 @@
 
                 const res = await apiPostFull('/user/selectAllUser', {
                     pageSize: this.pageSize,
-                    pageOffset: (this.page - 1) * this.pageSize
+                    pageOffset: (this.page - 1) * this.pageSize,
+                    userNm: this.applied.userNm,
+                    telno: this.applied.telno
                 });
 
                 this.rows = res.ret || [];
                 this.total = res.totalCnt || 0;
                 this.loading = false;
+            },
+
+            /**
+             * 조회. 전화번호는 숫자만 남겨서 보낸다 — 가입할 때 TELNO 에
+             * 구분자 없이 저장되므로 '010-1234' 로는 아무것도 걸리지 않는다.
+             */
+            async search() {
+                this.applied = {
+                    userNm: String(this.filter.userNm || '').trim(),
+                    telno: String(this.filter.telno || '').replace(/[^0-9]/g, '')
+                };
+                await this.load(true);
+            },
+
+            async resetSearch() {
+                this.filter = { userNm: '', telno: '' };
+                this.applied = { userNm: '', telno: '' };
+                await this.load(true);
             },
 
             toggleAll(e) {

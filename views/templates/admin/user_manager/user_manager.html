@@ -19,15 +19,36 @@
             <div class="adm-head">
                 <div>
                     <h1 class="adm-title">회원 관리</h1>
-                    <p class="adm-sub">전체 회원 [[ total ]]명 · 이 페이지에서 선택 [[ selectedTelnos.length ]]명</p>
+                    <p class="adm-sub">
+                        [[ searching ? '검색 결과' : '전체 회원' ]] [[ total ]]명 ·
+                        이 페이지에서 선택 [[ selectedTelnos.length ]]명
+                    </p>
                 </div>
                 <div class="adm-actions">
                     <button type="button" class="adm-btn adm-btn-primary" @click="openSms">문자 보내기</button>
                 </div>
             </div>
 
+            <!-- 검색 -->
+            <div class="adm-filter">
+                <div class="adm-filter-item">
+                    <label class="adm-filter-label" for="search_user_nm">회원명</label>
+                    <input id="search_user_nm" type="text" class="gd-input" v-model="filter.userNm"
+                           placeholder="이름 일부만 입력해도 됩니다" @keyup.enter="search">
+                </div>
+                <div class="adm-filter-item">
+                    <label class="adm-filter-label" for="search_telno">전화번호</label>
+                    <input id="search_telno" type="tel" class="gd-input" v-model="filter.telno"
+                           placeholder="- 없이 뒷자리만 입력해도 됩니다" @keyup.enter="search">
+                </div>
+                <button type="button" id="search" class="adm-btn adm-btn-primary" @click="search">조회</button>
+                <button type="button" id="reset_search" class="adm-btn" @click="resetSearch">초기화</button>
+            </div>
+
             <p v-if="loading" class="adm-empty">불러오는 중...</p>
-            <p v-else-if="rows.length === 0" class="adm-empty">회원이 없습니다.</p>
+            <p v-else-if="rows.length === 0" class="adm-empty">
+                [[ searching ? '검색 조건에 맞는 회원이 없습니다.' : '회원이 없습니다.' ]]
+            </p>
 
             <div v-else class="adm-table-wrap">
                 <table class="adm-table" id="user_list">

@@ -104,6 +104,19 @@
             , B.TELNO AS managerTelno
         FROM USERS A LEFT OUTER JOIN USERS B
           ON A.MANAGER_NO = B.USER_NO
+       WHERE 1=1
+      <!--
+        Admin console search by name / phone. Both go through #{}, so the
+        value is escaped as a string literal and never concatenated raw.
+        The phone column holds digits only (sign-up joins telno1~3), so the
+        console strips separators before sending.
+      -->
+      <if test="userNm != null and userNm != ''">
+         AND A.USER_NM LIKE CONCAT('%', #{userNm}, '%')
+      </if>
+      <if test="telno != null and telno != ''">
+         AND A.TELNO LIKE CONCAT('%', #{telno}, '%')
+      </if>
       <choose>
         <!--
           Page-number paging for the admin console (100 per page).
@@ -115,7 +128,7 @@
         LIMIT ${pageSize} OFFSET ${pageOffset}
         </when>
         <otherwise>
-       WHERE A.USER_NO <![CDATA[<]]> ${lastUserNo}
+         AND A.USER_NO <![CDATA[<]]> ${lastUserNo}
        ORDER BY A.USER_NO DESC
         LIMIT ${limit}
         </otherwise>
@@ -123,9 +136,18 @@
     </select>
     <!-- lastUserNo, limit, pageSize and pageOffset above are sanitized to integers in userDao.js before reaching this template -->
 
+    <!-- Must carry the same search conditions as selectAllUser, or the pager
+         would show page counts for the unfiltered list. -->
     <select id="selectAllUserCount">
         SELECT COUNT(*) AS totalCnt
-          FROM USERS
+          FROM USERS A
+         WHERE 1=1
+      <if test="userNm != null and userNm != ''">
+         AND A.USER_NM LIKE CONCAT('%', #{userNm}, '%')
+      </if>
+      <if test="telno != null and telno != ''">
+         AND A.TELNO LIKE CONCAT('%', #{telno}, '%')
+      </if>
     </select>
 
     <select id="selectSellerInfo">

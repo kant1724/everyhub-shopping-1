@@ -75,12 +75,24 @@
                 return numberWithCommas((this.itemPriceNum + this.shippingFeeNum) * Number(this.qty)) + '원';
             },
 
-            /** 출하전 / 품절 — 관리자에게는 표시하지 않고 구매도 허용 (기존 규칙) */
+            /**
+             * 출하전 / 품절 — 관리자에게는 표시하지 않고 구매도 허용 (기존 규칙).
+             * 품절이 출하 여부보다 우선한다. 출하중(SHIP_YN='Y')이면서 품절인
+             * 상품이 '출하전' 으로 보이던 문제를 막기 위해 품절을 먼저 본다.
+             */
             statusLabel() {
                 if (!this.item || this.isAdmin) return '';
-                if (this.item.shipYn === 'N') return '출하전';
                 if (this.item.soldOutYn === 'Y') return '품절';
+                if (this.item.shipYn !== 'Y') return '출하전';
                 return '';
+            },
+
+            /** 구매 버튼 아래에 띄우는 안내 문구 */
+            statusNotice() {
+                if (this.statusLabel === '') return '';
+                return this.statusLabel === '품절'
+                    ? '품절된 상품입니다. 재입고 후 주문하실 수 있습니다.'
+                    : '아직 출하 전인 상품입니다. 출하가 시작되면 주문하실 수 있습니다.';
             },
 
             canBuy() { return !!this.item && !!this.selectedOption && this.statusLabel === ''; },

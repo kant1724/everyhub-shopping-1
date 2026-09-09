@@ -35,7 +35,14 @@
         },
 
         methods: {
-            statusOf(item) { return item.shipYn === 'Y' ? '판매중' : '출하전'; },
+            /** 품절이 출하 여부보다 우선한다 (품절이면 출하중이라도 살 수 없다) */
+            statusOf(item) {
+                if (item.soldOutYn === 'Y') return '품절';
+                return item.shipYn === 'Y' ? '판매중' : '출하전';
+            },
+
+            /** 주문할 수 없는 상품인지 — 칩을 흐리게 표시하는 데 쓴다 */
+            isOff(item) { return item.soldOutYn === 'Y' || item.shipYn !== 'Y'; },
 
             descOf(item) {
                 return item.itemDesc ? String(item.itemDesc).split('\n')[0] : '';

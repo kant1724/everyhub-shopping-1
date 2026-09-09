@@ -280,6 +280,18 @@ body { background: #f9fafb; }
 
 .chk-summary-note { margin: 12px 0 0; font-size: 12px; color: #8b95a1; line-height: 1.6; }
 
+/* 품절 · 출하전 상품이 섞여 있을 때의 결제 차단 안내 */
+.chk-summary-warn {
+    margin: 12px 0 0;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #ffeceb;
+    color: #e5443a;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
 /* ---------------- 모달 내부 ---------------- */
 .gd-modal-wide { max-width: 620px; }
 

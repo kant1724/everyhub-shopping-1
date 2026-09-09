@@ -70,6 +70,8 @@
                         <strong>[[ totalPriceText ]]</strong>
                     </div>
 
+                    <p class="pdp-status-notice" v-if="statusNotice">[[ statusNotice ]]</p>
+
                     <div class="pdp-actions">
                         <button type="button" id="add_cart" class="pdp-btn pdp-btn-ghost" :disabled="!canBuy" @click="addCart">
                             장바구니

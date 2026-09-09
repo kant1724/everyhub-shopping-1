@@ -12,6 +12,7 @@
  *     금액 = shippingFee × 총수량. 최종 결제금액에 합산해서 전송.
  *  3) 보내는분 미입력 시 농원 기본값(현병윤 / 01094278169 / 제주 간월동로 54)
  *  4) 검증 항목·문구, 주문 확인 confirm, 응답 'not ok' · 'diff item' 처리 동일
+ *     ('sold out' 은 품절 / 출하전 상품이 섞여 있을 때 서버가 돌려주는 값)
  *  5) 성공 시 purchase_complete 로 동일한 쿼리스트링 전달 (재주문 기능이 이를 사용)
  *
  * 델리미터는 [[ ]] (서버 mustache 가 {{ }} 를 쓰므로).
@@ -47,6 +48,9 @@
                 totalQty: 0,
                 additionalShippingFee: 0,
                 additionalShippingText: '',
+
+                /* 품절 · 출하전 등으로 주문할 수 없는 상품 [{itemNm, reason}] */
+                unavailable: [],
 
                 /* 판매자(입금 계좌) */
                 sellerAcno: '',
@@ -105,6 +109,13 @@
         },
 
         computed: {
+            /** 하나라도 주문할 수 없는 상품이 있으면 결제 자체를 막는다 */
+            hasUnavailable() { return this.unavailable.length > 0; },
+            unavailableText() {
+                return this.unavailable.map(function (u) {
+                    return u.itemNm + '(' + u.reason + ')';
+                }).join(', ');
+            },
             finalPrice() { return this.totalPrice + this.additionalShippingFee; },
             finalPriceText() { return numberWithCommas(this.finalPrice) + '원'; },
             totalPriceText() { return numberWithCommas(this.totalPrice) + '원'; },
@@ -203,6 +214,39 @@
                 });
                 this.totalPrice = sum;
                 this.totalQty = Number(qty);
+            },
+
+            /* ---------------- 판매 상태 확인 ---------------- */
+            /**
+             * 주문서에 올라온 상품이 지금도 살 수 있는 상태인지 확인한다.
+             * 장바구니에 오래 담겨 있었거나, 상품 페이지를 열어 둔 사이에
+             * 품절 / 출하전으로 바뀌었을 수 있다.
+             * (서버도 주문 시점에 같은 검사를 하므로 여기는 안내가 목적이다)
+             *
+             * 관리자는 상품 상세와 서버 검증 모두에서 예외라 여기서도 막지 않는다.
+             */
+            async checkItemStatus() {
+                if (this.adminYn === 'Y') { this.unavailable = []; return; }
+
+                // useYn 으로 거르지 않는다 — 장바구니와 같은 이유로, 실제 사유를
+                // 그대로 알려주려면 삭제되지 않은 상품 전체가 필요하다
+                const list = (await apiPost('/admin/item_manager/selectItemList', {}));
+                if (list === null) return;   // 조회 실패 시엔 막지 않고 서버 검증에 맡긴다
+
+                const map = {};
+                (list || []).forEach(function (i) { map[String(i.itemNo)] = i; });
+
+                const bad = [];
+                this.orderListDetail.forEach(function (d) {
+                    const cur = map[String(d.itemNo)];
+                    let reason = '';
+                    if (!cur) reason = '판매중지';
+                    else if (cur.soldOutYn === 'Y') reason = '품절';
+                    else if (cur.shipYn !== 'Y') reason = '출하전';
+                    else if (cur.useYn !== 'Y') reason = '판매중지';
+                    if (reason !== '') bad.push({ itemNm: d.itemNm, reason: reason });
+                });
+                this.unavailable = bad;
             },
 
             /* ---------------- 주문자 정보 ---------------- */
@@ -427,6 +471,11 @@
 
             async pay() {
                 if (this.submitting) return;
+                if (this.hasUnavailable) {
+                    alert('주문할 수 없는 상품이 있습니다.\n' + this.unavailableText +
+                          '\n장바구니에서 해당 상품을 빼고 다시 주문해 주세요.');
+                    return;
+                }
                 if (!this.validate()) return;
                 if (!confirm('해당내용으로 주문하시겠습니까?')) return;
 
@@ -444,6 +493,13 @@
                 }
                 if (ret === 'diff item') {
                     alert('존재하지 않는 상품이 있습니다. 장바구니를 비우고 다시 주문하시길 바랍니다.');
+                    return;
+                }
+                if (ret === 'sold out') {
+                    // 주문서를 열어 둔 사이에 품절 / 출하전으로 바뀐 경우
+                    await this.checkItemStatus();
+                    alert('품절되었거나 출하 전인 상품이 포함되어 있어 주문할 수 없습니다.' +
+                          (this.unavailableText ? '\n' + this.unavailableText : ''));
                     return;
                 }
 
@@ -495,6 +551,7 @@
                 await this.buildDirect();
             }
 
+            await this.checkItemStatus();
             await this.loadUser();
             await this.loadSeller();
         }

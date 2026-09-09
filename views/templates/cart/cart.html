@@ -36,9 +36,11 @@
                         </button>
                     </div>
 
-                    <div v-for="(item, idx) in items" :key="item.id" class="cart-card" :class="{ 'is-unchecked': !item.checked }">
+                    <div v-for="(item, idx) in items" :key="item.id" class="cart-card"
+                         :class="{ 'is-unchecked': !item.checked, 'is-unavailable': !isBuyable(item) }">
                         <label class="cart-check cart-card-check">
-                            <input type="checkbox" v-model="item.checked" @change="persist">
+                            <input type="checkbox" v-model="item.checked" @change="persist"
+                                   :disabled="!isBuyable(item)">
                         </label>
 
                         <div class="cart-card-thumb">
@@ -46,8 +48,14 @@
                         </div>
 
                         <div class="cart-card-body">
-                            <div class="cart-card-name">[[ item.itemNm ]]</div>
+                            <div class="cart-card-name">
+                                <span class="cart-card-badge" v-if="statusOf(item)">[[ statusOf(item) ]]</span>
+                                [[ item.itemNm ]]
+                            </div>
                             <div class="cart-card-option">[[ item.optionNm ]]</div>
+                            <p class="cart-card-alert" v-if="statusOf(item)">
+                                현재 [[ statusOf(item) ]] 상태라 주문할 수 없습니다.
+                            </p>
                             <div class="cart-card-meta">
                                 <span>상품 [[ item.itemPrice ]]</span>
                                 <span class="cart-dot">·</span>
@@ -56,11 +64,13 @@
 
                             <div class="cart-card-bottom">
                                 <div class="qty-stepper">
-                                    <button type="button" @click="decrease(item)" :disabled="item.qty <= 1" aria-label="수량 감소">
+                                    <button type="button" @click="decrease(item)"
+                                            :disabled="item.qty <= 1 || !isBuyable(item)" aria-label="수량 감소">
                                         <i class="fal fa-minus"></i>
                                     </button>
                                     <span class="qty-value">[[ item.qty ]]</span>
-                                    <button type="button" @click="increase(item)" aria-label="수량 증가">
+                                    <button type="button" @click="increase(item)"
+                                            :disabled="!isBuyable(item)" aria-label="수량 증가">
                                         <i class="fal fa-plus"></i>
                                     </button>
                                 </div>
@@ -85,6 +95,9 @@
                             <dt>배송비</dt>
                             <dd>[[ formatWon(totalShippingFee) ]]</dd>
                         </dl>
+                        <p class="cart-summary-warn" v-if="unavailableItems.length > 0">
+                            품절 · 출하전 상품 [[ unavailableItems.length ]]건은 주문에서 제외됩니다.
+                        </p>
                         <div class="cart-summary-divider"></div>
                         <dl class="cart-summary-row cart-summary-total">
                             <dt>총 결제금액</dt>

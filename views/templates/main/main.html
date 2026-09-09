@@ -73,7 +73,7 @@
                                 <img :src="item.imagePath1" :alt="item.itemNm">
                             </div>
                             <div class="product-card-body">
-                                <span class="product-chip" :class="{ 'is-off': item.shipYn !== 'Y' }">[[ statusOf(item) ]]</span>
+                                <span class="product-chip" :class="{ 'is-off': isOff(item) }">[[ statusOf(item) ]]</span>
                                 <h3 class="product-card-name">[[ item.itemNm ]]</h3>
                                 <p class="product-card-desc">[[ descOf(item) ]]</p>
                                 <p class="product-card-origin">원산지 국내산</p>
@@ -101,7 +101,7 @@
                                 <img :src="item.imagePath1" :alt="item.itemNm">
                             </div>
                             <div class="product-card-body">
-                                <span class="product-chip" :class="{ 'is-off': item.shipYn !== 'Y' }">[[ statusOf(item) ]]</span>
+                                <span class="product-chip" :class="{ 'is-off': isOff(item) }">[[ statusOf(item) ]]</span>
                                 <h3 class="product-card-name">[[ item.itemNm ]]</h3>
                                 <p class="product-card-desc">[[ descOf(item) ]]</p>
                                 <p class="product-card-origin">원산지 국내산</p>

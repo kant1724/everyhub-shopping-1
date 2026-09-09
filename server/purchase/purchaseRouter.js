@@ -28,6 +28,9 @@ router.post('/insertOrderList', function(req, res) {
     let json = req.body.data;
     let param = JSON.parse(json);
     param.orderListMain.userNo = req.session.userNo;
+    // taken from the session, never from the posted body: the stock check below
+    // exempts administrators, so the client must not be able to claim the role
+    param.adminYn = req.session.adminYn;
     if (param.orderListMain.userNo == 0) {
         res.status(200).send({ret: 'not ok'});
     } else {

@@ -15,7 +15,12 @@
             return { userNo: ctx.userNo, adminYn: ctx.adminYn, query: query, items: [], loading: true };
         },
         methods: {
-            statusOf(item) { return item.shipYn === "Y" ? "판매중" : "출하전"; },
+            /** 품절이 출하 여부보다 우선한다 (메인 화면과 같은 규칙) */
+            statusOf(item) {
+                if (item.soldOutYn === "Y") return "품절";
+                return item.shipYn === "Y" ? "판매중" : "출하전";
+            },
+            isOff(item) { return item.soldOutYn === "Y" || item.shipYn !== "Y"; },
             descOf(item) { return item.itemDesc ? String(item.itemDesc).split("\n")[0] : ""; },
             goProduct(itemNo) { location.href = "/product?itemNo=" + encodeURIComponent(itemNo); }
         },

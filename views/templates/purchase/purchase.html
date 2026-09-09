@@ -217,8 +217,13 @@
                             <dd id="total_price_text">[[ finalPriceText ]]</dd>
                         </dl>
 
-                        <button type="button" class="chk-pay-btn payment-btn" @click="pay" :disabled="submitting">
-                            [[ submitting ? '처리 중...' : '결제하기' ]]
+                        <p class="chk-summary-warn" v-if="hasUnavailable">
+                            주문할 수 없는 상품이 있습니다.<br>
+                            [[ unavailableText ]]
+                        </p>
+                        <button type="button" class="chk-pay-btn payment-btn" @click="pay"
+                                :disabled="submitting || hasUnavailable">
+                            [[ hasUnavailable ? '주문 불가' : (submitting ? '처리 중...' : '결제하기') ]]
                         </button>
                         <p class="chk-summary-note">※ 도서지역은 택배비용이 추가발생할 수 있습니다.</p>
                     </div>

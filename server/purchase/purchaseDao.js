@@ -15,6 +15,11 @@ module.exports = {
             d.optionNo = utils.toSafeInt(d.optionNo);
             d.qty = utils.toSafeInt(d.qty);
         });
+        // The browser can be told a product is sold out and still post the order
+        // (an old tab, a stale cart, a hand-made request), so the stock rule is
+        // re-checked here against the current row before anything is inserted.
+        // Administrators stay exempt, matching the product page.
+        let isAdmin = param.adminYn === 'Y';
         conn.beginTransaction(() => {
             let query = mybatisMapper.getStatement('purchaseSQL', 'selectItems', param, format);
             conn.query(query, (err, rows, fields) => {
@@ -29,6 +34,11 @@ module.exports = {
                             has = true;
                             if (orderOptionNm != rows[j].optionNm || orderItemPrice != rows[j].itemPrice) {
                                 callback('diff item');
+                                conn.end();
+                                return;
+                            }
+                            if (!isAdmin && (rows[j].soldOutYn == 'Y' || rows[j].shipYn != 'Y')) {
+                                callback('sold out');
                                 conn.end();
                                 return;
                             }
