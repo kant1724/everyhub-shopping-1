@@ -45,14 +45,22 @@
             };
         },
         methods: {
-            onPick(slot, e) {
+            async onPick(slot, e) {
                 const f = e.target.files && e.target.files[0];
                 if (!f) return;
+                // 원본을 먼저 넣어 둔다. 리사이즈가 끝나기 전에 저장을 눌러도
+                // 사진을 잃지 않고, 최악의 경우 예전처럼 원본이 올라갈 뿐이다.
                 slot.file = f;
                 slot.removed = false;
+
+                const resized = await resizeImageFile(f);
+                // 줄이는 동안 슬롯을 비웠거나 다른 파일을 골랐으면 덮어쓰지 않는다
+                if (slot.file !== f) return;
+                slot.file = resized;
+
                 const reader = new FileReader();
                 reader.onload = function () { slot.preview = reader.result; };
-                reader.readAsDataURL(f);
+                reader.readAsDataURL(resized);
             },
 
             clearSlot(slot) {
