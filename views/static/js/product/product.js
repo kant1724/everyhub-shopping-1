@@ -242,6 +242,7 @@
                     qty: this.qty
                 });
                 localStorage.setItem('product', JSON.stringify(productArr));
+                notifyCartChanged();   // 헤더 건수 배지 갱신
                 this.showToast('상품이 장바구니에 추가되었습니다.');
             },
 

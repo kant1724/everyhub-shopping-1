@@ -50,6 +50,25 @@ function apiPostFull(url, params) {
         .catch(function () { return { ret: [], totalCnt: 0 }; });
 }
 
+/** 장바구니 담긴 건수. localStorage 를 못 읽는 환경(사파리 프라이빗 등)이면 0 */
+function cartItemCount() {
+    try {
+        const raw = JSON.parse(localStorage.getItem('product'));
+        return Array.isArray(raw) ? raw.length : 0;
+    } catch (e) {
+        return 0;
+    }
+}
+
+/**
+ * 장바구니가 바뀌었다고 헤더에 알린다.
+ * storage 이벤트는 '다른 탭' 에서만 발생하므로, 같은 탭에서 담거나 뺐을 때는
+ * 이 이벤트로 직접 알려야 배지가 즉시 따라온다.
+ */
+function notifyCartChanged() {
+    window.dispatchEvent(new CustomEvent('cart-changed'));
+}
+
 /** 페이지가 서버에서 받은 세션 정보 (hidden input 으로 내려온다) */
 function pageContext() {
     const el = function (id) { return document.getElementById(id); };
@@ -73,11 +92,14 @@ function pageContext() {
 const AppHeader = {
     props: { userNo: { default: '0' }, adminYn: { default: 'N' } },
     data() {
-        return { open: false };
+        return { open: false, cartCount: cartItemCount() };
     },
     computed: {
         loggedIn() { return this.userNo && this.userNo !== '0'; },
         isAdmin() { return this.adminYn === 'Y'; },
+
+        /** 세 자리가 넘으면 배지가 늘어나 아이콘을 가리므로 99+ 로 줄인다 */
+        cartCountText() { return this.cartCount > 99 ? '99+' : String(this.cartCount); },
 
         /** 로고 아래 줄 — 쇼핑몰 주요 메뉴 */
         siteMenu() {
@@ -92,7 +114,8 @@ const AppHeader = {
 
         /** 로고 줄 오른쪽 — 장바구니·계정 */
         utilMenu() {
-            const cart = { href: '/cart', label: '장바구니', icon: 'fa-shopping-cart' };
+            // badge: 이 항목에만 건수 배지를 붙인다
+            const cart = { href: '/cart', label: '장바구니', icon: 'fa-shopping-cart', badge: true };
             if (!this.loggedIn) {
                 return [cart,
                     { href: '/user', label: '로그인', icon: 'fa-sign-in-alt' },
@@ -114,6 +137,20 @@ const AppHeader = {
             ];
         }
     },
+    mounted() {
+        this.syncCart = () => { this.cartCount = cartItemCount(); };
+        this.syncCart();
+        window.addEventListener('cart-changed', this.syncCart);   // 같은 탭에서 담기/빼기
+        window.addEventListener('storage', this.syncCart);        // 다른 탭에서 바꿨을 때
+        window.addEventListener('pageshow', this.syncCart);       // 뒤로가기(bfcache) 복원
+    },
+
+    unmounted() {
+        window.removeEventListener('cart-changed', this.syncCart);
+        window.removeEventListener('storage', this.syncCart);
+        window.removeEventListener('pageshow', this.syncCart);
+    },
+
     methods: {
         logout() { location.href = '/user/logout'; },
 
@@ -160,7 +197,12 @@ const AppHeader = {
 
                     <nav class="gd-util">
                         <a class="gd-util-link" v-for="m in utilMenu" :key="m.label" :href="m.href"
-                           @click="onNav(m, $event)"><i class="far" :class="m.icon"></i>[[ m.label ]]</a>
+                           @click="onNav(m, $event)">
+                            <span class="gd-util-icon">
+                                <i class="far" :class="m.icon"></i>
+                                <span class="gd-cart-badge" v-if="m.badge && cartCount > 0"
+                                      :aria-label="'담긴 상품 ' + cartCount + '건'">[[ cartCountText ]]</span>
+                            </span>[[ m.label ]]</a>
                     </nav>
                 </div>
             </div>
@@ -185,7 +227,12 @@ const AppHeader = {
                    @click="onNav(m, $event)">[[ m.label ]]</a>
                 <span class="gd-drawer-divider"></span>
                 <a class="gd-drawer-link" v-for="m in utilMenu" :key="'u' + m.label" :href="m.href"
-                   @click="onNav(m, $event)"><i class="far" :class="m.icon"></i>[[ m.label ]]</a>
+                   @click="onNav(m, $event)">
+                    <span class="gd-util-icon">
+                        <i class="far" :class="m.icon"></i>
+                        <span class="gd-cart-badge" v-if="m.badge && cartCount > 0"
+                              :aria-label="'담긴 상품 ' + cartCount + '건'">[[ cartCountText ]]</span>
+                    </span>[[ m.label ]]</a>
                 <template v-if="isAdmin">
                     <span class="gd-drawer-divider"></span>
                     <a class="gd-drawer-link gd-drawer-admin" v-for="m in adminMenu" :key="'a' + m.href"

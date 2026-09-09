@@ -193,6 +193,39 @@ button { cursor: pointer; }
 .gd-util-link i { color: var(--blue); font-size: 13px; }
 .gd-util-link:hover { background: var(--grey100); color: var(--grey900); }
 
+/* ---- 장바구니 건수 배지 ---- */
+/* 배지를 아이콘 모서리에 얹기 위한 기준점. 인라인 흐름은 그대로 둔다 */
+.gd-util-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+/*
+  건수 배지. 색은 심볼 귤색 계열이되 한참 진하게 썼다 —
+  10px 작은 글자라 흰 글자가 또렷해야 해서(흰 배경 대비 5.2:1) 원색 #f76707(3.0:1)은 쓰지 않았다.
+  흰 테두리로 아이콘과 경계를 만들어 겹쳐도 숫자가 묻히지 않는다.
+*/
+.gd-cart-badge {
+    position: absolute;
+    top: -8px;
+    left: 8px;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    box-sizing: border-box;
+    border: 2px solid var(--white);
+    border-radius: 999px;
+    background: #c2410c;
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 13px;
+    letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+}
+
 /* ---- 메뉴 줄 ---- */
 .gd-sitenav {
     display: flex;

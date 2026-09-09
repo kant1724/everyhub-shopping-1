@@ -137,6 +137,7 @@
                     return copy;
                 });
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+                notifyCartChanged();   // 헤더 건수 배지 갱신
             },
 
             goPurchase() {
