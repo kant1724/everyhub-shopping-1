@@ -212,12 +212,6 @@ body {
 
 .gallery-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.gallery-swiper .swiper-button-prev,
-.gallery-swiper .swiper-button-next {
-    color: #ffffff !important;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, .35);
-}
-
 .gallery-desc {
     margin: 20px 0 0;
     text-align: center;
