@@ -372,7 +372,10 @@ body { background: #f9fafb; }
     /* 세로 배치에서 wrap 이 남아 있으면 '열'의 폭이 컨테이너가 아니라 내용 기준으로
        잡혀서, 날짜 두 칸이 줄어들지 못하고 카드 밖으로 밀려난다. */
     .my-filter { flex-direction: column; flex-wrap: nowrap; align-items: stretch; }
-    .my-date { max-width: none; padding-left: 10px; padding-right: 10px; }
+    /* 날짜 두 칸을 나란히 두면 폭이 빠듯하다. 글꼴과 좌우 여백을 줄여 내용이
+       잘리지 않게 한다. 이 조합은 134px 이면 전부 보이는데, 400px 화면에서
+       한 칸에 151px 이 배정되므로 여유가 있다. */
+    .my-date { max-width: none; font-size: 13px; padding-left: 8px; padding-right: 8px; }
     .my-search-btn { width: 100%; }
     /* 주소 줄은 우편번호 칸을 줄여서 버튼과 나란히 들어가게 한다 */
     .my-zip { flex: 1 1 auto; min-width: 0; }
@@ -381,4 +384,16 @@ body { background: #f9fafb; }
     .order-deposit-row { flex-direction: column; gap: 2px; }
     .my-detail { flex-direction: column; gap: 2px; }
     .my-detail dt { flex: none; }
+}
+
+/*
+ * 아주 좁은 화면(구형 아이폰 등)에서는 글꼴을 얼마나 줄여도 날짜 두 칸을 나란히
+ * 둘 수 없다. 한 칸에 111px 만 배정되는데, 글꼴 11px·여백 6px 로 줄여도 114px 이
+ * 필요하다. 그래서 이 폭부터는 위아래로 쌓는다. 각 칸이 줄 전체를 쓰므로 폭이
+ * 넉넉해져 글꼴도 원래 크기로 돌린다.
+ */
+@media (max-width: 400px) {
+    .my-filter-dates { flex-direction: column; align-items: stretch; gap: 6px; }
+    .my-date { font-size: 15px; padding-left: 14px; padding-right: 14px; }
+    .my-filter-sep { text-align: center; }
 }
