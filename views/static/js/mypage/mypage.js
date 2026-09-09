@@ -14,6 +14,7 @@
  */
 (function () {
     const ctx = pageContext();
+    const SELLER_NO = 1;
 
     function fmtDate(d) {
         const p = function (n) { return String(n).padStart(2, '0'); };
@@ -45,6 +46,9 @@
                 reviewForm: { star: 5, subject: '', content: '' },
                 addressOpen: false,
 
+                /* 판매자 입금 계좌 (은행/계좌번호, 예금주) */
+                seller: { acno: '', depositPersonNm: '' },
+
                 /* 내정보 */
                 profile: {
                     userNm: '',
@@ -63,6 +67,19 @@
 
         methods: {
             won(n) { return numberWithCommas(Number(n) || 0); },
+
+            /* ---------------- 입금 계좌 ---------------- */
+            async loadSeller() {
+                const ret = await apiPost('/user/selectSellerInfo', { sellerNo: SELLER_NO });
+                if (!ret || ret.length === 0) return;
+                this.seller.acno = ret[0].acno || '';
+                this.seller.depositPersonNm = ret[0].depositPersonNm || '';
+            },
+
+            /** 입금이 아직 확인되지 않은(취소되지 않은) 주문에만 계좌를 안내한다 */
+            needsDeposit(o) {
+                return isNull(o.cancelDate) && isNull(o.depositConfirmDate);
+            },
 
             /* ---------------- 주문내역 ---------------- */
             async loadOrders() {
@@ -233,6 +250,7 @@
         },
 
         async mounted() {
+            await this.loadSeller();
             await this.loadOrders();
             await this.loadProfile();
         }

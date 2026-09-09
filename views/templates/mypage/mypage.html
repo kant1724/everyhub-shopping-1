@@ -68,6 +68,20 @@
                         </div>
                     </div>
 
+                    <!-- 입금 대기중인 주문에는 입금할 계좌를 함께 안내한다 -->
+                    <div class="order-deposit" v-if="needsDeposit(o) && seller.acno">
+                        <div class="order-deposit-title">입금 계좌</div>
+                        <dl class="order-deposit-row">
+                            <dt>은행 / 계좌번호</dt>
+                            <dd class="order-deposit-acno">[[ seller.acno ]]</dd>
+                        </dl>
+                        <dl class="order-deposit-row">
+                            <dt>예금주</dt>
+                            <dd>[[ seller.depositPersonNm ]]</dd>
+                        </dl>
+                        <p class="order-deposit-note">입금자명이 주문 시 입력한 이름과 다르면 확인이 늦어질 수 있습니다.</p>
+                    </div>
+
                     <div class="order-card-actions">
                         <button type="button" class="order-cancel-btn" v-if="canCancel(o)" @click="cancelOrder(o)">주문취소</button>
                         <span class="order-cancel-note" v-else-if="!o.cancelDate">배송이 시작되어 취소할 수 없습니다</span>
@@ -159,6 +173,9 @@
                         <div class="my-detail-divider"></div>
                         <dl class="my-detail"><dt>주문메모</dt><dd>[[ detailOrder.orderRemarks ]]</dd></dl>
                         <dl class="my-detail"><dt>입금메모</dt><dd>[[ detailOrder.depositRemarks ]]</dd></dl>
+                        <div class="my-detail-divider"></div>
+                        <dl class="my-detail"><dt>입금 계좌</dt><dd>[[ seller.acno ]]</dd></dl>
+                        <dl class="my-detail"><dt>예금주</dt><dd>[[ seller.depositPersonNm ]]</dd></dl>
                     </div>
                     <div class="gd-modal-footer">
                         <button type="button" class="gd-btn" @click="detailOrder = null">닫기</button>

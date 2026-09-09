@@ -168,6 +168,49 @@ body { background: #f9fafb; }
 .order-total { display: flex; align-items: baseline; gap: 10px; font-size: 14px; color: #6b7684; }
 .order-total strong { font-size: 19px; font-weight: 700; color: #3182f6; letter-spacing: -0.4px; }
 
+/* 입금 대기 주문의 계좌 안내 */
+.order-deposit {
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: #f9fafb;
+    border: 1px solid #f2f4f6;
+}
+
+.order-deposit-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #191f28;
+    margin-bottom: 8px;
+}
+
+.order-deposit-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 0 0 4px 0;
+}
+
+.order-deposit-row:last-of-type { margin-bottom: 0; }
+.order-deposit-row dt { flex: 0 0 auto; font-size: 13px; color: #6b7684; font-weight: 500; }
+
+.order-deposit-row dd {
+    margin: 0;
+    flex: 1;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333d4b;
+    word-break: break-all;
+}
+
+.order-deposit-acno { letter-spacing: -0.2px; }
+
+.order-deposit-note {
+    margin: 10px 0 0 0;
+    font-size: 12.5px;
+    color: #8b95a1;
+}
+
 .order-card-actions {
     display: flex;
     justify-content: flex-end;
@@ -320,6 +363,7 @@ body { background: #f9fafb; }
     .my-search-btn { width: 100%; }
 
     .order-card-head { flex-direction: column; align-items: flex-start; }
+    .order-deposit-row { flex-direction: column; gap: 2px; }
     .my-detail { flex-direction: column; gap: 2px; }
     .my-detail dt { flex: none; }
 }
