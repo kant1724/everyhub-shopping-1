@@ -2,7 +2,7 @@
  * 주문 관리 (Vue 3) — MDBootstrap / Bootstrap / jQuery / moment / datepicker 미사용
  *
  * 서버 계약은 전부 그대로 유지한다:
- *   POST /admin/order_list/selectOrderListMain      {startOrderDate,endOrderDate,orderUserNm,userNm,depositPersonNm,userNo:''}
+ *   POST /admin/order_list/selectOrderListMain      {startOrderDate,endOrderDate,orderUserNm,userNm,depositPersonNm,dlvrStatus,userNo:''}
  *                                                   (+ pageSize/pageOffset 을 주면 서버가 주문 100건씩 잘라 주고
  *                                                    응답에 totalCnt 를 함께 담아 준다)
  *   POST /admin/order_list/updateDepositConfirmDate {orderNo}
@@ -43,7 +43,9 @@
                     endOrderDate: TODAY,
                     orderUserNm: '',
                     userNm: '',
-                    depositPersonNm: ''
+                    depositPersonNm: '',
+                    // 배송 상태: '' 전체 / 'Y' 배송완료 / 'N' 미배송 (주문 단위 판정)
+                    dlvrStatus: ''
                 },
 
                 rows: [],          // 서버가 준 원본 (엑셀은 이걸 쓴다)
@@ -163,6 +165,7 @@
                     orderUserNm: f.orderUserNm,
                     userNm: f.userNm,
                     depositPersonNm: f.depositPersonNm,
+                    dlvrStatus: f.dlvrStatus,
                     userNo: ''
                 };
             },

@@ -48,6 +48,14 @@
                     <input id="deposit_person_nm" type="text" class="gd-input" v-model="filter.depositPersonNm"
                            @keyup.enter="search">
                 </div>
+                <div class="adm-filter-item">
+                    <label class="adm-filter-label" for="dlvr_status">배송상태</label>
+                    <select id="dlvr_status" class="gd-input" v-model="filter.dlvrStatus" @change="search">
+                        <option value="">전체</option>
+                        <option value="N">미배송</option>
+                        <option value="Y">배송완료</option>
+                    </select>
+                </div>
                 <button type="button" id="search" class="adm-btn adm-btn-primary" @click="search">조회</button>
             </div>
 

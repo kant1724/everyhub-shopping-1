@@ -98,6 +98,29 @@
         <if test="depositPersonNm != null and depositPersonNm != ''">
             AND A.DEPOSIT_PERSON_NM LIKE CONCAT('%', #{depositPersonNm}, '%')
         </if>
+        <!--
+          배송 상태 조회조건. 배송일자는 주문상세(ORDER_LIST_DETAIL) 줄마다 찍히지만
+          화면은 주문번호 단위 카드라서 주문 단위로 판정한다.
+            'Y' 배송완료 = 그 주문의 모든 상세 줄에 배송일자가 있다
+            'N' 미배송   = 아직 배송되지 않은 상세 줄이 하나라도 있다
+          두 조건은 서로 여집합이라 전체 = 배송완료 + 미배송 이 된다.
+          B 를 직접 걸지 않는 이유: 부분배송된 주문에서 조건에 맞는 줄만 남아
+          카드에 주문의 일부만 보이게 되기 때문이다.
+        -->
+        <if test="dlvrStatus == 'Y'">
+           AND NOT EXISTS (
+               SELECT 1 FROM ORDER_LIST_DETAIL Z
+                WHERE Z.ORDER_NO = A.ORDER_NO
+                  AND Z.DLVR_CONFIRM_DATE IS NULL
+           )
+        </if>
+        <if test="dlvrStatus == 'N'">
+           AND EXISTS (
+               SELECT 1 FROM ORDER_LIST_DETAIL Z
+                WHERE Z.ORDER_NO = A.ORDER_NO
+                  AND Z.DLVR_CONFIRM_DATE IS NULL
+           )
+        </if>
     </sql>
 
     <select id="selectOrderListMainByOrderNo">

@@ -316,13 +316,21 @@ body { background: #f9fafb; }
 
 .adm-hint.is-over { color: #f04452; font-weight: 600; }
 
-.adm-field select.gd-input {
+.adm-field select.gd-input,
+.adm-filter-item select.gd-input {
     appearance: none;
     -webkit-appearance: none;
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%238b95a1' stroke-width='1.8' d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 14px center;
     padding-right: 36px;
+}
+
+/* 조회조건 줄의 셀렉트는 옆 입력칸과 높이·글자크기를 맞춘다
+   (.adm-filter .gd-input 규칙과 같은 값, 화살표 자리만 더 준다) */
+.adm-filter-item select.gd-input {
+    padding: 11px 32px 11px 12px;
+    font-size: 14px;
 }
 
 .adm-gallery-desc {
