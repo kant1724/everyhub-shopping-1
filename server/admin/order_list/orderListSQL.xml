@@ -38,6 +38,8 @@
               , A.FARE_TYPE AS fareType
               , B.QTY AS qty
               , A.SELLER_NO AS sellerNo
+              , A.SELLER_ACNO AS sellerAcno
+              , A.SELLER_DEPOSIT_PERSON_NM AS sellerDepositPersonNm
               , C.ITEM_NO AS itemNo
               , C.KEEPING_METHOD AS keepingMethod
               , D.OPTION_NO AS optionNo

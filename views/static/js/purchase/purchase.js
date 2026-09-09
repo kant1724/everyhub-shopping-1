@@ -52,9 +52,6 @@
                 /* 품절 · 출하전 등으로 주문할 수 없는 상품 [{itemNm, reason}] */
                 unavailable: [],
 
-                /* 판매자(입금 계좌) */
-                sellerAcno: '',
-                sellerDepositPersonNm: '',
 
                 /* 폼 */
                 form: {
@@ -264,12 +261,6 @@
                 this.form.orderAddressDetail = u.addressDetail || '';
             },
 
-            async loadSeller() {
-                const ret = await apiPost('/user/selectSellerInfo', { sellerNo: SELLER_NO });
-                if (!ret || ret.length === 0) return;
-                this.sellerAcno = ret[0].acno || '';
-                this.sellerDepositPersonNm = ret[0].depositPersonNm || '';
-            },
 
             /* ---------------- 동일정보 복사 ---------------- */
             orderInfoFilled() {
@@ -419,8 +410,7 @@
                 const f = this.form;
                 const main = {};
 
-                // SMS 문구에 쓰이는 계좌 안내 (기존 포맷 유지)
-                main.acno = '\n' + this.sellerAcno + '\n' + this.sellerDepositPersonNm;
+                // 입금 계좌는 서버가 주문 시점의 SELLER 값을 읽어 주문에 저장한다
 
                 main.orderPersonNm = f.orderPersonNm;
                 main.orderTelno = f.orderTelno1 + f.orderTelno2 + f.orderTelno3;
@@ -551,7 +541,6 @@
 
             await this.checkItemStatus();
             await this.loadUser();
-            await this.loadSeller();
         }
     });
 

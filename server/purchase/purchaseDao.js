@@ -49,21 +49,31 @@ module.exports = {
                         return;
                     }
                 }
-                query = mybatisMapper.getStatement('purchaseSQL', 'insertOrderListMain', param.orderListMain, format);
+                // 주문 시점의 입금 계좌를 주문 행에 함께 남긴다. 나중에 판매자가
+                // 계좌를 바꿔도 과거 주문에는 그때 안내한 계좌가 그대로 남는다.
+                // 화면이 올려준 값은 믿지 않고 여기서 SELLER 을 직접 읽는다.
+                query = mybatisMapper.getStatement('purchaseSQL', 'selectSellerAcno', param.orderListMain, format);
                 conn.query(query, (err, rows, fields) => {
-                    let orderNo = rows.insertId;
-                    let orderListDetail = param.orderListDetail;
-                    param.orderListMain.orderNo = orderNo;
-                    this.sendSms(param);
-                    for (let i = 0; i < orderListDetail.length; ++i) {
-                        orderListDetail[i].orderNo = orderNo;
-                        orderListDetail[i].orderSeq = i + 1;
-                    }
-                    query = mybatisMapper.getStatement('purchaseSQL', 'insertOrderListDetail', param, format);
+                    let seller = (rows && rows.length > 0) ? rows[0] : {};
+                    param.orderListMain.sellerAcno = seller.sellerAcno || '';
+                    param.orderListMain.sellerDepositPersonNm = seller.sellerDepositPersonNm || '';
+
+                    query = mybatisMapper.getStatement('purchaseSQL', 'insertOrderListMain', param.orderListMain, format);
                     conn.query(query, (err, rows, fields) => {
-                        conn.commit(() => {
-                            callback(rows);
-                            conn.end();
+                        let orderNo = rows.insertId;
+                        let orderListDetail = param.orderListDetail;
+                        param.orderListMain.orderNo = orderNo;
+                        this.sendSms(param);
+                        for (let i = 0; i < orderListDetail.length; ++i) {
+                            orderListDetail[i].orderNo = orderNo;
+                            orderListDetail[i].orderSeq = i + 1;
+                        }
+                        query = mybatisMapper.getStatement('purchaseSQL', 'insertOrderListDetail', param, format);
+                        conn.query(query, (err, rows, fields) => {
+                            conn.commit(() => {
+                                callback(rows);
+                                conn.end();
+                            });
                         });
                     });
                 });
@@ -85,7 +95,7 @@ module.exports = {
         msg += '받는자명: ' + p.receivePersonNm + '\n';
         msg += '받는자 주소: ' + p.receiveZipNo + ' '  + p.receiveAddressMain + ' ' + p.receiveAddressDetail + '\n';
         msg += '총 주문금액: ' + utils.numberWithCommas(p.totalPrice) + '원 \n';
-        msg += '입금계좌번호: ' + p.acno + ' \n';
+        msg += '입금계좌번호: \n' + p.sellerAcno + '\n' + p.sellerDepositPersonNm + ' \n';
         //console.log(msg);
         let productNm = param.orderListDetail[0].itemNm + ' ' + param.orderListDetail[0].optionNm;
         let d = {};

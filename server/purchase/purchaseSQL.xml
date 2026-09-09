@@ -31,6 +31,8 @@
         , DEPOSIT_PERSON_NM
         , DEPOSIT_REMARKS
         , SELLER_NO
+        , SELLER_ACNO
+        , SELLER_DEPOSIT_PERSON_NM
         , USER_NO
         )
         VALUES
@@ -62,9 +64,22 @@
         , #{depositPersonNm}
         , #{depositRemarks}
         , ${sellerNo}
+        , #{sellerAcno}
+        , #{sellerDepositPersonNm}
         , ${userNo}
         )
     </insert>
+
+    <!--
+      주문 시점의 입금 계좌. 화면에서 올려준 값을 그대로 저장하면 위조할 수
+      있으므로, 주문을 넣기 직전에 서버가 SELLER 에서 직접 읽어 온다.
+    -->
+    <select id="selectSellerAcno">
+        SELECT ACNO AS sellerAcno
+              , DEPOSIT_PERSON_NM AS sellerDepositPersonNm
+          FROM SELLER
+         WHERE SELLER_NO = ${sellerNo}
+    </select>
 
     <insert id="insertOrderListDetail">
         INSERT INTO ORDER_LIST_DETAIL
