@@ -21,7 +21,9 @@
                 notices: [],
                 gallery: [],
                 galleryDescs: [],
-                galleryIndex: 0
+                galleryIndex: 0,
+                photoOpen: false,      // 갤러리 사진 확대 보기
+                photoIndex: 0
             };
         },
 
@@ -153,6 +155,51 @@
                     }
                 });
                 top.on('slideChange', function () { self.galleryIndex = top.activeIndex; });
+            },
+
+            /* ---------------- 갤러리 사진 확대 ---------------- */
+
+            openPhoto(i) {
+                this.photoIndex = i;
+                this.photoOpen = true;
+                // 확대 중에는 뒤쪽 페이지가 같이 스크롤되지 않게 막는다
+                document.body.style.overflow = 'hidden';
+            },
+
+            closePhoto() {
+                this.photoOpen = false;
+                document.body.style.overflow = '';
+            },
+
+            prevPhoto() {
+                if (this.gallery.length === 0) return;
+                this.photoIndex = (this.photoIndex - 1 + this.gallery.length) % this.gallery.length;
+            },
+
+            nextPhoto() {
+                if (this.gallery.length === 0) return;
+                this.photoIndex = (this.photoIndex + 1) % this.gallery.length;
+            },
+
+            onPhotoKey(e) {
+                if (!this.photoOpen) return;
+                if (e.key === 'Escape') this.closePhoto();
+                else if (e.key === 'ArrowLeft') this.prevPhoto();
+                else if (e.key === 'ArrowRight') this.nextPhoto();
+            },
+
+            /**
+             * 주소의 #앵커 위치로 옮긴다.
+             *
+             * 갤러리·추천상품 구역은 자료를 받아온 뒤에야 v-if 로 그려진다. 다른 화면에서
+             * '/#gallery' 로 들어오면 브라우저가 위치를 잡으려는 시점에 그 요소가 아직
+             * 없어서 아무 일도 일어나지 않는다. 그래서 다 그린 뒤에 직접 옮겨준다.
+             */
+            scrollToHash() {
+                const hash = location.hash;
+                if (!hash || hash.length < 2) return;
+                const el = document.querySelector(hash);
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         },
 
@@ -167,7 +214,19 @@
             this.$nextTick(() => {
                 if (this.recommended.length > 0) this.initRecommendSwiper();
                 if (this.gallery.length > 0) this.initGallerySwiper();
+                // 구역이 다 그려진 뒤라야 #gallery 같은 앵커를 찾을 수 있다
+                this.scrollToHash();
             });
+
+            window.addEventListener('keydown', this.onPhotoKey);
+            // 다른 화면에서 이미 메인에 있는 상태로 갤러리 메뉴를 눌러도 옮겨가게 한다
+            window.addEventListener('hashchange', this.scrollToHash);
+        },
+
+        unmounted() {
+            window.removeEventListener('keydown', this.onPhotoKey);
+            window.removeEventListener('hashchange', this.scrollToHash);
+            document.body.style.overflow = '';
         }
     });
 

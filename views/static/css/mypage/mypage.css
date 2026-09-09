@@ -57,18 +57,22 @@ body { background: #f9fafb; }
 }
 
 .my-filter-dates { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
-.my-date { max-width: 180px; }
-.my-filter-sep { color: #b0b8c1; }
+/* input[type=date] 는 달력 UI 때문에 자체 최소폭이 넓다. min-width: 0 을 주지 않으면
+   좁은 화면에서 줄어들지 못해 두 칸이 줄 밖으로 밀려난다. */
+.my-date { flex: 1 1 0; min-width: 0; max-width: 180px; }
+.my-filter-sep { color: #b0b8c1; flex: 0 0 auto; }
 
 .my-search-btn {
     flex: 0 0 auto;
     padding: 13px 22px;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 12px;
     background: #191f28;
     color: #ffffff;
     font-size: 14px;
+    line-height: 18px;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 .my-search-btn:hover { background: #000000; }
@@ -285,20 +289,27 @@ body { background: #f9fafb; }
 .my-radio input[type="radio"] { width: 18px; height: 18px; accent-color: #3182f6; cursor: pointer; }
 
 .my-address { flex: 1; min-width: 0; }
-.my-address-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.my-address-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 .my-zip { flex: 0 0 150px; }
 .my-address .gd-input { margin-bottom: 8px; }
 .my-address .gd-input:last-child { margin-bottom: 0; }
+/* 우편번호 칸은 줄 자체에 margin-bottom 이 있다. 여기에 또 margin 이 붙으면
+   줄 높이가 늘어나고, 옆의 주소검색 버튼만 그 높이까지 늘어나 혼자 길어진다. */
+.my-address-row .gd-input { margin-bottom: 0; }
 
+/* 입력창과 같은 줄에 서므로 높이를 맞춘다.
+   .gd-input = padding 13px + border 1px + 글줄 18px = 46px */
 .my-ghost-btn {
     flex: 0 0 auto;
     padding: 13px 18px;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 12px;
     background: #f2f4f6;
     color: #333d4b;
     font-size: 14px;
+    line-height: 18px;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 .my-ghost-btn:hover { background: #e5e8eb; }
@@ -358,9 +369,13 @@ body { background: #f9fafb; }
     .my-label { flex: none; padding-top: 0 !important; }
     .my-field-block { align-items: stretch; }
 
-    .my-filter { flex-direction: column; align-items: stretch; }
-    .my-date { max-width: none; }
+    /* 세로 배치에서 wrap 이 남아 있으면 '열'의 폭이 컨테이너가 아니라 내용 기준으로
+       잡혀서, 날짜 두 칸이 줄어들지 못하고 카드 밖으로 밀려난다. */
+    .my-filter { flex-direction: column; flex-wrap: nowrap; align-items: stretch; }
+    .my-date { max-width: none; padding-left: 10px; padding-right: 10px; }
     .my-search-btn { width: 100%; }
+    /* 주소 줄은 우편번호 칸을 줄여서 버튼과 나란히 들어가게 한다 */
+    .my-zip { flex: 1 1 auto; min-width: 0; }
 
     .order-card-head { flex-direction: column; align-items: flex-start; }
     .order-deposit-row { flex-direction: column; gap: 2px; }

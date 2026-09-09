@@ -173,7 +173,10 @@ body { background: #f9fafb; }
 
 .adm-field .gd-input { flex: 1; min-width: 0; }
 
-.adm-textarea { height: 200px; resize: vertical; line-height: 1.7; }
+/* 소개글처럼 긴 글을 쓰는 칸이라 한 화면에 최대한 많이 보이게 한다.
+   문자 발송 칸(user_manager)은 자체 height 를 지정하고 있어 영향받지 않는다.
+   resize: vertical 이므로 사용자가 더 늘리거나 줄일 수 있다. */
+.adm-textarea { height: 480px; min-height: 240px; resize: vertical; line-height: 1.7; }
 
 .adm-radios { flex: 1; display: flex; gap: 16px; flex-wrap: wrap; }
 

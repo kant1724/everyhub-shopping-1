@@ -59,14 +59,20 @@ body { background: #f9fafb; }
 
 .auth-tel span, .auth-birth span { color: #8b95a1; flex: 0 0 auto; font-size: 14px; }
 
+/*
+ * 입력창과 같은 줄에 서는 버튼이므로 높이를 입력창에 맞춘다.
+ * .gd-input 은 padding 13px + border 1px + 글줄 18px = 46px 이다.
+ * 버튼은 테두리가 없고 글꼴이 작아 그냥 두면 42px 이 되어 줄이 어긋난다.
+ */
 .auth-ghost-btn {
     flex: 0 0 auto;
     padding: 13px 16px;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 12px;
     background: #f2f4f6;
     color: #333d4b;
     font-size: 13.5px;
+    line-height: 18px;
     font-weight: 700;
     white-space: nowrap;
 }
@@ -115,10 +121,13 @@ body { background: #f9fafb; }
 .auth-radio input[type="radio"] { width: 18px; height: 18px; accent-color: #3182f6; cursor: pointer; }
 
 .auth-address { flex: 1; min-width: 0; }
-.auth-address-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.auth-address-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 .auth-zip { flex: 0 0 150px; }
 .auth-address .gd-input { margin-bottom: 8px; }
 .auth-address .gd-input:last-child { margin-bottom: 0; }
+/* 우편번호 칸은 이미 줄 자체에 margin-bottom 이 있다. 여기에 또 margin 이 붙으면
+   그만큼 줄 높이가 늘어나고, 옆의 주소검색 버튼이 그 높이까지 늘어나 혼자 길어진다. */
+.auth-address-row .gd-input { margin-bottom: 0; }
 
 .auth-agree {
     display: flex;
@@ -167,6 +176,11 @@ body { background: #f9fafb; }
     .auth-label { flex: none; padding-top: 0 !important; }
     .auth-field-block { align-items: stretch; }
     .auth-dup { margin-left: 0; }
+    /* 휴대폰번호 줄은 칸이 셋이라 좁으므로 버튼을 다음 줄로 내려 한 줄 전체를 쓴다.
+       주소 줄은 칸이 하나뿐이어서 같이 적용하면 버튼이 줄 밖으로 넘친다. */
     .auth-tel { flex-wrap: wrap; }
-    .auth-ghost-btn { flex: 1 0 100%; }
+    .auth-tel .auth-ghost-btn { flex: 1 0 100%; }
+
+    /* 주소 줄은 우편번호 칸을 줄여서 버튼과 나란히 들어가게 한다 */
+    .auth-zip { flex: 1 1 auto; min-width: 0; }
 }

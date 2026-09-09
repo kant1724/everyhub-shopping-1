@@ -141,6 +141,18 @@
                 this.selected[k] = !this.selected[k];
             },
 
+            /**
+             * 주문 줄을 눌렀을 때의 선택 처리.
+             *
+             * 체크박스가 작아 정확히 누르기 번거로우므로 줄 전체를 눌러도 선택되게 한다.
+             * 체크박스와 라벨 영역의 클릭은 템플릿에서 전파를 막으므로(@click.stop)
+             * 여기까지 오지 않는다. 즉 한 번의 클릭은 항상 한 번만 토글된다.
+             */
+            onLineClick(r) {
+                if (!this.isSelectable(r)) return;
+                this.toggle(r);
+            },
+
             toggleAll(e) {
                 const on = e.target.checked;
                 const self = this;

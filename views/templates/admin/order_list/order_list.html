@@ -144,8 +144,12 @@
 
                     <!-- 주문 상세 (줄 단위) -->
                     <div class="ord-lines">
-                        <div class="ord-line" v-for="l in o.lines" :key="l.orderNo + '_' + l.orderSeq">
-                            <label class="ord-line-check">
+                        <!-- 줄 아무 곳이나 눌러도 선택된다. 체크박스/라벨 클릭은 label 에서
+                             전파를 막아, 줄 클릭과 겹쳐 두 번 토글되지 않게 한다. -->
+                        <div class="ord-line" v-for="l in o.lines" :key="l.orderNo + '_' + l.orderSeq"
+                             :class="{ 'is-selectable': isSelectable(l), 'is-checked': isChecked(l) }"
+                             @click="onLineClick(l)">
+                            <label class="ord-line-check" @click.stop>
                                 <input type="checkbox" class="select-order"
                                        :disabled="!isSelectable(l)"
                                        :checked="isChecked(l)" @change="toggle(l)">

@@ -170,6 +170,11 @@
 
 .ord-line:hover { background: #f9fafb; }
 
+/* 줄 전체가 선택 영역이므로 누를 수 있다는 걸 커서와 배경으로 알린다 */
+.ord-line.is-selectable { cursor: pointer; }
+.ord-line.is-checked { background: #e8f3ff; }
+.ord-line.is-checked:hover { background: #d8ebff; }
+
 .ord-line-check { display: flex; margin: 0; }
 
 .ord-line-check input {

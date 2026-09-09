@@ -23,13 +23,11 @@ app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 let session = require('express-session');
 
-// The session secret signs the cookie that carries userNo/adminYn. A value
-// committed to source can be used to forge an admin session, so it comes from
-// the environment; without it a random per-process secret is used instead.
-const sessionSecret = process.env.SESSION_SECRET || require('crypto').randomBytes(48).toString('hex');
-if (!process.env.SESSION_SECRET) {
-    console.warn('[app] SESSION_SECRET is not set; generated a temporary random secret for this process.');
-}
+// 세션 쿠키(userNo/adminYn)를 서명하는 키. 소스에 박아두면 그 값으로 관리자
+// 세션을 위조할 수 있으므로 넣지 않는다. 환경변수가 없으면 secrets.js 가
+// secrets.json 에 만들어 둔 값을 쓴다 — 매번 새로 만들면 서버를 다시 띄울 때마다
+// 접속해 있던 사람들의 로그인이 전부 풀린다.
+const sessionSecret = require('./server/common/secrets').get('SESSION_SECRET');
 
 app.use(session({
     secret: sessionSecret,

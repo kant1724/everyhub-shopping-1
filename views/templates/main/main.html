@@ -138,7 +138,7 @@
                 <div class="swiper-container gallery-swiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide gallery-slide" v-for="(g, i) in gallery" :key="i">
-                            <img :src="g" alt="갤러리 이미지">
+                            <img :src="g" alt="갤러리 이미지" @click="openPhoto(i)">
                         </div>
                     </div>
                     <div class="swiper-button-prev"><i class="far fa-angle-left"></i></div>
@@ -160,6 +160,33 @@
                 </div>
             </div>
         </section>
+
+        <!-- 갤러리 사진 확대 보기. 바깥을 누르거나 ESC 로 닫는다. -->
+        <transition name="photo-fade">
+            <div class="photo-viewer" v-if="photoOpen" @click="closePhoto"
+                 role="dialog" aria-modal="true" aria-label="갤러리 사진 확대">
+                <button type="button" class="photo-viewer-close" @click.stop="closePhoto" aria-label="닫기">
+                    <i class="far fa-times"></i>
+                </button>
+
+                <button type="button" class="photo-viewer-nav is-prev" v-if="gallery.length > 1"
+                        @click.stop="prevPhoto" aria-label="이전 사진">
+                    <i class="far fa-angle-left"></i>
+                </button>
+
+                <img class="photo-viewer-img" :src="gallery[photoIndex]" alt="갤러리 사진" @click.stop>
+
+                <button type="button" class="photo-viewer-nav is-next" v-if="gallery.length > 1"
+                        @click.stop="nextPhoto" aria-label="다음 사진">
+                    <i class="far fa-angle-right"></i>
+                </button>
+
+                <p class="photo-viewer-caption" @click.stop>
+                    <span v-if="galleryDescs[photoIndex]">[[ galleryDescs[photoIndex] ]]</span>
+                    <span class="photo-viewer-count">[[ photoIndex + 1 ]] / [[ gallery.length ]]</span>
+                </p>
+            </div>
+        </transition>
 
         <app-footer></app-footer>
     </div>
