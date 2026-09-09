@@ -127,20 +127,38 @@ button { cursor: pointer; }
 .gd-logo-mark {
     flex: none;
     display: block;
-    transition: transform .18s ease;
+    /* 살짝 되돌아오는 easing 이라 딱 끊기지 않고 부드럽게 안착한다 */
+    transition: transform .35s cubic-bezier(.34, 1.4, .64, 1);
 }
 
-.gd-logo:hover .gd-logo-mark { transform: rotate(-8deg) scale(1.05); }
+.gd-logo:hover .gd-logo-mark { transform: rotate(-6deg) scale(1.04); }
 
+/*
+  로고 글자.
+  800 굵기에 -0.9px 자간이면 글자끼리 붙어 덩어리처럼 보여 딱딱했다.
+  굵기를 700 으로 낮추고 자간을 거의 풀어 숨통을 틔운다.
+  색도 푸른기 도는 먹색(--grey900) 대신 따뜻한 먹색을 써서
+  귤 심볼과 톤을 맞춘다.
+*/
 .gd-logo-text {
     font-size: 20px;
-    font-weight: 800;
-    letter-spacing: -0.9px;
-    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    line-height: 1.15;
 }
 
-.gd-logo-text b { color: var(--grey900); font-weight: 800; }
-.gd-logo-text span { color: var(--grey500); font-weight: 700; }
+.gd-logo-text b { color: #33302c; font-weight: 700; }
+
+/*
+  '닷컴' 은 한 단계 더 가볍고 여리게 — 두 낱말의 무게 차가 줄면 전체가 부드러워진다.
+  색은 따뜻하게 바꾸되 흐리게는 하지 않는다. 굵기를 500 으로 낮췄으니
+  대비는 오히려 더 확보해야 한다 (흰 배경 대비 3.9:1, 기존 3.0:1 보다 또렷하다).
+*/
+.gd-logo-text span {
+    margin-left: 1px;
+    color: #8a7f74;
+    font-weight: 500;
+}
 
 .gd-header-toggle {
     display: none;
