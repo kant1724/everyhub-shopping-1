@@ -51,6 +51,19 @@ body {
     display: block;
 }
 
+/* Swiper 가 배경 SVG 로 그리는 기본 화살표를 끄고, 폰트 아이콘 하나만 남긴다.
+   둘 다 두면 화살표가 겹쳐서 두 개로 보인다. */
+.product-gallery .swiper-button-prev,
+.product-gallery .swiper-button-next {
+    background-image: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: #ffffff;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .3);
+}
+
 /* ---------------- 정보 ---------------- */
 .pdp-info { min-width: 0; padding-top: 4px; }
 

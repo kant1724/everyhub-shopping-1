@@ -118,7 +118,11 @@
                         delay: 5000,
                         disableOnInteraction: false   // 손으로 넘긴 뒤에도 자동재생 계속
                     },
-                    pagination: { el: '.hero-swiper .swiper-pagination', clickable: true }
+                    pagination: { el: '.hero-swiper .swiper-pagination', clickable: true },
+                    navigation: {
+                        prevEl: '.hero-swiper .swiper-button-prev',
+                        nextEl: '.hero-swiper .swiper-button-next'
+                    }
                 });
             },
 
@@ -137,7 +141,11 @@
                 const self = this;
                 const top = new Swiper('.gallery-swiper', {
                     spaceBetween: 10,
-                    loop: false
+                    loop: false,
+                    navigation: {
+                        prevEl: '.gallery-swiper .swiper-button-prev',
+                        nextEl: '.gallery-swiper .swiper-button-next'
+                    }
                 });
                 top.on('slideChange', function () { self.galleryIndex = top.activeIndex; });
             }

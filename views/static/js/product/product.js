@@ -301,7 +301,11 @@
                 new Swiper('.product-gallery', {
                     slidesPerView: 1,
                     loop: false,
-                    pagination: { el: '.product-gallery .swiper-pagination', clickable: true }
+                    pagination: { el: '.product-gallery .swiper-pagination', clickable: true },
+                    navigation: {
+                        prevEl: '.product-gallery .swiper-button-prev',
+                        nextEl: '.product-gallery .swiper-button-next'
+                    }
                 });
             }
         },
