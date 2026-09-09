@@ -148,6 +148,7 @@ const AppHeader = {
                 { href: 'javascript:void(0)', label: '로그아웃', icon: 'fa-sign-out-alt', action: 'logout' }];
         },
 
+        /** 관리자 메뉴 — 데스크톱 메뉴 줄에만 두고, 모바일 서랍에는 넣지 않는다 */
         adminMenu() {
             return [
                 { href: '/admin/introduction_manager', label: '소개글관리' },
@@ -241,11 +242,6 @@ const AppHeader = {
                         <span class="gd-cart-badge" v-if="m.badge && cartCount > 0"
                               :aria-label="'담긴 상품 ' + cartCount + '건'">[[ cartCountText ]]</span>
                     </span>[[ m.label ]]</a>
-                <template v-if="isAdmin">
-                    <span class="gd-drawer-divider"></span>
-                    <a class="gd-drawer-link gd-drawer-admin" v-for="m in adminMenu" :key="'a' + m.href"
-                       :href="m.href">[[ m.label ]]</a>
-                </template>
             </nav>
         </header>
     `

@@ -298,7 +298,6 @@ button { cursor: pointer; }
 
 .gd-drawer-link i { color: var(--blue); font-size: 14px; width: 16px; }
 .gd-drawer-link:hover { background: var(--grey100); }
-.gd-drawer-admin { font-size: 14px; color: var(--grey600); }
 
 .gd-drawer-divider {
     height: 1px;
