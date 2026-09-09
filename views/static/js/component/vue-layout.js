@@ -69,6 +69,30 @@ function notifyCartChanged() {
     window.dispatchEvent(new CustomEvent('cart-changed'));
 }
 
+/**
+ * 장바구니 건수를 들고 동기화하는 공통 로직.
+ * 헤더 아이콘과 우측 하단 버튼이 같은 숫자를 보여야 하므로 한 곳에 모아둔다.
+ */
+const cartCountMixin = {
+    data() { return { cartCount: cartItemCount() }; },
+    computed: {
+        /** 세 자리가 넘으면 배지가 늘어나 아이콘을 가리므로 99+ 로 줄인다 */
+        cartCountText() { return this.cartCount > 99 ? '99+' : String(this.cartCount); }
+    },
+    mounted() {
+        this.syncCart = () => { this.cartCount = cartItemCount(); };
+        this.syncCart();
+        window.addEventListener('cart-changed', this.syncCart);   // 같은 탭에서 담기/빼기
+        window.addEventListener('storage', this.syncCart);        // 다른 탭에서 바꿨을 때
+        window.addEventListener('pageshow', this.syncCart);       // 뒤로가기(bfcache) 복원
+    },
+    unmounted() {
+        window.removeEventListener('cart-changed', this.syncCart);
+        window.removeEventListener('storage', this.syncCart);
+        window.removeEventListener('pageshow', this.syncCart);
+    }
+};
+
 /** 페이지가 서버에서 받은 세션 정보 (hidden input 으로 내려온다) */
 function pageContext() {
     const el = function (id) { return document.getElementById(id); };
@@ -90,16 +114,14 @@ function pageContext() {
  * 링크 목록은 한 곳(siteMenu/utilMenu)에서만 정의하고 두 곳에서 렌더한다.
  */
 const AppHeader = {
+    mixins: [cartCountMixin],
     props: { userNo: { default: '0' }, adminYn: { default: 'N' } },
     data() {
-        return { open: false, cartCount: cartItemCount() };
+        return { open: false };
     },
     computed: {
         loggedIn() { return this.userNo && this.userNo !== '0'; },
         isAdmin() { return this.adminYn === 'Y'; },
-
-        /** 세 자리가 넘으면 배지가 늘어나 아이콘을 가리므로 99+ 로 줄인다 */
-        cartCountText() { return this.cartCount > 99 ? '99+' : String(this.cartCount); },
 
         /** 로고 아래 줄 — 쇼핑몰 주요 메뉴 */
         siteMenu() {
@@ -137,20 +159,6 @@ const AppHeader = {
             ];
         }
     },
-    mounted() {
-        this.syncCart = () => { this.cartCount = cartItemCount(); };
-        this.syncCart();
-        window.addEventListener('cart-changed', this.syncCart);   // 같은 탭에서 담기/빼기
-        window.addEventListener('storage', this.syncCart);        // 다른 탭에서 바꿨을 때
-        window.addEventListener('pageshow', this.syncCart);       // 뒤로가기(bfcache) 복원
-    },
-
-    unmounted() {
-        window.removeEventListener('cart-changed', this.syncCart);
-        window.removeEventListener('storage', this.syncCart);
-        window.removeEventListener('pageshow', this.syncCart);
-    },
-
     methods: {
         logout() { location.href = '/user/logout'; },
 
@@ -447,10 +455,29 @@ const ListPager = {
     `
 };
 
+/**
+ * 우측 하단 장바구니 버튼 (메인 · 농장소개 화면에서 쓴다).
+ * 헤더 아이콘과 같은 건수를 배지로 보여준다.
+ */
+const CartFab = {
+    mixins: [cartCountMixin],
+    methods: {
+        goCart() { location.href = '/cart'; }
+    },
+    template: `
+        <button type="button" class="gd-cart-fab" @click="goCart"
+                :aria-label="cartCount > 0 ? '장바구니 ' + cartCount + '건' : '장바구니'">
+            <i class="far fa-shopping-cart"></i>
+            <span class="gd-cart-fab-badge" v-if="cartCount > 0">[[ cartCountText ]]</span>
+        </button>
+    `
+};
+
 function registerLayout(app) {
     app.component('app-header', AppHeader);
     app.component('app-footer', AppFooter);
     app.component('address-search', AddressSearch);
     app.component('list-pager', ListPager);
+    app.component('cart-fab', CartFab);
     return app;
 }

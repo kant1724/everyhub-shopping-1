@@ -374,13 +374,52 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
     font-size: 20px;
     box-shadow: 0 8px 24px rgba(49, 130, 246, .35);
     z-index: 900;
-    transition: background-color .15s ease, transform .15s ease;
+    transition: box-shadow .18s ease, transform .18s ease;
+    /* 모바일에서 탭할 때 덧씌워지는 회색 하이라이트를 끈다 */
+    -webkit-tap-highlight-color: transparent;
 }
 
-.gd-cart-fab:hover { background: var(--blue-hover); transform: translateY(-2px); }
+/*
+  hover 는 색을 바꾸지 않고 살짝 떠오르기만 한다.
+  예전에는 배경을 --blue-hover 로 진하게 했는데,
+    · 터치 기기: 탭하면 다른 곳을 누를 때까지 :hover 가 눌러붙는다
+    · 데스크톱: 버튼을 눌러 /cart 로 갔다가 뒤로가기로 돌아오면
+      포인터가 그대로 버튼 위라 hover 가 되살아난다
+  두 경우 모두 "장바구니 갔다 왔더니 색이 진해져 있다" 로 보였다.
+  hover 가 실제로 동작하는 기기에서만, 색이 아닌 그림자·위치로만 반응하게 바꿨다.
+*/
+@media (hover: hover) and (pointer: fine) {
+    .gd-cart-fab:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(49, 130, 246, .45);
+    }
+}
+
+/* ---- 우측 하단 버튼의 건수 배지 ---- */
+/* 헤더 배지와 같은 색·같은 규칙(0건이면 숨김, 99+ 축약) */
+.gd-cart-fab-badge {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    box-sizing: border-box;
+    border: 2px solid var(--white);
+    border-radius: 999px;
+    background: #c2410c;
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+}
 
 @media (max-width: 560px) {
     .gd-cart-fab { right: 16px; bottom: 20px; width: 48px; height: 48px; font-size: 18px; }
+    .gd-cart-fab-badge { min-width: 20px; height: 20px; line-height: 16px; font-size: 10px; }
 }
 
 /* ---------------- 공용 모달 (부트스트랩 대체) ---------------- */

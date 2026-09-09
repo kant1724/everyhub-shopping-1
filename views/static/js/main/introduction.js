@@ -9,9 +9,6 @@
         data() {
             return { userNo: ctx.userNo, adminYn: ctx.adminYn, text: "", loading: true };
         },
-        methods: {
-            goCart() { location.href = "/cart"; }
-        },
         async mounted() {
             const ret = await apiPost("/admin/introduction_manager/selectIntroduction", {});
             if (ret && ret.length > 0) this.text = ret[0].introductionText || "";

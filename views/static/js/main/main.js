@@ -56,8 +56,6 @@
                 location.href = '/board/notice/notice_detail?noticeNo=' + encodeURIComponent(noticeNo);
             },
 
-            goCart() { location.href = '/cart'; },
-
             scrollTo(hash) {
                 const el = document.querySelector(hash);
                 if (!el) return;

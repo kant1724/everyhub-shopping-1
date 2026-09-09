@@ -17,9 +17,7 @@
     <div id="main_app" v-cloak>
         <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
 
-        <button type="button" class="gd-cart-fab" @click="goCart" aria-label="장바구니">
-            <i class="far fa-shopping-cart"></i>
-        </button>
+        <cart-fab></cart-fab>
 
         <section class="home-hero">
             <div class="home-brand">

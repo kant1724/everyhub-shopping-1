@@ -16,9 +16,7 @@
     <div id="intro_app" class="intro" v-cloak>
         <app-header :user-no="userNo" :admin-yn="adminYn"></app-header>
 
-        <button type="button" class="gd-cart-fab" @click="goCart" aria-label="장바구니">
-            <i class="far fa-shopping-cart"></i>
-        </button>
+        <cart-fab></cart-fab>
 
         <div class="intro-shell">
             <h1 class="intro-title">소개의 글</h1>
