@@ -32,6 +32,17 @@
 
     const TODAY = ymd(new Date());
 
+    /**
+     * 기본 조회 시작일 — 오늘로부터 일주일 전.
+     * setDate 로 빼면 월·연 경계(3월 3일 -> 2월 24일, 1월 3일 -> 12월 27일)와
+     * 윤년을 Date 가 알아서 처리한다. 날짜만 다루므로 서머타임 영향도 없다.
+     */
+    const WEEK_AGO = (function () {
+        const d = new Date();
+        d.setDate(d.getDate() - 7);
+        return ymd(d);
+    })();
+
     const app = Vue.createApp({
         data() {
             return {
@@ -39,7 +50,7 @@
                 adminYn: ctx.adminYn,
 
                 filter: {
-                    startOrderDate: TODAY,
+                    startOrderDate: WEEK_AGO,
                     endOrderDate: TODAY,
                     orderUserNm: '',
                     userNm: '',
