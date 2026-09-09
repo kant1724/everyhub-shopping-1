@@ -76,10 +76,10 @@
             /**
              * 주문할 수 없는 사유. 주문 가능하면 빈 문자열.
              * 상태를 아직 못 받았으면 판단을 보류한다 (없는 사유를 먼저 띄우지 않도록).
-             * 관리자는 상품 상세 · 주문서 · 서버 검증과 마찬가지로 예외다.
+             * 관리자도 예외가 아니다 (상품 상세 · 주문서 · 서버 검증과 동일).
              */
             statusOf(item) {
-                if (!this.statusLoaded || this.adminYn === 'Y') return '';
+                if (!this.statusLoaded) return '';
                 const cur = this.statusMap[String(item.itemNo)];
                 if (!cur) return '판매중지';                 // 삭제된 상품
                 if (cur.soldOutYn === 'Y') return '품절';

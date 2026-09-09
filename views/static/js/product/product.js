@@ -4,7 +4,7 @@
  * 기존 로직·데이터 계약 유지:
  *  - 장바구니 저장 구조(localStorage 'product')와 동일 옵션 중복 차단 규칙
  *  - '바로주문' 의 /purchase 쿼리스트링 파라미터
- *  - 출하전 / 품절 표시 및 구매 버튼 비활성 규칙 (관리자는 예외)
+ *  - 출하전 / 품절 표시 및 구매(장바구니 · 바로주문) 버튼 비활성 규칙
  *  - 후기 / Q&A 는 lastReviewNo · lastQnaNo · limit 로 배치 조회
  *
  * 통신은 fetch (vue-layout.js 의 apiPost), 델리미터는 [[ ]].
@@ -76,12 +76,13 @@
             },
 
             /**
-             * 출하전 / 품절 — 관리자에게는 표시하지 않고 구매도 허용 (기존 규칙).
+             * 출하전 / 품절 — 관리자를 포함해 모두에게 표시하고 구매를 막는다.
+             * (예전에는 관리자만 예외였지만, 품절이면 누구도 주문할 수 없다)
              * 품절이 출하 여부보다 우선한다. 출하중(SHIP_YN='Y')이면서 품절인
              * 상품이 '출하전' 으로 보이던 문제를 막기 위해 품절을 먼저 본다.
              */
             statusLabel() {
-                if (!this.item || this.isAdmin) return '';
+                if (!this.item) return '';
                 if (this.item.soldOutYn === 'Y') return '품절';
                 if (this.item.shipYn !== 'Y') return '출하전';
                 return '';

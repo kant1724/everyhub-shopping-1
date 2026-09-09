@@ -223,11 +223,9 @@
              * 품절 / 출하전으로 바뀌었을 수 있다.
              * (서버도 주문 시점에 같은 검사를 하므로 여기는 안내가 목적이다)
              *
-             * 관리자는 상품 상세와 서버 검증 모두에서 예외라 여기서도 막지 않는다.
+             * 관리자도 예외가 아니다 — 품절이면 누구도 주문할 수 없다.
              */
             async checkItemStatus() {
-                if (this.adminYn === 'Y') { this.unavailable = []; return; }
-
                 // useYn 으로 거르지 않는다 — 장바구니와 같은 이유로, 실제 사유를
                 // 그대로 알려주려면 삭제되지 않은 상품 전체가 필요하다
                 const list = (await apiPost('/admin/item_manager/selectItemList', {}));
