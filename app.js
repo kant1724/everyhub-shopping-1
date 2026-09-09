@@ -5,9 +5,16 @@ let logger = require('morgan');
 
 let engines = require('consolidate');
 
+// 로그를 log/ 폴더에도 남긴다. console 을 감싸므로 다른 미들웨어보다 먼저 건다.
+let fileLogger = require('./server/common/logger');
+fileLogger.captureConsole();
+
 let app = express();
 
+// 콘솔에는 기존처럼 짧게(dev), 파일에는 남겨볼 만한 정보까지(combined).
+// dev 포맷은 색상 제어문자가 섞여 파일로 보면 읽기 어렵다.
 app.use(logger('dev'));
+app.use(logger('combined', { stream: fileLogger.accessStream }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
