@@ -11,6 +11,15 @@
               , IMAGE_PATH_7 AS imagePath7
               , IMAGE_PATH_8 AS imagePath8
               , IMAGE_PATH_9 AS imagePath9
+              , IMAGE_PATH_10 AS imagePath10
+              , IMAGE_PATH_11 AS imagePath11
+              , IMAGE_PATH_12 AS imagePath12
+              , IMAGE_PATH_13 AS imagePath13
+              , IMAGE_PATH_14 AS imagePath14
+              , IMAGE_PATH_15 AS imagePath15
+              , IMAGE_PATH_16 AS imagePath16
+              , IMAGE_PATH_17 AS imagePath17
+              , IMAGE_PATH_18 AS imagePath18
               , IMAGE_DESC_1 AS imageDesc1
               , IMAGE_DESC_2 AS imageDesc2
               , IMAGE_DESC_3 AS imageDesc3
@@ -20,6 +29,15 @@
               , IMAGE_DESC_7 AS imageDesc7
               , IMAGE_DESC_8 AS imageDesc8
               , IMAGE_DESC_9 AS imageDesc9
+              , IMAGE_DESC_10 AS imageDesc10
+              , IMAGE_DESC_11 AS imageDesc11
+              , IMAGE_DESC_12 AS imageDesc12
+              , IMAGE_DESC_13 AS imageDesc13
+              , IMAGE_DESC_14 AS imageDesc14
+              , IMAGE_DESC_15 AS imageDesc15
+              , IMAGE_DESC_16 AS imageDesc16
+              , IMAGE_DESC_17 AS imageDesc17
+              , IMAGE_DESC_18 AS imageDesc18
           FROM GALLERY
          WHERE 1=1
            AND GALLERY_NO = 1
@@ -36,6 +54,15 @@
              , IMAGE_PATH_7 = #{imagePath7}
              , IMAGE_PATH_8 = #{imagePath8}
              , IMAGE_PATH_9 = #{imagePath9}
+             , IMAGE_PATH_10 = #{imagePath10}
+             , IMAGE_PATH_11 = #{imagePath11}
+             , IMAGE_PATH_12 = #{imagePath12}
+             , IMAGE_PATH_13 = #{imagePath13}
+             , IMAGE_PATH_14 = #{imagePath14}
+             , IMAGE_PATH_15 = #{imagePath15}
+             , IMAGE_PATH_16 = #{imagePath16}
+             , IMAGE_PATH_17 = #{imagePath17}
+             , IMAGE_PATH_18 = #{imagePath18}
              , IMAGE_DESC_1 = #{imageDesc1}
              , IMAGE_DESC_2 = #{imageDesc2}
              , IMAGE_DESC_3 = #{imageDesc3}
@@ -45,6 +72,15 @@
              , IMAGE_DESC_7 = #{imageDesc7}
              , IMAGE_DESC_8 = #{imageDesc8}
              , IMAGE_DESC_9 = #{imageDesc9}
+             , IMAGE_DESC_10 = #{imageDesc10}
+             , IMAGE_DESC_11 = #{imageDesc11}
+             , IMAGE_DESC_12 = #{imageDesc12}
+             , IMAGE_DESC_13 = #{imageDesc13}
+             , IMAGE_DESC_14 = #{imageDesc14}
+             , IMAGE_DESC_15 = #{imageDesc15}
+             , IMAGE_DESC_16 = #{imageDesc16}
+             , IMAGE_DESC_17 = #{imageDesc17}
+             , IMAGE_DESC_18 = #{imageDesc18}
         WHERE GALLERY_NO = 1
     </update>
 

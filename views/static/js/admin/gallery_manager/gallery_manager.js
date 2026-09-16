@@ -14,6 +14,8 @@
 (function () {
     const REMOTE_URL = '211.253.9.176:5006';
     const UPLOAD_URL = 'http://' + REMOTE_URL + '/upload_image_from_shopping_1';
+    // 서버 GALLERY 테이블의 IMAGE_PATH_N / IMAGE_DESC_N 슬롯 개수
+    const SLOT_COUNT = 18;
 
     const ctx = pageContext();
 
@@ -22,7 +24,7 @@
             return {
                 userNo: ctx.userNo, adminYn: ctx.adminYn,
                 loading: true, saving: false,
-                slots: [1,2,3,4,5,6,7,8,9].map(function (n) {
+                slots: Array.from({ length: SLOT_COUNT }, function (_, i) { return i + 1; }).map(function (n) {
                     return { n: n, url: '', desc: '', file: null, preview: '', removed: false };
                 })
             };

@@ -10,6 +10,9 @@
  * 통신은 fetch (vue-layout.js 의 apiPost), 델리미터는 [[ ]].
  */
 (function () {
+    // 서버 GALLERY 테이블의 IMAGE_PATH_N / IMAGE_DESC_N 슬롯 개수
+    const GALLERY_SLOT_COUNT = 18;
+
     const ctx = pageContext();
 
     const app = Vue.createApp({
@@ -82,7 +85,7 @@
                 const row = ret[0];
                 const imgs = [];
                 const descs = [];
-                for (let i = 1; i <= 9; ++i) {
+                for (let i = 1; i <= GALLERY_SLOT_COUNT; ++i) {
                     const url = row['imagePath' + i];
                     if (!isNull(url)) {
                         imgs.push(url);

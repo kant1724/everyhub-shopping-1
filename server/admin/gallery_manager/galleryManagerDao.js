@@ -2,6 +2,9 @@ let mybatisMapper = require('mybatis-mapper');
 let format = {language: 'sql', indent: '  '};
 mybatisMapper.createMapper(['server/admin/gallery_manager/galleryManagerSQL.xml']);
 
+// GALLERY 테이블의 IMAGE_PATH_N / IMAGE_DESC_N 슬롯 개수
+const SLOT_COUNT = 18;
+
 module.exports = {
     selectGalleryList: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
@@ -16,35 +19,13 @@ module.exports = {
 
     modifyGallery: function(param, callback) {
         let conn = require('../../common/mysql.js').getDBConnection();
-        let imagePath1 = param.image1 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_1.jpg' : '';
-        let imagePath2 = param.image2 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_2.jpg' : '';
-        let imagePath3 = param.image3 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_3.jpg' : '';
-        let imagePath4 = param.image4 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_4.jpg' : '';
-        let imagePath5 = param.image5 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_5.jpg' : '';
-        let imagePath6 = param.image6 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_6.jpg' : '';
-        let imagePath7 = param.image7 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_7.jpg' : '';
-        let imagePath8 = param.image8 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_8.jpg' : '';
-        let imagePath9 = param.image9 == 'true' ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_9.jpg' : '';
-        let param2 = {
-            imagePath1: imagePath1,
-            imagePath2: imagePath2,
-            imagePath3: imagePath3,
-            imagePath4: imagePath4,
-            imagePath5: imagePath5,
-            imagePath6: imagePath6,
-            imagePath7: imagePath7,
-            imagePath8: imagePath8,
-            imagePath9: imagePath9,
-            imageDesc1: param.imageDesc1,
-            imageDesc2: param.imageDesc2,
-            imageDesc3: param.imageDesc3,
-            imageDesc4: param.imageDesc4,
-            imageDesc5: param.imageDesc5,
-            imageDesc6: param.imageDesc6,
-            imageDesc7: param.imageDesc7,
-            imageDesc8: param.imageDesc8,
-            imageDesc9: param.imageDesc9
-        };
+        let param2 = {};
+        for (let i = 1; i <= SLOT_COUNT; ++i) {
+            param2['imagePath' + i] = param['image' + i] == 'true'
+                ? 'http://' + param.remoteUrl + '/static/data/shopping/product/gallery_' + i + '.jpg'
+                : '';
+            param2['imageDesc' + i] = param['imageDesc' + i] || '';
+        }
         let query = mybatisMapper.getStatement('galleryManagerSQL', 'updateImagePath', param2, format);
         conn.beginTransaction(() => {
             conn.query(query, (err, rows, fields) => {
